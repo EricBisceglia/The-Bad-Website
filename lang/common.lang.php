@@ -924,6 +924,14 @@ ___('header_language_error', 'FR', "Désolé ! Cette page n'est disponible qu'e
 // Top menu
 ___('menu_top_home',    'EN', "HOME");
 ___('menu_top_home',    'FR', "INDEX");
+___('menu_top_comics',  'EN', "COMICS");
+___('menu_top_comics',  'FR', "COMICS");
+___('menu_top_videos',  'EN', "VIDEOS");
+___('menu_top_videos',  'FR', "VIDEOS");
+___('menu_top_socials', 'EN', "SOCIALS");
+___('menu_top_socials', 'FR', "SOCIAL");
+___('menu_top_about',   'EN', "ABOUT");
+___('menu_top_about',   'FR', "FAQ");
 
 
 
@@ -931,8 +939,6 @@ ___('menu_top_home',    'FR', "INDEX");
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Footer
 
-___('footer_contact',   'EN', "Contact info");
-___('footer_contact',   'FR', "Infos de contact");
 ___('footer_legal',     'EN', "Legal notice and privacy policy");
 ___('footer_legal',     'FR', "Mentions légales &amp; confidentialité");
 ___('footer_copyright', 'EN', "&copy; The Bad Website 2025 - {{1}}");

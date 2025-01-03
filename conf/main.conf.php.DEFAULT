@@ -12,6 +12,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 $GLOBALS['website_url']     = 'https://thebad.website/';  // URL of the website root
 $GLOBALS['domain_name']     = 'thebad.website';           // Domain name on which the website is being used
 $GLOBALS['mysql_host']      = '127.0.0.1';                // MySQL server address
+$GLOBALS['mysql_dbname']    = 'thebadwebsite';            // MySQL database name
 $GLOBALS['mysql_user']      = 'user';                     // MySQL user login
 $GLOBALS['mysql_pass']      = 'password';                 // MySQL user password
 $GLOBALS['timezone']        = 'Europe/Paris';             // Default timezone used for datetime calculations
