@@ -1,0 +1,5 @@
+# Don't commit the admin password
+.htpasswd
+
+# Local config should not be committed
+conf/main.conf.php
