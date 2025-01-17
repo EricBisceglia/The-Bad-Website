@@ -74,6 +74,14 @@ if(strlen($page_description) <= 25)
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Header smuggie
+
+// Pick a random smuggie
+$header_smuggie = rand(1,12);
+
+
+
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
@@ -167,8 +175,8 @@ $javascripts .= '
         <div id="header_titles" class="header_topmenu_zone">
 
           <a href="<?=$path?>index">
-            <div class="header_topmenu_title" id="header_menu_title_home">
-              <?=__('menu_top_home')?>
+            <div class="header_topmenu_title header_topmenu_smug" id="header_menu_title_home">
+              <img src="<?=$path?>img/website/header_smuggie_<?=$header_smuggie?>.png" alt="Home" title="<?=__('menu_top_home')?>" class="header_topmenu_smuggie">
             </div>
           </a>
 
@@ -178,10 +186,6 @@ $javascripts .= '
 
           <div class="header_topmenu_title" id="header_menu_title_videos">
             <?=__('menu_top_videos')?>
-          </div>
-
-          <div class="header_topmenu_title" id="header_menu_title_socials">
-            <?=__('menu_top_socials')?>
           </div>
 
           <div class="header_topmenu_title" id="header_menu_title_about">
