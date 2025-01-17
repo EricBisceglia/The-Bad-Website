@@ -78,7 +78,7 @@ if(strlen($page_description) <= 25)
 // Header smuggie
 
 // Pick a random smuggie
-$header_smuggie = rand(1,12);
+$header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 
 
 
