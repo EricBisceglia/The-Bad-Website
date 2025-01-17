@@ -556,3 +556,20 @@ if($last_query < 1)
 
   sql_update_query_id(1);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Smuggie ideas
+
+if($last_query < 2)
+{
+  sql_create_table('ideas');
+  sql_create_field('ideas', 'title', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('ideas', 'body', 'LONGTEXT NOT NULL', 'title');
+
+  sql_create_index('ideas', 'ideas_title', 'title(16)');
+
+  sql_update_query_id(2);
+}
