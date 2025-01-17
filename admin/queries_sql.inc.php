@@ -552,9 +552,7 @@ if($last_query < 1)
 {
   sql_create_table('notes');
   sql_create_field('notes', 'tasks', 'LONGTEXT NOT NULL', 'id');
-  sql_create_field('notes', 'ideas', 'LONGTEXT NOT NULL', 'tasks');
-
-  query(" INSERT INTO notes SET notes.tasks = '', notes.ideas = '' ");
+  query(" INSERT INTO notes SET notes.tasks = '' ");
 
   sql_update_query_id(1);
 }

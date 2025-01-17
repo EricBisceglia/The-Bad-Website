@@ -36,3 +36,18 @@ ___('admin_menu_queries',     'FR', "Requêtes SQL");
 // Query results
 ___('admin_query_ok', 'EN', "Queries ran successfully");
 ___('admin_query_ok', 'FR', "Requêtes exécutées avec succès");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                  NOTES AND IDEAS                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Admin notes
+___('admin_notes_tasks',  'EN', "Tasks");
+___('admin_notes_tasks',  'FR', "Tâches");
+___('admin_notes_update', 'EN', "Update tasks");
+___('admin_notes_update', 'FR', "Mettre à jour les tâches");
