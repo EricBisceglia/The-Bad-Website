@@ -573,3 +573,98 @@ if($last_query < 2)
 
   sql_update_query_id(2);
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Comic types and comics
+
+if($last_query < 3)
+{
+  sql_create_table('comic_types');
+  sql_create_field('comic_types', 'banner_en', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('comic_types', 'banner_fr', 'TINYTEXT NOT NULL', 'banner_en');
+  sql_create_field('comic_types', 'name_en', 'TINYTEXT NOT NULL', 'banner_fr');
+  sql_create_field('comic_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+  sql_create_field('comic_types', 'description_en', 'TEXT NOT NULL', 'name_fr');
+  sql_create_field('comic_types', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_table('comics');
+  sql_create_field('comics', 'fk_comic_types', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('comics', 'is_public', 'TINYINT(1) NOT NULL', 'fk_comic_types');
+  sql_create_field('comics', 'upload_date', 'INT UNSIGNED NOT NULL', 'is_public');
+  sql_create_field('comics', 'title_en', 'TINYTEXT NOT NULL', 'upload_date');
+  sql_create_field('comics', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
+  sql_create_field('comics', 'description_en', 'TEXT NOT NULL', 'title_fr');
+  sql_create_field('comics', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_index('comics', 'comics_types', 'fk_comic_types');
+  sql_create_index('comics', 'comics_public', 'is_public');
+  sql_create_index('comics', 'comics_upload_date', 'upload_date');
+
+  sql_update_query_id(3);
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Image types and images
+
+if($last_query < 4)
+{
+  sql_create_table('image_types');
+  sql_create_field('image_types', 'name', 'TINYTEXT NOT NULL', 'id');
+
+  sql_create_index('image_types', 'image_types_name', 'name(16)');
+
+  query(" INSERT INTO image_types SET image_types.name = 'comic' ");
+  query(" INSERT INTO image_types SET image_types.name = 'preview' ");
+
+  sql_create_table('images');
+  sql_create_field('images', 'fk_image_types', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('images', 'fk_comics', 'INT UNSIGNED NOT NULL', 'fk_image_types');
+  sql_create_field('images', 'image_order', 'INT UNSIGNED NOT NULL', 'fk_comics');
+  sql_create_field('images', 'upload_date', 'INT UNSIGNED NOT NULL', 'image_order');
+  sql_create_field('images', 'is_nsfw', 'TINYINT(1) NOT NULL', 'upload_date');
+  sql_create_field('images', 'path', 'TINYTEXT NOT NULL', 'is_nsfw');
+  sql_create_field('images', 'path_thumbnail', 'TINYTEXT NOT NULL', 'path');
+  sql_create_field('images', 'language', 'TINYTEXT NOT NULL', 'path_thumbnail');
+  sql_create_field('images', 'name', 'TINYTEXT NOT NULL', 'language');
+  sql_create_field('images', 'caption', 'TEXT NOT NULL', 'name');
+
+  sql_create_index('images', 'images_types', 'fk_image_types');
+  sql_create_index('images', 'images_comics', 'fk_comics');
+  sql_create_index('images', 'images_image_order', 'image_order');
+  sql_create_index('images', 'images_upload_date', 'upload_date');
+  sql_create_index('images', 'images_is_nsfw', 'is_nsfw');
+  sql_create_index('images', 'images_language', 'language(10)');
+
+  sql_update_query_id(4);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Tags and comic tags
+
+if($last_query < 5)
+{
+  sql_create_table('tags');
+  sql_create_field('tags', 'name', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('tags', 'banner_en', 'TINYTEXT NOT NULL', 'name');
+  sql_create_field('tags', 'banner_fr', 'TINYTEXT NOT NULL', 'banner_en');
+  sql_create_field('tags', 'title_en', 'TINYTEXT NOT NULL', 'banner_fr');
+  sql_create_field('tags', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
+  sql_create_field('tags', 'description_en', 'TEXT NOT NULL', 'title_fr');
+  sql_create_field('tags', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_table('comic_tags');
+  sql_create_field('comic_tags', 'fk_tags', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('comic_tags', 'fk_comics', 'INT UNSIGNED NOT NULL', 'fk_tags');
+
+  sql_create_index('comic_tags', 'comic_tags_tags', 'fk_tags');
+  sql_create_index('comic_tags', 'comic_tags_comics', 'fk_comics');
+
+  sql_update_query_id(5);
+}

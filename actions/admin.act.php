@@ -123,7 +123,7 @@ function admin_ideas_list() : array
   }
 
   // Add the number of rows to the data
-  $data['rows'] = count($data['ideas']);
+  $data['rows'] = $i;
 
   // Return the data
   return $data;
