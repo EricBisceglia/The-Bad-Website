@@ -75,10 +75,13 @@ if(strlen($page_description) <= 25)
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Header smuggie
+// Header smuggies
 
 // Pick a random smuggie
 $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
+
+// Pick the correct Bluesky image
+$header_bluesky = (isset($this_page_is_a_404)) ? 'bluesky_404' : 'bluesky';
 
 
 
@@ -204,6 +207,10 @@ $javascripts .= '
             <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
             <?php } ?>
           </form>
+
+          <a href="https://bsky.app/profile/thebad.website" target="_blank">
+            <img class="header_topmenu_icon header_topmenu_bluesky" src="<?=$path?>img/icons/<?=$header_bluesky?>.png" alt="Bluesky" title="Bluesky">
+          </a>
 
         </div>
       </div>
