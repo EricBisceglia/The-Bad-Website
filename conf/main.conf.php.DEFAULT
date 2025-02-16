@@ -1,0 +1,23 @@
+<?php /***************************************************************************************************************/
+/*                                                                                                                   */
+/*                            THIS PAGE CAN ONLY BE RAN IF IT IS INCLUDED BY ANOTHER PAGE                            */
+/*                                                                                                                   */
+// Include only /*****************************************************************************************************/
+if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",substr(dirname($_SERVER['PHP_SELF']),-8).basename($_SERVER['PHP_SELF']))) { exit(header("Location: ./../404")); die(); }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// The following global variables are your local settings - set them accordingly, otherwise the website will not work
+// Duplicate this file, then remove the .DEFAULT (rename it to "main.conf.php") and fill up these variables:
+
+$GLOBALS['website_url']     = 'https://thebad.website/';  // URL of the website root
+$GLOBALS['domain_name']     = 'thebad.website';           // Domain name on which the website is being used
+$GLOBALS['mysql_host']      = '127.0.0.1';                // MySQL server address
+$GLOBALS['mysql_dbname']    = 'thebadwebsite';            // MySQL database name
+$GLOBALS['mysql_user']      = 'user';                     // MySQL user login
+$GLOBALS['mysql_pass']      = 'password';                 // MySQL user password
+$GLOBALS['timezone']        = 'Europe/Paris';             // Default timezone used for datetime calculations
+$GLOBALS['extra_folders']   = 0;                      /* If website_url is not at server root, this is the number
+                                                      /  of folders between the root and the website. example:
+                                                      /  if website is at http://example.com/ leave this as 0
+                                                      /  if website is at http://example.com/example/, set this to 1
+                                                      /  at http://example.com/domains/example/, set this to 2, etc. */
