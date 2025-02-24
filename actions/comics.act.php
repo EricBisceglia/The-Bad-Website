@@ -1,0 +1,51 @@
+<?php /***************************************************************************************************************/
+/*                                                                                                                   */
+/*                            THIS PAGE CAN ONLY BE RAN IF IT IS INCLUDED BY ANOTHER PAGE                            */
+/*                                                                                                                   */
+// Include only /*****************************************************************************************************/
+if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",substr(dirname($_SERVER['PHP_SELF']),-8).basename($_SERVER['PHP_SELF']))) { exit(header("Location: ./../../404")); die(); }
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*  comic_types_list              Lists comic types                                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+
+/**
+ * Lists comic types.
+ *
+ * @return  array   An array containing the arsenal difficulty levels.
+ */
+
+function comic_types_list() : array
+{
+  // Fetch the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the comic types
+  $comic_types = query("  SELECT  comic_types.id            AS 'ct_id'      ,
+                                  comic_types.sorting_order AS 'ct_sort'    ,
+                                  comic_types.name_$lang    AS 'ct_name'    ,
+                                  comic_types.name_en       AS 'ct_name_en' ,
+                                  comic_types.name_fr       AS 'ct_name_fr'
+                          FROM    comic_types
+                          ORDER BY comic_types.sorting_order ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($comic_types); $i++)
+  {
+    $data[$i]['id']       = sanitize_output($row['ct_id']);
+    $data[$i]['sort']     = sanitize_output($row['ct_sort']);
+    $data[$i]['name']     = sanitize_output($row['ct_name']);
+    $data[$i]['name_en']  = sanitize_output($row['ct_name_en']);
+    $data[$i]['name_fr']  = sanitize_output($row['ct_name_fr']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}

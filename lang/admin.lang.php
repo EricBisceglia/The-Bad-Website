@@ -68,3 +68,29 @@ ___('admin_ideas_edit',       'EN', "Edit idea");
 ___('admin_ideas_edit',       'FR', "Modifier l'idée");
 ___('admin_ideas_delete',     'EN', "Confirm the deletion of this idea");
 ___('admin_ideas_delete',     'FR', "Confirmez la suppression de cette idée");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      COMICS                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Comics management
+___('admin_comics_management',        'EN', "Comics management");
+___('admin_comics_management',        'FR', "Gestion des comics");
+___('admin_comics_management_types',  'EN', "Comic types");
+___('admin_comics_management_types',  'FR', "Types de comics");
+
+
+// Comic types
+___('admin_comic_types_title',  'EN', "Comic types");
+___('admin_comic_types_title',  'FR', "Types de comics");
+___('admin_comic_types_order',  'EN', "Order");
+___('admin_comic_types_order',  'FR', "Ordre");
+___('admin_comic_types_count',  'EN', "{{1}} comic type");
+___('admin_comic_types_count',  'FR', "{{1}} type de comics");
+___('admin_comic_types_count+', 'EN', "{{1}} comic types");
+___('admin_comic_types_count+', 'FR', "{{1}} types de comics");
