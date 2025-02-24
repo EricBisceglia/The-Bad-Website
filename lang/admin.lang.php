@@ -85,7 +85,7 @@ ___('admin_comics_management_types',  'EN', "Comic types");
 ___('admin_comics_management_types',  'FR', "Types de comics");
 
 
-// Comic types
+// Comic types: List
 ___('admin_comic_types_title',  'EN', "Comic types");
 ___('admin_comic_types_title',  'FR', "Types de comics");
 ___('admin_comic_types_order',  'EN', "Order");
@@ -94,3 +94,24 @@ ___('admin_comic_types_count',  'EN', "{{1}} comic type");
 ___('admin_comic_types_count',  'FR', "{{1}} type de comics");
 ___('admin_comic_types_count+', 'EN', "{{1}} comic types");
 ___('admin_comic_types_count+', 'FR', "{{1}} types de comics");
+
+
+// Comic types: Add
+___('admin_comic_types_add_title',      'EN', "Add a comic type");
+___('admin_comic_types_add_title',      'FR', "Ajouter un type de comic");
+___('admin_comic_types_add_order',      'EN', "Sorting order");
+___('admin_comic_types_add_order',      'FR', "Ordre de tri");
+___('admin_comic_types_add_banner_en',  'EN', "Banner image name (EN)");
+___('admin_comic_types_add_banner_en',  'FR', "Nom de l'image de bannière (EN)");
+___('admin_comic_types_add_banner_fr',  'EN', "Banner image name (FR)");
+___('admin_comic_types_add_banner_fr',  'FR', "Nom de l'image de bannière (FR)");
+___('admin_comic_types_add_name_en',    'EN', "Name (EN)");
+___('admin_comic_types_add_name_en',    'FR', "Nom (EN)");
+___('admin_comic_types_add_name_fr',    'EN', "Name (FR)");
+___('admin_comic_types_add_name_fr',    'FR', "Nom (FR)");
+___('admin_comic_types_add_desc_en',    'EN', "Description (EN)");
+___('admin_comic_types_add_desc_en',    'FR', "Description (EN)");
+___('admin_comic_types_add_desc_fr',    'EN', "Description (FR)");
+___('admin_comic_types_add_desc_fr',    'FR', "Description (FR)");
+___('admin_comic_types_add_submit',     'EN', "Add comic type");
+___('admin_comic_types_add_submit',     'FR', "Ajouter un type de comic");

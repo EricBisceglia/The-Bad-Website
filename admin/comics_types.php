@@ -29,6 +29,27 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add a comic type
+
+if(isset($_POST['comic_type_add']))
+{
+  // Assemble an array with the postdata
+  $comic_type_add_data = array( 'sort'      => form_fetch_element('comic_type_sort')      ,
+                                'name_en'   => form_fetch_element('comic_type_name_en')   ,
+                                'name_fr'   => form_fetch_element('comic_type_name_fr')   ,
+                                'banner_en' => form_fetch_element('comic_type_banner_en') ,
+                                'banner_fr' => form_fetch_element('comic_type_banner_fr') ,
+                                'desc_en'   => form_fetch_element('comic_type_desc_en')   ,
+                                'desc_fr'   => form_fetch_element('comic_type_desc_fr')   );
+
+  // Add the comic type to the database
+  comic_types_add($comic_type_add_data);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch a list of all comic types
 
 $comic_types_list = comic_types_list();
