@@ -29,6 +29,14 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete a comic type
+
+if(isset($_POST['admin_comic_types_delete']))
+  comic_types_delete(form_fetch_element('admin_comic_types_delete'));
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add a comic type
 
 if(isset($_POST['comic_type_add']))
@@ -76,6 +84,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center">
           <?=__('admin_comic_types_order')?>
         </th>
+        <th class="align_center">
+          <?=__('admin_comic_types_name')?>
+        </th>
         <th>
           <?=__('act')?>
         </th>
@@ -83,12 +94,12 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
     </thead>
 
-    <tbody class="altc2 nowrap" id="admin_arsenal_difficulties_tbody">
+    <tbody class="altc2 nowrap" id="admin_comics_types_tbody">
 
       <?php endif; ?>
 
       <tr>
-        <td colspan="2" class="uppercase text_light dark bold align_center">
+        <td colspan="3" class="uppercase text_light dark bold align_center">
           <?=__('admin_comic_types_count', preset_values: array($comic_types_list['rows']), amount: $comic_types_list['rows'])?>
         </td>
       </tr>
@@ -107,6 +118,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=$comic_types_list[$i]['name_en']?><br>
             <?=$comic_types_list[$i]['name_fr']?>
           </div>
+        </td>
+
+        <td class="align_center nowrap">
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'pages/admin/comics_types_edit?difficulty='.$comic_types_list[$i]['id'], path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_type_delete('".$comic_types_list[$i]['id']."','".__('admin_comic_types_delete_confirm')."')", path: root_path())?>
         </td>
 
       </tr>

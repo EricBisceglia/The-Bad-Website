@@ -10,6 +10,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  comic_types_list              Lists comic types                                                                  */
 /*  comic_types_add               Adds a comic type                                                                  */
+/*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -82,4 +83,30 @@ function comic_types_add( array $data ) : void
                       comic_types.banner_fr       = '$comic_type_banner_fr' ,
                       comic_types.description_en  = '$comic_type_desc_en'   ,
                       comic_types.description_fr  = '$comic_type_desc_fr'   ");
+}
+
+
+
+
+/**
+ * Delete a comic type.
+ *
+ * @param   int     $comic_type_id  The id of the comic type to delete.
+ *
+ * @return  void
+ */
+
+function comic_types_delete( int $type_id )
+{
+  // Sanitize the comic type
+  $type_id = sanitize($type_id, 'int');
+
+  // Delete the comic type
+  query(" DELETE FROM comic_types
+          WHERE       comic_types.id = '$type_id' ");
+
+  // Remove any links to the deleted comic type
+  query(" UPDATE comics
+          SET    comics.fk_comic_types = NULL
+          WHERE  comics.fk_comic_types = '$type_id' ");
 }

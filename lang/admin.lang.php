@@ -90,6 +90,8 @@ ___('admin_comic_types_title',  'EN', "Comic types");
 ___('admin_comic_types_title',  'FR', "Types de comics");
 ___('admin_comic_types_order',  'EN', "Order");
 ___('admin_comic_types_order',  'FR', "Ordre");
+___('admin_comic_types_name',   'EN', "Name");
+___('admin_comic_types_name',   'FR', "Nom");
 ___('admin_comic_types_count',  'EN', "{{1}} comic type");
 ___('admin_comic_types_count',  'FR', "{{1}} type de comics");
 ___('admin_comic_types_count+', 'EN', "{{1}} comic types");
@@ -115,3 +117,8 @@ ___('admin_comic_types_add_desc_fr',    'EN', "Description (FR)");
 ___('admin_comic_types_add_desc_fr',    'FR', "Description (FR)");
 ___('admin_comic_types_add_submit',     'EN', "Add comic type");
 ___('admin_comic_types_add_submit',     'FR', "Ajouter un type de comic");
+
+
+// Comic types: Delete
+___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
+___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
