@@ -29,14 +29,6 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Delete a comic type
-
-if(isset($_POST['admin_comic_types_delete']))
-  comic_types_delete(form_fetch_element('admin_comic_types_delete'));
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add a comic type
 
 if(isset($_POST['comic_type_add']))
@@ -53,6 +45,40 @@ if(isset($_POST['comic_type_add']))
   // Add the comic type to the database
   comic_types_add($comic_type_add_data);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a comic type
+
+if(isset($_POST['comic_type_edit']))
+{
+  // Gather the comic type's id
+  $comic_type_edit_id = form_fetch_element('comic_type_id');
+
+  // Assemble an array with the postdata
+  $comic_type_edit_data = array( 'order'     => form_fetch_element('comic_type_sort')      ,
+                                 'name_en'   => form_fetch_element('comic_type_name_en')   ,
+                                 'name_fr'   => form_fetch_element('comic_type_name_fr')   ,
+                                 'banner_en' => form_fetch_element('comic_type_banner_en') ,
+                                 'banner_fr' => form_fetch_element('comic_type_banner_fr') ,
+                                 'desc_en'   => form_fetch_element('comic_type_desc_en')   ,
+                                 'desc_fr'   => form_fetch_element('comic_type_desc_fr')   );
+
+  // Edit the comic type
+  comic_types_edit(  $comic_type_edit_id    ,
+                     $comic_type_edit_data  );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete a comic type
+
+if(isset($_POST['admin_comic_types_delete']))
+  comic_types_delete(form_fetch_element('admin_comic_types_delete'));
 
 
 
@@ -121,7 +147,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'pages/admin/comics_types_edit?difficulty='.$comic_types_list[$i]['id'], path: root_path())?>
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_types_edit?type_id='.$comic_types_list[$i]['id'], path: root_path())?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_type_delete('".$comic_types_list[$i]['id']."','".__('admin_comic_types_delete_confirm')."')", path: root_path())?>
         </td>
 

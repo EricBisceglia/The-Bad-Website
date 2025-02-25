@@ -199,6 +199,10 @@ $javascripts .= '
 
         <div class="header_topmenu_zone">
 
+          <a href="https://bsky.app/profile/thebad.website" target="_blank">
+            <img class="header_topmenu_icon header_topmenu_bluesky" src="<?=$path?>img/icons/<?=$header_bluesky?>.png" alt="Bluesky" title="Bluesky">
+          </a>
+
           <form id="language" method="post">
             <input type="hidden" name="change_language" value="change_language">
             <?php if($lang === 'FR') { ?>
@@ -207,10 +211,6 @@ $javascripts .= '
             <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
             <?php } ?>
           </form>
-
-          <a href="https://bsky.app/profile/thebad.website" target="_blank">
-            <img class="header_topmenu_icon header_topmenu_bluesky" src="<?=$path?>img/icons/<?=$header_bluesky?>.png" alt="Bluesky" title="Bluesky">
-          </a>
 
         </div>
       </div>

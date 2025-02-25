@@ -8,17 +8,65 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  comic_types_get               Gets a comic type data                                                             */
 /*  comic_types_list              Lists comic types                                                                  */
 /*  comic_types_add               Adds a comic type                                                                  */
+/*  comic_types_edit              Edits a comic type                                                                 */
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
 
 /**
+ * Returns data related to a comic type.
+ *
+ * @param   int         $comic_type_id  The comic type's ID
+ *
+ * @return  array|null                  An array containing the comic type's data, or null if it doesn't exist.
+ */
+
+function comic_types_get( int $comic_type_id ) : array|null
+{
+  // Sanitize the comic type's id
+  $comic_type_id = sanitize($comic_type_id, 'int');
+
+  // Return null if the comic type does not exist
+  if(!database_row_exists('comic_types', $comic_type_id))
+    return null;
+
+  // Fetch the comic types's data
+  $comic_type_data = query("  SELECT  comic_types.sorting_order   AS 'ct_order'     ,
+                                      comic_types.name_en         AS 'ct_name_en'   ,
+                                      comic_types.name_fr         AS 'ct_name_fr'   ,
+                                      comic_types.banner_en       AS 'ct_banner_en' ,
+                                      comic_types.banner_fr       AS 'ct_banner_fr' ,
+                                      comic_types.description_en  AS 'ct_desc_en'   ,
+                                      comic_types.description_fr  AS 'ct_desc_fr'
+                              FROM    comic_types
+                              WHERE   comic_types.id = '$comic_type_id' ",
+                              fetch_row: true);
+
+  // Sanitize the data for display
+  $data['id']         = $comic_type_id;
+  $data['order']      = sanitize_output($comic_type_data['ct_order']);
+  $data['name_en']    = sanitize_output($comic_type_data['ct_name_en']);
+  $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
+  $data['banner_en']  = sanitize_output($comic_type_data['ct_banner_en']);
+  $data['banner_fr']  = sanitize_output($comic_type_data['ct_banner_fr']);
+  $data['desc_en']    = sanitize_output($comic_type_data['ct_desc_en']);
+  $data['desc_fr']    = sanitize_output($comic_type_data['ct_desc_fr']);
+
+  // Return the comic type's data
+  return $data;
+}
+
+
+
+
+/**
  * Lists comic types.
  *
- * @return  array   An array containing the arsenal difficulty levels.
+ * @return  array   An array containing the comic types.
  */
 
 function comic_types_list() : array
@@ -83,6 +131,47 @@ function comic_types_add( array $data ) : void
                       comic_types.banner_fr       = '$comic_type_banner_fr' ,
                       comic_types.description_en  = '$comic_type_desc_en'   ,
                       comic_types.description_fr  = '$comic_type_desc_fr'   ");
+}
+
+
+
+
+/**
+ * Edits a comic type.
+ *
+ * @param   int     $type_id  The id of the comic type to edit.
+ * @param   array   $data     The data to update the comic type with.
+ *
+ * @return  void
+ */
+
+function comic_types_edit( int   $type_id  ,
+                           array $data     ) : void
+{
+  // Sanitize the data
+  $type_id        = sanitize($type_id, 'int');
+  $type_order     = sanitize_array_element($data, 'order', 'int');
+  $type_name_en   = sanitize_array_element($data, 'name_en', 'string');
+  $type_name_fr   = sanitize_array_element($data, 'name_fr', 'string');
+  $type_banner_en = sanitize_array_element($data, 'banner_en', 'string');
+  $type_banner_fr = sanitize_array_element($data, 'banner_fr', 'string');
+  $type_desc_en   = sanitize_array_element($data, 'desc_en', 'string');
+  $type_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
+
+  // Stop here if the comic type does not exist
+  if(!database_row_exists('comic_types', $type_id))
+    return;
+
+  // Edit the comic type
+  query(" UPDATE  comic_types
+          SET     comic_types.sorting_order   = '$type_order'      ,
+                  comic_types.name_en         = '$type_name_en'    ,
+                  comic_types.name_fr         = '$type_name_fr'    ,
+                  comic_types.banner_en       = '$type_banner_en'  ,
+                  comic_types.banner_fr       = '$type_banner_fr'  ,
+                  comic_types.description_en  = '$type_desc_en'    ,
+                  comic_types.description_fr  = '$type_desc_fr'
+          WHERE   comic_types.id              = '$type_id' ");
 }
 
 

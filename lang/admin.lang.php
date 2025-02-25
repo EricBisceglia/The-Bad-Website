@@ -119,6 +119,13 @@ ___('admin_comic_types_add_submit',     'EN', "Add comic type");
 ___('admin_comic_types_add_submit',     'FR', "Ajouter un type de comic");
 
 
+// Comic types: Edit
+___('admin_comic_types_edit_title',   'EN', "Edit a comic type");
+___('admin_comic_types_edit_title',   'FR', "Modifier un type de comic");
+___('admin_comic_types_edit_submit',  'EN', "Edit comic type");
+___('admin_comic_types_edit_submit',  'FR', "Modifier le type de comic");
+
+
 // Comic types: Delete
 ___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
 ___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
