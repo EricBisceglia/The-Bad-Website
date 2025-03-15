@@ -15,6 +15,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 // Admin menu
 ___('admin_menu_index',       'EN', "Notes");
 ___('admin_menu_index',       'FR', "Notes");
+___('admin_menu_ideas',       'EN', "Ideas");
+___('admin_menu_ideas',       'FR', "Idées");
 ___('admin_menu_images',      'EN', "Images");
 ___('admin_menu_images',      'FR', "Images");
 ___('admin_menu_comics',      'EN', "Comics");
@@ -54,20 +56,28 @@ ___('admin_notes_update', 'FR', "Mettre à jour les tâches");
 
 
 // Admin ideas
-___('admin_ideas_new_title',  'EN', "New idea");
-___('admin_ideas_new_title',  'FR', "Nouvelle idée");
-___('admin_ideas_title',      'EN', "Idea name");
-___('admin_ideas_title',      'FR', "Nom de l'idée");
-___('admin_ideas_new_body',   'EN', "Idea description");
-___('admin_ideas_new_body',   'FR', "Description de l'idée");
-___('admin_ideas_add',        'EN', "Add idea");
-___('admin_ideas_add',        'FR', "Ajouter l'idée");
-___('admin_ideas_list',       'EN', "{{1}} unrealized smug ideas");
-___('admin_ideas_list',       'FR', "{{1}} idées arrogantes à réaliser");
-___('admin_ideas_edit',       'EN', "Edit idea");
-___('admin_ideas_edit',       'FR', "Modifier l'idée");
-___('admin_ideas_delete',     'EN', "Confirm the deletion of this idea");
-___('admin_ideas_delete',     'FR', "Confirmez la suppression de cette idée");
+___('admin_ideas_new_title',    'EN', "New idea");
+___('admin_ideas_new_title',    'FR', "Nouvelle idée");
+___('admin_ideas_title',        'EN', "Idea name");
+___('admin_ideas_title',        'FR', "Nom de l'idée");
+___('admin_ideas_new_body',     'EN', "Idea description");
+___('admin_ideas_new_body',     'FR', "Description de l'idée");
+___('admin_ideas_add',          'EN', "Add idea");
+___('admin_ideas_add',          'FR', "Ajouter l'idée");
+___('admin_ideas_list',         'EN', "{{1}} smug ideas");
+___('admin_ideas_list',         'FR', "{{1}} idées arrogantes");
+___('admin_ideas_sort_random',  'EN', "Random");
+___('admin_ideas_sort_random',  'FR', "Aléatoire");
+___('admin_ideas_sort_title',   'EN', "Title");
+___('admin_ideas_sort_title',   'FR', "Titre");
+___('admin_ideas_sort_newest',  'EN', "Newest");
+___('admin_ideas_sort_newest',  'FR', "Récent");
+___('admin_ideas_sort_oldest',  'EN', "Oldest");
+___('admin_ideas_sort_oldest',  'FR', "Ancien");
+___('admin_ideas_edit',         'EN', "Edit idea");
+___('admin_ideas_edit',         'FR', "Modifier l'idée");
+___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
+___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
 
 
 

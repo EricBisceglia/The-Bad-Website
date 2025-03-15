@@ -2,6 +2,7 @@
 /*                                                                                                                   */
 /*  admin_menu                              Navigates between admin pages.                                           */
 /*                                                                                                                   */
+/*  admin_ideas_sort                        Sorts the list of smug ideas.                                            */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*                                                                                                                   */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
@@ -21,6 +22,26 @@ function admin_menu()
 
   // Go to the requested page
   window.location.href = page;
+}
+
+
+
+
+/**
+ * Sorts the list of smug ideas.
+ *
+ * @param   {string}  sort_by  How the ideas should be sorted.
+ *
+ * @returns {void}
+ */
+
+function admin_ideas_sort( sort_by )
+{
+  // Assemble the postdata
+  postdata = 'admin_ideas_sort=' + fetch_sanitize(sort_by);
+
+  // Go to the ideas list
+  fetch_page('ideas', 'ideas_list', postdata);
 }
 
 

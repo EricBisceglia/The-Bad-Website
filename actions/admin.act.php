@@ -102,17 +102,38 @@ function admin_ideas_get( int $idea_id ) : ?array
 /**
  * Returns a list of ideas.
  *
+ * @param   string  $sort_by  How the ideas should be sorted.
+ *
  * @return  array   An array containing ideas.
  */
 
-function admin_ideas_list() : array
+function admin_ideas_list( string $sort_by = 'random' ) : array
 {
+  // Sanitize the data
+  $sort_by = sanitize($sort_by, 'string');
+
+  // Prepare the sorting
+  switch($sort_by)
+  {
+    case 'title':
+      $sort_by = 'ideas.title ASC';
+      break;
+    case 'newest':
+      $sort_by = 'ideas.id DESC';
+      break;
+    case 'oldest':
+      $sort_by = 'ideas.id ASC';
+      break;
+    default:
+      $sort_by = 'RAND()';
+  }
+
   // Fetch the ideas
   $ideas = query("  SELECT    ideas.id    AS 'i_id'  ,
                               ideas.title AS 'i_title'  ,
                               ideas.body  AS 'i_body'
                     FROM      ideas
-                    ORDER BY  ideas.title ASC ");
+                    ORDER BY  $sort_by ");
 
   // Prepare the data
   for($i = 0; $row = query_row($ideas); $i++)
