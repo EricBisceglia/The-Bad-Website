@@ -4,6 +4,8 @@
 /*                                                                                                                   */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*                                                                                                                   */
+/*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -40,4 +42,25 @@ function admin_ideas_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('index', 'ideas_list', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of a comic type.
+ *
+ * @param   {int}     id        The id of the comic type to delete.
+ * @param   {string}  message   The message to display before deleting the comic type.
+ */
+
+function admin_comic_type_delete(  id      ,
+                                   message )
+{
+  // Assemble the postdata
+  postdata = 'admin_comic_types_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('comics_types', 'admin_comics_types_tbody', postdata);
 }

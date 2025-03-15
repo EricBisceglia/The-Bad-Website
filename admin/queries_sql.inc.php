@@ -582,7 +582,8 @@ if($last_query < 2)
 if($last_query < 3)
 {
   sql_create_table('comic_types');
-  sql_create_field('comic_types', 'banner_en', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('comic_types', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('comic_types', 'banner_en', 'TINYTEXT NOT NULL', 'sorting_order');
   sql_create_field('comic_types', 'banner_fr', 'TINYTEXT NOT NULL', 'banner_en');
   sql_create_field('comic_types', 'name_en', 'TINYTEXT NOT NULL', 'banner_fr');
   sql_create_field('comic_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
@@ -651,7 +652,8 @@ if($last_query < 4)
 if($last_query < 5)
 {
   sql_create_table('tags');
-  sql_create_field('tags', 'name', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('tags', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('tags', 'name', 'TINYTEXT NOT NULL', 'sorting_order');
   sql_create_field('tags', 'banner_en', 'TINYTEXT NOT NULL', 'name');
   sql_create_field('tags', 'banner_fr', 'TINYTEXT NOT NULL', 'banner_en');
   sql_create_field('tags', 'title_en', 'TINYTEXT NOT NULL', 'banner_fr');

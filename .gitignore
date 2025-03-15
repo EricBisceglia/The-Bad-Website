@@ -1,5 +1,9 @@
 # Don't commit the admin password
 .htpasswd
 
+# Don't commit assets
+img/banners/comics/types/*
+!img/banners/comics/types/index.php
+
 # Local config should not be committed
 conf/main.conf.php
