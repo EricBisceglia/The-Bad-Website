@@ -113,6 +113,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center">
           <?=__('admin_comic_types_name')?>
         </th>
+        <th class="align_center">
+          <?=__('admin_comic_types_banner')?>
+        </th>
         <th>
           <?=__('act')?>
         </th>
@@ -125,7 +128,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="3" class="uppercase text_light dark bold align_center">
+        <td colspan="4" class="uppercase text_light dark bold align_center">
           <?=__('admin_comic_types_count', preset_values: array($comic_types_list['rows']), amount: $comic_types_list['rows'])?>
         </td>
       </tr>
@@ -143,6 +146,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip">
             <?=$comic_types_list[$i]['name_en']?><br>
             <?=$comic_types_list[$i]['name_fr']?>
+          </div>
+        </td>
+
+        <td class="align_center nowrap bold">
+          <div class="tooltip_container">
+          <?=__icon('image', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
+          <div class="tooltip">
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>.png" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>.png" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
           </div>
         </td>
 

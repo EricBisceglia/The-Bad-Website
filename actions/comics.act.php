@@ -75,22 +75,26 @@ function comic_types_list() : array
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the comic types
-  $comic_types = query("  SELECT  comic_types.id            AS 'ct_id'      ,
-                                  comic_types.sorting_order AS 'ct_sort'    ,
-                                  comic_types.name_$lang    AS 'ct_name'    ,
-                                  comic_types.name_en       AS 'ct_name_en' ,
-                                  comic_types.name_fr       AS 'ct_name_fr'
+  $comic_types = query("  SELECT  comic_types.id            AS 'ct_id'        ,
+                                  comic_types.sorting_order AS 'ct_sort'      ,
+                                  comic_types.name_$lang    AS 'ct_name'      ,
+                                  comic_types.name_en       AS 'ct_name_en'   ,
+                                  comic_types.name_fr       AS 'ct_name_fr'   ,
+                                  comic_types.banner_en     AS 'ct_banner_en' ,
+                                  comic_types.banner_fr     AS 'ct_banner_fr'
                           FROM    comic_types
                           ORDER BY comic_types.sorting_order ASC ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_types); $i++)
   {
-    $data[$i]['id']       = sanitize_output($row['ct_id']);
-    $data[$i]['sort']     = sanitize_output($row['ct_sort']);
-    $data[$i]['name']     = sanitize_output($row['ct_name']);
-    $data[$i]['name_en']  = sanitize_output($row['ct_name_en']);
-    $data[$i]['name_fr']  = sanitize_output($row['ct_name_fr']);
+    $data[$i]['id']         = sanitize_output($row['ct_id']);
+    $data[$i]['sort']       = sanitize_output($row['ct_sort']);
+    $data[$i]['name']       = sanitize_output($row['ct_name']);
+    $data[$i]['name_en']    = sanitize_output($row['ct_name_en']);
+    $data[$i]['name_fr']    = sanitize_output($row['ct_name_fr']);
+    $data[$i]['banner_en']  = sanitize_output($row['ct_banner_en']);
+    $data[$i]['banner_fr']  = sanitize_output($row['ct_banner_fr']);
   }
 
   // Add the number of rows to the returned data

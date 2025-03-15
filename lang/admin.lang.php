@@ -92,6 +92,8 @@ ___('admin_comic_types_order',  'EN', "Order");
 ___('admin_comic_types_order',  'FR', "Ordre");
 ___('admin_comic_types_name',   'EN', "Name");
 ___('admin_comic_types_name',   'FR', "Nom");
+___('admin_comic_types_banner', 'EN', "Banner");
+___('admin_comic_types_banner', 'FR', "Bannière");
 ___('admin_comic_types_count',  'EN', "{{1}} comic type");
 ___('admin_comic_types_count',  'FR', "{{1}} type de comics");
 ___('admin_comic_types_count+', 'EN', "{{1}} comic types");
