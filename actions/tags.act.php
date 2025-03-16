@@ -9,6 +9,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*  tags_list                     Lists tags                                                                         */
+/*  tags_add                      Adds a tag                                                                         */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -54,4 +55,42 @@ function tags_list() : array
 
   // Return the prepared data
   return $data;
+}
+
+
+
+
+/**
+ * Adds a tag.
+ *
+ * @param   array   $data   An array containing the tag's data
+ *
+ * @return  void
+ */
+
+function tags_add( array $data ) : void
+{
+  // Sanitize the data
+  $tag_sort      = sanitize_array_element($data, 'sort', 'int');
+  $tag_name      = sanitize_array_element($data, 'name', 'string');
+  $tag_title_en  = sanitize_array_element($data, 'title_en', 'string');
+  $tag_title_fr  = sanitize_array_element($data, 'title_fr', 'string');
+  $tag_banner_en = sanitize_array_element($data, 'banner_en', 'string');
+  $tag_banner_fr = sanitize_array_element($data, 'banner_fr', 'string');
+  $tag_desc_en   = sanitize_array_element($data, 'desc_en', 'string');
+  $tag_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
+
+  // The tag name should only contain lowercase letters and no spaces
+  $tag_name = preg_replace('/[^a-z ]/', '', mb_strtolower($tag_name));
+
+  // Add the tag to the database
+  query(" INSERT INTO tags
+          SET         tags.sorting_order   = '$tag_sort'      ,
+                      tags.name            = '$tag_name'      ,
+                      tags.title_en        = '$tag_title_en'  ,
+                      tags.title_fr        = '$tag_title_fr'  ,
+                      tags.banner_en       = '$tag_banner_en' ,
+                      tags.banner_fr       = '$tag_banner_fr' ,
+                      tags.description_en  = '$tag_desc_en'   ,
+                      tags.description_fr  = '$tag_desc_fr'   ");
 }
