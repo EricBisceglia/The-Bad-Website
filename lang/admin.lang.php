@@ -141,3 +141,28 @@ ___('admin_comic_types_edit_submit',  'FR', "Modifier le type de comic");
 // Comic types: Delete
 ___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
 ___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                    TAGS                                                        */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Tags: List
+___('admin_tags_title',     'EN', "Tags");
+___('admin_tags_title',     'FR', "Tags");
+___('admin_tags_count',     'EN', "{{1}} tag");
+___('admin_tags_count',     'FR', "{{1}} tag");
+___('admin_tags_count+',    'EN', "{{1}} tags");
+___('admin_tags_count+',    'FR', "{{1}} tags");
+___('admin_tags_name',      'EN', "Name");
+___('admin_tags_name',      'FR', "Nom");
+___('admin_tags_banner',    'EN', "Banner");
+___('admin_tags_banner',    'FR', "Bannière");
+___('admin_tags_tagtitle',  'EN', "Title");
+___('admin_tags_tagtitle',  'FR', "Titre");
+___('admin_tags_order',     'EN', "Order");
+___('admin_tags_order',     'FR', "Ordre");
