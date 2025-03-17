@@ -12,6 +12,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  tags_list                     Lists tags                                                                         */
 /*  tags_add                      Adds a tag                                                                         */
 /*  tags_edit                     Edits a tag                                                                        */
+/*  tags_delete                   Deletes a tag                                                                      */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -193,4 +194,29 @@ function tags_edit( int   $tag_id  ,
                   tags.description_en  = '$tag_desc_en'   ,
                   tags.description_fr  = '$tag_desc_fr'
           WHERE   tags.id              = '$tag_id' ");
+}
+
+
+
+
+/**
+ * Delete a tag.
+ *
+ * @param   int     $tag_id  The id of the tag to delete.
+ *
+ * @return  void
+ */
+
+function tags_delete( int $tag_id )
+{
+  // Sanitize the tag's id
+  $tag_id = sanitize($tag_id, 'int');
+
+  // Delete the tag
+  query(" DELETE FROM tags
+          WHERE       tags.id = '$tag_id' ");
+
+  // Remove any links to the deleted tag
+  query(" DELETE FROM comic_tags
+          WHERE       comic_tags.fk_tags = '$tag_id' ");
 }

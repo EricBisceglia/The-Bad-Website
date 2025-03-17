@@ -196,3 +196,8 @@ ___('admin_tags_edit_title',   'EN', "Edit a tag");
 ___('admin_tags_edit_title',   'FR', "Modifier un tag");
 ___('admin_tags_edit_submit',  'EN', "Edit tag");
 ___('admin_tags_edit_submit',  'FR', "Modifier le tag");
+
+
+// Delete a tag
+___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
+___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
