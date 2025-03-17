@@ -8,10 +8,62 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  tags_get                      Fetches a tag                                                                      */
 /*  tags_list                     Lists tags                                                                         */
 /*  tags_add                      Adds a tag                                                                         */
+/*  tags_edit                     Edits a tag                                                                        */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+
+/**
+ * Fetches a tag.
+ *
+ * @param   int         $tag_id   The tag's ID
+ *
+ * @return  array|null            An array containing the tag's data
+ */
+
+function tags_get( int $tag_id ) : ?array
+{
+  // Sanitize the data
+  $tag_id = sanitize($tag_id, 'int');
+
+  // Stop here if the tag does not exist
+  if(!database_row_exists('tags', $tag_id))
+    return null;
+
+  // Fetch the tag's data
+  $tag_data = query(" SELECT    tags.id             AS 't_id'         ,
+                                tags.sorting_order  AS 't_sort'       ,
+                                tags.name           AS 't_name'       ,
+                                tags.banner_en      AS 't_banner_en'  ,
+                                tags.banner_fr      AS 't_banner_fr'  ,
+                                tags.title_en       AS 't_title_en'   ,
+                                tags.title_fr       AS 't_title_fr'   ,
+                                tags.description_en AS 't_desc_en'    ,
+                                tags.description_fr AS 't_desc_fr'
+                      FROM      tags
+                      WHERE     tags.id = '$tag_id' ",
+                      fetch_row: true);
+
+  // Prepare the data for display
+  $data['id']         = sanitize_output($tag_data['t_id']);
+  $data['sort']       = sanitize_output($tag_data['t_sort']);
+  $data['name']       = sanitize_output($tag_data['t_name']);
+  $data['banner_en']  = sanitize_output($tag_data['t_banner_en']);
+  $data['banner_fr']  = sanitize_output($tag_data['t_banner_fr']);
+  $data['title_en']   = sanitize_output($tag_data['t_title_en']);
+  $data['title_fr']   = sanitize_output($tag_data['t_title_fr']);
+  $data['desc_en']    = sanitize_output($tag_data['t_desc_en']);
+  $data['desc_fr']    = sanitize_output($tag_data['t_desc_fr']);
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 
 /**
@@ -82,6 +134,7 @@ function tags_add( array $data ) : void
 
   // The tag name should only contain lowercase letters and no spaces
   $tag_name = preg_replace('/[^a-z ]/', '', mb_strtolower($tag_name));
+  $tag_name = str_replace(' ', '', $tag_name);
 
   // Add the tag to the database
   query(" INSERT INTO tags
@@ -93,4 +146,51 @@ function tags_add( array $data ) : void
                       tags.banner_fr       = '$tag_banner_fr' ,
                       tags.description_en  = '$tag_desc_en'   ,
                       tags.description_fr  = '$tag_desc_fr'   ");
+}
+
+
+
+
+/**
+ * Edits a tag.
+ *
+ * @param   int     $tag_id    The id of the tag to edit.
+ * @param   array   $data      The data to update the tag with.
+ *
+ * @return  void
+ */
+
+function tags_edit( int   $tag_id  ,
+                    array $data     ) : void
+{
+  // Sanitize the data
+  $tag_id        = sanitize($tag_id, 'int');
+  $tag_sort      = sanitize_array_element($data, 'sort', 'int');
+  $tag_name      = sanitize_array_element($data, 'name', 'string');
+  $tag_title_en  = sanitize_array_element($data, 'title_en', 'string');
+  $tag_title_fr  = sanitize_array_element($data, 'title_fr', 'string');
+  $tag_banner_en = sanitize_array_element($data, 'banner_en', 'string');
+  $tag_banner_fr = sanitize_array_element($data, 'banner_fr', 'string');
+  $tag_desc_en   = sanitize_array_element($data, 'desc_en', 'string');
+  $tag_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
+
+  // The tag name should only contain lowercase letters and no spaces
+  $tag_name = preg_replace('/[^a-z ]/', '', mb_strtolower($tag_name));
+  $tag_name = str_replace(' ', '', $tag_name);
+
+  // Stop here if the tag does not exist
+  if(!database_row_exists('tags', $tag_id))
+    return;
+
+  // Edit the tag
+  query(" UPDATE  tags
+          SET     tags.sorting_order   = '$tag_sort'      ,
+                  tags.name            = '$tag_name'      ,
+                  tags.title_en        = '$tag_title_en'  ,
+                  tags.title_fr        = '$tag_title_fr'  ,
+                  tags.banner_en       = '$tag_banner_en' ,
+                  tags.banner_fr       = '$tag_banner_fr' ,
+                  tags.description_en  = '$tag_desc_en'   ,
+                  tags.description_fr  = '$tag_desc_fr'
+          WHERE   tags.id              = '$tag_id' ");
 }

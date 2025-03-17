@@ -189,3 +189,10 @@ ___('admin_tags_add_desc_fr',    'EN', "Tag description (FR)");
 ___('admin_tags_add_desc_fr',    'FR', "Description du tag (FR)");
 ___('admin_tags_add_submit',     'EN', "Add tag");
 ___('admin_tags_add_submit',     'FR', "Ajouter un tag");
+
+
+// Edit a tag
+___('admin_tags_edit_title',   'EN', "Edit a tag");
+___('admin_tags_edit_title',   'FR', "Modifier un tag");
+___('admin_tags_edit_submit',  'EN', "Edit tag");
+___('admin_tags_edit_submit',  'FR', "Modifier le tag");
