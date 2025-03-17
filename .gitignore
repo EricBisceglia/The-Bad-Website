@@ -4,6 +4,8 @@
 # Don't commit assets
 img/banners/comics/types/*
 !img/banners/comics/types/index.php
+img/banners/comics/tags/*
+!img/banners/comics/tags/index.php
 
 # Local config should not be committed
 conf/main.conf.php

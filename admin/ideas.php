@@ -83,7 +83,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_sort('oldest');")?>
   </h2>
 
-  <form method="POST" action="index#ideas_list" class="bigpadding_bot">
+  <form method="POST" action="ideas" class="bigpadding_bot">
 
     <div class="tinypadding_bot">
       <label for="admin_ideas_title"><?=__('admin_ideas_new_title')?></label>

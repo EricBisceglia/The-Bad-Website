@@ -33,7 +33,7 @@ $js   = array('admin/admin');
 
 // Check whether the idea exists
 if(!isset($_GET['id']) || !is_numeric($_GET['id']))
-  exit(header("Location: ./index"));
+  exit(header("Location: ./ideas"));
 
 // Fetch the idea
 $admin_idea_id  = sanitize($_GET['id'], 'int');
@@ -41,7 +41,7 @@ $admin_idea     = admin_ideas_get($admin_idea_id);
 
 // Exit if the idea doesn't exist
 if(is_null($admin_idea['title']))
-  exit(header("Location: ./index"));
+  exit(header("Location: ./ideas"));
 
 
 
@@ -61,7 +61,7 @@ if(isset($_POST['admin_ideas_edit']))
                           'body'  => $admin_idea_body  ));
 
   // Redirect to the idea list
-  exit(header("Location: ./index#ideas_".$admin_idea_id));
+  exit(header("Location: ./ideas#ideas_".$admin_idea_id));
 }
 
 

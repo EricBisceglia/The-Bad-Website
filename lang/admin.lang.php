@@ -141,3 +141,63 @@ ___('admin_comic_types_edit_submit',  'FR', "Modifier le type de comic");
 // Comic types: Delete
 ___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
 ___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                    TAGS                                                        */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// List tags
+___('admin_tags_title',     'EN', "Tags");
+___('admin_tags_title',     'FR', "Tags");
+___('admin_tags_count',     'EN', "{{1}} tag");
+___('admin_tags_count',     'FR', "{{1}} tag");
+___('admin_tags_count+',    'EN', "{{1}} tags");
+___('admin_tags_count+',    'FR', "{{1}} tags");
+___('admin_tags_name',      'EN', "Name");
+___('admin_tags_name',      'FR', "Nom");
+___('admin_tags_banner',    'EN', "Banner");
+___('admin_tags_banner',    'FR', "Bannière");
+___('admin_tags_tagtitle',  'EN', "Title");
+___('admin_tags_tagtitle',  'FR', "Titre");
+___('admin_tags_order',     'EN', "Order");
+___('admin_tags_order',     'FR', "Ordre");
+
+
+// Add a tag
+___('admin_tags_add_title',      'EN', "Add a tag");
+___('admin_tags_add_title',      'FR', "Ajouter un tag");
+___('admin_tags_add_order',      'EN', "Sorting order");
+___('admin_tags_add_order',      'FR', "Ordre de tri");
+___('admin_tags_add_name',       'EN', "Tag name (lowercase letters only, no spaces)");
+___('admin_tags_add_name',       'FR', "Nom du tag (lettres minuscules uniquement, sans espaces)");
+___('admin_tags_add_title_en',   'EN', "Tag title (EN)");
+___('admin_tags_add_title_en',   'FR', "Titre du tag (EN)");
+___('admin_tags_add_title_fr',   'EN', "Tag title (FR)");
+___('admin_tags_add_title_fr',   'FR', "Titre du tag (FR)");
+___('admin_tags_add_banner_en',  'EN', "Banner image name (EN)");
+___('admin_tags_add_banner_en',  'FR', "Nom de l'image de bannière (EN)");
+___('admin_tags_add_banner_fr',  'EN', "Banner image name (FR)");
+___('admin_tags_add_banner_fr',  'FR', "Nom de l'image de bannière (FR)");
+___('admin_tags_add_desc_en',    'EN', "Tag description (EN)");
+___('admin_tags_add_desc_en',    'FR', "Description du tag (EN)");
+___('admin_tags_add_desc_fr',    'EN', "Tag description (FR)");
+___('admin_tags_add_desc_fr',    'FR', "Description du tag (FR)");
+___('admin_tags_add_submit',     'EN', "Add tag");
+___('admin_tags_add_submit',     'FR', "Ajouter un tag");
+
+
+// Edit a tag
+___('admin_tags_edit_title',   'EN', "Edit a tag");
+___('admin_tags_edit_title',   'FR', "Modifier un tag");
+___('admin_tags_edit_submit',  'EN', "Edit tag");
+___('admin_tags_edit_submit',  'FR', "Modifier le tag");
+
+
+// Delete a tag
+___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
+___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
