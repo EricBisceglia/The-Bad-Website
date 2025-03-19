@@ -2,6 +2,8 @@
 .htpasswd
 
 # Don't commit assets
+img/comics/*
+!img/comics/index.php
 img/banners/comics/types/*
 !img/banners/comics/types/index.php
 img/banners/comics/tags/*

@@ -5,6 +5,8 @@
 /*  admin_ideas_sort                        Sorts the list of smug ideas.                                            */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*                                                                                                                   */
+/*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
+/*                                                                                                                   */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
@@ -65,6 +67,36 @@ function admin_ideas_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('ideas', 'ideas_list', postdata);
+}
+
+
+
+
+/**
+ * Fills out the image upload form when an image is submitted.
+ *
+ * @returns {void}
+ */
+
+function image_file_upload()
+{
+  // Hide the error message in case it was previously displayed
+  if(document.getElementById('image_error'))
+    toggle_element_oneway('image_error', false);
+
+  // Fetch the submitted image's name
+  image = document.getElementById('image_file').value;
+
+  // Get rid of the path in the image's name
+  position = image.lastIndexOf('\\');
+  if(position >= 0)
+    image = image.substring(position + 1);
+
+  // Clean up the image's name by removing spaces and caps
+  image = image.split(" ").join("_").toLowerCase();
+
+  // Display the suggested file name
+  document.getElementById('image_name').value = image;
 }
 
 

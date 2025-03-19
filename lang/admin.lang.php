@@ -84,6 +84,48 @@ ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée")
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*                                                      IMAGES                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Images list
+___('admin_images_title',  'EN', "Images");
+___('admin_images_title',  'FR', "Images");
+
+
+// Add an image
+___('admin_images_add_title',           'EN', "Add an image");
+___('admin_images_add_title',           'FR', "Ajouter une image");
+___('admin_images_add_file',            'EN', "Upload image");
+___('admin_images_add_file',            'FR', "Téléverser l'image");
+___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
+___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
+___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
+___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
+___('admin_images_add_type',            'EN', "Image type");
+___('admin_images_add_type',            'FR', "Type d'image");
+___('admin_images_add_lang',            'EN', "Language");
+___('admin_images_add_lang',            'FR', "Langue");
+___('admin_images_add_date',            'EN', "Upload date (YYYY-MM-DD)");
+___('admin_images_add_date',            'FR', "Date de création (YYYY-MM-DD)");
+___('admin_images_add_caption',         'EN', "Image caption / transcript");
+___('admin_images_add_caption',         'FR', "Légende / transcription de l'image");
+___('admin_images_add_submit',          'EN', "Add image");
+___('admin_images_add_submit',          'FR', "Ajouter l'image");
+___('admin_images_add_error_file',      'EN', "File missing");
+___('admin_images_add_error_file',      'FR', "Fichier manquant");
+___('admin_images_add_error_name',      'EN', "Image name missing");
+___('admin_images_add_error_name',      'FR', "Nom de l'image manquant");
+___('admin_images_add_error_misnamed',  'EN', "Incorrect file name");
+___('admin_images_add_error_misnamed',  'FR', "Nom du fichier incorrect");
+___('admin_images_add_error_failed',    'EN', "Image upload failed");
+___('admin_images_add_error_failed',    'FR', "Le téléversement de l'image a échoué");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
 /*                                                      COMICS                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
