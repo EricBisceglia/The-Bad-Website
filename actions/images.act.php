@@ -8,6 +8,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  images_list                   Lists images                                                                       */
 /*  images_add                    Adds an image to the database                                                      */
 /*                                                                                                                   */
 /*  image_types_list              Lists image types                                                                  */
@@ -15,6 +16,50 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  images_format_file_name       Formats an image's file name                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Lists images.
+ *
+ * @return  array   An array containing the images.
+ */
+
+function images_list() : array
+{
+  // Fetch the images
+  $images = query("   SELECT    images.id             AS 'i_id'   ,
+                                images.name           AS 'i_name' ,
+                                images.upload_date    AS 'i_date' ,
+                                images.is_nsfw        AS 'i_nsfw' ,
+                                images.language       AS 'i_lang' ,
+                                image_types.name      AS 'i_type'
+                      FROM      images
+                      LEFT JOIN image_types
+                      ON        images.fk_image_types = image_types.id
+                      ORDER BY  images.upload_date  DESC ,
+                                images.name         ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($images); $i++)
+  {
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 30, '...');
+    $data[$i]['name_full']  = sanitize_output($row['i_name']);
+    $data[$i]['id']         = sanitize_output($row['i_id']);
+    $data[$i]['type']       = sanitize_output($row['i_type']);
+    $data[$i]['lang']       = sanitize_output($row['i_lang']);
+    $data[$i]['date']       = time_since(sanitize_output(strtotime($row['i_date'])));
+    $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
+    $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 /**
  * Adds an image to the database.

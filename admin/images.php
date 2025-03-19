@@ -24,16 +24,115 @@ $js   = array('admin/admin');
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*                                                     BACK END                                                      */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// List images
+
+$images_list = images_list();
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
 /*                                                     FRONT END                                                     */
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_40 padding_top">
 
   <h2 class="align_center padding_bot">
     <?=__link('admin/comics', __('admin_images_title'), style: 'text_light', path: root_path())?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: root_path())?>
   </h2>
+
+  <table>
+    <thead>
+
+      <tr class="uppercase">
+        <th>
+          <?=__('admin_images_list_name')?>
+        </th>
+        <th>
+          <?=__('admin_images_list_type')?>
+        </th>
+        <th>
+          <?=__('admin_images_list_language')?>
+        </th>
+        <th>
+          <?=__('admin_images_list_nsfw')?>
+        </th>
+        <th>
+          <?=__('admin_images_list_date')?>
+        </th>
+        <th>
+          <?=__('act')?>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="altc2 nowrap">
+
+      <?php endif; ?>
+
+      <tr>
+        <td colspan="6" class="uppercase text_light dark bold align_center">
+          <?=__('admin_images_list_count', preset_values: array($images_list['rows']), amount: $images_list['rows'])?>
+        </td>
+      </tr>
+
+      <?php for($i = 0; $i < $images_list['rows']; $i++): ?>
+      <tr>
+
+        <td class="tooltip_container">
+          <?=$images_list[$i]['name']?>
+          <div class="tooltip">
+            <p class="align_center bold tinypadding_bot">
+              <?=$images_list[$i]['name_full']?>
+            </p>
+            <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
+              <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>">
+            </a>
+          </div>
+        </td>
+
+        <td class="align_center nowrap bold">
+          <?=$images_list[$i]['type']?>
+        </td>
+
+        <td class="align_center nowrap bold">
+          <?=$images_list[$i]['lang']?>
+        </td>
+
+        <td class="align_center nowrap">
+          <?php if($images_list[$i]['nsfw'] === '1'): ?>
+          <?=__icon('warning', is_small: true, alt: 'N', title: __('admin_images_list_nsfw'), path: root_path())?>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
+        </td>
+
+        <td class="align_center nowrap tooltip_container">
+          <?=$images_list[$i]['date']?>
+          <div class="tooltip">
+            <?=$images_list[$i]['date_full']?>
+          </div>
+        </td>
+
+        <td class="align_center nowrap">
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?type_id='.$images_list[$i]['id'], path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_delete('".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
+        </td>
+
+      </tr>
+      <?php endfor; ?>
+
+      <?php if(!page_is_fetched_dynamically()): ?>
+    </tbody>
+  </table>
 
 </div>
 

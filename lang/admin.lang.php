@@ -89,8 +89,22 @@ ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée")
 /*********************************************************************************************************************/
 
 // Images list
-___('admin_images_title',  'EN', "Images");
-___('admin_images_title',  'FR', "Images");
+___('admin_images_title',         'EN', "Images");
+___('admin_images_title',         'FR', "Images");
+___('admin_images_list_type',     'EN', "Type");
+___('admin_images_list_type',     'FR', "Type");
+___('admin_images_list_language', 'EN', "Lang.");
+___('admin_images_list_language', 'FR', "Lang.");
+___('admin_images_list_name',     'EN', "Name");
+___('admin_images_list_name',     'FR', "Nom");
+___('admin_images_list_nsfw',     'EN', "NSFW");
+___('admin_images_list_nsfw',     'FR', "NSFW");
+___('admin_images_list_date',     'EN', "Uploaded");
+___('admin_images_list_date',     'FR', "Mis en ligne");
+___('admin_images_list_count',    'EN', "{{1}} image");
+___('admin_images_list_count',    'FR', "{{1}} image");
+___('admin_images_list_count+',   'EN', "{{1}} images");
+___('admin_images_list_count+',   'FR', "{{1}} images");
 
 
 // Add an image

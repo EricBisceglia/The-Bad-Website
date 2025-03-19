@@ -48,7 +48,7 @@ if(isset($_POST['image_add']))
 
   // Redirect to the uploaded image
   if(is_int($images_add))
-    exit(header("Location: ./image?id=".$images_add));
+    exit(header("Location: ./images_edit?id=".$images_add));
 }
 
 
