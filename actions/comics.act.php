@@ -8,8 +8,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  comics_get                    Returns data related to a comic.                                                   */
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
+/*  comics_edit                   Modifies an existing comic                                                         */
 /*                                                                                                                   */
 /*  comic_types_get               Gets a comic type data                                                             */
 /*  comic_types_list              Lists comic types                                                                  */
@@ -18,6 +20,51 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Returns data related to a comic.
+ *
+ * @param   int         $comic_id  The comic's ID
+ *
+ * @return  array|null             An array containing the comic's data, or null if it doesn't exist.
+ */
+
+function comics_get( int $comic_id ) : array|null
+{
+  // Sanitize the comic's id
+  $comic_id = sanitize($comic_id, 'int');
+
+  // Return null if the comic does not exist
+  if(!database_row_exists('comics', $comic_id))
+    return null;
+
+  // Fetch the comics's data
+  $comic_data = query(" SELECT  comics.is_public        AS 'c_public'   ,
+                                comics.fk_comic_types   AS 'c_type'     ,
+                                comics.upload_date      AS 'c_date'     ,
+                                comics.title_en         AS 'c_title_en' ,
+                                comics.title_fr         AS 'c_title_fr' ,
+                                comics.description_en   AS 'c_desc_en'  ,
+                                comics.description_fr   AS 'c_desc_fr'
+                      FROM      comics
+                      WHERE     comics.id = '$comic_id' ",
+                      fetch_row: true);
+
+  // Sanitize the data for display
+  $data['private']  = sanitize_output(!$comic_data['c_public']);
+  $data['type']     = sanitize_output($comic_data['c_type']);
+  $data['date']     = sanitize_output($comic_data['c_date']);
+  $data['title_en'] = sanitize_output($comic_data['c_title_en']);
+  $data['title_fr'] = sanitize_output($comic_data['c_title_fr']);
+  $data['desc_en']  = sanitize_output($comic_data['c_desc_en']);
+  $data['desc_fr']  = sanitize_output($comic_data['c_desc_fr']);
+
+  // Return the comic's data
+  return $data;
+}
+
+
+
 
 /**
  * Lists comics.
@@ -129,6 +176,50 @@ function comics_add( array $data ) : int
   // Return the comic's id
   return $comic_id;
 }
+
+
+
+
+/**
+ * Edits an existing comic.
+ *
+ * @param   int     $comic_id  The id of the comic to edit.
+ * @param   array   $data      The data to update the comic with.
+ *
+ * @return  void
+ */
+
+function comics_edit( int   $comic_id ,
+                      array $data     ) : void
+{
+  // Sanitize the comic's id
+  $comic_id = sanitize($comic_id, 'int');
+
+  // Stop here if the comic does not exist
+  if(!database_row_exists('comics', $comic_id))
+    return;
+
+  // Sanitize the data
+  $comic_private = !sanitize_array_element($data, 'private', 'int');
+  $comic_type    = sanitize_array_element($data, 'type', 'int');
+  $comic_date    = sanitize_array_element($data, 'date', 'string');
+  $comic_title_en= sanitize_array_element($data, 'title_en', 'string');
+  $comic_title_fr= sanitize_array_element($data, 'title_fr', 'string');
+  $comic_desc_en = sanitize_array_element($data, 'desc_en', 'string');
+  $comic_desc_fr = sanitize_array_element($data, 'desc_fr', 'string');
+
+  // Edit the comic
+  query(" UPDATE  comics
+          SET     comics.is_public      = '$comic_private'  ,
+                  comics.fk_comic_types = '$comic_type'     ,
+                  comics.upload_date    = '$comic_date'     ,
+                  comics.title_en       = '$comic_title_en' ,
+                  comics.title_fr       = '$comic_title_fr' ,
+                  comics.description_en = '$comic_desc_en'  ,
+                  comics.description_fr = '$comic_desc_fr'
+          WHERE   comics.id             = '$comic_id' ");
+}
+
 
 
 

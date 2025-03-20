@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic related actions
+include_once './../actions/images.act.php'; # Image management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -29,13 +30,43 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Prepare form values
+// Fetch comic data
 
-// List comic types
+// Fetch the comic's ID
+$admin_comic_id = (int)form_fetch_element('id', request_type: 'GET');
+
+// Fetch the image's data
+$admin_comic_data = comics_get($admin_comic_id);
+
+// Stop here if the image does not exist
+if(!$admin_comic_data)
+  exit(header("Location: ".$path."admin/comics"));
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch comic types
+
+// Fetch a list of all comic types
 $comic_types_list = comic_types_list();
 
-// Get current datetime
-$image_upload_date = date('Y-m-d');
+// Select the comic's type
+for($i = 0; $i < $comic_types_list['rows']; $i++)
+{
+  $comic_type_selected[$i] = '';
+  if($comic_types_list[$i]['id'] === $admin_comic_data['type'])
+    $comic_type_selected[$i] = ' selected';
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Prepare form values
+
+// Private
+$comic_private_checked = ($admin_comic_data['private']) ? ' checked' : '';
 
 
 
@@ -49,32 +80,66 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="padding_bot">
-    <?=__link('admin/comics', __('admin_comics_add_title'), 'text_light', path: root_path())?>
+    <?=__link('admin/comics', __('admin_comics_edit_title'), 'text_light', path: root_path())?>
   </h2>
 
   <form action="comics" method="POST">
     <fieldset>
 
+      <input type="hidden" name="comic_id" value="<?=$admin_comic_id?>">
+
       <div class="smallpadding_bot">
         <label for="comic_type"><?=__('admin_comics_add_type')?></label>
         <select class="indiv align_left" name="comic_type" id="comic_type">
           <?php for($i = 0; $i < $comic_types_list['rows']; $i++) { ?>
-          <option value="<?=$comic_types_list[$i]['id']?>"><?=$comic_types_list[$i]['name']?></option>
+          <option value="<?=$comic_types_list[$i]['id']?>"<?=$comic_type_selected[$i]?>><?=$comic_types_list[$i]['name']?></option>
           <?php } ?>
         </select>
       </div>
 
       <div class="smallpadding_bot">
-        <label for="comic_title_en"><?=__('admin_comics_add_title_en')?></label>
-        <input class="indiv" type="text" name="comic_title_en" id="comic_title_en">
+        <label for="comic_date"><?=__('admin_comics_edit_date')?></label>
+        <input class="indiv" type="text" name="comic_date" id="comic_date" value="<?=$admin_comic_data['date']?>">
       </div>
 
-      <div class="padding_bot">
-        <label for="comic_title_fr"><?=__('admin_comics_add_title_fr')?></label>
-        <input class="indiv" type="text" name="comic_title_fr" id="comic_title_fr">
+      <div class="flexcontainer">
+        <div style="flex: 8">
+
+          <div class="smallpadding_bot">
+            <label for="comic_title_en"><?=__('admin_comics_add_title_en')?></label>
+            <input class="indiv" type="text" name="comic_title_en" id="comic_title_en" value="<?=$admin_comic_data['title_en']?>">
+          </div>
+
+          <div class="smallpadding_bot">
+            <label for="comic_desc_en"><?=__('admin_comics_edit_desc_en')?></label>
+            <textarea class="indiv" name="comic_desc_en" id="comic_desc_en"><?=$admin_comic_data['desc_en']?></textarea>
+          </div>
+
+        </div>
+        <div style="flex: 1">
+          &nbsp;
+        </div>
+        <div style="flex: 8">
+
+          <div class="smallpadding_bot">
+            <label for="comic_title_fr"><?=__('admin_comics_add_title_fr')?></label>
+            <input class="indiv" type="text" name="comic_title_fr" id="comic_title_fr" value="<?=$admin_comic_data['title_fr']?>">
+          </div>
+
+          <div class="smallpadding_bot">
+            <label for="comic_desc_fr"><?=__('admin_comics_edit_desc_fr')?></label>
+            <textarea class="indiv" name="comic_desc_fr" id="comic_desc_fr"><?=$admin_comic_data['desc_fr']?></textarea>
+          </div>
+
+        </div>
       </div>
 
-      <input type="submit" name="comic_add" value="<?=__('admin_comics_add_submit')?>">
+      <div class="tinypadding_top smallpadding_bot">
+        <input type="checkbox" class="align_left" name="comic_private"<?=$comic_private_checked?>>
+        <label for="comic_private" class="label_inline"><?=__('admin_comics_edit_private')?></label>
+      </div>
+
+      <input type="submit" name="comic_edit" value="<?=__('admin_comics_edit_submit')?>">
 
     </fieldset>
   </form>

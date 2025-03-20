@@ -50,6 +50,31 @@ if(isset($_POST['comic_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a comic
+
+if(isset($_POST['comic_edit']))
+{
+  // Fetch the comic's ID
+  $admin_comic_id = (int)form_fetch_element('comic_id');
+
+  // Assemble an array with the postdata
+  $admin_comic_data = array(  'title_en'  => form_fetch_element('comic_title_en')                       ,
+                              'title_fr'  => form_fetch_element('comic_title_fr')                       ,
+                              'desc_en'   => form_fetch_element('comic_desc_en')                        ,
+                              'desc_fr'   => form_fetch_element('comic_desc_fr')                        ,
+                              'type'      => form_fetch_element('comic_type')                           ,
+                              'date'      => form_fetch_element('comic_date')                           ,
+                              'private'   => form_fetch_element('comic_private', element_exists: true)  );
+
+  // Edit the comic
+  comics_edit(  $admin_comic_id   ,
+                $admin_comic_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List comics
 
 // Fetch comic types

@@ -190,6 +190,21 @@ ___('admin_comics_add_submit',    'EN', "Add comic");
 ___('admin_comics_add_submit',    'FR', "Ajouter le comic");
 
 
+// Edit a comic
+___('admin_comics_edit_title',    'EN', "Edit comic");
+___('admin_comics_edit_title',    'FR', "Modifier le comic");
+___('admin_comics_edit_date',     'EN', "Upload date (YYYY-MM-DD)");
+___('admin_comics_edit_date',     'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_comics_edit_desc_en',  'EN', "English description");
+___('admin_comics_edit_desc_en',  'FR', "Description anglaise");
+___('admin_comics_edit_desc_fr',  'EN', "French description");
+___('admin_comics_edit_desc_fr',  'FR', "Description française");
+___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
+___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
+___('admin_comics_edit_submit',   'EN', "Edit comic");
+___('admin_comics_edit_submit',   'FR', "Modifier le comic");
+
+
 // Comic types: List
 ___('admin_comic_types_title',  'EN', "Comic types");
 ___('admin_comic_types_title',  'FR', "Types de comics");
