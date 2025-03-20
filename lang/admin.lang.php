@@ -167,6 +167,24 @@ ___('admin_comics_management_types',  'EN', "Comic types");
 ___('admin_comics_management_types',  'FR', "Types de comics");
 
 
+// Comics list
+___('admin_comics_title',  'EN', "Comics");
+___('admin_comics_title',  'FR', "Comics");
+
+
+// Add a comic
+___('admin_comics_add_title',     'EN', "Add a comic");
+___('admin_comics_add_title',     'FR', "Ajouter un comic");
+___('admin_comics_add_title_en',  'EN', "English title");
+___('admin_comics_add_title_en',  'FR', "Titre anglais");
+___('admin_comics_add_title_fr',  'EN', "French title");
+___('admin_comics_add_title_fr',  'FR', "Titre français");
+___('admin_comics_add_type',      'EN', "Comic type");
+___('admin_comics_add_type',      'FR', "Type de comic");
+___('admin_comics_add_submit',    'EN', "Add comic");
+___('admin_comics_add_submit',    'FR', "Ajouter le comic");
+
+
 // Comic types: List
 ___('admin_comic_types_title',  'EN', "Comic types");
 ___('admin_comic_types_title',  'FR', "Types de comics");

@@ -8,6 +8,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  comics_add                    Adds a comic to the database                                                       */
+/*                                                                                                                   */
 /*  comic_types_get               Gets a comic type data                                                             */
 /*  comic_types_list              Lists comic types                                                                  */
 /*  comic_types_add               Adds a comic type                                                                  */
@@ -15,6 +17,38 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Adds a comic to the database.
+ *
+ * @param   array   $data   An array containing the comic's data.
+ *
+ * @return  int             The newly created comic's id
+ */
+
+function comics_add( array $data ) : int
+{
+  // Sanitize the data
+  $title_en = sanitize_array_element($data, 'title_en', 'string');
+  $title_fr = sanitize_array_element($data, 'title_fr', 'string');
+  $type     = sanitize_array_element($data, 'type', 'int');
+  $date     = sanitize(date('Y-m-d'), 'string');
+
+  // Add the comic to the database
+  query(" INSERT INTO comics
+          SET         comics.title_en       = '$title_en' ,
+                      comics.title_fr       = '$title_fr' ,
+                      comics.fk_comic_types = '$type'     ,
+                      comics.upload_date    = '$date'     ,
+                      comics.is_public      = 0           ");
+
+  // Fetch the newly created comic's id
+  $comic_id = query_id();
+
+  // Return the comic's id
+  return $comic_id;
+}
+
 
 
 /**
