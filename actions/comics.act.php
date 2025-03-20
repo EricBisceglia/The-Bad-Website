@@ -8,6 +8,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*                                                                                                                   */
 /*  comic_types_get               Gets a comic type data                                                             */
@@ -17,6 +18,54 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Lists comics.
+ *
+ * @return  array   An array containing the comics.
+ */
+
+function comics_list() : array
+{
+  // Fetch the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the comics
+  $comics = query("   SELECT    comics.id               AS 'c_id'       ,
+                                comics.title_$lang      AS 'c_title'    ,
+                                comics.title_en         AS 'c_title_en' ,
+                                comics.title_fr         AS 'c_title_fr' ,
+                                comics.upload_date      AS 'c_date'     ,
+                                comics.is_public        AS 'c_public'   ,
+                                comic_types.name_$lang  AS 'ct_name'
+                      FROM      comics
+                      LEFT JOIN comic_types
+                      ON        comics.fk_comic_types = comic_types.id
+                      ORDER BY  comics.upload_date    DESC ,
+                                comics.title_$lang    ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($comics); $i++)
+  {
+    $data[$i]['id']         = sanitize_output($row['c_id']);
+    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 35, '...'));
+    $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
+    $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
+    $data[$i]['type']       = sanitize_output($row['ct_name']);
+    $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
+    $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
+    $data[$i]['private']    = (!$row['c_public']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 /**
  * Adds a comic to the database.

@@ -168,8 +168,20 @@ ___('admin_comics_management_types',  'FR', "Types de comics");
 
 
 // Comics list
-___('admin_comics_title',  'EN', "Comics");
-___('admin_comics_title',  'FR', "Comics");
+___('admin_comics_title',         'EN', "Comics");
+___('admin_comics_title',         'FR', "Comics");
+___('admin_comics_list_title',    'EN', "Title");
+___('admin_comics_list_title',    'FR', "Titre");
+___('admin_comics_list_type',     'EN', "Type");
+___('admin_comics_list_type',     'FR', "Type");
+___('admin_comics_list_date',     'EN', "Uploaded");
+___('admin_comics_list_date',     'FR', "Mis en ligne");
+___('admin_comics_list_private',  'EN', "Priv.");
+___('admin_comics_list_private',  'FR', "Priv.");
+___('admin_comics_list_count',    'EN', "{{1}} comic");
+___('admin_comics_list_count',    'FR', "{{1}} comic");
+___('admin_comics_list_count+',   'EN', "{{1}} comics");
+___('admin_comics_list_count+',   'FR', "{{1}} comics");
 
 
 // Add a comic
