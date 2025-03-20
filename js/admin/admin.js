@@ -6,6 +6,7 @@
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*                                                                                                                   */
 /*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
+/*  admin_image_list_search                 Triggers a search in the image list.                                     */
 /*                                                                                                                   */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
@@ -100,6 +101,32 @@ function image_file_upload()
 }
 
 
+
+
+/**
+ * Triggers a search in the image list.
+ *
+ * @param   {string}  [sort]  Change the order in which the data will be sorted.
+ *
+ * @returns {void}
+*/
+
+function admin_image_search( sort = null )
+{
+  // Update the data sort input if requested
+  if(sort)
+    document.getElementById('admin_images_sort').value = sort;
+
+  // Assemble the postdata
+  postdata  = 'admin_images_sort='          + fetch_sanitize_id('admin_images_sort');
+  postdata += '&admin_images_search_name='  + fetch_sanitize_id('admin_images_search_name');
+  postdata += '&admin_images_search_type='  + fetch_sanitize_id('admin_images_search_type');
+  postdata += '&admin_images_search_lang='  + fetch_sanitize_id('admin_images_search_lang');
+  postdata += '&admin_images_search_nsfw='  + fetch_sanitize_id('admin_images_search_nsfw');
+
+  // Submit the search
+  fetch_page('images', 'admin_images_tbody', postdata);
+}
 
 
 /**

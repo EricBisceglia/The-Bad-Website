@@ -20,11 +20,48 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Lists images.
  *
+ * @param   array   $sort_by   How the images should be sorted.
+ * @param   array   $search    The search query.
+ *
  * @return  array   An array containing the images.
  */
 
-function images_list() : array
+function images_list( $sort_by = 'date'   ,
+                      $search  = array()  ) : array
 {
+  // Sanitize the search parameters
+  $search_name = sanitize_array_element($search, 'name', 'string');
+  $search_type = sanitize_array_element($search, 'type', 'int');
+  $search_lang = sanitize_array_element($search, 'lang', 'string');
+  $search_nsfw = sanitize_array_element($search, 'nsfw', 'int');
+
+  // Search through the data
+  $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
+  $query_search .= ($search_type) ? " AND images.fk_image_types   = $search_type      " : "";
+  $query_search .= ($search_lang && $search_lang !== '-1') ?
+                                    " AND images.language      LIKE '$search_lang'    " : "";
+  $query_search .= ($search_lang === '-1') ?
+                                    " AND images.language  NOT LIKE 'EN'
+                                      AND images.language  NOT LIKE 'FR'              " : "";
+  $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
+
+  // Sort the data
+  $query_sort = match($sort_by)
+  {
+    'name'    => "  ORDER BY    images.name         ASC   ",
+    'type'    => "  ORDER BY    image_types.name    ASC   ,
+                                images.upload_date  DESC  ,
+                                images.name         ASC   ",
+    'lang'    => "  ORDER BY    images.language     ASC   ,
+                                images.upload_date  DESC  ,
+                                images.name         ASC   ",
+    'nsfw'    => "  ORDER BY    images.is_nsfw      DESC  ,
+                                images.upload_date  DESC  ,
+                                images.name         ASC   ",
+    default   => "  ORDER BY    images.upload_date  DESC  ,
+                                images.name         ASC"  ,
+  };
+
   // Fetch the images
   $images = query("   SELECT    images.id             AS 'i_id'   ,
                                 images.name           AS 'i_name' ,
@@ -35,13 +72,14 @@ function images_list() : array
                       FROM      images
                       LEFT JOIN image_types
                       ON        images.fk_image_types = image_types.id
-                      ORDER BY  images.upload_date  DESC ,
-                                images.name         ASC ");
+                      WHERE     1 = 1
+                                $query_search
+                                $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 30, '...');
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 26, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);

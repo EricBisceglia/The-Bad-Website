@@ -29,9 +29,29 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Search menus
+
+// Fetch image types
+$image_types = image_types_list();
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List images
 
-$images_list = images_list();
+// Fetch the sorting order
+$admin_images_sort = form_fetch_element('admin_images_sort', 'date');
+
+// Assemble the search query
+$admin_images_search = array( 'name'  => form_fetch_element('admin_images_search_name') ,
+                              'type'  => form_fetch_element('admin_images_search_type') ,
+                              'lang'  => form_fetch_element('admin_images_search_lang') ,
+                              'nsfw'  => form_fetch_element('admin_images_search_nsfw') );
+
+// Fetch the images
+$images_list = images_list( sort_by:  $admin_images_sort    ,
+                            search:   $admin_images_search  );
 
 
 
@@ -55,26 +75,69 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr class="uppercase">
         <th>
           <?=__('admin_images_list_name')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('name');")?>
         </th>
         <th>
           <?=__('admin_images_list_type')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('type');")?>
         </th>
         <th>
           <?=__('admin_images_list_language')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('lang');")?>
         </th>
         <th>
           <?=__('admin_images_list_nsfw')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('nsfw');")?>
         </th>
         <th>
           <?=__('admin_images_list_date')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('date');")?>
         </th>
         <th>
           <?=__('act')?>
         </th>
       </tr>
+
+      <tr>
+
+        <th>
+          <input type="hidden" name="admin_images_sort" id="admin_images_sort" value="<?=$admin_images_sort?>">
+          <input type="text" class="table_search" name="admin_images_search_name" id="admin_images_search_name" value="" onkeyup="admin_image_search();">
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_images_search_type" id="admin_images_search_type" onchange="admin_image_search();">
+            <option value="0">&nbsp;</option>
+            <?php for($i = 0; $i < $image_types['rows']; $i++): ?>
+            <option value="<?=$image_types[$i]['id']?>"><?=$image_types[$i]['name']?></option>
+            <?php endfor; ?>
+          </select>
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_images_search_lang" id="admin_images_search_lang" onchange="admin_image_search();">
+            <option value="0">&nbsp;</option>
+            <option value="EN"><?=string_change_case(__('english'), 'initials')?></option>
+            <option value="FR"><?=string_change_case(__('french'), 'initials')?></option>
+            <option value="-1"><?=string_change_case(__('none'), 'initials')?></option>
+          </select>
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_images_search_nsfw" id="admin_images_search_nsfw" onchange="admin_image_search();">
+            <option value="">&nbsp;</option>
+            <option value="1"><?=__('admin_images_list_nsfw')?></option>
+          </select>
+        </th>
+
+        <th colspan="2">
+          &nbsp;
+        </th>
+
+      </tr>
     </thead>
 
-    <tbody class="altc2 nowrap">
+    <tbody class="altc2 nowrap" id="admin_images_tbody">
 
       <?php endif; ?>
 
