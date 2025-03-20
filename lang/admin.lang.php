@@ -136,6 +136,17 @@ ___('admin_images_add_error_failed',    'EN', "Image upload failed");
 ___('admin_images_add_error_failed',    'FR', "Le téléversement de l'image a échoué");
 
 
+// Edit an image
+___('admin_images_edit_title',      'EN', "Edit image");
+___('admin_images_edit_title',      'FR', "Modifier l'image");
+___('admin_images_edit_date',       'EN', "Upload date (YYYY-MM-DD)");
+___('admin_images_edit_date',       'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_images_add_transcript',  'EN', "Image transcript");
+___('admin_images_add_transcript',  'FR', "Transcription de l'image");
+___('admin_images_edit_submit',     'EN', "Edit image");
+___('admin_images_edit_submit',     'FR', "Modifier l'image");
+
+
 
 
 /*********************************************************************************************************************/

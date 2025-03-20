@@ -21,7 +21,6 @@ $js   = array('admin/admin');
 
 
 
-
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*                                                     BACK END                                                      */
@@ -29,26 +28,33 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Add the image
+// Fetch image data
 
-if(isset($_POST['image_add']))
+// Fetch the image's ID
+$admin_image_id = (int)form_fetch_element('id', request_type: 'GET');
+
+// Fetch the image's data
+$admin_image_data = images_get($admin_image_id);
+
+// Stop here if the image does not exist
+if(!$admin_image_data)
+  exit(header("Location: ".$path."admin/images"));
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch image types
+
+// Fetch a list of all image types
+$image_types_list = image_types_list();
+
+// Select the image's type
+for($i = 0; $i < $image_types_list['rows']; $i++)
 {
-  // Fetch the image file data
-  $image_add_file = form_fetch_element('image_file', request_type: 'FILES');
-
-  // Assemble an array with the postdata
-  $image_add_data = array( 'name'     => form_fetch_element('image_name')                       ,
-                           'type'     => form_fetch_element('image_type')                       ,
-                           'lang'     => form_fetch_element('image_lang')                       ,
-                           'nsfw'     => form_fetch_element('image_nsfw', element_exists: true) );
-
-  // Add the image to the database
-  $images_add = images_add( $image_add_file ,
-                            $image_add_data );
-
-  // Redirect to the uploaded image
-  if(is_int($images_add))
-    exit(header("Location: ./images_edit?id=".$images_add."#image_transcript"));
+  $image_type_selected[$i] = '';
+  if($image_types_list[$i]['id'] === $admin_image_data['type'])
+    $image_type_selected[$i] = ' selected';
 }
 
 
@@ -57,11 +63,16 @@ if(isset($_POST['image_add']))
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Prepare form values
 
-// List image types
-$image_types_list = image_types_list();
+// Language
+$image_lang_en_selected = ($admin_image_data['lang'] === 'EN') ? ' selected' : '';
+$image_lang_fr_selected = ($admin_image_data['lang'] === 'FR') ? ' selected' : '';
 
-// Get current date
-$image_upload_date = date('Y-m-d');
+// NSFW
+$image_nsfw_checked = ($admin_image_data['nsfw']) ? ' checked' : '';
+
+// Focus the transcript form if the image has none
+if(!$admin_image_data['trans'])
+  $onload = "image_trans.focus(); ";
 
 
 
@@ -75,35 +86,24 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="padding_bot">
-    <?=__link('admin/images', __('admin_images_add_title'), 'text_light', path: root_path())?>
+    <?=__link('admin/images', __('admin_images_edit_title'), 'text_light', path: root_path())?>
   </h2>
 
-  <form action="images_add" enctype="multipart/form-data" method="POST">
+  <form action="images" method="POST">
     <fieldset>
 
-      <?php if(isset($images_add)): ?>
-      <div class="padding_bot" id="image_error">
-        <p class="text_red uppercase bold bigger">
-          <?=__('error').__(':').' '.$images_add?>
-        </p>
-      </div>
-      <?php endif; ?>
-
-      <div class="tinypadding_top smallpadding_bot">
-        <label for="image_file"><?=__('admin_images_add_file')?></label>
-        <input type="file" class="indiv align_left" name="image_file" id="image_file"  onchange="image_file_upload();">
-      </div>
+      <input type="hidden" name="image_id" value="<?=$admin_image_id?>">
 
       <div class="smallpadding_bot">
         <label for="image_name"><?=__('admin_images_add_name')?></label>
-        <input class="indiv" type="text" name="image_name" id="image_name">
+        <input class="indiv" type="text" name="image_name" id="image_name" value="<?=$admin_image_data['name']?>">
       </div>
 
       <div class="smallpadding_bot">
         <label for="image_type"><?=__('admin_images_add_type')?></label>
         <select class="indiv align_left" name="image_type" id="image_type">
           <?php for($i = 0; $i < $image_types_list['rows']; $i++) { ?>
-          <option value="<?=$image_types_list[$i]['id']?>"><?=$image_types_list[$i]['name']?></option>
+          <option value="<?=$image_types_list[$i]['id']?>"<?=$image_type_selected[$i]?>><?=$image_types_list[$i]['name']?></option>
           <?php } ?>
         </select>
       </div>
@@ -111,20 +111,36 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div class="smallpadding_bot">
         <label for="image_lang"><?=__('admin_images_add_lang')?></label>
         <select class="indiv align_left" name="image_lang" id="image_lang">
-          <option value="EN">EN</option>
-          <option value="FR">FR</option>
+          <option value="EN"<?=$image_lang_en_selected?>>EN</option>
+          <option value="FR"<?=$image_lang_fr_selected?>>FR</option>
         </select>
       </div>
 
+      <div class="smallpadding_bot">
+        <label for="image_date"><?=__('admin_images_edit_date')?></label>
+        <input class="indiv" type="text" name="image_date" id="image_date" value="<?=$admin_image_data['date']?>">
+      </div>
+
+      <div class="smallpadding_bot" id="image_transcript">
+        <label for="image_trans"><?=__('admin_images_add_transcript')?></label>
+        <textarea class="indiv" name="image_trans" id="image_trans"><?=$admin_image_data['trans']?></textarea>
+      </div>
+
       <div class="tinypadding_top smallpadding_bot">
-        <input type="checkbox" class="align_left" name="image_nsfw">
+        <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>
 
-      <input type="submit" name="image_add" value="<?=__('admin_images_add_submit')?>">
+      <input type="submit" name="image_edit" value="<?=__('admin_images_edit_submit')?>">
 
     </fieldset>
   </form>
+
+</div>
+
+<div class="width_100 bigpadding_top align_center">
+
+  <img src="<?=$path?>img/comics/<?=$admin_image_data['name']?>" alt="<?=$admin_image_data['name']?>" title="<?=$admin_image_data['name']?>">
 
 </div>
 

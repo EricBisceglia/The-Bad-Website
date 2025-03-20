@@ -8,14 +8,59 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  images_get                    Fetches an image's data                                                            */
 /*  images_list                   Lists images                                                                       */
 /*  images_add                    Adds an image to the database                                                      */
+/*  images_edit                   Modifies an existing image                                                         */
 /*                                                                                                                   */
 /*  image_types_list              Lists image types                                                                  */
 /*                                                                                                                   */
 /*  images_format_file_name       Formats an image's file name                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Returns data related to an image.
+ *
+ * @param   int         $image_id  The image's ID
+ *
+ * @return  array|null             An array containing the image's data, or null if it doesn't exist.
+ */
+
+function images_get( int $image_id ) : array|null
+{
+  // Sanitize the image's id
+  $image_id = sanitize($image_id, 'int');
+
+  // Return null if the image does not exist
+  if(!database_row_exists('images', $image_id))
+    return null;
+
+  // Fetch the image's data
+  $image_data = query(" SELECT  images.name           AS 'i_name' ,
+                                images.fk_image_types AS 'i_type' ,
+                                images.upload_date    AS 'i_date' ,
+                                images.is_nsfw        AS 'i_nsfw' ,
+                                images.language       AS 'i_lang' ,
+                                images.transcript     AS 'i_trans'
+                        FROM    images
+                        WHERE   images.id = '$image_id' ",
+                        fetch_row: true);
+
+  // Sanitize the data for display
+  $data['name']   = sanitize_output($image_data['i_name']);
+  $data['type']   = sanitize_output($image_data['i_type']);
+  $data['lang']   = sanitize_output($image_data['i_lang']);
+  $data['date']   = sanitize_output($image_data['i_date']);
+  $data['nsfw']   = sanitize_output($image_data['i_nsfw']);
+  $data['trans']  = sanitize_output($image_data['i_trans']);
+
+  // Return the image's data
+  return $data;
+}
+
+
+
 
 /**
  * Lists images.
@@ -79,7 +124,7 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 26, '...');
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 35, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);
@@ -136,9 +181,9 @@ function images_add(  array $image_file ,
   $underscores = '_';
   while(file_exists($file_path))
   {
-    $name_raw   = images_format_file_name($underscores.$image_data['name']);
-    $name       = sanitize($name_raw, 'string');
-    $file_path = root_path().'img/comics/'.$name_raw;
+    $name_raw     = images_format_file_name($underscores.$image_data['name']);
+    $name         = sanitize($name_raw, 'string');
+    $file_path    = root_path().'img/comics/'.$name_raw;
     $underscores .= '_';
   }
 
@@ -169,6 +214,82 @@ function images_add(  array $image_file ,
 
   // Temporary return value
   return $image_id;
+}
+
+
+
+
+/**
+ * Edits an existing image.
+ *
+ * @param   int     $image_id  The id of the image to edit.
+ * @param   array   $data      The data to update the image with.
+ *
+ * @return  void
+ */
+
+function images_edit( int   $image_id ,
+                      array $data     ) : void
+{
+  // Sanitize the image's id
+  $image_id = sanitize($image_id, 'int');
+
+  // Stop here if the image does not exist
+  if(!database_row_exists('images', $image_id))
+    return;
+
+  // File name must be specified
+  if(!isset($data['name']))
+    return;
+
+  // Fetch the image's current data
+  $image_data = images_get($image_id);
+  if(!$image_data)
+    return;
+
+  // Sanitize and prepare the file name
+  $name_raw   = images_format_file_name($data['name']);
+  $name       = sanitize($name_raw, 'string');
+  $new_path   = root_path().'img/comics/'.$name_raw;
+  $old_path   = root_path().'img/comics/'.$image_data['name'];
+
+  // Rename the file if necessary
+  if($new_path !== $old_path)
+  {
+    // The file must exist
+    if(!file_exists($old_path))
+      return;
+
+    // Update the file name until it is available
+    $underscores = '_';
+    while(file_exists($new_path))
+    {
+      $name_raw     = images_format_file_name($underscores.$data['name']);
+      $name         = sanitize($name_raw, 'string');
+      $new_path     = root_path().'img/comics/'.$name_raw;
+      $underscores .= '_';
+    }
+
+    // Move the image
+    rename($old_path, $new_path);
+  }
+
+  // Sanitize the rest of the data
+  $image_type   = sanitize($data['type'], 'int');
+  $image_lang   = sanitize($data['lang'], 'string');
+  $image_date   = sanitize($data['date'], 'string');
+  $image_nsfw   = sanitize($data['nsfw'], 'int');
+  $image_trans  = sanitize($data['trans'], 'string');
+
+  // Edit the image
+  query(" UPDATE  images
+          SET     images.name           = '$name' ,
+                  images.fk_image_types = '$image_type' ,
+                  images.language       = '$image_lang' ,
+                  images.upload_date    = '$image_date' ,
+                  images.is_nsfw        = '$image_nsfw' ,
+                  images.transcript     = '$image_trans'
+          WHERE   images.id             = '$image_id' ");
 }
 
 

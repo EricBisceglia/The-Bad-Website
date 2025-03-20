@@ -29,16 +29,34 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Search menus
+// Edit an image
 
-// Fetch image types
-$image_types = image_types_list();
+if(isset($_POST['image_edit']))
+{
+  // Fetch the image's ID
+  $admin_image_id = (int)form_fetch_element('image_id');
+
+  // Assemble an array with the postdata
+  $admin_image_data = array(  'name'  => form_fetch_element('image_name')                       ,
+                              'type'  => form_fetch_element('image_type')                       ,
+                              'lang'  => form_fetch_element('image_lang')                       ,
+                              'date'  => form_fetch_element('image_date')                       ,
+                              'trans' => form_fetch_element('image_trans')                      ,
+                              'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );
+
+  // Edit the image
+  images_edit(  $admin_image_id   ,
+                $admin_image_data );
+}
 
 
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List images
+
+// Fetch image types
+$image_types = image_types_list();
 
 // Fetch the sorting order
 $admin_images_sort = form_fetch_element('admin_images_sort', 'date');
@@ -62,7 +80,7 @@ $images_list = images_list( sort_by:  $admin_images_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_40 padding_top">
+<div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
     <?=__link('admin/comics', __('admin_images_title'), style: 'text_light', path: root_path())?>
@@ -186,7 +204,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?type_id='.$images_list[$i]['id'], path: root_path())?>
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?id='.$images_list[$i]['id'], path: root_path())?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_delete('".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
         </td>
 
