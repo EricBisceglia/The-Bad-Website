@@ -8,10 +8,11 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
-/*  comics_get                    Returns data related to a comic.                                                   */
+/*  comics_get                    Returns data related to a comic                                                    */
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
+/*  comics_delete                 Deletes an existing comic                                                          */
 /*                                                                                                                   */
 /*  comic_types_get               Gets a comic type data                                                             */
 /*  comic_types_list              Lists comic types                                                                  */
@@ -218,6 +219,37 @@ function comics_edit( int   $comic_id ,
                   comics.description_en = '$comic_desc_en'  ,
                   comics.description_fr = '$comic_desc_fr'
           WHERE   comics.id             = '$comic_id' ");
+}
+
+
+
+
+/**
+ * Deletes an existing comic.
+ *
+ * @param   int     $comic_id  The id of the comic to delete.
+ *
+ * @return  void
+ */
+
+function comics_delete( int $comic_id )
+{
+  // Sanitize the comic's id
+  $comic_id = sanitize($comic_id, 'int');
+
+  // Delete the comic
+  query(" DELETE FROM comics
+          WHERE       comics.id = '$comic_id' ");
+
+  // Untag the comic
+  query(" DELETE FROM comic_tags
+          WHERE       comic_tags.fk_comics = '$comic_id' ");
+
+  // Unlink images
+  query(" UPDATE  images
+          SET     images.fk_comics    = 0 ,
+                  images.image_order  = 0
+          WHERE   images.fk_comics    = '$comic_id' ");
 }
 
 

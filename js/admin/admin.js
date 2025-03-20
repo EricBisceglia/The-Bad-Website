@@ -10,6 +10,7 @@
 /*  admin_image_list_delete                 Triggers the deletion of an image.                                       */
 /*                                                                                                                   */
 /*  admin_comic_list_search                 Triggers a search in the comic list.                                     */
+/*  admin_comic_list_delete                 Triggers the deletion of a comic.                                        */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
@@ -178,6 +179,26 @@ function admin_comic_list_search( sort = null )
   fetch_page('comics', 'admin_comics_tbody', postdata);
 }
 
+
+
+
+/**
+ * Triggers the deletion of a comic.
+ *
+ * @param   {int}     id        The id of the comic to delete.
+ * @param   {string}  message   The message to display before deleting the comic.
+ */
+
+function admin_comic_list_delete(  id      ,
+                                   message )
+{
+  // Assemble the postdata
+  postdata = 'admin_comics_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('comics', 'admin_comics_tbody', postdata);
+}
 
 
 

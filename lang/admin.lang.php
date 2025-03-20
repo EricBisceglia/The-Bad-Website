@@ -205,6 +205,11 @@ ___('admin_comics_edit_submit',   'EN', "Edit comic");
 ___('admin_comics_edit_submit',   'FR', "Modifier le comic");
 
 
+// Delete a comic
+___('admin_comics_delete_confirm', 'EN', "Confirm the permanent deletion of this comic");
+___('admin_comics_delete_confirm', 'FR', "Confirmer la suppression définitive de ce comic");
+
+
 // Comic types: List
 ___('admin_comic_types_title',  'EN', "Comic types");
 ___('admin_comic_types_title',  'FR', "Types de comics");
