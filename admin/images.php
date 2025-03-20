@@ -102,23 +102,23 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr class="uppercase">
         <th>
           <?=__('admin_images_list_name')?>
-          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('name');")?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('name');")?>
         </th>
         <th>
           <?=__('admin_images_list_type')?>
-          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('type');")?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('type');")?>
         </th>
         <th>
           <?=__('admin_images_list_language')?>
-          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('lang');")?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('lang');")?>
         </th>
         <th>
           <?=__('admin_images_list_nsfw')?>
-          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('nsfw');")?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('nsfw');")?>
         </th>
         <th>
           <?=__('admin_images_list_date')?>
-          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_search('date');")?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('date');")?>
         </th>
         <th>
           <?=__('act')?>
@@ -129,11 +129,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <th>
           <input type="hidden" name="admin_images_sort" id="admin_images_sort" value="<?=$admin_images_sort?>">
-          <input type="text" class="table_search" name="admin_images_search_name" id="admin_images_search_name" value="" onkeyup="admin_image_search();">
+          <input type="text" class="table_search" name="admin_images_search_name" id="admin_images_search_name" value="" onkeyup="admin_image_list_search();">
         </th>
 
         <th>
-          <select class="table_search" name="admin_images_search_type" id="admin_images_search_type" onchange="admin_image_search();">
+          <select class="table_search" name="admin_images_search_type" id="admin_images_search_type" onchange="admin_image_list_search();">
             <option value="0">&nbsp;</option>
             <?php for($i = 0; $i < $image_types['rows']; $i++): ?>
             <option value="<?=$image_types[$i]['id']?>"><?=$image_types[$i]['name']?></option>
@@ -142,7 +142,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </th>
 
         <th>
-          <select class="table_search" name="admin_images_search_lang" id="admin_images_search_lang" onchange="admin_image_search();">
+          <select class="table_search" name="admin_images_search_lang" id="admin_images_search_lang" onchange="admin_image_list_search();">
             <option value="0">&nbsp;</option>
             <option value="EN"><?=string_change_case(__('english'), 'initials')?></option>
             <option value="FR"><?=string_change_case(__('french'), 'initials')?></option>
@@ -151,7 +151,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </th>
 
         <th>
-          <select class="table_search" name="admin_images_search_nsfw" id="admin_images_search_nsfw" onchange="admin_image_search();">
+          <select class="table_search" name="admin_images_search_nsfw" id="admin_images_search_nsfw" onchange="admin_image_list_search();">
             <option value="">&nbsp;</option>
             <option value="1"><?=__('admin_images_list_nsfw')?></option>
           </select>

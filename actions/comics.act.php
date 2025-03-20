@@ -22,13 +22,44 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Lists comics.
  *
+ * @param   array   $sort_by   How the comics should be sorted.
+ * @param   array   $search    The search query.
+ *
  * @return  array   An array containing the comics.
  */
 
-function comics_list() : array
+function comics_list( $sort_by = 'date'   ,
+                      $search  = array()  ) : array
 {
+  // Sanitize the search parameters
+  $search_title   = sanitize_array_element($search, 'title', 'string');
+  $search_type    = sanitize_array_element($search, 'type', 'int');
+  $search_private = sanitize_array_element($search, 'private', 'int');
+
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Search through the data
+  $query_search = ($search_title)     ? " AND ( comics.title_en  LIKE '%$search_title%'
+                                          OR    comics.title_fr  LIKE '%$search_title%' ) " : "";
+  $query_search .= ($search_type)     ? " AND comics.fk_comic_types = $search_type "        : "";
+  $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                        : "";
+
+  // Sort the data
+  $query_sort = match($sort_by)
+  {
+    'title'   => "  ORDER BY    comics.title_$lang        ASC   ,
+                                comics.upload_date        DESC  ,
+                                comics.title_en           ASC   ",
+    'type'    => "  ORDER BY    comic_types.sorting_order ASC   ,
+                                comics.upload_date        DESC  ,
+                                comics.title_en           ASC   ",
+    'private' => "  ORDER BY    comics.is_public          ASC   ,
+                                comics.upload_date        DESC  ,
+                                comics.title_$lang        ASC   ",
+    default   => "  ORDER BY    comics.upload_date        DESC  ,
+                                comics.title_$lang        ASC   ",
+  };
 
   // Fetch the comics
   $comics = query("   SELECT    comics.id               AS 'c_id'       ,
@@ -41,8 +72,9 @@ function comics_list() : array
                       FROM      comics
                       LEFT JOIN comic_types
                       ON        comics.fk_comic_types = comic_types.id
-                      ORDER BY  comics.upload_date    DESC ,
-                                comics.title_$lang    ASC ");
+                      WHERE     1 = 1
+                                $query_search
+                                $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comics); $i++)

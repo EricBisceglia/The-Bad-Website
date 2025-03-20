@@ -160,13 +160,6 @@ ___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive d
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
-// Comics management
-___('admin_comics_management',        'EN', "Comics management");
-___('admin_comics_management',        'FR', "Gestion des comics");
-___('admin_comics_management_types',  'EN', "Comic types");
-___('admin_comics_management_types',  'FR', "Types de comics");
-
-
 // Comics list
 ___('admin_comics_title',         'EN', "Comics");
 ___('admin_comics_title',         'FR', "Comics");

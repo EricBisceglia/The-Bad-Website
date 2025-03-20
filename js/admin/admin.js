@@ -9,6 +9,7 @@
 /*  admin_image_list_search                 Triggers a search in the image list.                                     */
 /*  admin_image_list_delete                 Triggers the deletion of an image.                                       */
 /*                                                                                                                   */
+/*  admin_comic_list_search                 Triggers a search in the comic list.                                     */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
@@ -112,7 +113,7 @@ function image_file_upload()
  * @returns {void}
 */
 
-function admin_image_search( sort = null )
+function admin_image_list_search( sort = null )
 {
   // Update the data sort input if requested
   if(sort)
@@ -148,6 +149,33 @@ function admin_image_list_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('images', 'admin_images_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers a search in the comics list.
+ *
+ * @param   {string}  [sort]  Change the order in which the data will be sorted.
+ *
+ * @returns {void}
+*/
+
+function admin_comic_list_search( sort = null )
+{
+  // Update the data sort input if requested
+  if(sort)
+    document.getElementById('admin_comics_sort').value = sort;
+
+  // Assemble the postdata
+  postdata  = 'admin_comics_sort='            + fetch_sanitize_id('admin_comics_sort');
+  postdata += '&admin_comics_search_title='   + fetch_sanitize_id('admin_comics_search_title');
+  postdata += '&admin_comics_search_type='    + fetch_sanitize_id('admin_comics_search_type');
+  postdata += '&admin_comics_search_private=' + fetch_sanitize_id('admin_comics_search_private');
+
+  // Submit the search
+  fetch_page('comics', 'admin_comics_tbody', postdata);
 }
 
 

@@ -52,7 +52,20 @@ if(isset($_POST['comic_add']))
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List comics
 
-$comics_list = comics_list();
+// Fetch comic types
+$comic_types = comic_types_list();
+
+// Fetch the sorting order
+$admin_comics_sort = form_fetch_element('admin_comics_sort', 'date');
+
+// Assemble the search query
+$admin_comics_search = array( 'title'   => form_fetch_element('admin_comics_search_title')    ,
+                              'type'    => form_fetch_element('admin_comics_search_type')     ,
+                              'private' => form_fetch_element('admin_comics_search_private')  );
+
+// Fetch the comics
+$comics_list = comics_list( sort_by:  $admin_comics_sort    ,
+                            search:   $admin_comics_search  );
 
 
 
@@ -65,16 +78,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_40 padding_top">
 
-  <h5>
-    <?=__('admin_comics_management').__(':')?>
-  </h5>
-
-  <ul class="tinypadding_top bigpadding_bot">
-    <li>
-      <?=__link('admin/comics_types', __('admin_comics_management_types'), path: root_path())?>
-    </li>
-  </ul>
-
   <h2 class="align_center padding_bot">
     <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_add', path: root_path())?>
@@ -86,21 +89,58 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr class="uppercase">
         <th>
           <?=__('admin_comics_list_title')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('title');")?>
         </th>
         <th>
-          <?=__('admin_comics_list_type')?>
+          <?=__link('admin/comics_types', __('admin_comics_list_type'), path: root_path())?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('type');")?>
         </th>
         <th>
           <?=__('admin_comics_list_date')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('date');")?>
         </th>
         <th>
           <?=__('admin_comics_list_private')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('private');")?>
         </th>
         <th>
           <?=__('act')?>
         </th>
+      </tr>
+
+      <tr>
+
+        <th>
+          <input type="hidden" name="admin_comics_sort" id="admin_comics_sort" value="<?=$admin_comics_sort?>">
+          <input type="text" class="table_search" name="admin_comics_search_title" id="admin_comics_search_title" value="" onkeyup="admin_comic_list_search();">
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_comics_search_type" id="admin_comics_search_type" onchange="admin_comic_list_search();">
+            <option value="0">&nbsp;</option>
+            <?php for($i = 0; $i < $comic_types['rows']; $i++): ?>
+            <option value="<?=$comic_types[$i]['id']?>"><?=$comic_types[$i]['name']?></option>
+            <?php endfor; ?>
+          </select>
+        </th>
+
+        <th>
+          &nbsp;
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_comics_search_private" id="admin_comics_search_private" onchange="admin_comic_list_search();">
+            <option value="0">&nbsp;</option>
+            <option value="1"><?=__('admin_comics_list_private')?></option>
+          </select>
+        </th>
+
+        <th>
+          &nbsp;
+        </th>
 
       </tr>
+
     </thead>
 
     <tbody class="altc2 nowrap" id="admin_comics_tbody">
