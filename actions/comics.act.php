@@ -60,6 +60,18 @@ function comics_get( int $comic_id ) : array|null
   $data['desc_en']  = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']  = sanitize_output($comic_data['c_desc_fr']);
 
+  // Fetch the comic's tags
+  $comic_tags = query(" SELECT  comic_tags.fk_tags AS 'ct_id'
+                        FROM    comic_tags
+                        WHERE   comic_tags.fk_comics = '$comic_id' ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($comic_tags); $i++)
+    $data['tags']['id'][$i]   = sanitize_output($row['ct_id']);
+
+  // Add the number of tags to the returned data
+  $data['tags']['rows'] = $i;
+
   // Return the comic's data
   return $data;
 }
@@ -201,13 +213,13 @@ function comics_edit( int   $comic_id ,
     return;
 
   // Sanitize the data
-  $comic_private = !sanitize_array_element($data, 'private', 'int');
-  $comic_type    = sanitize_array_element($data, 'type', 'int');
-  $comic_date    = sanitize_array_element($data, 'date', 'string');
-  $comic_title_en= sanitize_array_element($data, 'title_en', 'string');
-  $comic_title_fr= sanitize_array_element($data, 'title_fr', 'string');
-  $comic_desc_en = sanitize_array_element($data, 'desc_en', 'string');
-  $comic_desc_fr = sanitize_array_element($data, 'desc_fr', 'string');
+  $comic_private  = !sanitize_array_element($data, 'private', 'int');
+  $comic_type     = sanitize_array_element($data, 'type', 'int');
+  $comic_date     = sanitize_array_element($data, 'date', 'string');
+  $comic_title_en = sanitize_array_element($data, 'title_en', 'string');
+  $comic_title_fr = sanitize_array_element($data, 'title_fr', 'string');
+  $comic_desc_en  = sanitize_array_element($data, 'desc_en', 'string');
+  $comic_desc_fr  = sanitize_array_element($data, 'desc_fr', 'string');
 
   // Edit the comic
   query(" UPDATE  comics
@@ -219,6 +231,50 @@ function comics_edit( int   $comic_id ,
                   comics.description_en = '$comic_desc_en'  ,
                   comics.description_fr = '$comic_desc_fr'
           WHERE   comics.id             = '$comic_id' ");
+
+  // Get a list of all tags
+  $tags_list = tags_list();
+
+  // Go through the tag list
+  for($i = 0; $i < $tags_list['rows']; $i++)
+  {
+    // Sanitize the tag's id
+    $tag_id = sanitize($tags_list[$i]['id'], 'int');
+
+    // Check whether tags have been applied
+    if(isset($data['tags'][$tag_id]) && $data['tags'][$tag_id] === 1)
+    {
+      // Look for the tag
+      $check_tag = query("  SELECT  comic_tags.fk_tags AS 'ct_id'
+                            FROM    comic_tags
+                            WHERE   comic_tags.fk_comics = '$comic_id'
+                            AND     comic_tags.fk_tags   = '$tag_id' ",
+                            fetch_row: true);
+
+      // Create the tag if it is missing
+      if(!isset($check_tag['ct_id']))
+        query(" INSERT INTO comic_tags
+                SET         comic_tags.fk_comics = '$comic_id' ,
+                            comic_tags.fk_tags   = '$tag_id' ");
+    }
+
+    // Check whether the tag has been deleted
+    else
+    {
+      // Look for the tag
+      $check_tag = query("  SELECT  comic_tags.fk_tags AS 'ct_id'
+                            FROM    comic_tags
+                            WHERE   comic_tags.fk_comics = '$comic_id'
+                            AND     comic_tags.fk_tags   = '$tag_id' ",
+                            fetch_row: true);
+
+      // Delete the tag if it exists
+      if(isset($check_tag['ct_id']))
+        query(" DELETE FROM comic_tags
+                WHERE       comic_tags.fk_comics = '$comic_id'
+                AND         comic_tags.fk_tags   = '$tag_id' ");
+    }
+  }
 }
 
 

@@ -5,7 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic related actions
-include_once './../actions/images.act.php'; # Image management
+include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -57,6 +57,26 @@ for($i = 0; $i < $comic_types_list['rows']; $i++)
   $comic_type_selected[$i] = '';
   if($comic_types_list[$i]['id'] === $admin_comic_data['type'])
     $comic_type_selected[$i] = ' selected';
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch tags
+
+// Fetch a list of all tags
+$tags_list = tags_list();
+
+// Check the checkboxes of the tags that are already assigned to the comic
+for($i = 0; $i < $tags_list['rows']; $i++)
+{
+  $admin_comic_tag_checked[$tags_list[$i]['id']] = '';
+  for($j = 0; $j < $admin_comic_data['tags']['rows']; $j++)
+  {
+    if($admin_comic_data['tags']['id'][$j] === $tags_list[$i]['id'])
+      $admin_comic_tag_checked[$tags_list[$i]['id']] = ' checked';
+  }
 }
 
 
@@ -132,6 +152,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
         </div>
+      </div>
+
+      <div class="tinypadding_bot">
+        <label><?=__('admin_comics_edit_tags')?></label>
+        <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
+        <input type="checkbox" name="comic_tag_<?=$tags_list[$i]['id']?>"<?=$admin_comic_tag_checked[$tags_list[$i]['id']]?>>
+        <label class="label_inline" for="comic_tag_<?=$tags_list[$i]['id']?>"><?=$tags_list[$i]['title']?></label><br>
+        <?php endfor; ?>
       </div>
 
       <div class="tinypadding_top smallpadding_bot">

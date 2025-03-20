@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic related actions
+include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -57,6 +58,11 @@ if(isset($_POST['comic_edit']))
   // Fetch the comic's ID
   $admin_comic_id = (int)form_fetch_element('comic_id');
 
+  // Go through the tag list
+  $tags_list = tags_list();
+  for($i = 0; $i < $tags_list['rows']; $i++)
+    $admin_comic_tags[$tags_list[$i]['id']] = (isset($_POST['comic_tag_'.$tags_list[$i]['id']])) ? 1 : 0;
+
   // Assemble an array with the postdata
   $admin_comic_data = array(  'title_en'  => form_fetch_element('comic_title_en')                       ,
                               'title_fr'  => form_fetch_element('comic_title_fr')                       ,
@@ -64,7 +70,8 @@ if(isset($_POST['comic_edit']))
                               'desc_fr'   => form_fetch_element('comic_desc_fr')                        ,
                               'type'      => form_fetch_element('comic_type')                           ,
                               'date'      => form_fetch_element('comic_date')                           ,
-                              'private'   => form_fetch_element('comic_private', element_exists: true)  );
+                              'private'   => form_fetch_element('comic_private', element_exists: true)  ,
+                              'tags'      => $admin_comic_tags                                          );
 
   // Edit the comic
   comics_edit(  $admin_comic_id   ,

@@ -199,6 +199,8 @@ ___('admin_comics_edit_desc_en',  'EN', "English description");
 ___('admin_comics_edit_desc_en',  'FR', "Description anglaise");
 ___('admin_comics_edit_desc_fr',  'EN', "French description");
 ___('admin_comics_edit_desc_fr',  'FR', "Description française");
+___('admin_comics_edit_tags',     'EN', "Comic tags");
+___('admin_comics_edit_tags',     'FR', "Tags du comic");
 ___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
 ___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
 ___('admin_comics_edit_submit',   'EN', "Edit comic");
