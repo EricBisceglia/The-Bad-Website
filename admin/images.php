@@ -53,6 +53,15 @@ if(isset($_POST['image_edit']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete an image
+
+if(isset($_POST['admin_images_delete']))
+  images_delete(form_fetch_element('admin_images_delete'));
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List images
 
 // Fetch image types
@@ -205,7 +214,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <td class="align_center nowrap">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?id='.$images_list[$i]['id'], path: root_path())?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_delete('".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_list_delete('".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
         </td>
 
       </tr>

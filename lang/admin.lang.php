@@ -147,6 +147,11 @@ ___('admin_images_edit_submit',     'EN', "Edit image");
 ___('admin_images_edit_submit',     'FR', "Modifier l'image");
 
 
+// Delete an image
+___('admin_images_delete_confirm', 'EN', "Confirm the permanent deletion of this image");
+___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive de cette image");
+
+
 
 
 /*********************************************************************************************************************/

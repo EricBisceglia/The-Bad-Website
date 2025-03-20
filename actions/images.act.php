@@ -12,6 +12,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  images_list                   Lists images                                                                       */
 /*  images_add                    Adds an image to the database                                                      */
 /*  images_edit                   Modifies an existing image                                                         */
+/*  images_delete                 Deletes an existing image                                                          */
 /*                                                                                                                   */
 /*  image_types_list              Lists image types                                                                  */
 /*                                                                                                                   */
@@ -290,6 +291,35 @@ function images_edit( int   $image_id ,
                   images.is_nsfw        = '$image_nsfw' ,
                   images.transcript     = '$image_trans'
           WHERE   images.id             = '$image_id' ");
+}
+
+
+
+
+/**
+ * Delete an existing image.
+ *
+ * @param   int     $image_id  The id of the image to delete.
+ *
+ * @return  void
+ */
+
+function images_delete( int $image_id )
+{
+  // Sanitize the image's id
+  $image_id = sanitize($image_id, 'int');
+
+  // Grab the image's data
+  $image_data = images_get($image_id);
+
+  // Delete the image
+  query(" DELETE FROM images
+          WHERE       images.id = '$image_id' ");
+
+  // Delete the image's file
+  $file_path = root_path().'img/comics/'.$image_data['name'];
+  if(file_exists($file_path))
+    unlink($file_path);
 }
 
 
