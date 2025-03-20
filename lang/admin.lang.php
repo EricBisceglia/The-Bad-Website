@@ -84,6 +84,78 @@ ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée")
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*                                                      IMAGES                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Images list
+___('admin_images_title',         'EN', "Images");
+___('admin_images_title',         'FR', "Images");
+___('admin_images_list_type',     'EN', "Type");
+___('admin_images_list_type',     'FR', "Type");
+___('admin_images_list_language', 'EN', "Lang.");
+___('admin_images_list_language', 'FR', "Lang.");
+___('admin_images_list_name',     'EN', "Name");
+___('admin_images_list_name',     'FR', "Nom");
+___('admin_images_list_nsfw',     'EN', "NSFW");
+___('admin_images_list_nsfw',     'FR', "NSFW");
+___('admin_images_list_date',     'EN', "Uploaded");
+___('admin_images_list_date',     'FR', "Mis en ligne");
+___('admin_images_list_count',    'EN', "{{1}} image");
+___('admin_images_list_count',    'FR', "{{1}} image");
+___('admin_images_list_count+',   'EN', "{{1}} images");
+___('admin_images_list_count+',   'FR', "{{1}} images");
+
+
+// Add an image
+___('admin_images_add_title',           'EN', "Add an image");
+___('admin_images_add_title',           'FR', "Ajouter une image");
+___('admin_images_add_file',            'EN', "Upload image");
+___('admin_images_add_file',            'FR', "Téléverser l'image");
+___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
+___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
+___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
+___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
+___('admin_images_add_type',            'EN', "Image type");
+___('admin_images_add_type',            'FR', "Type d'image");
+___('admin_images_add_lang',            'EN', "Language");
+___('admin_images_add_lang',            'FR', "Langue");
+___('admin_images_add_date',            'EN', "Upload date (YYYY-MM-DD)");
+___('admin_images_add_date',            'FR', "Date de création (YYYY-MM-DD)");
+___('admin_images_add_caption',         'EN', "Image caption / transcript");
+___('admin_images_add_caption',         'FR', "Légende / transcription de l'image");
+___('admin_images_add_submit',          'EN', "Add image");
+___('admin_images_add_submit',          'FR', "Ajouter l'image");
+___('admin_images_add_error_file',      'EN', "File missing");
+___('admin_images_add_error_file',      'FR', "Fichier manquant");
+___('admin_images_add_error_name',      'EN', "Image name missing");
+___('admin_images_add_error_name',      'FR', "Nom de l'image manquant");
+___('admin_images_add_error_misnamed',  'EN', "Incorrect file name");
+___('admin_images_add_error_misnamed',  'FR', "Nom du fichier incorrect");
+___('admin_images_add_error_failed',    'EN', "Image upload failed");
+___('admin_images_add_error_failed',    'FR', "Le téléversement de l'image a échoué");
+
+
+// Edit an image
+___('admin_images_edit_title',      'EN', "Edit image");
+___('admin_images_edit_title',      'FR', "Modifier l'image");
+___('admin_images_edit_date',       'EN', "Upload date (YYYY-MM-DD)");
+___('admin_images_edit_date',       'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_images_add_transcript',  'EN', "Image transcript");
+___('admin_images_add_transcript',  'FR', "Transcription de l'image");
+___('admin_images_edit_submit',     'EN', "Edit image");
+___('admin_images_edit_submit',     'FR', "Modifier l'image");
+
+
+// Delete an image
+___('admin_images_delete_confirm', 'EN', "Confirm the permanent deletion of this image");
+___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive de cette image");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
 /*                                                      COMICS                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/

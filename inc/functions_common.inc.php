@@ -34,6 +34,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  date_to_mysql                       Converts a date to the mysql date format.                                    */
 /*  date_to_aware_datetime              Converts a timestamp to an aware datetime.                                   */
 /*                                                                                                                   */
+/*  time_since                          Returns in plain text how long ago a timestamp happened.                     */
+/*                                                                                                                   */
 /*  diff_raw_string_arrays              Returns a raw diff between two string arrays.                                */
 /*  diff_strings                        Returns a human readable list of differences between two strings.            */
 /*                                                                                                                   */
@@ -644,6 +646,55 @@ function date_to_aware_datetime( int $timestamp ) : array
 
   // Convert and return the timestamp
   return $datetime;
+}
+
+
+
+
+/**
+ * Returns in plain text how long ago a timestamp happened.
+ *
+ * @param   int     $timestamp  The timestamp at which the event happened.
+ *
+ * @return  string              A plain text description of how long ago the event happened.
+ */
+
+function time_since( int $timestamp ) : string
+{
+  // Base the result on the difference between the event and the current timestamp
+  $time_since = time() - $timestamp;
+
+  // Return the time difference in plain text
+  if($time_since < 0)
+    return __('time_diff_past_future');
+  else if ($time_since === 0)
+    return __('time_diff_past_now');
+  else if ($time_since === 1)
+    return __('time_diff_past_second');
+  else if ($time_since <= 60)
+    return __('time_diff_past_seconds', $time_since, 0, 0, array($time_since));
+  else if ($time_since <= 120)
+    return __('time_diff_past_minute');
+  else if ($time_since <= 3600)
+    return __('time_diff_past_minutes', $time_since, 0, 0, array(floor($time_since/60)));
+  else if ($time_since <= 7200)
+    return __('time_diff_past_hour');
+  else if ($time_since <= 86400)
+    return __('time_diff_past_hours', $time_since, 0, 0, array(floor($time_since/3600)));
+  else if ($time_since <= 172800)
+    return __('time_diff_past_day');
+  else if ($time_since <= 259200)
+    return __('time_diff_past_2days');
+  else if ($time_since <= 31536000)
+    return __('time_diff_past_days', $time_since, 0, 0, array(floor($time_since/86400)));
+  else if ($time_since <= 63072000)
+    return __('time_diff_past_year');
+  else if ($time_since <= 3153600000)
+    return __('time_diff_past_years', $time_since, 0, 0, array(floor($time_since/31536000)));
+  else if ($time_since <= 6307200000)
+    return __('time_diff_past_century');
+  else
+    return __('time_diff_past_long');
 }
 
 
