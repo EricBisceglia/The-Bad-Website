@@ -99,8 +99,10 @@ function images_list( $sort_by = 'date'   ,
                                       AND images.language  NOT LIKE 'FR'              " : "";
   $query_search .= ($search_comic === -1) ?
                                     " AND images.fk_comics        = 0                 " : "";
-  $query_search .= ($search_comic === 1) ?
+  $query_search .= ($search_comic === -2) ?
                                     " AND images.fk_comics       != 0                 " : "";
+  $query_search .= ($search_comic > 0) ?
+                                    " AND images.fk_comics       = '$search_comic'    " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
 
   // Sort the data

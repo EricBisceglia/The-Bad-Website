@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/images.act.php'; # Image management
+include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -68,6 +69,9 @@ if(isset($_POST['admin_images_delete']))
 
 // Fetch image types
 $image_types = image_types_list();
+
+// Fetch comics
+$comics_list = comics_list( sort_by: 'title' );
 
 // Fetch the sorting order
 $admin_images_sort = form_fetch_element('admin_images_sort', 'date');
@@ -168,7 +172,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <select class="table_search" name="admin_images_search_comic" id="admin_images_search_comic" onchange="admin_image_list_search();">
             <option value="0">&nbsp;</option>
             <option value="-1"><?=__('admin_images_list_comic_n')?></option>
-            <option value="1"><?=__('admin_images_list_comic_y')?></option>
+            <option value="-2"><?=__('admin_images_list_comic_y')?></option>
+            <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
+            <option value="<?=$comics_list[$i]['id']?>"><?=$comics_list[$i]['title']?></option>
+            <?php endfor; ?>
           </select>
         </th>
 
