@@ -77,11 +77,15 @@ function images_get( int $image_id ) : array|null
 function images_list( $sort_by = 'date'   ,
                       $search  = array()  ) : array
 {
+  // Get the user's language
+  $lang = user_get_language();
+
   // Sanitize the search parameters
-  $search_name = sanitize_array_element($search, 'name', 'string');
-  $search_type = sanitize_array_element($search, 'type', 'int');
-  $search_lang = sanitize_array_element($search, 'lang', 'string');
-  $search_nsfw = sanitize_array_element($search, 'nsfw', 'int');
+  $search_name  = sanitize_array_element($search, 'name', 'string');
+  $search_type  = sanitize_array_element($search, 'type', 'int');
+  $search_lang  = sanitize_array_element($search, 'lang', 'string');
+  $search_comic = sanitize_array_element($search, 'comic', 'int');
+  $search_nsfw  = sanitize_array_element($search, 'nsfw', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
@@ -91,6 +95,10 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_lang === '-1') ?
                                     " AND images.language  NOT LIKE 'EN'
                                       AND images.language  NOT LIKE 'FR'              " : "";
+  $query_search .= ($search_comic === -1) ?
+                                    " AND images.fk_comics        = 0                 " : "";
+  $query_search .= ($search_comic === 1) ?
+                                    " AND images.fk_comics       != 0                 " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
 
   // Sort the data
@@ -106,6 +114,11 @@ function images_list( $sort_by = 'date'   ,
     'nsfw'    => "  ORDER BY    images.is_nsfw      DESC  ,
                                 images.upload_date  DESC  ,
                                 images.name         ASC   ",
+    'comic'   => "  ORDER BY    images.fk_comics    != 0  ,
+                                comics.upload_date  DESC  ,
+                                comics.title_$lang  ASC   ,
+                                images.upload_date  DESC  ,
+                                images.name         ASC   "  ,
     default   => "  ORDER BY    images.upload_date  DESC  ,
                                 images.name         ASC"  ,
   };
@@ -116,10 +129,13 @@ function images_list( $sort_by = 'date'   ,
                                 images.upload_date    AS 'i_date' ,
                                 images.is_nsfw        AS 'i_nsfw' ,
                                 images.language       AS 'i_lang' ,
-                                image_types.name      AS 'i_type'
+                                image_types.name      AS 'i_type' ,
+                                comics.title_$lang    AS 'c_title'
                       FROM      images
                       LEFT JOIN image_types
                       ON        images.fk_image_types = image_types.id
+                      LEFT JOIN comics
+                      ON        images.fk_comics = comics.id
                       WHERE     1 = 1
                                 $query_search
                                 $query_sort ");
@@ -131,6 +147,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);
+    $data[$i]['comic']      = sanitize_output($row['c_title']);
     $data[$i]['lang']       = sanitize_output($row['i_lang']);
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));

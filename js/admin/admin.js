@@ -125,6 +125,7 @@ function admin_image_list_search( sort = null )
   postdata += '&admin_images_search_name='  + fetch_sanitize_id('admin_images_search_name');
   postdata += '&admin_images_search_type='  + fetch_sanitize_id('admin_images_search_type');
   postdata += '&admin_images_search_lang='  + fetch_sanitize_id('admin_images_search_lang');
+  postdata += '&admin_images_search_comic=' + fetch_sanitize_id('admin_images_search_comic');
   postdata += '&admin_images_search_nsfw='  + fetch_sanitize_id('admin_images_search_nsfw');
 
   // Submit the search

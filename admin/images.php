@@ -72,10 +72,11 @@ $image_types = image_types_list();
 $admin_images_sort = form_fetch_element('admin_images_sort', 'date');
 
 // Assemble the search query
-$admin_images_search = array( 'name'  => form_fetch_element('admin_images_search_name') ,
-                              'type'  => form_fetch_element('admin_images_search_type') ,
-                              'lang'  => form_fetch_element('admin_images_search_lang') ,
-                              'nsfw'  => form_fetch_element('admin_images_search_nsfw') );
+$admin_images_search = array( 'name'  => form_fetch_element('admin_images_search_name')   ,
+                              'type'  => form_fetch_element('admin_images_search_type')   ,
+                              'lang'  => form_fetch_element('admin_images_search_lang')   ,
+                              'comic' => form_fetch_element('admin_images_search_comic')  ,
+                              'nsfw'  => form_fetch_element('admin_images_search_nsfw')   );
 
 // Fetch the images
 $images_list = images_list( sort_by:  $admin_images_sort    ,
@@ -118,6 +119,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('nsfw');")?>
         </th>
         <th>
+          <?=__('admin_images_list_comic')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('comic');")?>
+        </th>
+        <th>
           <?=__('admin_images_list_date')?>
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('date');")?>
         </th>
@@ -153,8 +158,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <th>
           <select class="table_search" name="admin_images_search_nsfw" id="admin_images_search_nsfw" onchange="admin_image_list_search();">
-            <option value="">&nbsp;</option>
+            <option value="0">&nbsp;</option>
             <option value="1"><?=__('admin_images_list_nsfw')?></option>
+          </select>
+        </th>
+
+        <th>
+          <select class="table_search" name="admin_images_search_comic" id="admin_images_search_comic" onchange="admin_image_list_search();">
+            <option value="0">&nbsp;</option>
+            <option value="-1"><?=__('admin_images_list_comic_n')?></option>
+            <option value="1"><?=__('admin_images_list_comic_y')?></option>
           </select>
         </th>
 
@@ -170,7 +183,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="6" class="uppercase text_light dark bold align_center">
+        <td colspan="7" class="uppercase text_light dark bold align_center">
           <?=__('admin_images_list_count', preset_values: array($images_list['rows']), amount: $images_list['rows'])?>
         </td>
       </tr>
@@ -205,6 +218,19 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           &nbsp;
           <?php endif; ?>
         </td>
+
+        <?php if($images_list[$i]['comic'] !== ''): ?>
+        <td class="align_center nowrap tooltip_container">
+          <?=__icon('image', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
+          <div class="tooltip">
+            <?=$images_list[$i]['comic']?>
+          </div>
+        </td>
+        <?php else: ?>
+        <td class="align_center nowrap">
+          &nbsp;
+        </td>
+        <?php endif; ?>
 
         <td class="align_center nowrap tooltip_container">
           <?=$images_list[$i]['date']?>
