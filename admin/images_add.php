@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/images.act.php'; # Image management
+include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -37,10 +38,12 @@ if(isset($_POST['image_add']))
   $image_add_file = form_fetch_element('image_file', request_type: 'FILES');
 
   // Assemble an array with the postdata
-  $image_add_data = array( 'name'     => form_fetch_element('image_name')                       ,
-                           'type'     => form_fetch_element('image_type')                       ,
-                           'lang'     => form_fetch_element('image_lang')                       ,
-                           'nsfw'     => form_fetch_element('image_nsfw', element_exists: true) );
+  $image_add_data = array(  'name'  => form_fetch_element('image_name')                       ,
+                            'comic' => form_fetch_element('image_comic')                      ,
+                            'type'  => form_fetch_element('image_type')                       ,
+                            'lang'  => form_fetch_element('image_lang')                       ,
+                            'order' => form_fetch_element('image_order')                      ,
+                            'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );
 
   // Add the image to the database
   $images_add = images_add( $image_add_file ,
@@ -62,6 +65,11 @@ $image_types_list = image_types_list();
 
 // Get current date
 $image_upload_date = date('Y-m-d');
+
+// List comics
+$comics_list = comics_list();
+for($i = 0; $i < $comics_list['rows']; $i++)
+  $comics_list_selected[$i] = ($i === 0) ? ' selected' : '';
 
 
 
@@ -100,6 +108,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_bot">
+        <label for="image_comic"><?=__('admin_images_add_comic')?></label>
+        <select class="indiv align_left" name="image_comic" id="image_comic">
+          <option value="0">&nbsp;</option>
+          <?php for($i = 0; $i < $comics_list['rows']; $i++) { ?>
+          <option value="<?=$comics_list[$i]['id']?>"<?=$comics_list_selected[$i]?>><?=$comics_list[$i]['ftitle']?></option>
+          <?php } ?>
+        </select>
+      </div>
+
+      <div class="smallpadding_bot">
         <label for="image_type"><?=__('admin_images_add_type')?></label>
         <select class="indiv align_left" name="image_type" id="image_type">
           <?php for($i = 0; $i < $image_types_list['rows']; $i++) { ?>
@@ -114,6 +132,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <option value="EN">EN</option>
           <option value="FR">FR</option>
         </select>
+      </div>
+
+      <div class="smallpadding_bot">
+        <label for="image_order"><?=__('admin_images_add_order')?></label>
+        <input class="indiv" type="text" name="image_order">
       </div>
 
       <div class="tinypadding_top smallpadding_bot">

@@ -99,6 +99,12 @@ ___('admin_images_list_name',     'EN', "Name");
 ___('admin_images_list_name',     'FR', "Nom");
 ___('admin_images_list_nsfw',     'EN', "NSFW");
 ___('admin_images_list_nsfw',     'FR', "NSFW");
+___('admin_images_list_comic',    'EN', "Comic");
+___('admin_images_list_comic',    'FR', "Comic");
+___('admin_images_list_comic_y',  'EN', "Linked to a comic");
+___('admin_images_list_comic_y',  'FR', "Lié à un comic");
+___('admin_images_list_comic_n',  'EN', "Not linked to a comic");
+___('admin_images_list_comic_n',  'FR', "Non lié à un comic");
 ___('admin_images_list_date',     'EN', "Uploaded");
 ___('admin_images_list_date',     'FR', "Mis en ligne");
 ___('admin_images_list_count',    'EN', "{{1}} image");
@@ -118,6 +124,10 @@ ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)
 ___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
 ___('admin_images_add_type',            'EN', "Image type");
 ___('admin_images_add_type',            'FR', "Type d'image");
+___('admin_images_add_comic',           'EN', "Linked comic");
+___('admin_images_add_comic',           'FR', "Comic lié");
+___('admin_images_add_order',           'EN', "Image display order (optional)");
+___('admin_images_add_order',           'FR', "Ordre d'affichage de l'image (optionnel)");
 ___('admin_images_add_lang',            'EN', "Language");
 ___('admin_images_add_lang',            'FR', "Langue");
 ___('admin_images_add_date',            'EN', "Upload date (YYYY-MM-DD)");
@@ -160,11 +170,66 @@ ___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive d
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
-// Comics management
-___('admin_comics_management',        'EN', "Comics management");
-___('admin_comics_management',        'FR', "Gestion des comics");
-___('admin_comics_management_types',  'EN', "Comic types");
-___('admin_comics_management_types',  'FR', "Types de comics");
+// Comics list
+___('admin_comics_title',         'EN', "Comics");
+___('admin_comics_title',         'FR', "Comics");
+___('admin_comics_list_title',    'EN', "Title");
+___('admin_comics_list_title',    'FR', "Titre");
+___('admin_comics_list_type',     'EN', "Type");
+___('admin_comics_list_type',     'FR', "Type");
+___('admin_comics_list_date',     'EN', "Uploaded");
+___('admin_comics_list_date',     'FR', "Mis en ligne");
+___('admin_comics_list_private',  'EN', "Priv.");
+___('admin_comics_list_private',  'FR', "Priv.");
+___('admin_comics_list_images',   'EN', "Images");
+___('admin_comics_list_images',   'FR', "Images");
+___('admin_comics_list_images_y', 'EN', "Has images");
+___('admin_comics_list_images_y', 'FR', "A des images");
+___('admin_comics_list_images_n', 'EN', "Has no images");
+___('admin_comics_list_images_n', 'FR', "N'a pas d'images");
+___('admin_comics_list_tags',     'EN', "Tags");
+___('admin_comics_list_tags',     'FR', "Tags");
+___('admin_comics_list_count',    'EN', "{{1}} comic");
+___('admin_comics_list_count',    'FR', "{{1}} comic");
+___('admin_comics_list_count+',   'EN', "{{1}} comics");
+___('admin_comics_list_count+',   'FR', "{{1}} comics");
+___('admin_comics_list_link_img', 'EN', "Linked images");
+___('admin_comics_list_link_img', 'FR', "Images liées");
+
+
+// Add a comic
+___('admin_comics_add_title',     'EN', "Add a comic");
+___('admin_comics_add_title',     'FR', "Ajouter un comic");
+___('admin_comics_add_title_en',  'EN', "English title");
+___('admin_comics_add_title_en',  'FR', "Titre anglais");
+___('admin_comics_add_title_fr',  'EN', "French title");
+___('admin_comics_add_title_fr',  'FR', "Titre français");
+___('admin_comics_add_type',      'EN', "Comic type");
+___('admin_comics_add_type',      'FR', "Type de comic");
+___('admin_comics_add_submit',    'EN', "Add comic");
+___('admin_comics_add_submit',    'FR', "Ajouter le comic");
+
+
+// Edit a comic
+___('admin_comics_edit_title',    'EN', "Edit comic");
+___('admin_comics_edit_title',    'FR', "Modifier le comic");
+___('admin_comics_edit_date',     'EN', "Upload date (YYYY-MM-DD)");
+___('admin_comics_edit_date',     'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_comics_edit_desc_en',  'EN', "English description");
+___('admin_comics_edit_desc_en',  'FR', "Description anglaise");
+___('admin_comics_edit_desc_fr',  'EN', "French description");
+___('admin_comics_edit_desc_fr',  'FR', "Description française");
+___('admin_comics_edit_tags',     'EN', "Comic tags");
+___('admin_comics_edit_tags',     'FR', "Tags du comic");
+___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
+___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
+___('admin_comics_edit_submit',   'EN', "Edit comic");
+___('admin_comics_edit_submit',   'FR', "Modifier le comic");
+
+
+// Delete a comic
+___('admin_comics_delete_confirm', 'EN', "Confirm the permanent deletion of this comic");
+___('admin_comics_delete_confirm', 'FR', "Confirmer la suppression définitive de ce comic");
 
 
 // Comic types: List

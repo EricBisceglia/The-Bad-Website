@@ -593,7 +593,7 @@ if($last_query < 3)
   sql_create_table('comics');
   sql_create_field('comics', 'fk_comic_types', 'INT UNSIGNED NOT NULL', 'id');
   sql_create_field('comics', 'is_public', 'TINYINT(1) NOT NULL', 'fk_comic_types');
-  sql_create_field('comics', 'upload_date', 'INT UNSIGNED NOT NULL', 'is_public');
+  sql_create_field('comics', 'upload_date', 'DATE NOT NULL', 'is_public');
   sql_create_field('comics', 'title_en', 'TINYTEXT NOT NULL', 'upload_date');
   sql_create_field('comics', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
   sql_create_field('comics', 'description_en', 'TEXT NOT NULL', 'title_fr');
@@ -601,7 +601,6 @@ if($last_query < 3)
 
   sql_create_index('comics', 'comics_types', 'fk_comic_types');
   sql_create_index('comics', 'comics_public', 'is_public');
-  sql_create_index('comics', 'comics_upload_date', 'upload_date');
 
   sql_update_query_id(3);
 }
