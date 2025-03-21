@@ -126,12 +126,13 @@ function images_list( $sort_by = 'date'   ,
   };
 
   // Fetch the images
-  $images = query("   SELECT    images.id             AS 'i_id'   ,
-                                images.name           AS 'i_name' ,
-                                images.upload_date    AS 'i_date' ,
-                                images.is_nsfw        AS 'i_nsfw' ,
-                                images.language       AS 'i_lang' ,
-                                image_types.name      AS 'i_type' ,
+  $images = query("   SELECT    images.id             AS 'i_id'     ,
+                                images.name           AS 'i_name'   ,
+                                images.image_order    AS 'i_order'  ,
+                                images.upload_date    AS 'i_date'   ,
+                                images.is_nsfw        AS 'i_nsfw'   ,
+                                images.language       AS 'i_lang'   ,
+                                image_types.name      AS 'i_type'   ,
                                 comics.title_$lang    AS 'c_title'
                       FROM      images
                       LEFT JOIN image_types
@@ -150,6 +151,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);
     $data[$i]['comic']      = sanitize_output($row['c_title']);
+    $data[$i]['order']      = sanitize_output($row['i_order']);
     $data[$i]['lang']       = sanitize_output($row['i_lang']);
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));

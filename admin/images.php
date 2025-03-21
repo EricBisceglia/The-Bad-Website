@@ -221,11 +221,21 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <?php if($images_list[$i]['comic'] !== ''): ?>
-        <td class="align_center nowrap tooltip_container">
-          <?=__icon('image', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
-          <div class="tooltip">
-            <?=$images_list[$i]['comic']?>
-          </div>
+        <td class="align_center nowrap">
+          <span class="tooltip_container">
+            <?=__icon('image', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
+            <div class="tooltip">
+              <?=$images_list[$i]['comic']?>
+            </div>
+          </span>
+          <?php if($images_list[$i]['order'] > 0): ?>
+          <span class="tooltip_container">
+            <?=__icon('graph', is_small: true, alt: 'O', title: $images_list[$i]['order'], path: root_path())?>
+            <div class="tooltip">
+              <?=$images_list[$i]['order']?>
+            </div>
+          </span>
+          <?php endif; ?>
         </td>
         <?php else: ?>
         <td class="align_center nowrap">
