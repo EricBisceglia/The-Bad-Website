@@ -99,7 +99,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/comics', __('admin_images_title'), style: 'text_light', path: root_path())?>
+    <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: root_path())?>
+    <?=__icon('image', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_templates', path: root_path())?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: root_path())?>
   </h2>
 

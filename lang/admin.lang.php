@@ -89,28 +89,30 @@ ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée")
 /*********************************************************************************************************************/
 
 // Images list
-___('admin_images_title',         'EN', "Images");
-___('admin_images_title',         'FR', "Images");
-___('admin_images_list_type',     'EN', "Type");
-___('admin_images_list_type',     'FR', "Type");
-___('admin_images_list_language', 'EN', "Lang.");
-___('admin_images_list_language', 'FR', "Lang.");
-___('admin_images_list_name',     'EN', "Name");
-___('admin_images_list_name',     'FR', "Nom");
-___('admin_images_list_nsfw',     'EN', "NSFW");
-___('admin_images_list_nsfw',     'FR', "NSFW");
-___('admin_images_list_comic',    'EN', "Comic");
-___('admin_images_list_comic',    'FR', "Comic");
-___('admin_images_list_comic_y',  'EN', "Linked to a comic");
-___('admin_images_list_comic_y',  'FR', "Lié à un comic");
-___('admin_images_list_comic_n',  'EN', "Not linked to a comic");
-___('admin_images_list_comic_n',  'FR', "Non lié à un comic");
-___('admin_images_list_date',     'EN', "Uploaded");
-___('admin_images_list_date',     'FR', "Mis en ligne");
-___('admin_images_list_count',    'EN', "{{1}} image");
-___('admin_images_list_count',    'FR', "{{1}} image");
-___('admin_images_list_count+',   'EN', "{{1}} images");
-___('admin_images_list_count+',   'FR', "{{1}} images");
+___('admin_images_title',           'EN', "Images");
+___('admin_images_title',           'FR', "Images");
+___('admin_images_list_templates',  'EN', "Templates");
+___('admin_images_list_templates',  'FR', "Modèles");
+___('admin_images_list_type',       'EN', "Type");
+___('admin_images_list_type',       'FR', "Type");
+___('admin_images_list_language',   'EN', "Lang.");
+___('admin_images_list_language',   'FR', "Lang.");
+___('admin_images_list_name',       'EN', "Name");
+___('admin_images_list_name',       'FR', "Nom");
+___('admin_images_list_nsfw',       'EN', "NSFW");
+___('admin_images_list_nsfw',       'FR', "NSFW");
+___('admin_images_list_comic',      'EN', "Comic");
+___('admin_images_list_comic',      'FR', "Comic");
+___('admin_images_list_comic_y',    'EN', "Linked to a comic");
+___('admin_images_list_comic_y',    'FR', "Lié à un comic");
+___('admin_images_list_comic_n',    'EN', "Not linked to a comic");
+___('admin_images_list_comic_n',    'FR', "Non lié à un comic");
+___('admin_images_list_date',       'EN', "Uploaded");
+___('admin_images_list_date',       'FR', "Mis en ligne");
+___('admin_images_list_count',      'EN', "{{1}} image");
+___('admin_images_list_count',      'FR', "{{1}} image");
+___('admin_images_list_count+',     'EN', "{{1}} images");
+___('admin_images_list_count+',     'FR', "{{1}} images");
 
 
 // Add an image
@@ -160,6 +162,29 @@ ___('admin_images_edit_submit',     'FR', "Modifier l'image");
 // Delete an image
 ___('admin_images_delete_confirm', 'EN', "Confirm the permanent deletion of this image");
 ___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive de cette image");
+
+
+// Image templates
+___('admin_images_templates_title',   'EN', "Templates");
+___('admin_images_templates_title',   'FR', "Modèles");
+___('admin_images_templates_font',    'EN', "Font used for text: Segoe UI");
+___('admin_images_templates_font',    'FR', "Police de caractères : Segoe UI");
+___('admin_images_templates_color_1', 'EN', "Color 1: Beige #EFE4B0");
+___('admin_images_templates_color_1', 'FR', "Couleur 1 : Beige #EFE4B0");
+___('admin_images_templates_color_2', 'EN', "Color 2: Purple #C8BFE7");
+___('admin_images_templates_color_2', 'FR', "Couleur 2 : Violet #C8BFE7");
+___('admin_images_templates_color_3', 'EN', "Color 3: Green #C2E7BF");
+___('admin_images_templates_color_3', 'FR', "Couleur 3 : Vert #C2E7BF");
+___('admin_images_templates_color_4', 'EN', "Color 4: Blue #99D9EA");
+___('admin_images_templates_color_4', 'FR', "Couleur 4 : Bleu #99D9EA");
+___('admin_images_templates_color_5', 'EN', "Color 5: Grey #C3C3C3");
+___('admin_images_templates_color_5', 'FR', "Couleur 5 : Gris #C3C3C3");
+___('admin_images_templates_banner',  'EN', "Category banner: 490x180<br>img/banners/comics/types/");
+___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 490x180<br>img/banners/comics/types/");
+___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
+___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
+___('admin_images_templates_preview', 'EN', "Comic preview: 490x400");
+___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 490x400");
 
 
 
