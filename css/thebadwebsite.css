@@ -760,3 +760,8 @@ footer { font-size: 70%; margin-top: 10.0rem; margin-bottom: 5.0rem;  } }
 .gameicon { max-height: 1.3rem; padding-left: 0.06rem; padding-right: 0.06rem; }
 @media (max-width: 992px) {
 .gameicon { max-height: 2.5rem; padding-left: 0.15rem; padding-right: 0.15rem; } }
+
+/******************************************************* COMICS ******************************************************/
+
+.comic_container      { width: 100%; overflow-x: auto; white-space: nowrap; }
+.comic_container img  { display: block; margin: 0 auto; max-width: none;    }

@@ -175,13 +175,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 </div>
 
-<?php if($admin_comic_data['images']['count'] > 0): ?>
+<?php if($admin_comic_data['images']['rows'] > 0): ?>
 
 <hr>
 
 <div class="width_30">
 
-  <?php for($i = 0; $i < $admin_comic_data['images']['count']; $i++): ?>
+  <?php for($i = 0; $i < $admin_comic_data['images']['rows']; $i++): ?>
 
     <div class="padding_top align_center">
       <h5 class="padding_bot">
