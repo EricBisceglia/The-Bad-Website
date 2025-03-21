@@ -38,12 +38,13 @@ function images_get( int $image_id ) : array|null
     return null;
 
   // Fetch the image's data
-  $image_data = query(" SELECT  images.name           AS 'i_name' ,
-                                images.fk_image_types AS 'i_type' ,
-                                images.fk_comics      AS 'i_comic' ,
-                                images.upload_date    AS 'i_date' ,
-                                images.is_nsfw        AS 'i_nsfw' ,
-                                images.language       AS 'i_lang' ,
+  $image_data = query(" SELECT  images.name           AS 'i_name'   ,
+                                images.fk_image_types AS 'i_type'   ,
+                                images.fk_comics      AS 'i_comic'  ,
+                                images.image_order    AS 'i_order'  ,
+                                images.upload_date    AS 'i_date'   ,
+                                images.is_nsfw        AS 'i_nsfw'   ,
+                                images.language       AS 'i_lang'   ,
                                 images.transcript     AS 'i_trans'
                         FROM    images
                         WHERE   images.id = '$image_id' ",
@@ -53,6 +54,7 @@ function images_get( int $image_id ) : array|null
   $data['name']   = sanitize_output($image_data['i_name']);
   $data['type']   = sanitize_output($image_data['i_type']);
   $data['comic']  = sanitize_output($image_data['i_comic']);
+  $data['order']  = sanitize_output($image_data['i_order']);
   $data['lang']   = sanitize_output($image_data['i_lang']);
   $data['date']   = sanitize_output($image_data['i_date']);
   $data['nsfw']   = sanitize_output($image_data['i_nsfw']);
@@ -143,7 +145,7 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 32, '...');
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 30, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);
@@ -211,6 +213,7 @@ function images_add(  array $image_file ,
   $image_comic  = sanitize($image_data['comic'], 'int');
   $image_type   = sanitize($image_data['type'], 'string');
   $image_lang   = sanitize($image_data['lang'], 'string');
+  $image_order  = sanitize($image_data['order'], 'int');
   $image_nsfw   = sanitize($image_data['nsfw'], 'int');
   $image_date   = sanitize(date('Y-m-d'), 'string');
 
@@ -222,6 +225,7 @@ function images_add(  array $image_file ,
             SET         images.name           = '$name'         ,
                         images.fk_image_types = '$image_type'   ,
                         images.fk_comics      = '$image_comic'  ,
+                        images.image_order    = '$image_order'  ,
                         images.language       = '$image_lang'   ,
                         images.is_nsfw        = '$image_nsfw'   ,
                         images.upload_date    = '$image_date'   ");
@@ -299,6 +303,7 @@ function images_edit( int   $image_id ,
   // Sanitize the rest of the data
   $image_type   = sanitize($data['type'], 'int');
   $image_comic  = sanitize($data['comic'], 'int');
+  $image_order  = sanitize($data['order'], 'int');
   $image_lang   = sanitize($data['lang'], 'string');
   $image_date   = sanitize($data['date'], 'string');
   $image_nsfw   = sanitize($data['nsfw'], 'int');
@@ -309,6 +314,7 @@ function images_edit( int   $image_id ,
           SET     images.name           = '$name'         ,
                   images.fk_image_types = '$image_type'   ,
                   images.fk_comics      = '$image_comic'  ,
+                  images.image_order    = '$image_order'  ,
                   images.language       = '$image_lang'   ,
                   images.upload_date    = '$image_date'   ,
                   images.is_nsfw        = '$image_nsfw'   ,

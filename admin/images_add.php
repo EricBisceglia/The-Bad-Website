@@ -42,6 +42,7 @@ if(isset($_POST['image_add']))
                             'comic' => form_fetch_element('image_comic')                      ,
                             'type'  => form_fetch_element('image_type')                       ,
                             'lang'  => form_fetch_element('image_lang')                       ,
+                            'order' => form_fetch_element('image_order')                      ,
                             'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );
 
   // Add the image to the database
@@ -131,6 +132,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <option value="EN">EN</option>
           <option value="FR">FR</option>
         </select>
+      </div>
+
+      <div class="smallpadding_bot">
+        <label for="image_order"><?=__('admin_images_add_order')?></label>
+        <input class="indiv" type="text" name="image_order">
       </div>
 
       <div class="tinypadding_top smallpadding_bot">

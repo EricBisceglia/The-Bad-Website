@@ -41,6 +41,7 @@ if(isset($_POST['image_edit']))
                               'comic' => form_fetch_element('image_comic')                      ,
                               'type'  => form_fetch_element('image_type')                       ,
                               'lang'  => form_fetch_element('image_lang')                       ,
+                              'order' => form_fetch_element('image_order')                      ,
                               'date'  => form_fetch_element('image_date')                       ,
                               'trans' => form_fetch_element('image_trans')                      ,
                               'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );

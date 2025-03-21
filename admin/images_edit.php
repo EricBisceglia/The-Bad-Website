@@ -144,6 +144,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_bot">
+        <label for="image_order"><?=__('admin_images_add_order')?></label>
+        <input class="indiv" type="text" name="image_order" id="image_order" value="<?=$admin_image_data['order']?>">
+      </div>
+
+      <div class="smallpadding_bot">
         <label for="image_date"><?=__('admin_images_edit_date')?></label>
         <input class="indiv" type="text" name="image_date" id="image_date" value="<?=$admin_image_data['date']?>">
       </div>
