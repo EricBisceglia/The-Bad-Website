@@ -30,6 +30,14 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch a list of all tags
+
+$tags_list = tags_list();
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add a comic
 
 if(isset($_POST['comic_add']))
@@ -59,7 +67,6 @@ if(isset($_POST['comic_edit']))
   $admin_comic_id = (int)form_fetch_element('comic_id');
 
   // Go through the tag list
-  $tags_list = tags_list();
   for($i = 0; $i < $tags_list['rows']; $i++)
     $admin_comic_tags[$tags_list[$i]['id']] = (isset($_POST['comic_tag_'.$tags_list[$i]['id']])) ? 1 : 0;
 
@@ -102,7 +109,8 @@ $admin_comics_sort = form_fetch_element('admin_comics_sort', 'date');
 // Assemble the search query
 $admin_comics_search = array( 'title'   => form_fetch_element('admin_comics_search_title')    ,
                               'type'    => form_fetch_element('admin_comics_search_type')     ,
-                              'private' => form_fetch_element('admin_comics_search_private')  );
+                              'private' => form_fetch_element('admin_comics_search_private')  ,
+                              'tags'    => form_fetch_element('admin_comics_search_tags')     );
 
 // Fetch the comics
 $comics_list = comics_list( sort_by:  $admin_comics_sort    ,
@@ -117,7 +125,7 @@ $comics_list = comics_list( sort_by:  $admin_comics_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_40 padding_top">
+<div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
     <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
@@ -143,6 +151,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th>
           <?=__('admin_comics_list_private')?>
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('private');")?>
+        </th>
+        <th>
+          <?=__('admin_comics_list_tags')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('tags');")?>
         </th>
         <th>
           <?=__('act')?>
@@ -177,6 +189,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </th>
 
         <th>
+          <select class="table_search" name="admin_comics_search_tags" id="admin_comics_search_tags" onchange="admin_comic_list_search();">
+            <option value="0">&nbsp;</option>
+            <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
+            <option value="<?=$tags_list[$i]['id']?>"><?=$tags_list[$i]['title']?></option>
+            <?php endfor; ?>
+          </select>
+        </th>
+
+        <th>
           &nbsp;
         </th>
 
@@ -189,7 +210,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="6" class="uppercase text_light dark bold align_center">
+        <td colspan="7" class="uppercase text_light dark bold align_center">
           <?=__('admin_comics_list_count', preset_values: array($comics_list['rows']), amount: $comics_list['rows'])?>
         </td>
       </tr>
@@ -223,6 +244,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           &nbsp;
           <?php endif; ?>
         </td>
+
+        <?php if($comics_list[$i]['ntags']): ?>
+        <td class="align_center nowrap">
+          <?=$comics_list[$i]['ntags']?>
+        </td>
+        <?php else: ?>
+        <td class="align_center nowrap">
+          &nbsp;
+        </td>
+        <?php endif; ?>
 
         <td class="align_center nowrap">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: root_path())?>

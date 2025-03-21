@@ -95,6 +95,7 @@ function comics_list( $sort_by = 'date'   ,
   $search_title   = sanitize_array_element($search, 'title', 'string');
   $search_type    = sanitize_array_element($search, 'type', 'int');
   $search_private = sanitize_array_element($search, 'private', 'int');
+  $search_tags    = sanitize_array_element($search, 'tags', 'int');
 
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
@@ -104,6 +105,9 @@ function comics_list( $sort_by = 'date'   ,
                                           OR    comics.title_fr  LIKE '%$search_title%' ) " : "";
   $query_search .= ($search_type)     ? " AND comics.fk_comic_types = $search_type "        : "";
   $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                        : "";
+
+  // Different search for tags
+  $query_having = ($search_tags) ? " AND FIND_IN_SET('$search_tags', GROUP_CONCAT(tags.id)) > 0 " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
@@ -117,24 +121,36 @@ function comics_list( $sort_by = 'date'   ,
     'private' => "  ORDER BY    comics.is_public          ASC   ,
                                 comics.upload_date        DESC  ,
                                 comics.title_$lang        ASC   ",
+    'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id)
+                                                          DESC  ,
+                                comics.upload_date        DESC  ,
+                                comics.title_$lang        ASC   ",
     default   => "  ORDER BY    comics.upload_date        DESC  ,
                                 comics.title_$lang        ASC   ",
   };
 
   // Fetch the comics
-  $comics = query("   SELECT    comics.id               AS 'c_id'       ,
-                                comics.title_$lang      AS 'c_title'    ,
-                                comics.title_en         AS 'c_title_en' ,
-                                comics.title_fr         AS 'c_title_fr' ,
-                                comics.upload_date      AS 'c_date'     ,
-                                comics.is_public        AS 'c_public'   ,
-                                comic_types.name_$lang  AS 'ct_name'
+  $comics = query("   SELECT    comics.id                     AS 'c_id'       ,
+                                comics.title_$lang            AS 'c_title'    ,
+                                comics.title_en               AS 'c_title_en' ,
+                                comics.title_fr               AS 'c_title_fr' ,
+                                comics.upload_date            AS 'c_date'     ,
+                                comics.is_public              AS 'c_public'   ,
+                                comic_types.name_$lang        AS 'ct_name'    ,
+                                COUNT(DISTINCT tags.id) AS 't_count'
                       FROM      comics
                       LEFT JOIN comic_types
-                      ON        comics.fk_comic_types = comic_types.id
+                      ON        comic_types.id = comics.fk_comic_types
+                      LEFT JOIN comic_tags
+                      ON        comic_tags.fk_comics = comics.id
+                      LEFT JOIN tags
+                      ON        tags.id = comic_tags.fk_tags
                       WHERE     1 = 1
-                                $query_search
-                                $query_sort ");
+                      $query_search
+                      GROUP BY  comics.id
+                      HAVING    1 = 1
+                      $query_having
+                      $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comics); $i++)
@@ -147,6 +163,7 @@ function comics_list( $sort_by = 'date'   ,
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['private']    = (!$row['c_public']);
+    $data[$i]['ntags']      = sanitize_output($row['t_count']);
   }
 
   // Add the number of rows to the returned data

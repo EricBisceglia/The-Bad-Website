@@ -171,6 +171,8 @@ ___('admin_comics_list_date',     'EN', "Uploaded");
 ___('admin_comics_list_date',     'FR', "Mis en ligne");
 ___('admin_comics_list_private',  'EN', "Priv.");
 ___('admin_comics_list_private',  'FR', "Priv.");
+___('admin_comics_list_tags',     'EN', "Tags");
+___('admin_comics_list_tags',     'FR', "Tags");
 ___('admin_comics_list_count',    'EN', "{{1}} comic");
 ___('admin_comics_list_count',    'FR', "{{1}} comic");
 ___('admin_comics_list_count+',   'EN', "{{1}} comics");
