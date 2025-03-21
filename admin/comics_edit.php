@@ -36,7 +36,8 @@ $js   = array('admin/admin');
 $admin_comic_id = (int)form_fetch_element('id', request_type: 'GET');
 
 // Fetch the image's data
-$admin_comic_data = comics_get($admin_comic_id);
+$admin_comic_data = comics_get( comic_id:         $admin_comic_id ,
+                                show_all_images:  true            );
 
 // Stop here if the image does not exist
 if(!$admin_comic_data)
@@ -97,7 +98,7 @@ $comic_private_checked = ($admin_comic_data['private']) ? ' checked' : '';
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_50 padding_top padding_bot">
 
   <h2 class="padding_bot">
     <?=__link('admin/comics', __('admin_comics_edit_title'), 'text_light', path: root_path())?>
@@ -173,6 +174,34 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   </form>
 
 </div>
+
+<?php if($admin_comic_data['images']['count'] > 0): ?>
+
+<hr>
+
+<div class="width_30">
+
+  <?php for($i = 0; $i < $admin_comic_data['images']['count']; $i++): ?>
+
+    <div class="padding_top align_center">
+      <h5 class="padding_bot">
+        [<?=$admin_comic_data['images']['lang'][$i]?>]
+        <?=string_change_case($admin_comic_data['images']['type'][$i], 'initials')?>
+        <?=__icon('edit', alt: 'M', title: __('edit'), path: root_path(), href: 'admin/images_edit?id='.$admin_comic_data['images']['id'][$i], popup: true, class: 'valign_middle pointer tinyspaced_left')?>
+      </h5>
+      <img src="<?=$path?>img/comics/<?=$admin_comic_data['images']['name'][$i]?>" alt="<?=$admin_comic_data['images']['name'][$i]?>" title="<?=$admin_comic_data['images']['name'][$i]?>">
+      <?php if($admin_comic_data['images']['trans'][$i]): ?>
+      <blockquote>
+        <?=$admin_comic_data['images']['trans'][$i]?>
+      </blockquote>
+      <?php endif; ?>
+    </div>
+
+  <?php endfor; ?>
+
+</div>
+
+<?php endif; ?>
 
 <?php /***************************************************************************************************************/
 /*                                                                                                                   */

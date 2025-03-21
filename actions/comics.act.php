@@ -25,12 +25,14 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Returns data related to a comic.
  *
- * @param   int         $comic_id  The comic's ID
+ * @param   int         $comic_id         The comic's ID
+ * @param   bool        $show_all_images  Shows all images linked to the comic instead of filtering by language.
  *
- * @return  array|null             An array containing the comic's data, or null if it doesn't exist.
+ * @return  array|null                    An array containing the comic's data, or null if it doesn't exist.
  */
 
-function comics_get( int $comic_id ) : array|null
+function comics_get(  int   $comic_id                ,
+                      bool  $show_all_images = false ) : array|null
 {
   // Sanitize the comic's id
   $comic_id = sanitize($comic_id, 'int');
@@ -38,6 +40,9 @@ function comics_get( int $comic_id ) : array|null
   // Return null if the comic does not exist
   if(!database_row_exists('comics', $comic_id))
     return null;
+
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the comics's data
   $comic_data = query(" SELECT  comics.is_public        AS 'c_public'   ,
@@ -59,6 +64,40 @@ function comics_get( int $comic_id ) : array|null
   $data['title_fr'] = sanitize_output($comic_data['c_title_fr']);
   $data['desc_en']  = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']  = sanitize_output($comic_data['c_desc_fr']);
+
+  // Prepare a condition for the images
+  $query_where = ($show_all_images ===  true) ? " "
+                                              : " AND images.language  LIKE '$lang'
+                                                  AND image_types.name    = 'comic' ";
+
+  // Fetch images linked to the comic
+  $comic_images = query(" SELECT    images.id         AS 'i_id'     ,
+                                    images.name       AS 'i_name'   ,
+                                    images.language   AS 'i_lang'   ,
+                                    images.transcript AS 'i_trans'  ,
+                                    image_types.name  AS 'it_name'
+                          FROM      images
+                          LEFT JOIN image_types
+                          ON        images.fk_image_types = image_types.id
+                          WHERE     images.fk_comics = '$comic_id'
+                                    $query_where
+                          ORDER BY  image_types.id      DESC  ,
+                                    images.image_order  ASC   ,
+                                    images.name         ASC   ,
+                                    images.language     ASC   ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($comic_images); $i++)
+  {
+    $data['images']['id'][$i]     = sanitize_output($row['i_id']);
+    $data['images']['name'][$i]   = sanitize_output($row['i_name']);
+    $data['images']['lang'][$i]   = sanitize_output($row['i_lang']);
+    $data['images']['type'][$i]   = sanitize_output($row['it_name']);
+    $data['images']['trans'][$i]  = sanitize_output($row['i_trans'], preserve_line_breaks: true);
+  }
+
+  // Add the number of images to the returned data
+  $data['images']['count'] = $i;
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT  comic_tags.fk_tags AS 'ct_id'
