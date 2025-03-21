@@ -38,6 +38,7 @@ if(isset($_POST['image_edit']))
 
   // Assemble an array with the postdata
   $admin_image_data = array(  'name'  => form_fetch_element('image_name')                       ,
+                              'comic' => form_fetch_element('image_comic')                      ,
                               'type'  => form_fetch_element('image_type')                       ,
                               'lang'  => form_fetch_element('image_lang')                       ,
                               'date'  => form_fetch_element('image_date')                       ,

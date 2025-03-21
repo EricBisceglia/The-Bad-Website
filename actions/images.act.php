@@ -40,6 +40,7 @@ function images_get( int $image_id ) : array|null
   // Fetch the image's data
   $image_data = query(" SELECT  images.name           AS 'i_name' ,
                                 images.fk_image_types AS 'i_type' ,
+                                images.fk_comics      AS 'i_comic' ,
                                 images.upload_date    AS 'i_date' ,
                                 images.is_nsfw        AS 'i_nsfw' ,
                                 images.language       AS 'i_lang' ,
@@ -51,6 +52,7 @@ function images_get( int $image_id ) : array|null
   // Sanitize the data for display
   $data['name']   = sanitize_output($image_data['i_name']);
   $data['type']   = sanitize_output($image_data['i_type']);
+  $data['comic']  = sanitize_output($image_data['i_comic']);
   $data['lang']   = sanitize_output($image_data['i_lang']);
   $data['date']   = sanitize_output($image_data['i_date']);
   $data['nsfw']   = sanitize_output($image_data['i_nsfw']);
@@ -189,21 +191,23 @@ function images_add(  array $image_file ,
   }
 
   // Sanitize and prepare the rest of the contents
-  $image_type = sanitize($image_data['type'], 'string');
-  $image_lang = sanitize($image_data['lang'], 'string');
-  $image_nsfw = sanitize($image_data['nsfw'], 'int');
-  $image_date = sanitize(date('Y-m-d'), 'string');
+  $image_comic  = sanitize($image_data['comic'], 'int');
+  $image_type   = sanitize($image_data['type'], 'string');
+  $image_lang   = sanitize($image_data['lang'], 'string');
+  $image_nsfw   = sanitize($image_data['nsfw'], 'int');
+  $image_date   = sanitize(date('Y-m-d'), 'string');
 
   // Upload the image
   if(move_uploaded_file($tmp_name, $file_path))
   {
     // Create the image entry
     query(" INSERT INTO images
-            SET         images.name           = '$name'       ,
-                        images.fk_image_types = '$image_type' ,
-                        images.language       = '$image_lang' ,
-                        images.is_nsfw        = '$image_nsfw' ,
-                        images.upload_date    = '$image_date'  ");
+            SET         images.name           = '$name'         ,
+                        images.fk_image_types = '$image_type'   ,
+                        images.fk_comics      = '$image_comic'  ,
+                        images.language       = '$image_lang'   ,
+                        images.is_nsfw        = '$image_nsfw'   ,
+                        images.upload_date    = '$image_date'   ");
 
     // Fetch the newly created image's id
     $image_id = query_id();
@@ -277,6 +281,7 @@ function images_edit( int   $image_id ,
 
   // Sanitize the rest of the data
   $image_type   = sanitize($data['type'], 'int');
+  $image_comic  = sanitize($data['comic'], 'int');
   $image_lang   = sanitize($data['lang'], 'string');
   $image_date   = sanitize($data['date'], 'string');
   $image_nsfw   = sanitize($data['nsfw'], 'int');
@@ -284,13 +289,14 @@ function images_edit( int   $image_id ,
 
   // Edit the image
   query(" UPDATE  images
-          SET     images.name           = '$name' ,
-                  images.fk_image_types = '$image_type' ,
-                  images.language       = '$image_lang' ,
-                  images.upload_date    = '$image_date' ,
-                  images.is_nsfw        = '$image_nsfw' ,
+          SET     images.name           = '$name'         ,
+                  images.fk_image_types = '$image_type'   ,
+                  images.fk_comics      = '$image_comic'  ,
+                  images.language       = '$image_lang'   ,
+                  images.upload_date    = '$image_date'   ,
+                  images.is_nsfw        = '$image_nsfw'   ,
                   images.transcript     = '$image_trans'
-          WHERE   images.id             = '$image_id' ");
+          WHERE   images.id             = '$image_id'     ");
 }
 
 

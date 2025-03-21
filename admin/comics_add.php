@@ -4,7 +4,7 @@
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
-include_once './../actions/comics.act.php'; # Comic related actions
+include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary

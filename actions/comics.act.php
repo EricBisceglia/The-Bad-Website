@@ -95,7 +95,7 @@ function comics_list( $sort_by = 'date'   ,
   $search_title   = sanitize_array_element($search, 'title', 'string');
   $search_type    = sanitize_array_element($search, 'type', 'int');
   $search_private = sanitize_array_element($search, 'private', 'int');
-  $search_tags    = sanitize_array_element($search, 'tags', 'int');
+  $search_tag_id  = sanitize_array_element($search, 'tag_id', 'int');
 
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
@@ -107,7 +107,7 @@ function comics_list( $sort_by = 'date'   ,
   $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                        : "";
 
   // Different search for tags
-  $query_having = ($search_tags) ? " AND FIND_IN_SET('$search_tags', GROUP_CONCAT(tags.id)) > 0 " : "";
+  $query_having = ($search_tag_id) ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0 " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
@@ -137,7 +137,9 @@ function comics_list( $sort_by = 'date'   ,
                                 comics.upload_date            AS 'c_date'     ,
                                 comics.is_public              AS 'c_public'   ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
-                                COUNT(DISTINCT tags.id) AS 't_count'
+                                COUNT(DISTINCT tags.id)       AS 't_count'    ,
+                                GROUP_CONCAT(DISTINCT tags.title_$lang ORDER BY tags.sorting_order ASC SEPARATOR ', ')
+                                                              AS 't_names'
                       FROM      comics
                       LEFT JOIN comic_types
                       ON        comic_types.id = comics.fk_comic_types
@@ -157,6 +159,7 @@ function comics_list( $sort_by = 'date'   ,
   {
     $data[$i]['id']         = sanitize_output($row['c_id']);
     $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 35, '...'));
+    $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
     $data[$i]['type']       = sanitize_output($row['ct_name']);
@@ -164,6 +167,7 @@ function comics_list( $sort_by = 'date'   ,
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['private']    = (!$row['c_public']);
     $data[$i]['ntags']      = sanitize_output($row['t_count']);
+    $data[$i]['tags']       = sanitize_output($row['t_names']);
   }
 
   // Add the number of rows to the returned data

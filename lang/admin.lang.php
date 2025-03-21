@@ -118,6 +118,8 @@ ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)
 ___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
 ___('admin_images_add_type',            'EN', "Image type");
 ___('admin_images_add_type',            'FR', "Type d'image");
+___('admin_images_add_comic',           'EN', "Linked comic");
+___('admin_images_add_comic',           'FR', "Comic lié");
 ___('admin_images_add_lang',            'EN', "Language");
 ___('admin_images_add_lang',            'FR', "Langue");
 ___('admin_images_add_date',            'EN', "Upload date (YYYY-MM-DD)");
@@ -177,6 +179,8 @@ ___('admin_comics_list_count',    'EN', "{{1}} comic");
 ___('admin_comics_list_count',    'FR', "{{1}} comic");
 ___('admin_comics_list_count+',   'EN', "{{1}} comics");
 ___('admin_comics_list_count+',   'FR', "{{1}} comics");
+___('admin_comics_list_link_img', 'EN', "Linked images");
+___('admin_comics_list_link_img', 'FR', "Images liées");
 
 
 // Add a comic

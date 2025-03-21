@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/images.act.php'; # Image management
+include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -40,6 +41,22 @@ $admin_image_data = images_get($admin_image_id);
 if(!$admin_image_data)
   exit(header("Location: ".$path."admin/images"));
 
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch comics
+
+// Fetch a list of all comics
+$comics_list = comics_list();
+
+// Select the linked comic
+for($i = 0; $i < $comics_list['rows']; $i++)
+{
+  $comic_selected[$i] = '';
+  if($comics_list[$i]['id'] === $admin_image_data['comic'])
+    $comic_selected[$i] = ' selected';
+}
 
 
 
@@ -97,6 +114,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div class="smallpadding_bot">
         <label for="image_name"><?=__('admin_images_add_name')?></label>
         <input class="indiv" type="text" name="image_name" id="image_name" value="<?=$admin_image_data['name']?>">
+      </div>
+
+      <div class="smallpadding_bot">
+        <label for="image_comic"><?=__('admin_images_add_comic')?></label>
+        <select class="indiv align_left" name="image_comic" id="image_comic">
+          <option value="0">&nbsp;</option>
+          <?php for($i = 0; $i < $comics_list['rows']; $i++) { ?>
+          <option value="<?=$comics_list[$i]['id']?>"<?=$comic_selected[$i]?>><?=$comics_list[$i]['ftitle']?></option>
+          <?php } ?>
+        </select>
       </div>
 
       <div class="smallpadding_bot">

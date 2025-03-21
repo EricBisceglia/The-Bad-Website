@@ -4,7 +4,7 @@
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
-include_once './../actions/comics.act.php'; # Comic related actions
+include_once './../actions/comics.act.php'; # Comic management
 include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/admin.lang.php';    # Admin translations
 
@@ -110,7 +110,7 @@ $admin_comics_sort = form_fetch_element('admin_comics_sort', 'date');
 $admin_comics_search = array( 'title'   => form_fetch_element('admin_comics_search_title')    ,
                               'type'    => form_fetch_element('admin_comics_search_type')     ,
                               'private' => form_fetch_element('admin_comics_search_private')  ,
-                              'tags'    => form_fetch_element('admin_comics_search_tags')     );
+                              'tag_id'  => form_fetch_element('admin_comics_search_tag_id')   );
 
 // Fetch the comics
 $comics_list = comics_list( sort_by:  $admin_comics_sort    ,
@@ -246,8 +246,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <?php if($comics_list[$i]['ntags']): ?>
-        <td class="align_center nowrap">
+        <td class="align_center nowrap tooltip_container">
           <?=$comics_list[$i]['ntags']?>
+          <div class="tooltip">
+            <?=str_replace(', ', '<br>', $comics_list[$i]['tags'])?>
+          </div>
         </td>
         <?php else: ?>
         <td class="align_center nowrap">
