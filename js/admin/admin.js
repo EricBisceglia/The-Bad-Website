@@ -175,6 +175,7 @@ function admin_comic_list_search( sort = null )
   postdata += '&admin_comics_search_title='   + fetch_sanitize_id('admin_comics_search_title');
   postdata += '&admin_comics_search_type='    + fetch_sanitize_id('admin_comics_search_type');
   postdata += '&admin_comics_search_private=' + fetch_sanitize_id('admin_comics_search_private');
+  postdata += '&admin_comics_search_images='  + fetch_sanitize_id('admin_comics_search_images');
   postdata += '&admin_comics_search_tag_id='  + fetch_sanitize_id('admin_comics_search_tags');
 
   // Submit the search

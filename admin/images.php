@@ -198,7 +198,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
               <?=$images_list[$i]['name_full']?>
             </p>
             <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
-              <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>">
+              <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>" loading="lazy">
             </a>
           </div>
         </td>

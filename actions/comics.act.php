@@ -95,6 +95,7 @@ function comics_list( $sort_by = 'date'   ,
   $search_title   = sanitize_array_element($search, 'title', 'string');
   $search_type    = sanitize_array_element($search, 'type', 'int');
   $search_private = sanitize_array_element($search, 'private', 'int');
+  $search_images  = sanitize_array_element($search, 'images', 'int');
   $search_tag_id  = sanitize_array_element($search, 'tag_id', 'int');
 
   // Fetch the user's current language
@@ -107,26 +108,30 @@ function comics_list( $sort_by = 'date'   ,
   $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                        : "";
 
   // Different search for tags
-  $query_having = ($search_tag_id) ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0 " : "";
+  $query_having  = ($search_tag_id)         ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0  " : "";
+  $query_having .= ($search_images === -1)  ? " AND COUNT(DISTINCT images.id) = 0                             " : "";
+  $query_having .= ($search_images === 1)   ? " AND COUNT(DISTINCT images.id) > 0                             " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'title'   => "  ORDER BY    comics.title_$lang        ASC   ,
-                                comics.upload_date        DESC  ,
-                                comics.title_en           ASC   ",
-    'type'    => "  ORDER BY    comic_types.sorting_order ASC   ,
-                                comics.upload_date        DESC  ,
-                                comics.title_en           ASC   ",
-    'private' => "  ORDER BY    comics.is_public          ASC   ,
-                                comics.upload_date        DESC  ,
-                                comics.title_$lang        ASC   ",
-    'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id)
-                                                          DESC  ,
-                                comics.upload_date        DESC  ,
-                                comics.title_$lang        ASC   ",
-    default   => "  ORDER BY    comics.upload_date        DESC  ,
-                                comics.title_$lang        ASC   ",
+    'title'   => "  ORDER BY    comics.title_$lang            ASC   ,
+                                comics.upload_date            DESC  ,
+                                comics.title_en               ASC   ",
+    'type'    => "  ORDER BY    comic_types.sorting_order     ASC   ,
+                                comics.upload_date            DESC  ,
+                                comics.title_en               ASC   ",
+    'private' => "  ORDER BY    comics.is_public              ASC   ,
+                                comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
+    'images'  => "  ORDER BY    COUNT(DISTINCT images.id)     DESC  ,
+                                comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
+    'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id) DESC  ,
+                                comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
+    default   => "  ORDER BY    comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
   };
 
   // Fetch the comics
@@ -139,7 +144,10 @@ function comics_list( $sort_by = 'date'   ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
                                 COUNT(DISTINCT tags.id)       AS 't_count'    ,
                                 GROUP_CONCAT(DISTINCT tags.title_$lang ORDER BY tags.sorting_order ASC SEPARATOR ', ')
-                                                              AS 't_names'
+                                                              AS 't_names'    ,
+                                COUNT(DISTINCT images.id)     AS 'i_count'    ,
+                                GROUP_CONCAT(DISTINCT images.name ORDER BY images.image_order ASC SEPARATOR ', ')
+                                                              AS 'i_names'
                       FROM      comics
                       LEFT JOIN comic_types
                       ON        comic_types.id = comics.fk_comic_types
@@ -147,6 +155,8 @@ function comics_list( $sort_by = 'date'   ,
                       ON        comic_tags.fk_comics = comics.id
                       LEFT JOIN tags
                       ON        tags.id = comic_tags.fk_tags
+                      LEFT JOIN images
+                      ON        images.fk_comics = comics.id
                       WHERE     1 = 1
                       $query_search
                       GROUP BY  comics.id
@@ -158,7 +168,7 @@ function comics_list( $sort_by = 'date'   ,
   for($i = 0; $row = query_row($comics); $i++)
   {
     $data[$i]['id']         = sanitize_output($row['c_id']);
-    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 35, '...'));
+    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 32, '...'));
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
@@ -168,6 +178,8 @@ function comics_list( $sort_by = 'date'   ,
     $data[$i]['private']    = (!$row['c_public']);
     $data[$i]['ntags']      = sanitize_output($row['t_count']);
     $data[$i]['tags']       = sanitize_output($row['t_names']);
+    $data[$i]['nimages']    = sanitize_output($row['i_count']);
+    $data[$i]['images']     = sanitize_output($row['i_names']);
   }
 
   // Add the number of rows to the returned data

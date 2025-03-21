@@ -5,6 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
+include_once './../actions/images.act.php'; # Image management
 include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/admin.lang.php';    # Admin translations
 
@@ -30,7 +31,7 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch a list of all tags
+// Fetch a list of all tags and images
 
 $tags_list = tags_list();
 
@@ -110,6 +111,7 @@ $admin_comics_sort = form_fetch_element('admin_comics_sort', 'date');
 $admin_comics_search = array( 'title'   => form_fetch_element('admin_comics_search_title')    ,
                               'type'    => form_fetch_element('admin_comics_search_type')     ,
                               'private' => form_fetch_element('admin_comics_search_private')  ,
+                              'images'  => form_fetch_element('admin_comics_search_images')   ,
                               'tag_id'  => form_fetch_element('admin_comics_search_tag_id')   );
 
 // Fetch the comics
@@ -153,6 +155,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('private');")?>
         </th>
         <th>
+          <?=__('admin_comics_list_images')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('images');")?>
+        </th>
+        <th>
           <?=__('admin_comics_list_tags')?>
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('tags');")?>
         </th>
@@ -189,6 +195,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </th>
 
         <th>
+          <select class="table_search" name="admin_comics_search_images" id="admin_comics_search_images" onchange="admin_comic_list_search();">
+            <option value="0">&nbsp;</option>
+            <option value="-1"><?=__('admin_comics_list_images_n')?></option>
+            <option value="1"><?=__('admin_comics_list_images_y')?></option>
+          </select>
+        </th>
+
+        <th>
           <select class="table_search" name="admin_comics_search_tags" id="admin_comics_search_tags" onchange="admin_comic_list_search();">
             <option value="0">&nbsp;</option>
             <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
@@ -210,7 +224,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="7" class="uppercase text_light dark bold align_center">
+        <td colspan="8" class="uppercase text_light dark bold align_center">
           <?=__('admin_comics_list_count', preset_values: array($comics_list['rows']), amount: $comics_list['rows'])?>
         </td>
       </tr>
@@ -244,6 +258,19 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           &nbsp;
           <?php endif; ?>
         </td>
+
+        <?php if($comics_list[$i]['nimages']): ?>
+        <td class="align_center nowrap tooltip_container">
+          <?=$comics_list[$i]['nimages']?>
+          <div class="tooltip">
+            <?=str_replace(', ', '<br>', $comics_list[$i]['images'])?>
+          </div>
+        </td>
+        <?php else: ?>
+        <td class="align_center nowrap">
+          &nbsp;
+        </td>
+        <?php endif; ?>
 
         <?php if($comics_list[$i]['ntags']): ?>
         <td class="align_center nowrap tooltip_container">

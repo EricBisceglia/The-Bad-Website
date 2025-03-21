@@ -143,7 +143,7 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 35, '...');
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 32, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['type']       = sanitize_output($row['i_type']);
