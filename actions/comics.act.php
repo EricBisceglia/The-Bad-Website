@@ -247,9 +247,20 @@ function comics_add( array $data ) : int
   $type     = sanitize_array_element($data, 'type', 'int');
   $date     = sanitize(date('Y-m-d'), 'string');
 
+  // Generate a slug for the comic
+  $slug = str_replace(' ', '_', string_truncate($title_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('comics', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
   // Add the comic to the database
   query(" INSERT INTO comics
-          SET         comics.title_en       = '$title_en' ,
+          SET         comics.slug           = '$slug'     ,
+                      comics.title_en       = '$title_en' ,
                       comics.title_fr       = '$title_fr' ,
                       comics.fk_comic_types = '$type'     ,
                       comics.upload_date    = '$date'     ,
@@ -293,9 +304,25 @@ function comics_edit( int   $comic_id ,
   $comic_desc_en  = sanitize_array_element($data, 'desc_en', 'string');
   $comic_desc_fr  = sanitize_array_element($data, 'desc_fr', 'string');
 
+  // Get rid of the comic's slug
+  query(" UPDATE  comics
+          SET     comics.slug = ''
+          WHERE   comics.id   = '$comic_id' ");
+
+  // Generate a new slug for the comic
+  $slug = str_replace(' ', '_', string_truncate($comic_title_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('comics', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
   // Edit the comic
   query(" UPDATE  comics
-          SET     comics.is_public      = '$comic_private'  ,
+          SET     comics.slug           = '$slug'           ,
+                  comics.is_public      = '$comic_private'  ,
                   comics.fk_comic_types = '$comic_type'     ,
                   comics.upload_date    = '$comic_date'     ,
                   comics.title_en       = '$comic_title_en' ,

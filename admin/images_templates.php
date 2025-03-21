@@ -57,7 +57,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_templates_preview')?>
   </h5>
-  <div style="column-count: 2" class="padding_bot">
+  <div class="padding_bot">
     <img src="<?=$path?>img/templates/preview_en.png">
     <img src="<?=$path?>img/templates/preview_fr.png">
   </div>
@@ -65,7 +65,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_templates_banner')?>
   </h5>
-  <div style="column-count: 2" class="padding_bot">
+  <div class="padding_bot">
     <img src="<?=$path?>img/templates/comic_type_en.png">
     <img src="<?=$path?>img/templates/comic_type_fr.png">
   </div>

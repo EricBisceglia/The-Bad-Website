@@ -179,12 +179,12 @@ ___('admin_images_templates_color_4', 'EN', "Color 4: Blue #99D9EA");
 ___('admin_images_templates_color_4', 'FR', "Couleur 4 : Bleu #99D9EA");
 ___('admin_images_templates_color_5', 'EN', "Color 5: Grey #C3C3C3");
 ___('admin_images_templates_color_5', 'FR', "Couleur 5 : Gris #C3C3C3");
-___('admin_images_templates_banner',  'EN', "Category banner: 490x180<br>img/banners/comics/types/");
-___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 490x180<br>img/banners/comics/types/");
+___('admin_images_templates_banner',  'EN', "Category banner: 1000x200<br>img/banners/comics/types/");
+___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 1000x200<br>img/banners/comics/types/");
 ___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
 ___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_preview', 'EN', "Comic preview: 490x400");
-___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 490x400");
+___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
+___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
 
 
 
