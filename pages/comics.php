@@ -1,0 +1,86 @@
+<?php /***************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                       SETUP                                                       */
+/*                                                                                                                   */
+// File inclusions /**************************************************************************************************/
+include_once './../inc/includes.inc.php';   # Core
+include_once './../actions/comics.act.php'; # Comic management
+include_once './../lang/comics.lang.php';   # Admin translations
+
+// Page summary
+$page_url       = "pagescomics";
+$page_title_en  = "Comics";
+$page_title_fr  = "Comics";
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                     BACK END                                                      */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get the list of comics
+
+$comics_list = comics_list( sort_by:    'date'  ,
+                            is_public:  true    ,
+                            is_major:   true    );
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                     FRONT END                                                     */
+/*                                                                                                                   */
+/*******************************************************************************/ include './../inc/header.inc.php'; ?>
+
+<div class="width_50">
+
+  <div class="flexcontainer nopadding_bot">
+    <div class="flex smallspaced_right">
+      <img src="<?=$path?>img/banners/comics/full_list_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+    </div>
+    <div class="flex">
+      <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+    </div>
+  </div>
+
+  <div class="flexcontainer smallpadding_bot">
+    <div class="flex smallspaced_right">
+      <img src="<?=$path?>img/banners/comics/categories_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_previous')?>">
+    </div>
+    <div class="flex">
+      <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+    </div>
+    <div class="flex smallspaced_left">
+      <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+    </div>
+  </div>
+
+  <div class="align_center">
+    <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
+    <?php if($i < 20): ?>
+    <div class="smallpadding_bot">
+      <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+        <?php if($comics_list[$i]['preview']) : ?>
+        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <?php else: ?>
+        <img src="<?=$path?>img/templates/preview_<?=$lang?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <?php endif; ?>
+      </a>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+
+</div>
+
+
+<?php /***************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                    END OF PAGE                                                    */
+/*                                                                                                                   */
+/**********************************************************************************/ include './../inc/footer.inc.php';

@@ -18,6 +18,7 @@ ___('comics_description', 'FR', "Au sujet de ce comic");
 ___('comics_transcript',  'EN', "Image transcriptions");
 ___('comics_transcript',  'FR', "Transcription des images");
 
+
 // Navigation
 ___('comics_nav_previous', 'EN', "Previous comic");
 ___('comics_nav_previous', 'FR', "Comic précédent");
@@ -25,3 +26,10 @@ ___('comics_nav_next',     'EN', "Next comic");
 ___('comics_nav_next',     'FR', "Comic suivant");
 ___('comics_nav_random',   'EN', "Random comic");
 ___('comics_nav_random',   'FR', "Comic aléatoire");
+
+
+// Comics list
+___('comics_list_categories', 'EN', "Categories");
+___('comics_list_categories', 'FR', "Catégories");
+___('comics_list_tags',       'EN', "Tags");
+___('comics_list_tags',       'FR', "Tags");
