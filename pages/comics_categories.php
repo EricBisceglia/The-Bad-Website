@@ -1,26 +1,17 @@
 <?php /***************************************************************************************************************/
 /*                                                                                                                   */
-/*                                                   PAGE SETTINGS                                                   */
+/*                                                       SETUP                                                       */
 /*                                                                                                                   */
-// Inclusions /*******************************************************************************************************/
-include_once './inc/includes.inc.php'; # Core
+// File inclusions /**************************************************************************************************/
+include_once './../inc/includes.inc.php';   # Core
+include_once './../actions/comics.act.php'; # Comic management
+include_once './../lang/comics.lang.php';   # Admin translations
 
 // Page summary
-$page_lang        = array('FR', 'EN');
-$page_url         = "404";
-$page_title_en    = "Page not found";
-$page_title_fr    = "Page non trouvée";
-$page_description = "Error 404: Page not found…";
+$page_url       = "pages/comics_categories";
+$page_title_en  = "Categories";
+$page_title_fr  = "Categories";
 
-// Extra CSS & JS
-$css = array('404');
-
-// Hide the footer
-$hide_footer = 1;
-
-// Hide header except in local dev mode
-if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
-  $hide_header = true;
 
 
 
@@ -30,14 +21,10 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
-// Make the page a hard 404
-header("HTTP/1.0 404 Not Found");
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get the list of comic types
 
-// Inform the header that this is a 404
-$this_page_is_a_404 = '';
-
-// Get the user's language
-$lang_404 = string_change_case(user_get_language(), 'lowercase');
+$comic_types_list = comic_types_list();
 
 
 
@@ -46,16 +33,29 @@ $lang_404 = string_change_case(user_get_language(), 'lowercase');
 /*                                                                                                                   */
 /*                                                     FRONT END                                                     */
 /*                                                                                                                   */
-/**********************************************************************************/ include './inc/header.inc.php'; ?>
+/*******************************************************************************/ include './../inc/header.inc.php'; ?>
 
 <div class="width_50 align_center">
-  <a href="<?=$path?>index">
-    <img src="img/website/404_<?=$lang_404?>.png" alt="404">
-  </a>
+
+  <div class="smallpadding_bot">
+    <a href="<?=$path?>pages/comics">
+      <img src="<?=$path?>img/banners/comics/categories_header_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_next')?>">
+    </a>
+  </div>
+
+  <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
+  <div class="nopadding_bot">
+    <a href="<?=$path?>pages/comics_category?type=<?=$comic_types_list[$i]['id']?>">
+      <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>" loading="lazy">
+    </a>
+  </div>
+  <?php endfor; ?>
+
 </div>
+
 
 <?php /***************************************************************************************************************/
 /*                                                                                                                   */
 /*                                                    END OF PAGE                                                    */
 /*                                                                                                                   */
-/*************************************************************************************/ include './inc/footer.inc.php';
+/**********************************************************************************/ include './../inc/footer.inc.php';

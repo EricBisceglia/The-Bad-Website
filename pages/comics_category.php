@@ -7,11 +7,6 @@ include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/comics.lang.php';   # Admin translations
 
-// Page summary
-$page_url       = "pages/comics";
-$page_title_en  = "Comics";
-$page_title_fr  = "Comics";
-
 
 
 
@@ -22,11 +17,26 @@ $page_title_fr  = "Comics";
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Get the list of comics
+// Get the category and its comics
 
-$comics_list = comics_list( sort_by:    'date'  ,
-                            is_public:  true    ,
-                            is_major:   true    );
+// Fetch the comic type
+$comic_type = (int)form_fetch_element('type', request_type: 'GET');
+
+// Fetch the comic type data
+$comic_type_data = comic_types_get($comic_type);
+
+// Stop here if the comic type does not exist
+if(!$comic_type_data)
+  exit(header("Location: ./comics_categories"));
+
+// Get the list of comics in the category
+$comics_list = comics_list( search:     array('type' => $comic_type)  ,
+                            is_public:  true                          );
+
+// Update the page sumary
+$page_url       = "pages/comics_category?type=".$comic_type;
+$page_title_en  = $comic_type_data['name_en'];
+$page_title_fr  = $comic_type_data['name_fr'];
 
 
 
@@ -37,34 +47,16 @@ $comics_list = comics_list( sort_by:    'date'  ,
 /*                                                                                                                   */
 /*******************************************************************************/ include './../inc/header.inc.php'; ?>
 
-<div class="width_50">
+<div class="width_50 align_center">
 
-  <div class="flexcontainer nopadding_bot">
-    <div class="flex smallspaced_right">
-      <img src="<?=$path?>img/banners/comics/full_list_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
-    </div>
-    <div class="flex">
-      <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
-    </div>
-  </div>
-
-  <div class="flexcontainer smallpadding_bot">
-    <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_categories">
-        <img src="<?=$path?>img/banners/comics/categories_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_previous')?>">
-      </a>
-    </div>
-    <div class="flex">
-      <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
-    </div>
-    <div class="flex smallspaced_left">
-      <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
-    </div>
+  <div class="smallpadding_bot">
+    <a href="<?=$path?>pages/comics_categories">
+      <img src="<?=$path.$comic_type_data['banner']?>" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_next')?>">
+    </a>
   </div>
 
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
-    <?php if($i < 20): ?>
     <div class="smallpadding_bot">
       <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
         <?php if($comics_list[$i]['preview']) : ?>
@@ -74,7 +66,6 @@ $comics_list = comics_list( sort_by:    'date'  ,
         <?php endif; ?>
       </a>
     </div>
-    <?php endif; ?>
     <?php endfor; ?>
   </div>
 

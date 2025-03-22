@@ -504,10 +504,14 @@ function comic_types_get( int $comic_type_id ) : array|null
   if(!database_row_exists('comic_types', $comic_type_id))
     return null;
 
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
   // Fetch the comic types's data
   $comic_type_data = query("  SELECT  comic_types.sorting_order   AS 'ct_order'     ,
                                       comic_types.name_en         AS 'ct_name_en'   ,
                                       comic_types.name_fr         AS 'ct_name_fr'   ,
+                                      comic_types.banner_$lang    AS 'ct_banner'    ,
                                       comic_types.banner_en       AS 'ct_banner_en' ,
                                       comic_types.banner_fr       AS 'ct_banner_fr' ,
                                       comic_types.description_en  AS 'ct_desc_en'   ,
@@ -527,6 +531,13 @@ function comic_types_get( int $comic_type_id ) : array|null
   $data['desc_en']    = sanitize_output($comic_type_data['ct_desc_en']);
   $data['desc_fr']    = sanitize_output($comic_type_data['ct_desc_fr']);
   $data['major']      = sanitize_output($comic_type_data['ct_major']);
+
+  // Get the correct banner images
+  $root = root_path();
+  if($comic_type_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_type_data['ct_banner']))
+    $data['banner'] = "img/banners/comics/types/".$comic_type_data['ct_banner'];
+  else
+    $data['banner']= "img/templates/comic_type_".$lang;
 
   // Return the comic type's data
   return $data;
@@ -552,6 +563,7 @@ function comic_types_list() : array
                                   comic_types.name_$lang    AS 'ct_name'      ,
                                   comic_types.name_en       AS 'ct_name_en'   ,
                                   comic_types.name_fr       AS 'ct_name_fr'   ,
+                                  comic_types.banner_$lang  AS 'ct_banner'    ,
                                   comic_types.banner_en     AS 'ct_banner_en' ,
                                   comic_types.banner_fr     AS 'ct_banner_fr'
                           FROM    comic_types
@@ -567,6 +579,13 @@ function comic_types_list() : array
     $data[$i]['name_fr']    = sanitize_output($row['ct_name_fr']);
     $data[$i]['banner_en']  = sanitize_output($row['ct_banner_en']);
     $data[$i]['banner_fr']  = sanitize_output($row['ct_banner_fr']);
+
+    // Get the correct banner images
+    $root = root_path();
+    if($row['ct_banner'] && file_exists($root."img/banners/comics/types/".$row['ct_banner']))
+      $data[$i]['banner'] = "img/banners/comics/types/".$row['ct_banner'];
+    else
+      $data[$i]['banner']= "img/templates/comic_type_".$lang;
   }
 
   // Add the number of rows to the returned data
