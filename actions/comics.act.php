@@ -74,8 +74,14 @@ function comics_get(  int   $comic_id                ,
   $data['desc']         = sanitize_output($comic_data['c_desc'], preserve_line_breaks: true);
   $data['desc_en']      = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
-  $data['type_banner']  = sanitize_output($comic_data['ct_banner']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
+
+  // Get the correct banner image
+  $root = root_path();
+  if($comic_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_data['ct_banner']))
+    $data['type_banner'] = "img/banners/comics/types/".$comic_data['ct_banner'];
+  else
+    $data['type_banner'] = "img/templates/comic_type_".$lang;
 
   // Prepare a condition for the images
   $query_where = ($show_all_images ===  true) ? " "
@@ -128,8 +134,11 @@ function comics_get(  int   $comic_id                ,
   for($i = 0; $row = query_row($comic_tags); $i++)
   {
     $data['tags']['id'][$i]     = sanitize_output($row['ct_id']);
-    $data['tags']['banner'][$i] = sanitize_output($row['t_banner']);
     $data['tags']['title'][$i]  = sanitize_output($row['t_title']);
+    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
+      $data['tags']['banner'][$i] = "img/banners/comics/tags/".$row['t_banner'];
+    else
+      $data['tags']['banner'][$i] = "img/templates/tag_".$lang;
   }
 
   // Add the number of tags to the returned data

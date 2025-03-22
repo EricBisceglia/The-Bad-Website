@@ -155,8 +155,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip_container">
           <?=__icon('image', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
           <div class="tooltip">
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>.png" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>.png" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
           </div>
         </td>
 

@@ -22,6 +22,10 @@ include_once './../lang/comics.lang.php';   # Admin translations
 // Grab the comic's data
 $comic_slug = form_fetch_element('slug', request_type: 'GET');
 
+// Stop here if there is no slug
+if(!$comic_slug)
+  exit(header("Location: ".$path."404"));
+
 // Get the comic's ID
 $comic_id = comics_get_id($comic_slug);
 
@@ -109,9 +113,9 @@ $page_title_fr  = $comic_data['title_fr'];
     </div>
   </div>
 
-  <img src="<?=$path?>img/banners/comics/types/<?=$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <img src="<?=$path?>img/banners/comics/tags/<?=$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
+  <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
   <?php endfor; ?>
 
 </div>
