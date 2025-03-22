@@ -583,12 +583,16 @@ if($last_query < 3)
 {
   sql_create_table('comic_types');
   sql_create_field('comic_types', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
-  sql_create_field('comic_types', 'banner_en', 'TINYTEXT NOT NULL', 'sorting_order');
+  sql_create_field('comic_types', 'is_major', 'TINYINT(1) NOT NULL', 'sorting_order');
+  sql_create_field('comic_types', 'banner_en', 'TINYTEXT NOT NULL', 'is_major');
   sql_create_field('comic_types', 'banner_fr', 'TINYTEXT NOT NULL', 'banner_en');
   sql_create_field('comic_types', 'name_en', 'TINYTEXT NOT NULL', 'banner_fr');
   sql_create_field('comic_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
   sql_create_field('comic_types', 'description_en', 'TEXT NOT NULL', 'name_fr');
   sql_create_field('comic_types', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_index('comic_types', 'comic_types_sorting_order', 'sorting_order');
+  sql_create_index('comic_types', 'comic_types_is_major', 'is_major');
 
   sql_create_table('comics');
   sql_create_field('comics', 'fk_comic_types', 'INT UNSIGNED NOT NULL', 'id');

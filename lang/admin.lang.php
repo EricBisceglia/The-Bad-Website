@@ -289,6 +289,8 @@ ___('admin_comic_types_add_desc_en',    'EN', "Description (EN)");
 ___('admin_comic_types_add_desc_en',    'FR', "Description (EN)");
 ___('admin_comic_types_add_desc_fr',    'EN', "Description (FR)");
 ___('admin_comic_types_add_desc_fr',    'FR', "Description (FR)");
+___('admin_comic_types_add_major',      'EN', "Is a main category (shows up in random comics)");
+___('admin_comic_types_add_major',      'FR', "Est une catégorie principale (apparaît dans les comics aléatoires)");
 ___('admin_comic_types_add_submit',     'EN', "Add comic type");
 ___('admin_comic_types_add_submit',     'FR', "Ajouter un type de comic");
 

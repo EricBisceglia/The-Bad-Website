@@ -490,7 +490,8 @@ function comic_types_get( int $comic_type_id ) : array|null
                                       comic_types.banner_en       AS 'ct_banner_en' ,
                                       comic_types.banner_fr       AS 'ct_banner_fr' ,
                                       comic_types.description_en  AS 'ct_desc_en'   ,
-                                      comic_types.description_fr  AS 'ct_desc_fr'
+                                      comic_types.description_fr  AS 'ct_desc_fr'   ,
+                                      comic_types.is_major        AS 'ct_major'
                               FROM    comic_types
                               WHERE   comic_types.id = '$comic_type_id' ",
                               fetch_row: true);
@@ -504,6 +505,7 @@ function comic_types_get( int $comic_type_id ) : array|null
   $data['banner_fr']  = sanitize_output($comic_type_data['ct_banner_fr']);
   $data['desc_en']    = sanitize_output($comic_type_data['ct_desc_en']);
   $data['desc_fr']    = sanitize_output($comic_type_data['ct_desc_fr']);
+  $data['major']      = sanitize_output($comic_type_data['ct_major']);
 
   // Return the comic type's data
   return $data;
@@ -574,6 +576,7 @@ function comic_types_add( array $data ) : void
   $comic_type_banner_fr = sanitize_array_element($data, 'banner_fr', 'string');
   $comic_type_desc_en   = sanitize_array_element($data, 'desc_en', 'string');
   $comic_type_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
+  $comic_type_major     = sanitize_array_element($data, 'major', 'bool');
 
   // Add the comic type to the database
   query(" INSERT INTO comic_types
@@ -583,7 +586,8 @@ function comic_types_add( array $data ) : void
                       comic_types.banner_en       = '$comic_type_banner_en' ,
                       comic_types.banner_fr       = '$comic_type_banner_fr' ,
                       comic_types.description_en  = '$comic_type_desc_en'   ,
-                      comic_types.description_fr  = '$comic_type_desc_fr'   ");
+                      comic_types.description_fr  = '$comic_type_desc_fr'   ,
+                      comic_types.is_major        = '$comic_type_major'     ");
 }
 
 
@@ -610,6 +614,7 @@ function comic_types_edit( int   $type_id  ,
   $type_banner_fr = sanitize_array_element($data, 'banner_fr', 'string');
   $type_desc_en   = sanitize_array_element($data, 'desc_en', 'string');
   $type_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
+  $type_major     = sanitize_array_element($data, 'major', 'bool');
 
   // Stop here if the comic type does not exist
   if(!database_row_exists('comic_types', $type_id))
@@ -617,13 +622,14 @@ function comic_types_edit( int   $type_id  ,
 
   // Edit the comic type
   query(" UPDATE  comic_types
-          SET     comic_types.sorting_order   = '$type_order'      ,
-                  comic_types.name_en         = '$type_name_en'    ,
-                  comic_types.name_fr         = '$type_name_fr'    ,
-                  comic_types.banner_en       = '$type_banner_en'  ,
-                  comic_types.banner_fr       = '$type_banner_fr'  ,
-                  comic_types.description_en  = '$type_desc_en'    ,
-                  comic_types.description_fr  = '$type_desc_fr'
+          SET     comic_types.sorting_order   = '$type_order'     ,
+                  comic_types.name_en         = '$type_name_en'   ,
+                  comic_types.name_fr         = '$type_name_fr'   ,
+                  comic_types.banner_en       = '$type_banner_en' ,
+                  comic_types.banner_fr       = '$type_banner_fr' ,
+                  comic_types.description_en  = '$type_desc_en'   ,
+                  comic_types.description_fr  = '$type_desc_fr'   ,
+                  comic_types.is_major        = '$type_major'
           WHERE   comic_types.id              = '$type_id' ");
 }
 

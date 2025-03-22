@@ -7,11 +7,6 @@ include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/comics.lang.php';   # Admin translations
 
-// Page summary
-$page_url       = "comic/";
-$page_title_en  = "";
-$page_title_fr  = "";
-
 
 
 
@@ -40,6 +35,15 @@ $comic_data = comics_get( comic_id: $comic_id );
 // Stop here if the comic does not exist
 if(!$comic_data)
   exit(header("Location: ".$path."404"));
+
+// Stop here if the comic is private
+if($comic_data['private'])
+  exit(header("Location: ".$path."404"));
+
+// Update the page sumary
+$page_url       = "comic/".$comic_slug;
+$page_title_en  = $comic_data['title_en'];
+$page_title_fr  = $comic_data['title_fr'];
 
 
 
