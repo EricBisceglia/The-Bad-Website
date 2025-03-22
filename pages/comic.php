@@ -103,7 +103,13 @@ $page_title_fr  = $comic_data['title_fr'];
 
   <div class="flexcontainer smallpadding_bot">
     <div class="flex">
-      <img src="<?=$path?>img/banners/comics/previous_<?=$lang?>" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+      <?php if($comic_data['previous']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
+        <img src="<?=$path?>img/banners/comics/previous_<?=$lang?>" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
     </div>
     <div class="flex smallspaced_left smallspaced_right">
       <a href="<?=$path?>pages/comics_random">
@@ -111,7 +117,13 @@ $page_title_fr  = $comic_data['title_fr'];
       </a>
     </div>
     <div class="flex">
-      <img src="<?=$path?>img/banners/comics/next_<?=$lang?>" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+      <?php if($comic_data['next']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['next']?>">
+        <img src="<?=$path?>img/banners/comics/next_<?=$lang?>" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
     </div>
   </div>
 

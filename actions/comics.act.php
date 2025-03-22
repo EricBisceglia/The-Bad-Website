@@ -145,6 +145,31 @@ function comics_get(  int   $comic_id                ,
   // Add the number of tags to the returned data
   $data['tags']['rows'] = $i;
 
+  // Look up the previous and next comic
+  $comics_list = query("  SELECT    comics.id   AS 'c_id' ,
+                                    comics.slug AS 'c_slug'
+                          FROM      comics
+                          LEFT JOIN comic_types
+                          ON        comic_types.id        = comics.fk_comic_types
+                          WHERE     comics.is_public      = 1
+                          AND       comic_types.is_major  = 1
+                          ORDER BY  comics.upload_date    DESC  ,
+                                    comics.title_$lang    ASC   ");
+
+  // Assemble all comics in an array
+  $comic_slugs_id = 0;
+  for($i = 0; $row = query_row($comics_list); $i++)
+  {
+    $comic_slugs[$i]  = $row['c_slug'];
+    $comic_slugs_id   = ($row['c_id'] == $comic_id) ? $i : $comic_slugs_id;
+  }
+
+  // Get the previous comic's slug
+  $data['previous'] = ($comic_slugs_id < $i-1) ? $comic_slugs[$comic_slugs_id + 1] : null;
+
+  // Get the next comic's slug
+  $data['next'] = ($comic_slugs_id > 0) ? $comic_slugs[$comic_slugs_id - 1] : null;
+
   // Return the comic's data
   return $data;
 }
