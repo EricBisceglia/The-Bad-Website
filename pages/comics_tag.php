@@ -5,12 +5,8 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
+include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/comics.lang.php';   # Admin translations
-
-// Page summary
-$page_url       = "pages/comics_categories";
-$page_title_en  = "Categories";
-$page_title_fr  = "Categories";
 
 
 
@@ -22,9 +18,26 @@ $page_title_fr  = "Categories";
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Get the list of comic types
+// Get the tag and its comics
 
-$comic_types_list = comic_types_list();
+// Fetch the tag
+$comic_tag = (int)form_fetch_element('theme', request_type: 'GET');
+
+// Fetch the comic type data
+$comic_tag_data = tags_get($comic_tag);
+
+// Stop here if the comic type does not exist
+if(!$comic_tag_data)
+  exit(header("Location: ./comic_tags"));
+
+// Get the list of comics in the tag
+$comics_list = comics_list( search:     array('tag_id' => $comic_tag) ,
+                            is_public:  true                          );
+
+// Update the page sumary
+$page_url       = "pages/comic_tag?theme=".$comic_tag;
+$page_title_en  = $comic_tag_data['title_en'];
+$page_title_fr  = $comic_tag_data['title_fr'];
 
 
 
@@ -38,18 +51,24 @@ $comic_types_list = comic_types_list();
 <div class="width_50 align_center">
 
   <div class="smallpadding_bot">
-    <a href="<?=$path?>pages/comics">
-      <img src="<?=$path?>img/banners/comics/categories_header_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
+    <a href="<?=$path?>pages/comics_tags">
+      <img src="<?=$path.$comic_tag_data['banner']?>" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
     </a>
   </div>
 
-  <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
-  <div class="nopadding_bot">
-    <a href="<?=$path?>pages/comics_category?type=<?=$comic_types_list[$i]['id']?>">
-      <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name']?>" title="<?=$comic_types_list[$i]['name']?>" loading="lazy">
-    </a>
+  <div class="align_center">
+    <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
+    <div class="smallpadding_bot">
+      <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+        <?php if($comics_list[$i]['preview']) : ?>
+        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <?php else: ?>
+        <img src="<?=$path?>img/templates/preview_<?=$lang?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <?php endif; ?>
+      </a>
+    </div>
+    <?php endfor; ?>
   </div>
-  <?php endfor; ?>
 
 </div>
 

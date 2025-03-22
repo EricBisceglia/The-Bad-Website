@@ -58,7 +58,9 @@ $comics_list = comics_list( sort_by:    'date'  ,
       <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
     </div>
     <div class="flex smallspaced_left">
-      <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+      <a href="<?=$path?>pages/comics_tags">
+        <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+      </a>
     </div>
   </div>
 

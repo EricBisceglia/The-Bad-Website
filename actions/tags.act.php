@@ -34,10 +34,14 @@ function tags_get( int $tag_id ) : ?array
   if(!database_row_exists('tags', $tag_id))
     return null;
 
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
   // Fetch the tag's data
   $tag_data = query(" SELECT    tags.id             AS 't_id'         ,
                                 tags.sorting_order  AS 't_sort'       ,
                                 tags.name           AS 't_name'       ,
+                                tags.banner_$lang   AS 't_banner'     ,
                                 tags.banner_en      AS 't_banner_en'  ,
                                 tags.banner_fr      AS 't_banner_fr'  ,
                                 tags.title_en       AS 't_title_en'   ,
@@ -58,6 +62,13 @@ function tags_get( int $tag_id ) : ?array
   $data['title_fr']   = sanitize_output($tag_data['t_title_fr']);
   $data['desc_en']    = sanitize_output($tag_data['t_desc_en']);
   $data['desc_fr']    = sanitize_output($tag_data['t_desc_fr']);
+
+  // Get the correct banner images
+  $root = root_path();
+  if($tag_data['t_banner'] && file_exists($root."img/banners/comics/tags/".$tag_data['t_banner']))
+    $data['banner'] = "img/banners/comics/tags/".$tag_data['t_banner'];
+  else
+    $data['banner']= "img/templates/tag_".$lang;
 
   // Return the prepared data
   return $data;
@@ -82,6 +93,7 @@ function tags_list() : array
   $tags = query(" SELECT    tags.id            AS 't_id'        ,
                             tags.sorting_order AS 't_sort'      ,
                             tags.name          AS 't_name'      ,
+                            tags.banner_$lang  AS 't_banner'    ,
                             tags.banner_en     AS 't_banner_en' ,
                             tags.banner_fr     AS 't_banner_fr' ,
                             tags.title_$lang   AS 't_title'     ,
@@ -101,6 +113,13 @@ function tags_list() : array
     $data[$i]['title']      = sanitize_output($row['t_title']);
     $data[$i]['title_en']   = sanitize_output($row['t_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['t_title_fr']);
+
+    // Get the correct banner images
+    $root = root_path();
+    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
+      $data[$i]['banner'] = "img/banners/comics/tags/".$row['t_banner'];
+    else
+      $data[$i]['banner']= "img/templates/tag_".$lang;
   }
 
   // Add the number of rows to the returned data
