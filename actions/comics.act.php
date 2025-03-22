@@ -10,6 +10,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  comics_get                    Returns data related to a comic                                                    */
 /*  comics_get_id                 Returns a comic's id from its slug                                                 */
+/*  comics_get_random_slug        Returns a random comic's slug                                                      */
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
@@ -176,6 +177,36 @@ function comics_get_id( string $slug ) : int|null
 
   // Return the comic's id
   return $comic_id['c_id'];
+}
+
+
+
+
+/**
+ * Returns a random comic's slug.
+ *
+ * @return  string|null  The comic's slug, or null if there are no comics.
+ */
+
+function comics_get_random_slug() : string|null
+{
+  // Fetch a random public comic of a major type
+  $comics = query(" SELECT    comics.slug
+                    FROM      comics
+                    LEFT JOIN comic_types
+                    ON        comic_types.id        = comics.fk_comic_types
+                    WHERE     comics.is_public      = 1
+                    AND       comic_types.is_major  = 1
+                    ORDER BY  RAND()
+                    LIMIT     1 ",
+                    fetch_row: true);
+
+  // Stop here if there are no comics
+  if(!$comics)
+    return null;
+
+  // Return the comic's slug
+  return $comics['slug'];
 }
 
 

@@ -55,7 +55,9 @@ $comics_list = comics_list( sort_by:    'date'  ,
       </a>
     </div>
     <div class="flex">
-      <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      <a href="<?=$path?>pages/comics_random">
+        <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      </a>
     </div>
     <div class="flex smallspaced_left">
       <a href="<?=$path?>pages/comics_tags">
