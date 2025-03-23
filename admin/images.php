@@ -46,6 +46,7 @@ if(isset($_POST['image_edit']))
                               'trans'     => form_fetch_element('image_trans')                          ,
                               'template'  => form_fetch_element('image_template', element_exists: true) ,
                               'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
+                              'reusable'  => form_fetch_element('image_reusable', element_exists: true) ,
                               'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     );
 
   // Edit the image
@@ -215,6 +216,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__icon('duplicate', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
           <?php elseif($images_list[$i]['template']): ?>
           <?=__icon('image', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
+          <?php elseif($images_list[$i]['reusable']): ?>
+          <?=__icon('refresh', is_small: true, alt: 'R', title: __('admin_images_list_type_reus'), path: root_path())?>
           <?php else: ?>
           &nbsp;
           <?php endif; ?>

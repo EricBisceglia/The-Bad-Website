@@ -31,7 +31,11 @@ $js   = array('admin/admin');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch all template images
 
-$images_list = images_list( search: array('template' => 1) );
+// Reusable images
+$reusable_list = images_list( search: array('reusable' => 1) );
+
+// Templates
+$template_list = images_list( search: array('template' => 1) );
 
 
 
@@ -98,12 +102,26 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50">
 
   <h2 class="align_center padding_top padding_bot">
+    <?=__('admin_images_reusables_gallery')?>
+  </h2>
+
+  <div class="padding_bot" style="column-count: 3;">
+    <?php for($i = 0; $i < $reusable_list['rows']; $i++): ?>
+    <a href="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" target="_blank">
+      <img src="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" alt="<?=$reusable_list[$i]['name_full']?>" title="<?=$reusable_list[$i]['name_full']?>">
+    </a>
+    <?php endfor; ?>
+  </div>
+
+  <h2 class="align_center padding_top padding_bot">
     <?=__('admin_images_templates_gallery')?>
   </h2>
 
   <div class="padding_bot" style="column-count: 3;">
-    <?php for($i = 0; $i < $images_list['rows']; $i++): ?>
-    <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>">
+    <?php for($i = 0; $i < $template_list['rows']; $i++): ?>
+    <a href="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" target="_blank">
+      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>">
+    </a>
     <?php endfor; ?>
   </div>
 

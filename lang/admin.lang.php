@@ -101,6 +101,8 @@ ___('admin_images_list_type_prev',  'EN', "Cover");
 ___('admin_images_list_type_prev',  'FR', "Couverture");
 ___('admin_images_list_type_templ', 'EN', "Template");
 ___('admin_images_list_type_templ', 'FR', "Modèle");
+___('admin_images_list_type_reus',  'EN', "Reusable image");
+___('admin_images_list_type_reus',  'FR', "Image réutilisable");
 ___('admin_images_list_language',   'EN', "Lang.");
 ___('admin_images_list_language',   'FR', "Lang.");
 ___('admin_images_list_name',       'EN', "Name");
@@ -130,6 +132,8 @@ ___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
 ___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
 ___('admin_images_add_preview',         'EN', "Is a cover image for a comic");
 ___('admin_images_add_preview',         'FR', "Est l'image de couverture d'un comic");
+___('admin_images_add_reusable',        'EN', "Is a reusable image");
+___('admin_images_add_reusable',        'FR', "Est une image réutilisable");
 ___('admin_images_add_template',        'EN', "Is a template");
 ___('admin_images_add_template',        'FR', "Est un modèle d'image");
 ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
@@ -193,6 +197,8 @@ ___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners
 ___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
 ___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
 ___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
+___('admin_images_reusables_gallery', 'EN', "Reusable images gallery");
+___('admin_images_reusables_gallery', 'FR', "Galerie d'images réutilisables");
 ___('admin_images_templates_gallery', 'EN', "Template gallery");
 ___('admin_images_templates_gallery', 'FR', "Galerie de modèles");
 

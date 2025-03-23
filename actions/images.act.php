@@ -41,6 +41,7 @@ function images_get( int $image_id ) : array|null
                                 images.image_order    AS 'i_order'    ,
                                 images.upload_date    AS 'i_date'     ,
                                 images.is_a_template  AS 'i_template' ,
+                                images.is_reusable    AS 'i_reusable' ,
                                 images.is_a_preview   AS 'i_preview'  ,
                                 images.is_nsfw        AS 'i_nsfw'     ,
                                 images.language       AS 'i_lang'     ,
@@ -58,6 +59,7 @@ function images_get( int $image_id ) : array|null
   $data['nsfw']     = sanitize_output($image_data['i_nsfw']);
   $data['template'] = sanitize_output($image_data['i_template']);
   $data['preview']  = sanitize_output($image_data['i_preview']);
+  $data['reusable'] = sanitize_output($image_data['i_reusable']);
   $data['trans']    = sanitize_output($image_data['i_trans']);
 
   // Return the image's data
@@ -89,6 +91,7 @@ function images_list( $sort_by = 'date'   ,
   $search_type      = sanitize_array_element($search, 'type', 'int');
   $search_nsfw      = sanitize_array_element($search, 'nsfw', 'int');
   $search_template  = sanitize_array_element($search, 'template', 'int');
+  $search_reusable  = sanitize_array_element($search, 'reusable', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
@@ -105,20 +108,26 @@ function images_list( $sort_by = 'date'   ,
                                     " AND images.fk_comics       = '$search_comic'    " : "";
   $query_search .= ($search_type === 1) ?
                                     " AND images.is_a_preview    = 0
-                                      AND images.is_a_template   = 0                  " : "";
+                                      AND images.is_a_template   = 0
+                                      AND images.is_reusable     = 0                  " : "";
   $query_search .= ($search_type === 2) ?
                                     " AND images.is_a_preview    = 1                  " : "";
   $query_search .= ($search_type === 3) ?
                                     " AND images.is_a_template   = 1                  " : "";
+  $query_search .= ($search_type === 4) ?
+                                    " AND images.is_reusable     = 1                  " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
   $query_search .= ($search_template) ?
                                     " AND images.is_a_template   = $search_template   " : "";
+  $query_search .= ($search_reusable) ?
+                                    " AND images.is_reusable     = $search_reusable   " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
     'name'    => "  ORDER BY    images.name           ASC   ",
     'type'    => "  ORDER BY    images.is_a_template  DESC  ,
+                                images.is_reusable    DESC  ,
                                 images.is_a_preview   DESC  ,
                                 images.upload_date    DESC  ,
                                 images.name           ASC   ",
@@ -144,6 +153,7 @@ function images_list( $sort_by = 'date'   ,
                                 images.upload_date    AS 'i_date'     ,
                                 images.is_a_preview   AS 'i_preview'  ,
                                 images.is_a_template  AS 'i_template' ,
+                                images.is_reusable    AS 'i_reusable' ,
                                 images.is_nsfw        AS 'i_nsfw'     ,
                                 images.language       AS 'i_lang'     ,
                                 comics.title_$lang    AS 'c_title'
@@ -167,6 +177,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['preview']    = ($row['i_preview']);
     $data[$i]['template']   = ($row['i_template']);
+    $data[$i]['reusable']   = ($row['i_reusable']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
   }
 
@@ -231,13 +242,26 @@ function images_add(  array $image_file ,
   $image_date     = sanitize(date('Y-m-d'), 'string');
   $image_template = sanitize($image_data['template'], 'int');
   $image_preview  = sanitize($image_data['preview'], 'int');
+  $image_reusable = sanitize($image_data['reusable'], 'int');
 
   // An image can't be both a template and a preview
   if($image_template && $image_preview)
     $image_preview = 0;
 
+  // A reusable image can't be a template
+  if($image_reusable && $image_template)
+    $image_template = 0;
+
+  // A reusable image can't be a preview
+  if($image_reusable && $image_preview)
+    $image_preview = 0;
+
   // A template can't be part of a comic
   if($image_template && $image_comic)
+    $image_comic = 0;
+
+  // A reusable image can't be part of a comic
+  if($image_reusable && $image_comic)
     $image_comic = 0;
 
   // Upload the image
@@ -250,6 +274,7 @@ function images_add(  array $image_file ,
                         images.image_order    = '$image_order'    ,
                         images.language       = '$image_lang'     ,
                         images.is_a_template  = '$image_template' ,
+                        images.is_reusable    = '$image_reusable' ,
                         images.is_a_preview   = '$image_preview'  ,
                         images.is_nsfw        = '$image_nsfw'     ,
                         images.upload_date    = '$image_date'     ");
@@ -330,6 +355,7 @@ function images_edit( int   $image_id ,
   $image_lang     = sanitize($data['lang'], 'string');
   $image_date     = sanitize($data['date'], 'string');
   $image_template = sanitize($data['template'], 'int');
+  $image_reusable = sanitize($data['reusable'], 'int');
   $image_preview  = sanitize($data['preview'], 'int');
   $image_nsfw     = sanitize($data['nsfw'], 'int');
   $image_trans    = sanitize($data['trans'], 'string');
@@ -338,8 +364,20 @@ function images_edit( int   $image_id ,
   if($image_template && $image_preview)
     $image_preview = 0;
 
+  // A reusable image can't be a template
+  if($image_reusable && $image_template)
+    $image_template = 0;
+
+  // A reusable image can't be a preview
+  if($image_reusable && $image_preview)
+    $image_preview = 0;
+
   // A template can't be part of a comic
   if($image_template && $image_comic)
+    $image_comic = 0;
+
+  // A reusable image can't be part of a comic
+  if($image_reusable && $image_comic)
     $image_comic = 0;
 
   // Edit the image
@@ -351,6 +389,7 @@ function images_edit( int   $image_id ,
                   images.upload_date    = '$image_date'     ,
                   images.is_a_template  = '$image_template' ,
                   images.is_a_preview   = '$image_preview'  ,
+                  images.is_reusable    = '$image_reusable' ,
                   images.is_nsfw        = '$image_nsfw'     ,
                   images.transcript     = '$image_trans'
           WHERE   images.id             = '$image_id'       ");

@@ -624,7 +624,8 @@ if($last_query < 4)
   sql_create_field('images', 'upload_date', 'DATE NOT NULL', 'image_order');
   sql_create_field('images', 'is_a_preview', 'TINYINT(1) NOT NULL', 'upload_date');
   sql_create_field('images', 'is_a_template', 'TINYINT(1) NOT NULL', 'is_a_preview');
-  sql_create_field('images', 'is_nsfw', 'TINYINT(1) NOT NULL', 'is_a_template');
+  sql_create_field('images', 'is_reusable', 'TINYINT(1) NOT NULL', 'is_a_template');
+  sql_create_field('images', 'is_nsfw', 'TINYINT(1) NOT NULL', 'is_reusable');
   sql_create_field('images', 'language', 'TINYTEXT NOT NULL', 'is_nsfw');
   sql_create_field('images', 'transcript', 'TEXT NOT NULL', 'language');
 
@@ -633,6 +634,7 @@ if($last_query < 4)
   sql_create_index('images', 'images_image_order', 'image_order');
   sql_create_index('images', 'images_is_a_preview', 'is_a_preview');
   sql_create_index('images', 'images_is_a_template', 'is_a_template');
+  sql_create_index('images', 'images_is_reusable', 'is_reusable');
   sql_create_index('images', 'images_is_nsfw', 'is_nsfw');
   sql_create_index('images', 'images_language', 'language(10)');
 
