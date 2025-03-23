@@ -5,8 +5,12 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
-include_once './../actions/tags.act.php';   # Tag management
 include_once './../lang/comics.lang.php';   # Admin translations
+
+// Page summary
+$page_url       = "pages/comics_list";
+$page_title_en  = "Comics list";
+$page_title_fr  = "Liste des comics";
 
 
 
@@ -18,26 +22,10 @@ include_once './../lang/comics.lang.php';   # Admin translations
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Get the tag and its comics
+// Get the list of comics
 
-// Fetch the tag
-$comic_tag = (int)form_fetch_element('theme', request_type: 'GET');
-
-// Fetch the comic type data
-$comic_tag_data = tags_get($comic_tag);
-
-// Stop here if the comic type does not exist
-if(!$comic_tag_data)
-  exit(header("Location: ./comic_tags"));
-
-// Get the list of comics in the tag
-$comics_list = comics_list( search:     array('tag_id' => $comic_tag) ,
-                            is_public:  true                          );
-
-// Update the page sumary
-$page_url       = "pages/comic_tag?theme=".$comic_tag;
-$page_title_en  = $comic_tag_data['title_en'];
-$page_title_fr  = $comic_tag_data['title_fr'];
+$comics_list = comics_list( sort_by:    'date'  ,
+                            is_public:  true    );
 
 
 
@@ -46,35 +34,62 @@ $page_title_fr  = $comic_tag_data['title_fr'];
 /*                                                                                                                   */
 /*                                                     FRONT END                                                     */
 /*                                                                                                                   */
-/*******************************************************************************/ include './../inc/header.inc.php'; ?>
+if(!page_is_fetched_dynamically()): /*******************************************/ include './../inc/header.inc.php'; ?>
 
-<div class="width_50 align_center">
+<div class="width_50">
 
-  <div class="smallpadding_bot">
-    <a href="<?=$path?>pages/comics_tags">
-      <img src="<?=$path.$comic_tag_data['banner']?>" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
-    </a>
+  <div class="padding_bot">
+    <img src="<?=$path?>img/banners/comics/full_list_header_<?=$lang?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
   </div>
 
-  <?php if($comic_tag_data['desc']): ?>
-  <div class="smallpadding_bot">
-    <blockquote><?=$comic_tag_data['desc']?></blockquote>
-  </div>
-  <?php endif; ?>
+  <table>
+    <thead>
 
-  <div class="align_center">
-    <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
-    <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
-      <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
-        <?php if($comics_list[$i]['preview']) : ?>
-        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
-        <?php else: ?>
-        <img src="<?=$path?>img/templates/preview_<?=$lang?>.png" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
-        <?php endif; ?>
-      </a>
-    </div>
-    <?php endfor; ?>
-  </div>
+      <tr class="uppercase">
+        <th>
+          <?=__('comics_list_type')?>
+        </th>
+        <th>
+          <?=__('comics_list_title')?>
+        </th>
+        <th>
+          <?=__('comics_list_date')?>
+        </th>
+      </tr>
+
+    </thead>
+    <tbody class="altc2 nowrap" id="admin_comics_tbody">
+
+      <?php endif; ?>
+
+      <tr>
+        <td colspan="3" class="uppercase text_light dark bold align_center">
+          <?=__('comics_list_count', preset_values: array($comics_list['rows']), amount: $comics_list['rows'])?>
+        </td>
+      </tr>
+
+      <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
+      <tr class="pointer" onclick="window.location.href='<?=$path?>comic/<?=$comics_list[$i]['slug']?>'">
+
+        <td class="nowrap align_center">
+          <?=$comics_list[$i]['type']?>
+        </td>
+
+        <td class="align_left nowrap bold">
+          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['ltitle'], path: root_path())?>
+        </td>
+
+        <td class="nowrap align_center">
+          <?=$comics_list[$i]['date']?>
+        </td>
+
+      </tr>
+
+      <?php endfor; ?>
+
+      <?php if(!page_is_fetched_dynamically()): ?>
+    </tbody>
+  </table>
 
 </div>
 
@@ -83,4 +98,4 @@ $page_title_fr  = $comic_tag_data['title_fr'];
 /*                                                                                                                   */
 /*                                                    END OF PAGE                                                    */
 /*                                                                                                                   */
-/**********************************************************************************/ include './../inc/footer.inc.php';
+/***************************************************************************/ include './../inc/footer.inc.php'; endif;

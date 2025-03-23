@@ -37,3 +37,16 @@ ___('comics_list_categories', 'EN', "Categories");
 ___('comics_list_categories', 'FR', "Catégories");
 ___('comics_list_tags',       'EN', "Tags");
 ___('comics_list_tags',       'FR', "Tags");
+
+
+// Full comics list
+___('comics_list_title',  'EN', "Title");
+___('comics_list_title',  'FR', "Titre");
+___('comics_list_type',   'EN', "Category");
+___('comics_list_type',   'FR', "Catégorie");
+___('comics_list_date',   'EN', "Published");
+___('comics_list_date',   'FR', "Publié");
+___('comics_list_count',  'EN', "{{1}} comic");
+___('comics_list_count',  'FR', "{{1}} comic");
+___('comics_list_count+', 'EN', "{{1}} comics");
+___('comics_list_count+', 'FR', "{{1}} comics");
