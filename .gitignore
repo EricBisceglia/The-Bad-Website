@@ -9,5 +9,8 @@ img/banners/comics/types/*
 img/banners/comics/tags/*
 !img/banners/comics/tags/index.php
 
+# Don't commit user searches
+admin/user_searches.txt
+
 # Local config should not be committed
 conf/main.conf.php

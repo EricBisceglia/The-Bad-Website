@@ -151,7 +151,7 @@ $javascripts .= '
     <meta property="og:description" content="<?=$page_description?>">
     <meta property="og:url" content="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta property="og:site_name" content="The Bad Website">
-    <meta property="og:image" content="<?=$GLOBALS['website_url']?>img/common/logo_filled.png">
+    <meta property="og:image" content="<?=$GLOBALS['website_url']?>img/website/header_smuggie_3.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="fr_FR">
     <link rel="icon" href="<?=$path.'favicon.ico'?>">

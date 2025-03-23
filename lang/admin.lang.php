@@ -13,18 +13,20 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 
 // Admin menu
-___('admin_menu_index',       'EN', "Notes");
-___('admin_menu_index',       'FR', "Notes");
-___('admin_menu_ideas',       'EN', "Ideas");
-___('admin_menu_ideas',       'FR', "Idées");
-___('admin_menu_images',      'EN', "Images");
-___('admin_menu_images',      'FR', "Images");
-___('admin_menu_comics',      'EN', "Comics");
-___('admin_menu_comics',      'FR', "Comics");
-___('admin_menu_tags',        'EN', "Tags");
-___('admin_menu_tags',        'FR', "Tags");
-___('admin_menu_queries',     'EN', "SQL Queries");
-___('admin_menu_queries',     'FR', "Requêtes SQL");
+___('admin_menu_index',     'EN', "Notes");
+___('admin_menu_index',     'FR', "Notes");
+___('admin_menu_ideas',     'EN', "Ideas");
+___('admin_menu_ideas',     'FR', "Idées");
+___('admin_menu_images',    'EN', "Images");
+___('admin_menu_images',    'FR', "Images");
+___('admin_menu_comics',    'EN', "Comics");
+___('admin_menu_comics',    'FR', "Comics");
+___('admin_menu_tags',      'EN', "Tags");
+___('admin_menu_tags',      'FR', "Tags");
+___('admin_menu_searches',  'EN', "Searches");
+___('admin_menu_searches',  'FR', "Recherches");
+___('admin_menu_queries',   'EN', "SQL Queries");
+___('admin_menu_queries',   'FR', "Requêtes SQL");
 
 
 
@@ -389,3 +391,20 @@ ___('admin_tags_edit_submit',  'FR', "Modifier le tag");
 // Delete a tag
 ___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
 ___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      SEARCHES                                                     */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Searches list
+___('admin_user_searches_list',       'EN', "Latest user searches");
+___('admin_user_searches_list',       'FR', "Dernières recherches utilisateur");
+___('admin_user_searches_list_empty', 'EN', "The user search file is empty");
+___('admin_user_searches_list_empty', 'FR', "Le fichier des recherches est vide");
+___('admin_user_searches_clear',      'EN', "Confirm the deletion of the entire user search history");
+___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\'historique des recherches");

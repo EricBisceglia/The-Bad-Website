@@ -410,6 +410,25 @@ function comics_list( string $sort_by = 'date'  ,
   // Add the number of rows to the returned data
   $data['rows'] = $i;
 
+  // If a search was performed by a user, add the query to the txt file
+  if($search_body_fr || $search_body_en)
+  {
+    // Grab and sanitize the search query
+    $user_search = ($search_body_en) ? $search_body_en : $search_body_fr;
+    $user_search = addslashes(htmlspecialchars(strip_tags(trim(substr($user_search, 0, 500))), ENT_QUOTES, 'UTF-8'));
+
+    // Determine the text file's path
+    $root      = root_path();
+    $file_path = $root.'/admin/user_searches.txt';
+
+    // Create the text file if it doesn't exist
+    if(!file_exists($file_path))
+      file_put_contents($file_path, '');
+
+    // Append the search query to the end of the text file
+    file_put_contents($file_path, $user_search."\n", FILE_APPEND);
+  }
+
   // Return the prepared data
   return $data;
 }

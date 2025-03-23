@@ -45,9 +45,10 @@ if($comic_data['private'])
   exit(header("Location: ".$path."404"));
 
 // Update the page sumary
-$page_url       = "comic/".$comic_slug;
-$page_title_en  = $comic_data['title_en'];
-$page_title_fr  = $comic_data['title_fr'];
+$page_url         = "comic/".$comic_slug;
+$page_title_en    = $comic_data['title_en'];
+$page_title_fr    = $comic_data['title_fr'];
+$page_description = $comic_data['title_en'];
 
 // Increment the comic's view count
 comics_increment_view_count($comic_id);
@@ -64,10 +65,10 @@ comics_increment_view_count($comic_id);
 <div class="align_center">
 
   <h1 class="tinypadding_bot">
-    <?=$comic_data['title']?>
+    <?=__link('pages/comics', $comic_data['title'], path: root_path(), style: 'text_light')?>
   </h1>
   <h5 class="bigpadding_bot">
-    <?=$comic_data['date_full']?>
+    <?=__link('pages/comics_list', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>

@@ -17,6 +17,9 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  admin_ideas_edit                    Edits an idea                                                                */
 /*  admin_ideas_delete                  Deletes an idea from the database                                            */
 /*                                                                                                                   */
+/*  admin_user_searches_list            Returns a list of user searches                                              */
+/*  admin_user_searches_clear           Clears the user search history                                               */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -223,4 +226,59 @@ function admin_ideas_delete( int $idea_id ) : void
   // Delete the idea
   query(" DELETE FROM ideas
           WHERE       ideas.id = '$idea_id' ");
+}
+
+
+
+
+/**
+ * Returns a list of user searches.
+ *
+ * @return  array   An array containing user searches.
+ */
+
+function admin_user_searches_list() : array
+{
+  // Get the path to the user search file
+  $root = root_path();
+  $file_path = $root.'/admin/user_searches.txt';
+
+  // Return an empty array if the file doesn't exist
+  if(!file_exists($file_path))
+    return array();
+
+  // Fetch the contents of the user search file
+  $user_searches = file_get_contents(root_path().'/admin/user_searches.txt');
+
+  // Split the contents of the file into an array
+  $user_searches = explode("\n", $user_searches);
+
+  // Remove empty lines
+  $user_searches = array_filter($user_searches);
+
+  // Invert the arrray
+  $user_searches = array_reverse($user_searches);
+
+  // Return the array
+  return $user_searches;
+}
+
+
+
+
+/**
+ * Clears the user search history.
+ *
+ * @return  void
+ */
+
+function admin_user_searches_clear() : void
+{
+  // Get the path to the user search file
+  $root = root_path();
+  $file_path = $root.'/admin/user_searches.txt';
+
+  // Delete the file if it exists
+  if(file_exists($file_path))
+    unlink($file_path);
 }

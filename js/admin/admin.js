@@ -15,6 +15,8 @@
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
+/*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -243,4 +245,25 @@ function admin_tags_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('tags', 'admin_tags_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of the user search history.
+ *
+ * @param   {string}  [message]  The message to display before deleting the idea.
+ *
+ * @returns {void}
+ */
+
+function admin_user_searches_clear( message )
+{
+  // Assemble the postdata
+  postdata = 'admin_user_searches_clear=1';
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('searches', 'admin_user_searches_list', postdata);
 }
