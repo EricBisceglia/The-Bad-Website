@@ -69,10 +69,10 @@ $comics_list = comics_list( sort_by:    'date'  ,
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <?php if($i < 20): ?>
-    <div class="smallpadding_bot">
+    <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
       <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
         <?php if($comics_list[$i]['preview']) : ?>
-        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
         <?php else: ?>
         <img src="<?=$path?>img/templates/preview_<?=$lang?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
         <?php endif; ?>

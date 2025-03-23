@@ -94,7 +94,8 @@ function comics_get(  int   $comic_id                ,
                                     images.name       AS 'i_name'   ,
                                     images.language   AS 'i_lang'   ,
                                     images.transcript AS 'i_trans'  ,
-                                    image_types.name  AS 'it_name'
+                                    image_types.name  AS 'it_name'  ,
+                                    images.is_nsfw    AS 'i_nsfw'
                           FROM      images
                           LEFT JOIN image_types
                           ON        images.fk_image_types = image_types.id
@@ -137,6 +138,8 @@ function comics_get(  int   $comic_id                ,
     $data['images']['type'][$i]   = sanitize_output($row['it_name']);
     $data['images']['ftrans'][$i] = sanitize_output($row['i_trans']);
     $data['images']['trans'][$i]  = sanitize_output($row['i_trans'], preserve_line_breaks: true);
+    $data['images']['blur'][$i]   = ($row['i_nsfw']) ? ' blurred_container' : '';
+    $data['images']['unblur'][$i] = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
     if($row['i_trans'])
       $transcript_count++;
   }
@@ -330,7 +333,8 @@ function comics_list( string $sort_by = 'date'  ,
                                 comics.upload_date            AS 'c_date'     ,
                                 comics.is_public              AS 'c_public'   ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
-                                preview_image.name            AS 'preview'    ,
+                                preview_image.name            AS 'pi_name'    ,
+                                preview_image.is_nsfw         AS 'pi_nsfw'    ,
                                 COUNT(DISTINCT tags.id)       AS 't_count'    ,
                                 GROUP_CONCAT(DISTINCT tags.title_$lang ORDER BY tags.sorting_order ASC SEPARATOR ', ')
                                                               AS 't_names'    ,
@@ -370,7 +374,9 @@ function comics_list( string $sort_by = 'date'  ,
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['private']    = (!$row['c_public']);
-    $data[$i]['preview']    = sanitize_output($row['preview']);
+    $data[$i]['preview']    = sanitize_output($row['pi_name']);
+    $data[$i]['blur']       = ($row['pi_nsfw']) ? ' blurred_container' : '';
+    $data[$i]['unblur']     = ($row['pi_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
     $data[$i]['ntags']      = sanitize_output($row['t_count']);
     $data[$i]['tags']       = sanitize_output($row['t_names']);
     $data[$i]['nimages']    = sanitize_output($row['i_count']);

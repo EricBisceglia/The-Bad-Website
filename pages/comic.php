@@ -69,8 +69,8 @@ $page_title_fr  = $comic_data['title_fr'];
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
   <div class="padding_bot tinypadding_top">
-    <div class="comic_container">
-      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['ftrans'][$i]?>">
+    <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['ftrans'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
   </div>
   <?php endfor; ?>

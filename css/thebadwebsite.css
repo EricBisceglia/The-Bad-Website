@@ -751,9 +751,9 @@ hr                { margin-left: -2.0rem; margin-right: -2.0rem;                
 /****************************************************** FOOTER *******************************************************/
 
 footer { width: 100%; text-align: center; color: var(--thebad-light)    ;
-         font-size: 85%; margin-top: 6.0rem; margin-bottom: 3.0rem;     }
+         font-size: 85%; margin-top: 4.0rem; margin-bottom: 3.0rem;     }
 @media (max-width: 992px)                                               {
-footer { font-size: 70%; margin-top: 10.0rem; margin-bottom: 5.0rem;  } }
+footer { font-size: 70%; margin-top: 8.0rem; margin-bottom: 5.0rem;   } }
 
 /**************************************************** GAME ICONS *****************************************************/
 
@@ -763,5 +763,7 @@ footer { font-size: 70%; margin-top: 10.0rem; margin-bottom: 5.0rem;  } }
 
 /******************************************************* COMICS ******************************************************/
 
-.comic_container      { width: 100%; overflow-x: auto; white-space: nowrap; }
-.comic_container img  { display: block; margin: 0 auto; max-width: none;    }
+.comic_container                { width: 100%; overflow-x: auto; white-space: nowrap; }
+.comic_container   img          { display: block; margin: 0 auto; max-width: none;    }
+.blurred_container img          { transition: filter 0.3s ease; filter: blur(20px);   }
+.blurred_container img.revealed { filter: blur(0);                                    }
