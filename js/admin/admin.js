@@ -172,6 +172,7 @@ function admin_comic_list_search( sort = null )
 
   // Assemble the postdata
   postdata  = 'admin_comics_sort='            + fetch_sanitize_id('admin_comics_sort');
+  postdata += '&admin_comics_search_body='    + fetch_sanitize_id('admin_comics_search_body');
   postdata += '&admin_comics_search_title='   + fetch_sanitize_id('admin_comics_search_title');
   postdata += '&admin_comics_search_type='    + fetch_sanitize_id('admin_comics_search_type');
   postdata += '&admin_comics_search_private=' + fetch_sanitize_id('admin_comics_search_private');

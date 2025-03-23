@@ -280,6 +280,7 @@ function comics_list( string $sort_by = 'date'  ,
                       bool   $is_major  = false ) : array
 {
   // Sanitize the search parameters
+  $search_body    = sanitize_array_element($search, 'body', 'string');
   $search_title   = sanitize_array_element($search, 'title', 'string');
   $search_type    = sanitize_array_element($search, 'type', 'int');
   $search_private = sanitize_array_element($search, 'private', 'int');
@@ -291,13 +292,16 @@ function comics_list( string $sort_by = 'date'  ,
 
   // Search through the data
   $query_search = ($search_title)     ? " AND ( comics.title_en  LIKE '%$search_title%'
-                                          OR    comics.title_fr  LIKE '%$search_title%' ) " : "";
-  $query_search .= ($search_type)     ? " AND comics.fk_comic_types = $search_type "        : "";
-  $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                        : "";
-  $query_search .= ($is_public)       ? " AND comics.is_public = 1 "                        : "";
-  $query_search .= ($is_major)        ? " AND comic_types.is_major = 1 "                    : "";
+                                          OR    comics.title_fr  LIKE '%$search_title%' ) "       : "";
+  $query_search .= ($search_type)     ? " AND comics.fk_comic_types = $search_type "              : "";
+  $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                              : "";
+  $query_search .= ($is_public)       ? " AND comics.is_public = 1 "                              : "";
+  $query_search .= ($is_major)        ? " AND comic_types.is_major = 1 "                          : "";
+  $query_search .= ($search_body)     ? " AND ( comics.description_en  LIKE '%$search_body%'
+                                          OR    comics.description_fr  LIKE '%$search_body%'
+                                          OR    images.transcript      LIKE '%$search_body%' ) "  : "";
 
-  // Different search for tags
+  // Different search for tags and images
   $query_having  = ($search_tag_id)         ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0  " : "";
   $query_having .= ($search_images === -1)  ? " AND COUNT(DISTINCT images.id) = 0                             " : "";
   $query_having .= ($search_images === 1)   ? " AND COUNT(DISTINCT images.id) > 0                             " : "";

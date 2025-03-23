@@ -108,7 +108,8 @@ $comic_types = comic_types_list();
 $admin_comics_sort = form_fetch_element('admin_comics_sort', 'date');
 
 // Assemble the search query
-$admin_comics_search = array( 'title'   => form_fetch_element('admin_comics_search_title')    ,
+$admin_comics_search = array( 'body'    => form_fetch_element('admin_comics_search_body')     ,
+                              'title'   => form_fetch_element('admin_comics_search_title')    ,
                               'type'    => form_fetch_element('admin_comics_search_type')     ,
                               'private' => form_fetch_element('admin_comics_search_private')  ,
                               'images'  => form_fetch_element('admin_comics_search_images')   ,
@@ -129,10 +130,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_50 padding_top">
 
-  <h2 class="align_center padding_bot">
+  <h2 class="align_center smallpadding_bot">
     <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_add', path: root_path())?>
   </h2>
+
+  <div class="padding_bot">
+    <label for="admin_comics_search_body"><?=__('admin_comics_search_body').__(':')?></label>
+    <input class="indiv" type="text" name="admin_comics_search_body" id="admin_comics_search_body" value="" onkeyup="admin_comic_list_search();">
+  </div>
 
   <table>
     <thead>
