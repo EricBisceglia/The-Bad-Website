@@ -20,6 +20,7 @@ ___('home_intro_text',  'FR', "Revenez dans quelques semaines :)");
 ___('home_intro_bsky',  'EN', "In the meantime, you can find my smuggies <span class=\"text_blue\">on Bluesky</span>");
 ___('home_intro_bsky',  'FR', "En attendant, vous pouvez trouver mes arroganteries <span class=\"text_blue\">sur Bluesky</span>");
 
+
 // Mini comics
 ___('home_comics_intro', 'EN', <<<EOT
 Hi there!
@@ -91,5 +92,36 @@ EOT
 );
 ___('home_comics_rss', 'FR', <<<EOT
 Es-tu une personne à l'ancienne ? Clique-moi pour avoir un flux RSS !
+EOT
+);
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                     VIDEOS                                                        */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Mini comics
+___('videos_comics_intro', 'EN', <<<EOT
+Videos?
+What do you mean videos?
+There's clearly no such thing on this website, you've been misled
+EOT
+);
+___('videos_comics_intro', 'FR', <<<EOT
+Des vidéos ?
+Comment ça des vidéos ?
+Il n'y en a pas sur ce site, on vous a donné des fausses informations
+EOT
+);
+___('videos_comics_future', 'EN', <<<EOT
+This page is probably there for a reason though... how ominous!
+EOT
+);
+___('videos_comics_future', 'FR', <<<EOT
+Mais cette page doit bien avoir une raison d'exister... c'est suspect !
 EOT
 );
