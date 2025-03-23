@@ -41,17 +41,17 @@ $comics_list = comics_list( sort_by:    'date'  ,
 
   <div class="flexcontainer nopadding_bot">
     <div class="flex smallspaced_right">
-      <img src="<?=$path?>img/banners/comics/full_list_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+      <img src="<?=$path?>img/banners/comics/full_list_<?=$lang?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
     </div>
     <div class="flex">
-      <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
     </div>
   </div>
 
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <a href="<?=$path?>pages/comics_categories">
-        <img src="<?=$path?>img/banners/comics/categories_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_previous')?>">
+        <img src="<?=$path?>img/banners/comics/categories_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
       </a>
     </div>
     <div class="flex">
@@ -61,7 +61,7 @@ $comics_list = comics_list( sort_by:    'date'  ,
     </div>
     <div class="flex smallspaced_left">
       <a href="<?=$path?>pages/comics_tags">
-        <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
+        <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
       </a>
     </div>
   </div>

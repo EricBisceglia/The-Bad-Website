@@ -29,6 +29,10 @@ ___('comics_nav_random',   'FR', "Comic aléatoire");
 
 
 // Comics list
+___('comics_list_all',        'EN', "All comics");
+___('comics_list_all',        'FR', "Tous les comics");
+___('comics_list_search',     'EN', "Search comics");
+___('comics_list_search',     'FR', "Rechercher des comics");
 ___('comics_list_categories', 'EN', "Categories");
 ___('comics_list_categories', 'FR', "Catégories");
 ___('comics_list_tags',       'EN', "Tags");

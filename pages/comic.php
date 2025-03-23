@@ -70,7 +70,7 @@ $page_title_fr  = $comic_data['title_fr'];
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
   <div class="padding_bot tinypadding_top">
     <div class="comic_container">
-      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['name'][$i]?>" title="<?=$comic_data['images']['name'][$i]?>">
+      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['ftrans'][$i]?>">
     </div>
   </div>
   <?php endfor; ?>
@@ -127,9 +127,14 @@ $page_title_fr  = $comic_data['title_fr'];
     </div>
   </div>
 
-  <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type']?>">
+    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  </a>
+
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
+  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['id'][$i]?>">
+    <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
+  </a>
   <?php endfor; ?>
 
 </div>

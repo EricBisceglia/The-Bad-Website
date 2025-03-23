@@ -84,13 +84,13 @@ function comics_get(  int   $comic_id                ,
   else
     $data['type_banner'] = "img/templates/comic_type_".$lang;
 
-  // Prepare a condition for the images
+  // Prepare a condition for the images linked to the comic
   $query_where = ($show_all_images ===  true) ? " "
                                               : " AND images.language  LIKE '$lang'
                                                   AND image_types.name    = 'comic' ";
 
-  // Fetch images linked to the comic
-  $comic_images = query(" SELECT    images.id         AS 'i_id'     ,
+  // Prepare the query to fetch images linked to the comic
+  $comic_query_start  = " SELECT    images.id         AS 'i_id'     ,
                                     images.name       AS 'i_name'   ,
                                     images.language   AS 'i_lang'   ,
                                     images.transcript AS 'i_trans'  ,
@@ -98,12 +98,34 @@ function comics_get(  int   $comic_id                ,
                           FROM      images
                           LEFT JOIN image_types
                           ON        images.fk_image_types = image_types.id
-                          WHERE     images.fk_comics = '$comic_id'
-                                    $query_where
-                          ORDER BY  image_types.id      DESC  ,
+                          WHERE     images.fk_comics = '$comic_id' ";
+  $comic_query_end    = " ORDER BY  image_types.id      DESC  ,
                                     images.image_order  ASC   ,
                                     images.name         ASC   ,
-                                    images.language     ASC   ");
+                                    images.language     ASC   ";
+  $comic_query        = $comic_query_start.$query_where.$comic_query_end;
+
+
+  // Check for results
+  $comic_images = query($comic_query, fetch_row: true);
+
+  // If there are no images, try the opposite language
+  if(!isset($comic_images['i_id']))
+  {
+    // Determine the opposite language
+    $opposite_lang  = ($lang === 'en') ? 'fr' : 'en';
+
+    // Rewrite the query condition
+    $query_where    = ($show_all_images ===  true) ? " "
+                                                   : " AND images.language  LIKE '$opposite_lang'
+                                                       AND image_types.name    = 'comic' ";
+
+    // Rewrite the updated query
+    $comic_query = $comic_query_start.$query_where.$comic_query_end;
+  }
+
+  // Fetch images linked to the comic
+  $comic_images = query($comic_query);
 
   // Prepare the data for display
   $transcript_count = 0;
@@ -113,6 +135,7 @@ function comics_get(  int   $comic_id                ,
     $data['images']['name'][$i]   = sanitize_output($row['i_name']);
     $data['images']['lang'][$i]   = sanitize_output($row['i_lang']);
     $data['images']['type'][$i]   = sanitize_output($row['it_name']);
+    $data['images']['ftrans'][$i] = sanitize_output($row['i_trans']);
     $data['images']['trans'][$i]  = sanitize_output($row['i_trans'], preserve_line_breaks: true);
     if($row['i_trans'])
       $transcript_count++;
