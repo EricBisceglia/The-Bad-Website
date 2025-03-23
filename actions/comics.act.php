@@ -564,15 +564,16 @@ function comic_types_get( int $comic_type_id ) : array|null
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the comic types's data
-  $comic_type_data = query("  SELECT  comic_types.sorting_order   AS 'ct_order'     ,
-                                      comic_types.name_en         AS 'ct_name_en'   ,
-                                      comic_types.name_fr         AS 'ct_name_fr'   ,
-                                      comic_types.banner_$lang    AS 'ct_banner'    ,
-                                      comic_types.banner_en       AS 'ct_banner_en' ,
-                                      comic_types.banner_fr       AS 'ct_banner_fr' ,
-                                      comic_types.description_en  AS 'ct_desc_en'   ,
-                                      comic_types.description_fr  AS 'ct_desc_fr'   ,
-                                      comic_types.is_major        AS 'ct_major'
+  $comic_type_data = query("  SELECT  comic_types.sorting_order     AS 'ct_order'     ,
+                                      comic_types.name_en           AS 'ct_name_en'   ,
+                                      comic_types.name_fr           AS 'ct_name_fr'   ,
+                                      comic_types.banner_$lang      AS 'ct_banner'    ,
+                                      comic_types.banner_en         AS 'ct_banner_en' ,
+                                      comic_types.banner_fr         AS 'ct_banner_fr' ,
+                                      comic_types.description_$lang AS 'ct_desc'      ,
+                                      comic_types.description_en    AS 'ct_desc_en'   ,
+                                      comic_types.description_fr    AS 'ct_desc_fr'   ,
+                                      comic_types.is_major          AS 'ct_major'
                               FROM    comic_types
                               WHERE   comic_types.id = '$comic_type_id' ",
                               fetch_row: true);
@@ -584,6 +585,7 @@ function comic_types_get( int $comic_type_id ) : array|null
   $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
   $data['banner_en']  = sanitize_output($comic_type_data['ct_banner_en']);
   $data['banner_fr']  = sanitize_output($comic_type_data['ct_banner_fr']);
+  $data['desc']       = sanitize_output($comic_type_data['ct_desc'], preserve_line_breaks: true);
   $data['desc_en']    = sanitize_output($comic_type_data['ct_desc_en']);
   $data['desc_fr']    = sanitize_output($comic_type_data['ct_desc_fr']);
   $data['major']      = sanitize_output($comic_type_data['ct_major']);
@@ -614,16 +616,16 @@ function comic_types_list() : array
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the comic types
-  $comic_types = query("  SELECT  comic_types.id            AS 'ct_id'        ,
-                                  comic_types.sorting_order AS 'ct_sort'      ,
-                                  comic_types.name_$lang    AS 'ct_name'      ,
-                                  comic_types.name_en       AS 'ct_name_en'   ,
-                                  comic_types.name_fr       AS 'ct_name_fr'   ,
-                                  comic_types.banner_$lang  AS 'ct_banner'    ,
-                                  comic_types.banner_en     AS 'ct_banner_en' ,
-                                  comic_types.banner_fr     AS 'ct_banner_fr'
-                          FROM    comic_types
-                          ORDER BY comic_types.sorting_order ASC ");
+  $comic_types = query("  SELECT    comic_types.id            AS 'ct_id'        ,
+                                    comic_types.sorting_order AS 'ct_sort'      ,
+                                    comic_types.name_$lang    AS 'ct_name'      ,
+                                    comic_types.name_en       AS 'ct_name_en'   ,
+                                    comic_types.name_fr       AS 'ct_name_fr'   ,
+                                    comic_types.banner_$lang  AS 'ct_banner'    ,
+                                    comic_types.banner_en     AS 'ct_banner_en' ,
+                                    comic_types.banner_fr     AS 'ct_banner_fr'
+                          FROM      comic_types
+                          ORDER BY  comic_types.sorting_order ASC ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_types); $i++)

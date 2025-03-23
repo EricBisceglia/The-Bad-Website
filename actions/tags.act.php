@@ -38,16 +38,17 @@ function tags_get( int $tag_id ) : ?array
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the tag's data
-  $tag_data = query(" SELECT    tags.id             AS 't_id'         ,
-                                tags.sorting_order  AS 't_sort'       ,
-                                tags.name           AS 't_name'       ,
-                                tags.banner_$lang   AS 't_banner'     ,
-                                tags.banner_en      AS 't_banner_en'  ,
-                                tags.banner_fr      AS 't_banner_fr'  ,
-                                tags.title_en       AS 't_title_en'   ,
-                                tags.title_fr       AS 't_title_fr'   ,
-                                tags.description_en AS 't_desc_en'    ,
-                                tags.description_fr AS 't_desc_fr'
+  $tag_data = query(" SELECT    tags.id                 AS 't_id'         ,
+                                tags.sorting_order      AS 't_sort'       ,
+                                tags.name               AS 't_name'       ,
+                                tags.banner_$lang       AS 't_banner'     ,
+                                tags.banner_en          AS 't_banner_en'  ,
+                                tags.banner_fr          AS 't_banner_fr'  ,
+                                tags.title_en           AS 't_title_en'   ,
+                                tags.title_fr           AS 't_title_fr'   ,
+                                tags.description_$lang  AS 't_desc'       ,
+                                tags.description_en     AS 't_desc_en'    ,
+                                tags.description_fr     AS 't_desc_fr'
                       FROM      tags
                       WHERE     tags.id = '$tag_id' ",
                       fetch_row: true);
@@ -60,6 +61,7 @@ function tags_get( int $tag_id ) : ?array
   $data['banner_fr']  = sanitize_output($tag_data['t_banner_fr']);
   $data['title_en']   = sanitize_output($tag_data['t_title_en']);
   $data['title_fr']   = sanitize_output($tag_data['t_title_fr']);
+  $data['desc']       = sanitize_output($tag_data['t_desc'], preserve_line_breaks: true);
   $data['desc_en']    = sanitize_output($tag_data['t_desc_en']);
   $data['desc_fr']    = sanitize_output($tag_data['t_desc_fr']);
 

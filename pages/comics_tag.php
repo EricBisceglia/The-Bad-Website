@@ -56,6 +56,12 @@ $page_title_fr  = $comic_tag_data['title_fr'];
     </a>
   </div>
 
+  <?php if($comic_tag_data['desc']): ?>
+  <div class="smallpadding_bot">
+    <blockquote><?=$comic_tag_data['desc']?></blockquote>
+  </div>
+  <?php endif; ?>
+
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <div class="smallpadding_bot">
