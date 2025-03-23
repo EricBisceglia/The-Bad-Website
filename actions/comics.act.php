@@ -14,6 +14,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
+/*  comics_increment_view_count   Increments the view count of a comic                                               */
 /*  comics_delete                 Deletes an existing comic                                                          */
 /*                                                                                                                   */
 /*  comic_types_get               Gets a comic type data                                                             */
@@ -336,6 +337,9 @@ function comics_list( string $sort_by = 'date'  ,
     'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id) DESC  ,
                                 comics.upload_date            DESC  ,
                                 comics.title_$lang            ASC   ",
+    'views'   => "  ORDER BY    comics.view_count             DESC  ,
+                                comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
     default   => "  ORDER BY    comics.upload_date            DESC  ,
                                 comics.title_$lang            ASC   ",
   };
@@ -348,6 +352,7 @@ function comics_list( string $sort_by = 'date'  ,
                                 comics.title_fr               AS 'c_title_fr' ,
                                 comics.upload_date            AS 'c_date'     ,
                                 comics.is_public              AS 'c_public'   ,
+                                comics.view_count             AS 'c_views'    ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
                                 preview_image.name            AS 'pi_name'    ,
                                 preview_image.is_nsfw         AS 'pi_nsfw'    ,
@@ -383,7 +388,7 @@ function comics_list( string $sort_by = 'date'  ,
     $data[$i]['id']         = sanitize_output($row['c_id']);
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
-    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 32, '...'));
+    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 38, '...'));
     $data[$i]['ltitle']     = sanitize_output(string_truncate($row['c_title'], 50, '...'));
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
@@ -392,6 +397,7 @@ function comics_list( string $sort_by = 'date'  ,
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['private']    = (!$row['c_public']);
+    $data[$i]['views']      = sanitize_output($row['c_views']);
     $data[$i]['preview']    = sanitize_output($row['pi_name']);
     $data[$i]['blur']       = ($row['pi_nsfw']) ? ' blurred_container' : '';
     $data[$i]['unblur']     = ($row['pi_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
@@ -554,6 +560,28 @@ function comics_edit( int   $comic_id ,
                 AND         comic_tags.fk_tags   = '$tag_id' ");
     }
   }
+}
+
+
+
+
+/**
+ * Increments the view count of a comic.
+ *
+ * @param   int     $comic_id  The id of the comic to increment the view count of.
+ *
+ * @return  void
+ */
+
+function comics_increment_view_count( int $comic_id ) : void
+{
+  // Sanitize the comic's id
+  $comic_id = sanitize($comic_id, 'int');
+
+  // Increment the view count
+  query(" UPDATE  comics
+          SET     comics.view_count = comics.view_count + 1
+          WHERE   comics.id         = '$comic_id' ");
 }
 
 

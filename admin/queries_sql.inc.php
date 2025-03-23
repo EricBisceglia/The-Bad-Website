@@ -603,9 +603,11 @@ if($last_query < 3)
   sql_create_field('comics', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
   sql_create_field('comics', 'description_en', 'TEXT NOT NULL', 'title_fr');
   sql_create_field('comics', 'description_fr', 'TEXT NOT NULL', 'description_en');
+  sql_create_field('comics', 'view_count', 'INT UNSIGNED NOT NULL', 'description_fr');
 
   sql_create_index('comics', 'comics_types', 'fk_comic_types');
   sql_create_index('comics', 'comics_public', 'is_public');
+  sql_create_index('comics', 'comics_view_count', 'view_count');
 
   sql_update_query_id(3);
 }

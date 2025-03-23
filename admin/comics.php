@@ -128,7 +128,7 @@ $comics_list = comics_list( sort_by:  $admin_comics_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_60 padding_top">
 
   <h2 class="align_center smallpadding_bot">
     <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
@@ -167,6 +167,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th>
           <?=__('admin_comics_list_tags')?>
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('tags');")?>
+        </th>
+        <th>
+          <?=__('admin_comics_list_views')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('views');")?>
         </th>
         <th>
           <?=__('act')?>
@@ -217,7 +221,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </select>
         </th>
 
-        <th>
+        <th colspan="2">
           &nbsp;
         </th>
 
@@ -230,7 +234,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="8" class="uppercase text_light dark bold align_center">
+        <td colspan="9" class="uppercase text_light dark bold align_center">
           <?=__('admin_comics_list_count', preset_values: array($comics_list['rows']), amount: $comics_list['rows'])?>
         </td>
       </tr>
@@ -290,6 +294,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           &nbsp;
         </td>
         <?php endif; ?>
+
+        <td class="align_center nowrap">
+          <?=$comics_list[$i]['views']?>
+        </td>
 
         <td class="align_center nowrap">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: root_path())?>

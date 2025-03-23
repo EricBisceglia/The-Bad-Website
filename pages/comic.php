@@ -49,6 +49,9 @@ $page_url       = "comic/".$comic_slug;
 $page_title_en  = $comic_data['title_en'];
 $page_title_fr  = $comic_data['title_fr'];
 
+// Increment the comic's view count
+comics_increment_view_count($comic_id);
+
 
 
 

@@ -232,6 +232,8 @@ ___('admin_comics_list_images_n', 'EN', "Has no images");
 ___('admin_comics_list_images_n', 'FR', "N'a pas d'images");
 ___('admin_comics_list_tags',     'EN', "Tags");
 ___('admin_comics_list_tags',     'FR', "Tags");
+___('admin_comics_list_views',    'EN', "Views");
+___('admin_comics_list_views',    'FR', "Vues");
 ___('admin_comics_list_count',    'EN', "{{1}} comic");
 ___('admin_comics_list_count',    'FR', "{{1}} comic");
 ___('admin_comics_list_count+',   'EN', "{{1}} comics");
