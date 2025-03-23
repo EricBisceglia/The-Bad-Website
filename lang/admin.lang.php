@@ -193,6 +193,8 @@ ___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners
 ___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
 ___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
 ___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
+___('admin_images_templates_gallery', 'EN', "Template gallery");
+___('admin_images_templates_gallery', 'FR', "Galerie de modèles");
 
 
 

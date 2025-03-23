@@ -83,11 +83,12 @@ function images_list( $sort_by = 'date'   ,
   $lang = user_get_language();
 
   // Sanitize the search parameters
-  $search_name  = sanitize_array_element($search, 'name', 'string');
-  $search_lang  = sanitize_array_element($search, 'lang', 'string');
-  $search_comic = sanitize_array_element($search, 'comic', 'int');
-  $search_type  = sanitize_array_element($search, 'type', 'int');
-  $search_nsfw  = sanitize_array_element($search, 'nsfw', 'int');
+  $search_name      = sanitize_array_element($search, 'name', 'string');
+  $search_lang      = sanitize_array_element($search, 'lang', 'string');
+  $search_comic     = sanitize_array_element($search, 'comic', 'int');
+  $search_type      = sanitize_array_element($search, 'type', 'int');
+  $search_nsfw      = sanitize_array_element($search, 'nsfw', 'int');
+  $search_template  = sanitize_array_element($search, 'template', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
@@ -110,6 +111,8 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_type === 3) ?
                                     " AND images.is_a_template   = 1                  " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
+  $query_search .= ($search_template) ?
+                                    " AND images.is_a_template   = $search_template   " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
@@ -233,6 +236,10 @@ function images_add(  array $image_file ,
   if($image_template && $image_preview)
     $image_preview = 0;
 
+  // A template can't be part of a comic
+  if($image_template && $image_comic)
+    $image_comic = 0;
+
   // Upload the image
   if(move_uploaded_file($tmp_name, $file_path))
   {
@@ -330,6 +337,10 @@ function images_edit( int   $image_id ,
   // An image can't be both a template and a preview
   if($image_template && $image_preview)
     $image_preview = 0;
+
+  // A template can't be part of a comic
+  if($image_template && $image_comic)
+    $image_comic = 0;
 
   // Edit the image
   query(" UPDATE  images
