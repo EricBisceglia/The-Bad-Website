@@ -37,15 +37,15 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <title>Le Mauvais Site</title>
     <link>https://lemauvais.site</link>
     <description>Comics satiriques issus du Mauvais Site</description>
-    <language>en-us</language>
+    <language>fr-fr</language>
 
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <?php if($i < 25): ?>
     <item>
-      <title><?=$comics_list[$i]['title_fr']?></title>
-      <link><?=$comics_list[$i]['url']?></link>
-      <description><?=$comics_list[$i]['desc_fr']?></description>
-      <pubDate><?=$comics_list[$i]['date']?></pubDate>
+      <title><?=htmlspecialchars($comics_list[$i]['title_fr'])?></title>
+      <link><?=htmlspecialchars($comics_list[$i]['url'])?></link>
+      <description><?=htmlspecialchars($comics_list[$i]['desc_fr'])?></description>
+      <pubDate><?=htmlspecialchars($comics_list[$i]['date'])?></pubDate>
     </item>
     <?php endif; ?>
     <?php endfor; ?>

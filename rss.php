@@ -42,10 +42,10 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <?php if($i < 25): ?>
     <item>
-      <title><?=$comics_list[$i]['title_en']?></title>
-      <link><?=$comics_list[$i]['url']?></link>
-      <description><?=$comics_list[$i]['desc_en']?></description>
-      <pubDate><?=$comics_list[$i]['date']?></pubDate>
+      <title><?=htmlspecialchars($comics_list[$i]['title_en'])?></title>
+      <link><?=htmlspecialchars($comics_list[$i]['url'])?></link>
+      <description><?=htmlspecialchars($comics_list[$i]['desc_en'])?></description>
+      <pubDate><?=htmlspecialchars($comics_list[$i]['date'])?></pubDate>
     </item>
     <?php endif; ?>
     <?php endfor; ?>
