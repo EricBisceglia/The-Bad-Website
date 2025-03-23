@@ -617,27 +617,22 @@ if($last_query < 3)
 
 if($last_query < 4)
 {
-  sql_create_table('image_types');
-  sql_create_field('image_types', 'name', 'TINYTEXT NOT NULL', 'id');
-
-  sql_create_index('image_types', 'image_types_name', 'name(16)');
-
-  query(" INSERT INTO image_types SET image_types.name = 'comic' ");
-  query(" INSERT INTO image_types SET image_types.name = 'preview' ");
-
   sql_create_table('images');
   sql_create_field('images', 'name', 'TINYTEXT NOT NULL', 'id');
-  sql_create_field('images', 'fk_image_types', 'INT UNSIGNED NOT NULL', 'name');
   sql_create_field('images', 'fk_comics', 'INT UNSIGNED NOT NULL', 'fk_image_types');
   sql_create_field('images', 'image_order', 'INT UNSIGNED NOT NULL', 'fk_comics');
   sql_create_field('images', 'upload_date', 'DATE NOT NULL', 'image_order');
-  sql_create_field('images', 'is_nsfw', 'TINYINT(1) NOT NULL', 'upload_date');
+  sql_create_field('images', 'is_a_preview', 'TINYINT(1) NOT NULL', 'upload_date');
+  sql_create_field('images', 'is_a_template', 'TINYINT(1) NOT NULL', 'is_a_preview');
+  sql_create_field('images', 'is_nsfw', 'TINYINT(1) NOT NULL', 'is_a_template');
   sql_create_field('images', 'language', 'TINYTEXT NOT NULL', 'is_nsfw');
   sql_create_field('images', 'transcript', 'TEXT NOT NULL', 'language');
 
   sql_create_index('images', 'images_types', 'fk_image_types');
   sql_create_index('images', 'images_comics', 'fk_comics');
   sql_create_index('images', 'images_image_order', 'image_order');
+  sql_create_index('images', 'images_is_a_preview', 'is_a_preview');
+  sql_create_index('images', 'images_is_a_template', 'is_a_template');
   sql_create_index('images', 'images_is_nsfw', 'is_nsfw');
   sql_create_index('images', 'images_language', 'language(10)');
 

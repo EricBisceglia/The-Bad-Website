@@ -95,6 +95,12 @@ ___('admin_images_list_templates',  'EN', "Templates");
 ___('admin_images_list_templates',  'FR', "Modèles");
 ___('admin_images_list_type',       'EN', "Type");
 ___('admin_images_list_type',       'FR', "Type");
+___('admin_images_list_type_comic', 'EN', "Comic");
+___('admin_images_list_type_comic', 'FR', "Comic");
+___('admin_images_list_type_prev',  'EN', "Cover");
+___('admin_images_list_type_prev',  'FR', "Couverture");
+___('admin_images_list_type_templ', 'EN', "Template");
+___('admin_images_list_type_templ', 'FR', "Modèle");
 ___('admin_images_list_language',   'EN', "Lang.");
 ___('admin_images_list_language',   'FR', "Lang.");
 ___('admin_images_list_name',       'EN', "Name");
@@ -122,10 +128,12 @@ ___('admin_images_add_file',            'EN', "Upload image");
 ___('admin_images_add_file',            'FR', "Téléverser l'image");
 ___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
 ___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
+___('admin_images_add_preview',         'EN', "Is a cover image for a comic");
+___('admin_images_add_preview',         'FR', "Est l'image de couverture d'un comic");
+___('admin_images_add_template',        'EN', "Is a template");
+___('admin_images_add_template',        'FR', "Est un modèle d'image");
 ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
 ___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
-___('admin_images_add_type',            'EN', "Image type");
-___('admin_images_add_type',            'FR', "Type d'image");
 ___('admin_images_add_comic',           'EN', "Linked comic");
 ___('admin_images_add_comic',           'FR', "Comic lié");
 ___('admin_images_add_order',           'EN', "Image display order (optional)");
@@ -252,6 +260,10 @@ ___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
 ___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
 ___('admin_comics_edit_submit',   'EN', "Edit comic");
 ___('admin_comics_edit_submit',   'FR', "Modifier le comic");
+___('admin_comics_edit_preview',  'EN', "Cover");
+___('admin_comics_edit_preview',  'FR', "Couverture");
+___('admin_comics_edit_comic',    'EN', "Comic");
+___('admin_comics_edit_comic',    'FR', "Comic");
 
 
 // Delete a comic

@@ -87,20 +87,18 @@ function comics_get(  int   $comic_id                ,
   // Prepare a condition for the images linked to the comic
   $query_where = ($show_all_images ===  true) ? " "
                                               : " AND images.language  LIKE '$lang'
-                                                  AND image_types.name    = 'comic' ";
+                                                  AND images.is_a_preview = 0 ";
 
   // Prepare the query to fetch images linked to the comic
-  $comic_query_start  = " SELECT    images.id         AS 'i_id'     ,
-                                    images.name       AS 'i_name'   ,
-                                    images.language   AS 'i_lang'   ,
-                                    images.transcript AS 'i_trans'  ,
-                                    image_types.name  AS 'it_name'  ,
-                                    images.is_nsfw    AS 'i_nsfw'
+  $comic_query_start  = " SELECT    images.id           AS 'i_id'     ,
+                                    images.name         AS 'i_name'   ,
+                                    images.language     AS 'i_lang'   ,
+                                    images.transcript   AS 'i_trans'  ,
+                                    images.is_nsfw      AS 'i_nsfw'   ,
+                                    images.is_a_preview AS 'i_preview'
                           FROM      images
-                          LEFT JOIN image_types
-                          ON        images.fk_image_types = image_types.id
                           WHERE     images.fk_comics = '$comic_id' ";
-  $comic_query_end    = " ORDER BY  image_types.id      DESC  ,
+  $comic_query_end    = " ORDER BY  images.is_a_preview DESC  ,
                                     images.image_order  ASC   ,
                                     images.name         ASC   ,
                                     images.language     ASC   ";
@@ -119,7 +117,7 @@ function comics_get(  int   $comic_id                ,
     // Rewrite the query condition
     $query_where    = ($show_all_images ===  true) ? " "
                                                    : " AND images.language  LIKE '$opposite_lang'
-                                                       AND image_types.name    = 'comic' ";
+                                                       AND images.is_a_preview = 0 ";
 
     // Rewrite the updated query
     $comic_query = $comic_query_start.$query_where.$comic_query_end;
@@ -132,14 +130,16 @@ function comics_get(  int   $comic_id                ,
   $transcript_count = 0;
   for($i = 0; $row = query_row($comic_images); $i++)
   {
-    $data['images']['id'][$i]     = sanitize_output($row['i_id']);
-    $data['images']['name'][$i]   = sanitize_output($row['i_name']);
-    $data['images']['lang'][$i]   = sanitize_output($row['i_lang']);
-    $data['images']['type'][$i]   = sanitize_output($row['it_name']);
-    $data['images']['ftrans'][$i] = sanitize_output($row['i_trans']);
-    $data['images']['trans'][$i]  = sanitize_output($row['i_trans'], preserve_line_breaks: true);
-    $data['images']['blur'][$i]   = ($row['i_nsfw']) ? ' blurred_container' : '';
-    $data['images']['unblur'][$i] = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
+    $data['images']['id'][$i]       = sanitize_output($row['i_id']);
+    $data['images']['name'][$i]     = sanitize_output($row['i_name']);
+    $data['images']['lang'][$i]     = sanitize_output($row['i_lang']);
+    $data['images']['ftrans'][$i]   = sanitize_output($row['i_trans']);
+    $data['images']['trans'][$i]    = sanitize_output($row['i_trans'], preserve_line_breaks: true);
+    $data['images']['preview'][$i]  = ($row['i_preview'])
+                                    ? __('admin_comics_edit_preview')
+                                    : __('admin_comics_edit_comic');
+    $data['images']['blur'][$i]     = ($row['i_nsfw']) ? ' blurred_container' : '';
+    $data['images']['unblur'][$i]   = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
     if($row['i_trans'])
       $transcript_count++;
   }
@@ -367,9 +367,9 @@ function comics_list( string $sort_by = 'date'  ,
                       LEFT JOIN images
                       ON        images.fk_comics = comics.id
                       LEFT JOIN images AS preview_image
-                      ON        comics.id                     = preview_image.fk_comics
-                      AND       preview_image.fk_image_types  = 2
-                      AND       preview_image.language        = '$lang'
+                      ON        comics.id                   = preview_image.fk_comics
+                      AND       preview_image.is_a_preview  = 1
+                      AND       preview_image.language      = '$lang'
                       WHERE     1 = 1
                       $query_search
                       GROUP BY  comics.id

@@ -29,6 +29,8 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
 
 <div class="width_50">
 
+  <?php if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/'): ?>
+
   <h1 class="gigapadding_top bigpadding_bot align_center">
     <?=__link('https://bsky.app/profile/thebad.website', __('home_intro_title'), 'text_light', is_internal: false)?>
   </h1>
@@ -46,6 +48,10 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
       <img style="height: 6.0rem; width: 6.0rem;" src="<?=$path?>img/icons/bluesky_page.png" alt="Bluesky" title="Bluesky">
     </a>
   </p>
+
+  <?php else: ?>
+
+  <?php endif; ?>
 
 </div>
 

@@ -38,14 +38,15 @@ if(isset($_POST['image_edit']))
   $admin_image_id = (int)form_fetch_element('image_id');
 
   // Assemble an array with the postdata
-  $admin_image_data = array(  'name'  => form_fetch_element('image_name')                       ,
-                              'comic' => form_fetch_element('image_comic')                      ,
-                              'type'  => form_fetch_element('image_type')                       ,
-                              'lang'  => form_fetch_element('image_lang')                       ,
-                              'order' => form_fetch_element('image_order')                      ,
-                              'date'  => form_fetch_element('image_date')                       ,
-                              'trans' => form_fetch_element('image_trans')                      ,
-                              'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );
+  $admin_image_data = array(  'name'      => form_fetch_element('image_name')                           ,
+                              'comic'     => form_fetch_element('image_comic')                          ,
+                              'lang'      => form_fetch_element('image_lang')                           ,
+                              'order'     => form_fetch_element('image_order')                          ,
+                              'date'      => form_fetch_element('image_date')                           ,
+                              'trans'     => form_fetch_element('image_trans')                          ,
+                              'template'  => form_fetch_element('image_template', element_exists: true) ,
+                              'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
+                              'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     );
 
   // Edit the image
   images_edit(  $admin_image_id   ,
@@ -66,9 +67,6 @@ if(isset($_POST['admin_images_delete']))
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // List images
-
-// Fetch image types
-$image_types = image_types_list();
 
 // Fetch comics
 $comics_list = comics_list( sort_by: 'title' );
@@ -147,9 +145,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th>
           <select class="table_search" name="admin_images_search_type" id="admin_images_search_type" onchange="admin_image_list_search();">
             <option value="0">&nbsp;</option>
-            <?php for($i = 0; $i < $image_types['rows']; $i++): ?>
-            <option value="<?=$image_types[$i]['id']?>"><?=$image_types[$i]['name']?></option>
-            <?php endfor; ?>
+            <option value="1"><?=__('admin_images_list_type_comic')?></option>
+            <option value="2"><?=__('admin_images_list_type_prev')?></option>
+            <option value="3"><?=__('admin_images_list_type_templ')?></option>
           </select>
         </th>
 
@@ -213,7 +211,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap bold">
-          <?=$images_list[$i]['type']?>
+          <?php if($images_list[$i]['preview']): ?>
+          <?=__icon('duplicate', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
+          <?php elseif($images_list[$i]['template']): ?>
+          <?=__icon('image', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
         </td>
 
         <td class="align_center nowrap bold">
