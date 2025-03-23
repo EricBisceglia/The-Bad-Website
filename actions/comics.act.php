@@ -353,6 +353,8 @@ function comics_list( string $sort_by = 'date'  ,
                                 comics.upload_date            AS 'c_date'     ,
                                 comics.is_public              AS 'c_public'   ,
                                 comics.view_count             AS 'c_views'    ,
+                                comics.description_en         AS 'c_desc_en'  ,
+                                comics.description_fr         AS 'c_desc_fr'  ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
                                 preview_image.name            AS 'pi_name'    ,
                                 preview_image.is_nsfw         AS 'pi_nsfw'    ,
@@ -387,6 +389,7 @@ function comics_list( string $sort_by = 'date'  ,
   {
     $data[$i]['id']         = sanitize_output($row['c_id']);
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
+    $data[$i]['url']        = sanitize_output($GLOBALS['website_url'].'comic/'.$row['c_slug']);
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
     $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 38, '...'));
     $data[$i]['ltitle']     = sanitize_output(string_truncate($row['c_title'], 50, '...'));
@@ -396,8 +399,11 @@ function comics_list( string $sort_by = 'date'  ,
     $data[$i]['type']       = sanitize_output($row['ct_name']);
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
+    $data[$i]['date_rss']   = date(DATE_RSS, strtotime($row['c_date']));
     $data[$i]['private']    = (!$row['c_public']);
     $data[$i]['views']      = sanitize_output($row['c_views']);
+    $data[$i]['desc_en']    = sanitize_output($row['c_desc_en']);
+    $data[$i]['desc_fr']    = sanitize_output($row['c_desc_fr']);
     $data[$i]['preview']    = sanitize_output($row['pi_name']);
     $data[$i]['blur']       = ($row['pi_nsfw']) ? ' blurred_container' : '';
     $data[$i]['unblur']     = ($row['pi_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';

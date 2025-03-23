@@ -1,0 +1,54 @@
+<?php /***************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                       SETUP                                                       */
+/*                                                                                                                   */
+// File inclusions /**************************************************************************************************/
+include_once './inc/includes.inc.php';   # Core
+include_once './actions/comics.act.php'; # Comic management
+include_once './lang/comics.lang.php';   # Admin translations
+
+// Page summary
+$page_url       = "rss";
+$page_title_en  = "RSS feed";
+$page_title_fr  = "Flux RSS";
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get the list of comics
+
+$comics_list = comics_list( sort_by:    'date'  ,
+                            is_public:  true    ,
+                            is_major:   true    );
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Generate the RSS feed
+
+header('Content-Type: application/rss+xml; charset=utf-8');
+echo '<?xml version="1.0" encoding="UTF-8"?>';
+?>
+
+<rss version="2.0">
+  <channel>
+    <title>The Bad Website</title>
+    <link>https://thebad.website</link>
+    <description>Mostly satirical comics from the Bad Website</description>
+    <language>en-us</language>
+
+    <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
+    <?php if($i < 25): ?>
+    <item>
+      <title><?=$comics_list[$i]['title_en']?></title>
+      <link><?=$comics_list[$i]['url']?></link>
+      <description><?=$comics_list[$i]['desc_en']?></description>
+      <pubDate><?=$comics_list[$i]['date']?></pubDate>
+    </item>
+    <?php endif; ?>
+    <?php endfor; ?>
+
+  </channel>
+</rss>
