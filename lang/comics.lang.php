@@ -40,6 +40,10 @@ ___('comics_list_tags',       'FR', "Tags");
 
 
 // Full comics list
+___('comics_list_input',  'EN', "Type your search query here");
+___('comics_list_input',  'FR', "Écrivez votre recherche ici");
+___('comics_list_submit', 'EN', "Search the comics");
+___('comics_list_submit', 'FR', "Rechercher");
 ___('comics_list_title',  'EN', "Title");
 ___('comics_list_title',  'FR', "Titre");
 ___('comics_list_type',   'EN', "Category");

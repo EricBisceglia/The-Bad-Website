@@ -198,8 +198,8 @@ ___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000
 // Comics list
 ___('admin_comics_title',         'EN', "Comics");
 ___('admin_comics_title',         'FR', "Comics");
-___('admin_comics_search_body',   'EN', "Search in comics descriptions and transcripts");
-___('admin_comics_search_body',   'FR', "Rechercher dans les descriptions et transcriptions des comics");
+___('admin_comics_search_body',   'EN', "Search in descriptions and transcripts");
+___('admin_comics_search_body',   'FR', "Rechercher dans les descriptions et transcriptions");
 ___('admin_comics_list_title',    'EN', "Title");
 ___('admin_comics_list_title',    'FR', "Titre");
 ___('admin_comics_list_type',     'EN', "Type");

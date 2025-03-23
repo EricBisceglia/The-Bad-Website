@@ -46,7 +46,9 @@ $comics_list = comics_list( sort_by:    'date'  ,
       </a>
     </div>
     <div class="flex">
-      <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+      <a href="<?=$path?>pages/comics_list">
+        <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+      </a>
     </div>
   </div>
 
