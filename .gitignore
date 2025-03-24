@@ -1,6 +1,9 @@
 # Don't commit the admin password
 .htpasswd
 
+# Don't commit the admin htaccess
+admin/.htaccess
+
 # Don't commit assets
 img/comics/*
 !img/comics/index.php

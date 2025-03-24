@@ -331,6 +331,35 @@ EOT
 );
 
 
+// Reuse
+___('about_reuse_title',  'EN', "Can I share / reuse your art?");
+___('about_reuse_title',  'FR', "Puis-je partager / réutiliser ton art ?");
+___('about_reuse_body_1', 'EN', <<<EOT
+Of course! Art is meant to be shared, screw people and corporations who think otherwise.
+EOT
+);
+___('about_reuse_body_1', 'FR', <<<EOT
+Bien sûr ! L'art est fait pour être partagé, merde aux gens et entreprises qui pensent le contraire.
+EOT
+);
+___('about_reuse_body_2', 'EN', <<<EOT
+You can share my comics, use my characters, steal my jokes, and best of all, you don't even need to ask for permission. Have fun.
+EOT
+);
+___('about_reuse_body_2', 'FR', <<<EOT
+Vous pouvez partager mes comics, utiliser mes personnages, voler mes blagues... et le meilleur dans tout ça, c'est que vous n'avez même pas besoin de demander la permission. Faites-vous plaisir.
+EOT
+);
+___('about_reuse_body_3', 'EN', <<<EOT
+The only restriction is that you can't use them in commercial projects without my explicit permission. Any revenue generated from The Bad Website's intellectual property would violate intellectual property laws and may result in legal action.
+EOT
+);
+___('about_reuse_body_3', 'FR', <<<EOT
+La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial sans mon accord explicite. Tout revenu généré en exploitant la propriété intellectuelle du Mauvais Site constituerait une violation des lois sur la propriété intellectuelle et pourrait entraîner des poursuites judiciaires.
+EOT
+);
+
+
 // Merch
 ___('about_merch_title',  'EN', "Is there merch available?");
 ___('about_merch_title',  'FR', "Il y a des goodies disponibles ?");
@@ -356,5 +385,137 @@ EOT
 );
 ___('about_merch_body_3', 'FR', <<<EOT
 Mais qui sait ce que l'avenir nous réserve...
+EOT
+);
+
+
+// Source
+___('about_source_title',  'EN', "Cool website, did you make it yourself?");
+___('about_source_title',  'FR', "Ce site est cool, tu l'as fait toi-même ?");
+___('about_source_body_1', 'EN', <<<EOT
+Yep, it's all hand crafted.
+EOT
+);
+___('about_source_body_1', 'FR', <<<EOT
+Oui, tout est fait à la main.
+EOT
+);
+___('about_source_body_2', 'EN', <<<EOT
+If you're curious, the source code is open sourced and <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">publicly available on GitHub</a>.
+EOT
+);
+___('about_source_body_2', 'FR', <<<EOT
+Si ça vous dit de voir le code source, il est open source et <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">disponible publiquement sur GitHub</a>.
+EOT
+);
+
+
+// Cookies
+___('about_cookies_title',  'EN', "Why wasn't I asked to accept cookies?");
+___('about_cookies_title',  'FR', "Pourquoi le site ne m'a-t-il pas demandé d'accepter des cookies ?");
+___('about_cookies_body_1', 'EN', <<<EOT
+Because this is just a simple website full of silly pastel drawings. There's no need to track you, serve you ads, or sell your data to third parties. Since no personal data is being collected, there's nothing you need to consent to.
+EOT
+);
+___('about_cookies_body_1', 'FR', <<<EOT
+Parce que ce n'est qu'un simple site rempli de dessins pastels idiots. Il n'y a aucune raison de traquer vos données, de vous afficher des publicités ou de les vendre à des tiers. Puisque vos données personnelles ne sont pas collectées, vous n'avez rien à accepter.
+EOT
+);
+___('about_cookies_body_2', 'EN', <<<EOT
+Maybe you should start asking why other websites need your personal data. Just saying.
+EOT
+);
+___('about_cookies_body_2', 'FR', <<<EOT
+Vous devriez vous demander pourquoi les autres sites réclament vos données personnelles.
+EOT
+);
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                   LEGAL NOTICE                                                    */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Legal notice
+___('legal_notice_title',   'EN', "Legal notice / Privacy policy");
+___('legal_notice_title',   'FR', "Mentions légales / Politique de confidentialité");
+___('legal_notice_body_1',  'EN', <<<EOT
+This website does not collect any personal data.
+EOT
+);
+___('legal_notice_body_1',  'FR', <<<EOT
+Ce site ne collecte aucune donnée personnelle.
+EOT
+);
+___('legal_notice_body_2',  'EN', <<<EOT
+Everything here is custom-made and handcrafted. No third-party scripts or services are used, and your personal data is not shared with anyone. You can verify this by checking the website's <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">source code</a>, which is open-source and publicly available.
+EOT
+);
+___('legal_notice_body_2',  'FR', <<<EOT
+Tout son contenu est entièrement fait main et sur mesure. Aucun script ni service tiers n'est utilisé. Aucune donnée personnelle n'est collectée ni partagée. Vous pouvez le vérifier en consultant le <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">code source</a> du site, qui est public.
+EOT
+);
+___('legal_notice_body_3',  'EN', <<<EOT
+That's why you weren't asked to accept cookies or a user agreement like on most other websites. Just enjoy the colors!
+EOT
+);
+___('legal_notice_body_3',  'FR', <<<EOT
+C'est pourquoi vous n'avez pas eu à accepter de cookies ou de contrat utilisateur, contrairement à la plupart des autres sites Internet. Profitez-en !
+EOT
+);
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                               INTELLECTUAL PROPERTY                                               */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// IP
+___('intellectual_property_title',   'EN', "Intellectual property");
+___('intellectual_property_title',   'FR', "Propriété intellectuelle");
+___('intellectual_property_body_1',  'EN', <<<EOT
+The Bad Website, its characters, comics, and smug humor are all original creations and the intellectual property of Éric Bisceglia, aka Bad.
+EOT
+);
+___('intellectual_property_body_1',  'FR', <<<EOT
+The Bad Website, alias Le Mauvais Site, ainsi que ses personnages, ses comics et son humour arrogant sont des créations originales et la propriété intellectuelle d'Éric Bisceglia, alias Bad.
+EOT
+);
+___('intellectual_property_body_2',  'EN', <<<EOT
+You are free to reuse The Bad Website's characters, comics, and smug humor however you like, without asking for permission and without crediting the source or author (though I'd appreciate it). The only restriction is that you cannot use them in commercial projects without explicit permission. Any revenue generated from The Bad Website's intellectual property would violate intellectual property laws and may result in legal action.
+EOT
+);
+___('intellectual_property_body_2',  'FR', <<<EOT
+Vous êtes libre de réutiliser les personnages, l'art, et l'humour arrogant du Mauvais Site à volonté, sans demander la permission, sans créditer l'auteur ou la source (même si cela serait apprécié). La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial sans permission explicite. Tout revenu généré en exploitant la propriété intellectuelle du Mauvais Site constituerait une violation des lois sur la propriété intellectuelle et pourrait entraîner des poursuites judiciaires.
+EOT
+);
+___('intellectual_property_body_3',  'EN', <<<EOT
+Most of The Bad Website's comics use the <a href="https://en.wikipedia.org/wiki/Segoe" target="_blank">Segoe UI font family</a>, a registered trademark of Microsoft.
+EOT
+);
+___('intellectual_property_body_3',  'FR', <<<EOT
+La plupart des comics du Mauvais Site utilisent la police <a href="https://en.wikipedia.org/wiki/Segoe" target="_blank">Segoe UI</a>, une marque détenue par Microsoft.
+EOT
+);
+___('intellectual_property_body_4',  'EN', <<<EOT
+The (hidden) admin panel of the website uses <a href="https://feathericons.com/" target="_blank">Feather icons</a>, created by Cole Bemis. Thanks Cole, you're awesome.
+EOT
+);
+___('intellectual_property_body_4',  'FR', <<<EOT
+Le panneau d'administration (caché) utilise <a href="https://feathericons.com/" target="_blank">Feather icons</a>, crée par Cole Bemis. Merci Cole, tu déchires.
+EOT
+);
+___('intellectual_property_body_5',  'EN', <<<EOT
+© The Bad Website / Éric Bisceglia 2025 - {{1}}
+EOT
+);
+___('intellectual_property_body_5',  'FR', <<<EOT
+© The Bad Website / Éric Bisceglia 2025 - {{1}}
 EOT
 );

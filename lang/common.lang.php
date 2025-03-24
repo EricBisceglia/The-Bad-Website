@@ -930,7 +930,7 @@ ___('menu_top_videos',  'EN', "VIDEOS");
 ___('menu_top_videos',  'FR', "VIDEOS");
 ___('menu_top_socials', 'EN', "SOCIALS");
 ___('menu_top_socials', 'FR', "SOCIAL");
-___('menu_top_about',   'EN', "ABOUT");
+___('menu_top_about',   'EN', "FAQ");
 ___('menu_top_about',   'FR', "FAQ");
 
 

@@ -8,7 +8,9 @@ include_once './../lang/main.lang.php';   # Translations
 
 // Page summary
 $page_lang        = array('FR', 'EN');
-$page_url         = "pages/about";
+$page_url         = "pages/faq";
+$page_title_en    = "FAQ";
+$page_title_fr    = "FAQ";
 $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
 
@@ -27,7 +29,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </div>
 
   <h5 class="hugepadding_top smallpadding_bot" id="quality">
-    <?=__link('pages/about#quality', __('about_quality_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#quality', __('about_quality_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -43,7 +45,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="pastels">
-    <?=__link('pages/about#pastels', __('about_pastels_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#pastels', __('about_pastels_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -55,7 +57,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="offended">
-    <?=__link('pages/about#offended', __('about_offended_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#offended', __('about_offended_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -79,7 +81,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="credits">
-    <?=__link('pages/about#credits', __('about_credits_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#credits', __('about_credits_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -95,7 +97,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="follow">
-    <?=__link('pages/about#follow', __('about_follow_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#follow', __('about_follow_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -115,7 +117,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="talk">
-    <?=__link('pages/about#talk', __('about_talk_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#talk', __('about_talk_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -130,8 +132,24 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
     <?=__('about_talk_body_3')?>
   </p>
 
+  <h5 class="hugepadding_top smallpadding_bot" id="reuse">
+    <?=__link('pages/faq#reuse', __('about_reuse_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_reuse_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_reuse_body_2')?>
+  </p>
+
+  <p>
+    <?=__('about_reuse_body_3')?>
+  </p>
+
   <h5 class="hugepadding_top smallpadding_bot" id="merch">
-    <?=__link('pages/about#merch', __('about_merch_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('pages/faq#merch', __('about_merch_title'), path: root_path(), style: 'text_light')?>
   </h5>
 
   <p>
@@ -144,6 +162,30 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
   <p>
     <?=__('about_merch_body_3')?>
+  </p>
+
+  <h5 class="hugepadding_top smallpadding_bot" id="source">
+    <?=__link('pages/faq#source', __('about_source_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_source_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_source_body_2')?>
+  </p>
+
+  <h5 class="hugepadding_top smallpadding_bot" id="cookies">
+    <?=__link('pages/faq#cookies', __('about_cookies_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_cookies_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_cookies_body_2')?>
   </p>
 
 </div>

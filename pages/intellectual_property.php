@@ -8,10 +8,10 @@ include_once './../lang/main.lang.php';   # Translations
 
 // Page summary
 $page_lang        = array('FR', 'EN');
-$page_url         = "pages/videos";
-$page_title_en    = "Videos";
-$page_title_fr    = "Vidéos";
-$page_description = "Hi, this is Bad, and you're on the wrong website.";
+$page_url         = "pages/intellectual_property";
+$page_title_en    = "Intellectual property";
+$page_title_fr    = "Propriété intellectuelle";
+$page_description = "The Bad Website - Intellectual property";
 
 
 
@@ -24,9 +24,29 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
 <div class="width_50">
 
-  <img src="<?=$path?>img/website/videos_intro_<?=$lang?>.png" alt="<?=__('videos_comics_intro')?>" title="<?=__('videos_comics_intro')?>">
+  <h2>
+    <?=__('intellectual_property_title')?>
+  </h2>
 
-  <img src="<?=$path?>img/website/videos_future_<?=$lang?>.png" alt="<?=__('videos_comics_future')?>" title="<?=__('videos_comics_future')?>">
+  <p>
+    <?=__('intellectual_property_body_1')?>
+  </p>
+
+  <p>
+    <?=__('intellectual_property_body_2')?>
+  </p>
+
+  <p>
+    <?=__('intellectual_property_body_3')?>
+  </p>
+
+  <p>
+    <?=__('intellectual_property_body_4')?>
+  </p>
+
+  <p>
+    <?=__('intellectual_property_body_5', preset_values: array(date('Y')))?>
+  </p>
 
 </div>
 

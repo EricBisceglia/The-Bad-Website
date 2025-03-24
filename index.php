@@ -60,7 +60,7 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
-      <a href="<?=$path?>pages/about">
+      <a href="<?=$path?>pages/faq">
         <img src="<?=$path?>img/website/homepage_questions_<?=$lang?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
       </a>
     </div>
