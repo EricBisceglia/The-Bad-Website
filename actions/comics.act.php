@@ -723,7 +723,8 @@ function comic_types_list() : array
                                     comic_types.name_fr       AS 'ct_name_fr'   ,
                                     comic_types.banner_$lang  AS 'ct_banner'    ,
                                     comic_types.banner_en     AS 'ct_banner_en' ,
-                                    comic_types.banner_fr     AS 'ct_banner_fr'
+                                    comic_types.banner_fr     AS 'ct_banner_fr' ,
+                                    comic_types.is_major      AS 'ct_is_major'
                           FROM      comic_types
                           ORDER BY  comic_types.sorting_order ASC ");
 
@@ -737,6 +738,7 @@ function comic_types_list() : array
     $data[$i]['name_fr']    = sanitize_output($row['ct_name_fr']);
     $data[$i]['banner_en']  = sanitize_output($row['ct_banner_en']);
     $data[$i]['banner_fr']  = sanitize_output($row['ct_banner_fr']);
+    $data[$i]['major_p']    = sanitize_output($row['ct_is_major']) ? ' !' : '';
 
     // Get the correct banner images
     $root = root_path();
