@@ -68,8 +68,13 @@ if(isset($_POST['comic_edit']))
   $admin_comic_id = (int)form_fetch_element('comic_id');
 
   // Go through the tag list
-  for($i = 0; $i < $tags_list['rows']; $i++)
-    $admin_comic_tags[$tags_list[$i]['id']] = (isset($_POST['comic_tag_'.$tags_list[$i]['id']])) ? 1 : 0;
+  if($tags_list['rows'])
+  {
+    for($i = 0; $i < $tags_list['rows']; $i++)
+      $admin_comic_tags[$tags_list[$i]['id']] = (isset($_POST['comic_tag_'.$tags_list[$i]['id']])) ? 1 : 0;
+  }
+  else
+    $admin_comic_tags = array();
 
   // Assemble an array with the postdata
   $admin_comic_data = array(  'title_en'  => form_fetch_element('comic_title_en')                       ,
