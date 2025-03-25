@@ -7,6 +7,9 @@ include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/comics.lang.php';   # Admin translations
 
+// Extra JS
+$js = array('common/comics');
+
 
 
 
@@ -46,9 +49,9 @@ if($comic_data['private'])
 
 // Update the page sumary
 $page_url         = "comic/".$comic_slug;
-$page_title_en    = $comic_data['title_en'];
-$page_title_fr    = $comic_data['title_fr'];
-$page_description = $comic_data['title_en'];
+$page_title_en    = $comic_data['page_en'];
+$page_title_fr    = $comic_data['page_fr'];
+$page_description = $comic_data['page_en'];
 
 // Increment the comic's view count
 comics_increment_view_count($comic_id);
@@ -94,14 +97,21 @@ comics_increment_view_count($comic_id);
 
   <?php if($comic_data['images']['transcripts']): ?>
   <div class="padding_bot">
-    <h5 class="smallpadding_bot">
-      <?=__('comics_transcript')?>
-    </h5>
-    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-    <div class="smallpadding_bot">
-      <blockquote><?=$comic_data['images']['trans'][$i]?></blockquote>
+    <div class="smallpadding_bot align_center">
+      <button class="button" id="image_transcripts_button" onclick="show_comic_transcripts();"><?=__('comics_trans_button')?></button>
     </div>
-    <?php endfor; ?>
+    <div class="hidden" id="image_transcripts">
+      <h5 class="smallpadding_bot">
+        <?=__('comics_transcript')?>
+      </h5>
+      <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+      <?php if($comic_data['images']['trans'][$i]): ?>
+      <div class="smallpadding_bot">
+        <blockquote><?=$comic_data['images']['trans'][$i]?></blockquote>
+      </div>
+      <?php endif; ?>
+      <?php endfor; ?>
+    </div>
   </div>
   <?php endif; ?>
 
