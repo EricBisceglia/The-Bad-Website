@@ -42,12 +42,12 @@ $comics_list = comics_list( sort_by:    'date'  ,
   <div class="flexcontainer nopadding_bot">
     <div class="flex smallspaced_right">
       <a href="<?=$path?>pages/comics_list">
-        <img src="<?=$path?>img/banners/comics/full_list_<?=$lang?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
+        <img src="<?=$path?>img/banners/comics/full_list_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>pages/comics_list">
-        <img src="<?=$path?>img/banners/comics/search_<?=$lang?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+        <img src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
       </a>
     </div>
   </div>
@@ -55,17 +55,17 @@ $comics_list = comics_list( sort_by:    'date'  ,
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <a href="<?=$path?>pages/comics_categories">
-        <img src="<?=$path?>img/banners/comics/categories_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
+        <img src="<?=$path?>img/banners/comics/categories_<?=$lang_lower?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>pages/comics_random">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>pages/comics_tags">
-        <img src="<?=$path?>img/banners/comics/tags_<?=$lang?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
+        <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
       </a>
     </div>
   </div>
@@ -78,7 +78,7 @@ $comics_list = comics_list( sort_by:    'date'  ,
         <?php if($comics_list[$i]['preview']) : ?>
         <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
         <?php else: ?>
-        <img src="<?=$path?>img/templates/preview_<?=$lang?>.png" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
         <?php endif; ?>
       </a>
     </div>

@@ -39,7 +39,7 @@ $comic_types_list = comic_types_list();
 
   <div class="smallpadding_bot">
     <a href="<?=$path?>pages/comics">
-      <img src="<?=$path?>img/banners/comics/categories_header_<?=$lang?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
+      <img src="<?=$path?>img/banners/comics/categories_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
     </a>
   </div>
 

@@ -19,6 +19,9 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 if(!isset($lang))
   exit(__('error_forbidden'));
 
+// Set a lowercase language variable
+$lang_lower = string_change_case($lang, 'lowercase');
+
 
 
 

@@ -24,9 +24,9 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
 <div class="width_50">
 
-  <img src="<?=$path?>img/website/videos_intro_<?=$lang?>.png" alt="<?=__('videos_comics_intro')?>" title="<?=__('videos_comics_intro')?>">
+  <img src="<?=$path?>img/website/videos_intro_<?=$lang_lower?>.png" alt="<?=__('videos_comics_intro')?>" title="<?=__('videos_comics_intro')?>">
 
-  <img src="<?=$path?>img/website/videos_future_<?=$lang?>.png" alt="<?=__('videos_comics_future')?>" title="<?=__('videos_comics_future')?>">
+  <img src="<?=$path?>img/website/videos_future_<?=$lang_lower?>.png" alt="<?=__('videos_comics_future')?>" title="<?=__('videos_comics_future')?>">
 
 </div>
 

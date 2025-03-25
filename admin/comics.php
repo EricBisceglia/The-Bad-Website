@@ -248,7 +248,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr>
 
         <td class="align_left nowrap tooltip_container">
-          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['title'], path: root_path())?>
+          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['title'], path: root_path(), popup: true)?>
           <div class="tooltip">
             <?=$comics_list[$i]['title_en']?><br>
             <?=$comics_list[$i]['title_fr']?>

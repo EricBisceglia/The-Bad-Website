@@ -69,7 +69,7 @@ $page_title_fr  = $comic_tag_data['title_fr'];
         <?php if($comics_list[$i]['preview']) : ?>
         <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
         <?php else: ?>
-        <img src="<?=$path?>img/templates/preview_<?=$lang?>.png" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png" alt="<?=$comics_list[$i]['title']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
         <?php endif; ?>
       </a>
     </div>

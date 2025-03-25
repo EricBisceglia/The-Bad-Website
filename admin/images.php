@@ -200,7 +200,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr>
 
         <td class="tooltip_container">
-          <?=$images_list[$i]['name']?>
+          <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
+            <?=$images_list[$i]['name']?>
+          </a>
           <div class="tooltip">
             <p class="align_center bold tinypadding_bot">
               <?=$images_list[$i]['name_full']?>

@@ -25,7 +25,7 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 <div class="width_50">
 
   <div>
-    <img src="<?=$path?>img/website/about_intro_<?=$lang?>.png" alt="<?=__('about_comics_intro')?>" title="<?=__('about_comics_intro')?>">
+    <img src="<?=$path?>img/website/about_intro_<?=$lang_lower?>.png" alt="<?=__('about_comics_intro')?>" title="<?=__('about_comics_intro')?>">
   </div>
 
   <h5 class="hugepadding_top smallpadding_bot" id="quality">
