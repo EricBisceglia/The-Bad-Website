@@ -77,7 +77,7 @@ comics_increment_view_count($comic_id);
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
   <div class="padding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['ftrans'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
+      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
   </div>
   <?php endfor; ?>

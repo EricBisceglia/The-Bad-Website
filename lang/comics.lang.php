@@ -13,6 +13,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 
 // Description
+___('comics_title_tag',     'EN', "Comic image - transcription in alt text");
+___('comics_title_tag',     'FR', "Image du comic - transcription en alt text");
 ___('comics_description',   'EN', "About this comic");
 ___('comics_description',   'FR', "Au sujet de ce comic");
 ___('comics_trans_button',  'EN', "Show image transcriptions");
