@@ -137,12 +137,12 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <input class="indiv" type="text" name="image_date" id="image_date" value="<?=$admin_image_data['date']?>">
       </div>
 
-      <div class="smallpadding_bot" id="image_transcript">
-        <label for="image_trans"><?=__('admin_images_add_transcript')?></label>
-        <textarea class="indiv" name="image_trans" id="image_trans"><?=$admin_image_data['trans']?></textarea>
+      <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_preview"<?=$image_preview_checked?>>
+        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
       </div>
 
-      <div class="tinypadding_top">
+      <div>
         <input type="checkbox" class="align_left" name="image_reusable"<?=$image_reusable_checked?>>
         <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
       </div>
@@ -152,14 +152,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>
 
-      <div>
-        <input type="checkbox" class="align_left" name="image_preview"<?=$image_preview_checked?>>
-        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
-      </div>
-
       <div class="smallpadding_bot">
         <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
+      </div>
+
+      <div class="smallpadding_bot" id="image_transcript">
+        <label for="image_trans"><?=__('admin_images_add_transcript')?></label>
+        <textarea class="indiv" name="image_trans" id="image_trans"><?=$admin_image_data['trans']?></textarea>
       </div>
 
       <input type="submit" name="image_edit" value="<?=__('admin_images_edit_submit')?>">

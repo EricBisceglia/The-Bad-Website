@@ -130,6 +130,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_preview">
+        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
+      </div>
+
+      <div>
         <input type="checkbox" class="align_left" name="image_reusable">
         <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
       </div>
@@ -137,11 +142,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div>
         <input type="checkbox" class="align_left" name="image_template">
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
-      </div>
-
-      <div>
-        <input type="checkbox" class="align_left" name="image_preview">
-        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
       </div>
 
       <div class="smallpadding_bot">
