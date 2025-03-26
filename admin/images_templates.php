@@ -32,10 +32,12 @@ $js   = array('admin/admin');
 // Fetch all template images
 
 // Reusable images
-$reusable_list = images_list( search: array('reusable' => 1) );
+$reusable_list = images_list( search:   array('reusable' => 1) ,
+                              sort_by:  'name'                 ,);
 
 // Templates
-$template_list = images_list( search: array('template' => 1) );
+$template_list = images_list( search: array('template' => 1) ,
+                              sort_by:  'name'                 ,);
 
 
 
