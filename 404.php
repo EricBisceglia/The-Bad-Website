@@ -18,9 +18,6 @@ $css = array('404');
 // Hide the footer
 $hide_footer = 1;
 
-// Hide header except in local dev mode
-if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
-  $hide_header = true;
 
 
 

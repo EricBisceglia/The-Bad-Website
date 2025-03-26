@@ -14,13 +14,6 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 // Prepare the correct RSS link
 $rss_link = ($lang === 'EN') ? 'rss' : 'rss_fr';
 
-// Hide header and footer except in local dev mode
-if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
-{
-  $hide_header = true;
-  $hide_footer = true;
-}
-
 
 
 
@@ -31,28 +24,6 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
 /**********************************************************************************/ include './inc/header.inc.php'; ?>
 
 <div class="width_50">
-
-  <?php if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/'): ?>
-
-  <h1 class="gigapadding_top bigpadding_bot align_center">
-    <?=__link('https://bsky.app/profile/thebad.website', __('home_intro_title'), 'text_light', is_internal: false)?>
-  </h1>
-
-  <p class="align_center big">
-    <?=__link('https://bsky.app/profile/thebad.website', __('home_intro_text'), 'text_light', is_internal: false)?>
-  </p>
-
-  <p class="bigpadding_top align_center big">
-    <?=__link('https://bsky.app/profile/thebad.website', __('home_intro_bsky'), 'text_light', is_internal: false)?>
-  </p>
-
-  <p class="align_center hugepadding_top">
-    <a href="https://bsky.app/profile/thebad.website">
-      <img style="height: 6.0rem; width: 6.0rem;" src="<?=$path?>img/icons/bluesky_page.png" alt="Bluesky" title="Bluesky">
-    </a>
-  </p>
-
-  <?php else: ?>
 
   <img src="<?=$path?>img/website/homepage_intro_<?=$lang?>.png" alt="<?=__('home_comics_intro')?>" title="<?=__('home_comics_intro')?>">
 
@@ -85,8 +56,6 @@ if($GLOBALS['website_url'] !== 'http://127.0.0.1/thebadwebsite/')
       </a>
     </div>
   </div>
-
-  <?php endif; ?>
 
 </div>
 
