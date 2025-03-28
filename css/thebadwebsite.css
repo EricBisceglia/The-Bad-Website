@@ -763,7 +763,7 @@ footer { font-size: 70%; margin-top: 8.0rem; margin-bottom: 5.0rem;   } }
 
 /******************************************************* COMICS ******************************************************/
 
-.comic_container                { width: 100%; overflow-x: auto; white-space: nowrap; }
-.comic_container   img          { display: block; margin: 0 auto; max-width: none;    }
+.comic_container                { width: 100%;                                        }
+.comic_container   img          { margin: 0 auto; max-width: 100%;                    }
 .blurred_container img          { transition: filter 0.3s ease; filter: blur(20px);   }
 .blurred_container img.revealed { filter: blur(0);                                    }
