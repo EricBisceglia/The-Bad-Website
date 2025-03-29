@@ -361,6 +361,7 @@ function comics_list( string $sort_by = 'date'  ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
                                 preview_image.name            AS 'pi_name'    ,
                                 preview_image.is_nsfw         AS 'pi_nsfw'    ,
+                                preview_image.transcript      AS 'pi_trans'   ,
                                 COUNT(DISTINCT tags.id)       AS 't_count'    ,
                                 GROUP_CONCAT(DISTINCT tags.title_$lang ORDER BY tags.sorting_order ASC SEPARATOR ', ')
                                                               AS 't_names'    ,
@@ -408,6 +409,9 @@ function comics_list( string $sort_by = 'date'  ,
     $data[$i]['desc_en']    = sanitize_output($row['c_desc_en']);
     $data[$i]['desc_fr']    = sanitize_output($row['c_desc_fr']);
     $data[$i]['preview']    = sanitize_output($row['pi_name']);
+    $data[$i]['alt']        = ($row['pi_trans'])
+                            ? sanitize_output($row['pi_trans'], use_in_alt_tag: true)
+                            : sanitize_output($row['c_title']);
     $data[$i]['blur']       = ($row['pi_nsfw']) ? ' blurred_container' : '';
     $data[$i]['unblur']     = ($row['pi_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
     $data[$i]['ntags']      = sanitize_output($row['t_count']);

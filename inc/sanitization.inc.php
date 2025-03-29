@@ -206,16 +206,28 @@ function sanitize_array_element(  array   $array                ,
  * @param   string|null $data                               The data to be sanitized.
  * @param   bool        $prevent_line_breaks    (OPTIONAL)  If false/unset, will remove the line breaks from your data.
  * @param   bool        $preserve_backslashes   (OPTIONAL)  If false/unset, will remove backslashes from your data.
+ * @param   bool        $use_in_alt_tag         (OPTIONAL)  If true, will sanitize the data for use in alt tags.
  *
  * @return  string                                          The sanitized data, ready to be printed in your HTML.
  */
 
 function sanitize_output( ?string $data                         ,
                           bool    $preserve_line_breaks = false ,
-                          bool    $preserve_backslashes = true  ) : string
+                          bool    $preserve_backslashes = true  ,
+                          bool    $use_in_alt_tag       = false ) : string
 {
+  // Sanitize the data for use in alt tags
+  if($use_in_alt_tag)
+  {
+    $data = str_replace('"', '', $data);
+    $data = str_replace("'", '', $data);
+    $data = htmlspecialchars($data, ENT_QUOTES, 'utf-8');
+  }
+
   // Prepare the data for use in HTML
-  $data = ($preserve_backslashes) ? htmlentities((string)$data, ENT_QUOTES, 'utf-8') : stripslashes(htmlentities($data, ENT_QUOTES, 'utf-8'));
+  $data = ($preserve_backslashes)
+        ? htmlentities((string)$data, ENT_QUOTES, 'utf-8')
+        : stripslashes(htmlentities($data, ENT_QUOTES, 'utf-8'));
 
   // Return the prepared data
   return ($preserve_line_breaks) ? nl2br($data) : $data;
