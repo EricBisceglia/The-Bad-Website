@@ -36,8 +36,8 @@ $comics_list = comics_list( search:     array('tag_id' => $comic_tag) ,
 
 // Update the page sumary
 $page_url       = "pages/comic_tag?theme=".$comic_tag;
-$page_title_en  = $comic_tag_data['title_en'];
-$page_title_fr  = $comic_tag_data['title_fr'];
+$page_title_en  = $comic_tag_data['page_en'];
+$page_title_fr  = $comic_tag_data['page_fr'];
 
 
 

@@ -158,7 +158,8 @@ function comics_get(  int   $comic_id                ,
                         FROM      comic_tags
                         LEFT JOIN tags
                         ON        tags.id = comic_tags.fk_tags
-                        WHERE     comic_tags.fk_comics = '$comic_id' ");
+                        WHERE     comic_tags.fk_comics = '$comic_id'
+                        ORDER BY  tags.sorting_order ASC ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_tags); $i++)
@@ -685,6 +686,8 @@ function comic_types_get( int $comic_type_id ) : array|null
   $data['order']      = sanitize_output($comic_type_data['ct_order']);
   $data['name_en']    = sanitize_output($comic_type_data['ct_name_en']);
   $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
+  $data['page_en']    = sanitize_meta_tags($comic_type_data['ct_name_en']);
+  $data['page_fr']    = sanitize_meta_tags($comic_type_data['ct_name_fr']);
   $data['banner_en']  = sanitize_output($comic_type_data['ct_banner_en']);
   $data['banner_fr']  = sanitize_output($comic_type_data['ct_banner_fr']);
   $data['desc']       = sanitize_output($comic_type_data['ct_desc'], preserve_line_breaks: true);

@@ -61,6 +61,8 @@ function tags_get( int $tag_id ) : ?array
   $data['banner_fr']  = sanitize_output($tag_data['t_banner_fr']);
   $data['title_en']   = sanitize_output($tag_data['t_title_en']);
   $data['title_fr']   = sanitize_output($tag_data['t_title_fr']);
+  $data['page_en']    = sanitize_meta_tags($tag_data['t_title_en']);
+  $data['page_fr']    = sanitize_meta_tags($tag_data['t_title_fr']);
   $data['desc']       = sanitize_output($tag_data['t_desc'], preserve_line_breaks: true);
   $data['desc_en']    = sanitize_output($tag_data['t_desc_en']);
   $data['desc_fr']    = sanitize_output($tag_data['t_desc_fr']);

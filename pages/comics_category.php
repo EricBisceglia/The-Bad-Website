@@ -35,8 +35,8 @@ $comics_list = comics_list( search:     array('type' => $comic_type)  ,
 
 // Update the page sumary
 $page_url       = "pages/comics_category?type=".$comic_type;
-$page_title_en  = $comic_type_data['name_en'];
-$page_title_fr  = $comic_type_data['name_fr'];
+$page_title_en  = $comic_type_data['page_en'];
+$page_title_fr  = $comic_type_data['page_fr'];
 
 
 
