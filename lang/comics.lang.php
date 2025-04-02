@@ -41,6 +41,8 @@ ___('comics_list_categories', 'EN', "Categories");
 ___('comics_list_categories', 'FR', "Catégories");
 ___('comics_list_tags',       'EN', "Tags");
 ___('comics_list_tags',       'FR', "Tags");
+___('comics_list_latest',     'EN', "Latest comics");
+___('comics_list_latest',     'FR', "Comics récents");
 
 
 // Full comics list

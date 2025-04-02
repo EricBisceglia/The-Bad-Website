@@ -70,6 +70,10 @@ $comics_list = comics_list( sort_by:    'date'  ,
     </div>
   </div>
 
+  <div class="smallpadding_bot">
+    <img src="<?=$path?>img/banners/comics/latest_comics_<?=$lang_lower?>.png" alt="<?=__('comics_list_latest')?>" title="<?=__('comics_list_latest')?>">
+  </div>
+
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <?php if($i < 20): ?>
