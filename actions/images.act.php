@@ -444,18 +444,7 @@ function images_format_file_name( ?string $name ) : string
   $name = str_replace(' ', '_', $name);
 
   // Remove forbidden characters
-  $name = str_replace('%', '', $name);
-  $name = str_replace('/', '', $name);
-  $name = str_replace('\\', '', $name);
-  $name = str_replace('|', '', $name);
-  $name = str_replace('"', '', $name);
-  $name = str_replace('<', '', $name);
-  $name = str_replace('>', '', $name);
-  $name = str_replace('*', '', $name);
-  $name = str_replace('+', '', $name);
-  $name = str_replace('#', '', $name);
-  $name = str_replace('&', '', $name);
-  $name = str_replace('?', '', $name);
+  $name = preg_replace('/[^a-zA-Z0-9_\.]/', '', $name);
 
   // Return the formatted name
   return $name;
