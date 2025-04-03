@@ -7,7 +7,7 @@ include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 
 // Get the optional parameter
-$exclude = form_fetch_element('exclude', request_type: 'GET');
+$exclude = form_fetch_element('exclude', request_type: 'GET', default_value: '');
 
 // Get a random comic
 $comic_slug = comics_get_random_slug( exclude_slug: $exclude );

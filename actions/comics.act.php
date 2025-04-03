@@ -259,6 +259,9 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
   // Sanitize the slug to exclude
   $current_slug = sanitize($exclude_slug, 'string');
 
+  // Prepare an extra query condition if there is a slug to exclude
+  $query_where = ($current_slug) ? " AND comics.slug NOT LIKE '$current_slug' " : " ";
+
   // Fetch a random public comic of a major type
   $comics = query(" SELECT    comics.slug
                     FROM      comics
@@ -270,7 +273,7 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
                     AND       comic_image.language      = '$lang'
                     WHERE     comics.is_public          = 1
                     AND       comic_types.is_major      = 1
-                    AND       comics.slug        NOT LIKE '$exclude_slug'
+                              $query_where
                     GROUP BY  comics.id
                     HAVING    COUNT(DISTINCT comic_image.id) > 0
                     ORDER BY  RAND()
