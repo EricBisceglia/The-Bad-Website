@@ -180,9 +180,15 @@ function comics_get(  int   $comic_id                ,
                                     comics.slug AS 'c_slug'
                           FROM      comics
                           LEFT JOIN comic_types
-                          ON        comic_types.id        = comics.fk_comic_types
+                          ON        comic_types.id            = comics.fk_comic_types
+                          LEFT JOIN images AS comic_image
+                          ON        comics.id                 = comic_image.fk_comics
+                          AND       comic_image.is_a_preview  = 0
+                          AND       comic_image.language      = '$lang'
                           WHERE     comics.is_public      = 1
                           AND       comic_types.is_major  = 1
+                          GROUP BY  comics.id
+                          HAVING    COUNT(DISTINCT comic_image.id) > 0
                           ORDER BY  comics.upload_date    DESC  ,
                                     comics.title_$lang    ASC   ");
 
@@ -240,18 +246,33 @@ function comics_get_id( string $slug ) : int|null
 /**
  * Returns a random comic's slug.
  *
- * @return  string|null  The comic's slug, or null if there are no comics.
+ * @param   string       (OPTIONAL)   $exclude_slug   The slug of the current comic.
+ *
+ * @return  string|null                               The comic's slug, or null if there are no comics.
  */
 
-function comics_get_random_slug() : string|null
+function comics_get_random_slug( string $exclude_slug = '' ) : string|null
 {
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Sanitize the slug to exclude
+  $current_slug = sanitize($exclude_slug, 'string');
+
   // Fetch a random public comic of a major type
   $comics = query(" SELECT    comics.slug
                     FROM      comics
                     LEFT JOIN comic_types
-                    ON        comic_types.id        = comics.fk_comic_types
-                    WHERE     comics.is_public      = 1
-                    AND       comic_types.is_major  = 1
+                    ON        comic_types.id            = comics.fk_comic_types
+                    LEFT JOIN images AS comic_image
+                    ON        comics.id                 = comic_image.fk_comics
+                    AND       comic_image.is_a_preview  = 0
+                    AND       comic_image.language      = '$lang'
+                    WHERE     comics.is_public          = 1
+                    AND       comic_types.is_major      = 1
+                    AND       comics.slug        NOT LIKE '$exclude_slug'
+                    GROUP BY  comics.id
+                    HAVING    COUNT(DISTINCT comic_image.id) > 0
                     ORDER BY  RAND()
                     LIMIT     1 ",
                     fetch_row: true);
@@ -278,8 +299,8 @@ function comics_get_random_slug() : string|null
  * @return  array   An array containing the comics.
  */
 
-function comics_list( string $sort_by = 'date'  ,
-                      array  $search  = array() ,
+function comics_list( string $sort_by   = 'date'  ,
+                      array  $search    = array() ,
                       bool   $is_public = false ,
                       bool   $is_major  = false ) : array
 {
@@ -321,6 +342,9 @@ function comics_list( string $sort_by = 'date'  ,
   $query_having  = ($search_tag_id)         ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0  " : "";
   $query_having .= ($search_images === -1)  ? " AND COUNT(DISTINCT images.id) = 0                             " : "";
   $query_having .= ($search_images === 1)   ? " AND COUNT(DISTINCT images.id) > 0                             " : "";
+
+  // Only show comics with an image in the current language when using the public list
+  $query_having .= ($is_public) ? " AND COUNT(DISTINCT comic_image.id) > 0 " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
@@ -381,6 +405,10 @@ function comics_list( string $sort_by = 'date'  ,
                       ON        comics.id                   = preview_image.fk_comics
                       AND       preview_image.is_a_preview  = 1
                       AND       preview_image.language      = '$lang'
+                      LEFT JOIN images AS comic_image
+                      ON        comics.id                   = comic_image.fk_comics
+                      AND       comic_image.is_a_preview    = 0
+                      AND       comic_image.language        = '$lang'
                       WHERE     1 = 1
                       $query_search
                       GROUP BY  comics.id
