@@ -20,18 +20,21 @@ include_once './../lang/comics.lang.php';   # Admin translations
 // Get the category and its comics
 
 // Fetch the comic type
-$comic_type = (int)form_fetch_element('type', request_type: 'GET');
+$comic_type = form_fetch_element('type', request_type: 'GET');
 
 // Fetch the comic type data
-$comic_type_data = comic_types_get($comic_type);
+$comic_type_data = comic_types_get( comic_type_slug: $comic_type );
 
 // Stop here if the comic type does not exist
 if(!$comic_type_data)
   exit(header("Location: ./comics_categories"));
 
+// Get the comic type's ID
+$comic_type_id = $comic_type_data['id'];
+
 // Get the list of comics in the category
-$comics_list = comics_list( search:     array('type' => $comic_type)  ,
-                            is_public:  true                          );
+$comics_list = comics_list( search:     array('type' => $comic_type_id) ,
+                            is_public:  true                            );
 
 // Update the page sumary
 $page_url       = "pages/comics_category?type=".$comic_type;

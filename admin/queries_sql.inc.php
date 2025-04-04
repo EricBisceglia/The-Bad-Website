@@ -669,3 +669,19 @@ if($last_query < 5)
 
   sql_update_query_id(5);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Give comic types a slug
+
+if($last_query < 6)
+{
+  sql_create_field('comic_types', 'slug', 'TINYTEXT NOT NULL', 'sorting_order');
+
+  sql_create_index('tags', 'tags_name', 'name(20)');
+  sql_create_index('comic_types', 'comic_types_slug', 'slug(20)');
+
+  sql_update_query_id(6);
+}

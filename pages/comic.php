@@ -141,7 +141,7 @@ comics_increment_view_count($comic_id);
     </div>
   </div>
 
-  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type']?>">
+  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
     <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
   </a>
 

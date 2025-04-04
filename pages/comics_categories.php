@@ -45,7 +45,7 @@ $comic_types_list = comic_types_list();
 
   <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
   <div class="nopadding_bot">
-    <a href="<?=$path?>pages/comics_category?type=<?=$comic_types_list[$i]['id']?>">
+    <a href="<?=$path?>pages/comics_category?type=<?=$comic_types_list[$i]['slug']?>">
       <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name']?>" title="<?=$comic_types_list[$i]['name']?>" loading="lazy">
     </a>
   </div>

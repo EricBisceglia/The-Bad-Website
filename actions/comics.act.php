@@ -57,6 +57,7 @@ function comics_get(  int   $comic_id                ,
                                 comics.description_$lang  AS 'c_desc'     ,
                                 comics.description_en     AS 'c_desc_en'  ,
                                 comics.description_fr     AS 'c_desc_fr'  ,
+                                comic_types.slug          AS 'ct_slug'    ,
                                 comic_types.banner_$lang  AS 'ct_banner'  ,
                                 comic_types.name_$lang    AS 'ct_name'
                       FROM      comics
@@ -78,6 +79,7 @@ function comics_get(  int   $comic_id                ,
   $data['desc']         = sanitize_output($comic_data['c_desc'], preserve_line_breaks: true);
   $data['desc_en']      = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
+  $data['type_slug']    = sanitize_output($comic_data['ct_slug']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
 
   // Get the correct banner image
@@ -686,25 +688,37 @@ function comics_delete( int $comic_id )
 /**
  * Returns data related to a comic type.
  *
- * @param   int         $comic_type_id  The comic type's ID
+ * @param   int         $comic_type_id    (optional)  The comic type's ID
+ * @param   string      $comic_type_slug  (optional)  The comic type's slug
  *
- * @return  array|null                  An array containing the comic type's data, or null if it doesn't exist.
+ * @return  array|null                                An array containing the comic type's data, or null if it doesn't exist.
  */
 
-function comic_types_get( int $comic_type_id ) : array|null
+function comic_types_get( int     $comic_type_id    = 0,
+                          string  $comic_type_slug  = '' ) : array|null
 {
-  // Sanitize the comic type's id
-  $comic_type_id = sanitize($comic_type_id, 'int');
+  // Sanitize the comic type's id and slug
+  $comic_type_id    = sanitize($comic_type_id, 'int');
+  $comic_type_slug  = sanitize($comic_type_slug, 'string');
 
   // Return null if the comic type does not exist
-  if(!database_row_exists('comic_types', $comic_type_id))
+  if(!$comic_type_id && !$comic_type_slug)
+    return null;
+  if($comic_type_id && !database_row_exists('comic_types', $comic_type_id))
+    return null;
+  if($comic_type_slug && !database_entry_exists('comic_types', 'slug', $comic_type_slug))
     return null;
 
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
+  // Determine the query parameter
+  $query_where = ($comic_type_id)   ? " WHERE comic_types.id      = '$comic_type_id' "    : " ";
+  $query_where = ($comic_type_slug) ? " WHERE comic_types.slug LIKE '$comic_type_slug' "  : " ";
+
   // Fetch the comic types's data
-  $comic_type_data = query("  SELECT  comic_types.sorting_order     AS 'ct_order'     ,
+  $comic_type_data = query("  SELECT  comic_types.id                AS 'ct_id'        ,
+                                      comic_types.sorting_order     AS 'ct_order'     ,
                                       comic_types.name_en           AS 'ct_name_en'   ,
                                       comic_types.name_fr           AS 'ct_name_fr'   ,
                                       comic_types.banner_$lang      AS 'ct_banner'    ,
@@ -715,11 +729,11 @@ function comic_types_get( int $comic_type_id ) : array|null
                                       comic_types.description_fr    AS 'ct_desc_fr'   ,
                                       comic_types.is_major          AS 'ct_major'
                               FROM    comic_types
-                              WHERE   comic_types.id = '$comic_type_id' ",
+                              $query_where ",
                               fetch_row: true);
 
   // Sanitize the data for display
-  $data['id']         = $comic_type_id;
+  $data['id']         = sanitize_output($comic_type_data['ct_id']);
   $data['order']      = sanitize_output($comic_type_data['ct_order']);
   $data['name_en']    = sanitize_output($comic_type_data['ct_name_en']);
   $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
@@ -760,6 +774,7 @@ function comic_types_list() : array
   // Fetch the comic types
   $comic_types = query("  SELECT    comic_types.id            AS 'ct_id'        ,
                                     comic_types.sorting_order AS 'ct_sort'      ,
+                                    comic_types.slug          AS 'ct_slug'      ,
                                     comic_types.name_$lang    AS 'ct_name'      ,
                                     comic_types.name_en       AS 'ct_name_en'   ,
                                     comic_types.name_fr       AS 'ct_name_fr'   ,
@@ -775,6 +790,7 @@ function comic_types_list() : array
   {
     $data[$i]['id']         = sanitize_output($row['ct_id']);
     $data[$i]['sort']       = sanitize_output($row['ct_sort']);
+    $data[$i]['slug']       = sanitize_output($row['ct_slug']);
     $data[$i]['name']       = sanitize_output($row['ct_name']);
     $data[$i]['name_en']    = sanitize_output($row['ct_name_en']);
     $data[$i]['name_fr']    = sanitize_output($row['ct_name_fr']);
@@ -820,9 +836,16 @@ function comic_types_add( array $data ) : void
   $comic_type_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
   $comic_type_major     = sanitize_array_element($data, 'major', 'bool');
 
+  // Determine the slug
+  $comic_type_slug = str_replace(' ', '_', $comic_type_name_en);
+  $comic_type_slug = preg_replace('/[^a-zA-Z0-9_]/', '', $comic_type_slug);
+  $comic_type_slug = string_change_case($comic_type_slug, 'lowercase');
+  $comic_type_slug = sanitize($comic_type_slug, 'string');
+
   // Add the comic type to the database
   query(" INSERT INTO comic_types
           SET         comic_types.sorting_order   = '$comic_type_sort'      ,
+                      comic_types.slug            = '$comic_type_slug'      ,
                       comic_types.name_en         = '$comic_type_name_en'   ,
                       comic_types.name_fr         = '$comic_type_name_fr'   ,
                       comic_types.banner_en       = '$comic_type_banner_en' ,
@@ -858,19 +881,26 @@ function comic_types_edit( int   $type_id  ,
   $type_desc_fr   = sanitize_array_element($data, 'desc_fr', 'string');
   $type_major     = sanitize_array_element($data, 'major', 'bool');
 
+  // Update the slug
+  $comic_type_slug = str_replace(' ', '_', $type_name_en);
+  $comic_type_slug = preg_replace('/[^a-zA-Z0-9_]/', '', $comic_type_slug);
+  $comic_type_slug = string_change_case($comic_type_slug, 'lowercase');
+  $comic_type_slug = sanitize($comic_type_slug, 'string');
+
   // Stop here if the comic type does not exist
   if(!database_row_exists('comic_types', $type_id))
     return;
 
   // Edit the comic type
   query(" UPDATE  comic_types
-          SET     comic_types.sorting_order   = '$type_order'     ,
-                  comic_types.name_en         = '$type_name_en'   ,
-                  comic_types.name_fr         = '$type_name_fr'   ,
-                  comic_types.banner_en       = '$type_banner_en' ,
-                  comic_types.banner_fr       = '$type_banner_fr' ,
-                  comic_types.description_en  = '$type_desc_en'   ,
-                  comic_types.description_fr  = '$type_desc_fr'   ,
+          SET     comic_types.sorting_order   = '$type_order'       ,
+                  comic_types.slug            = '$comic_type_slug'  ,
+                  comic_types.name_en         = '$type_name_en'     ,
+                  comic_types.name_fr         = '$type_name_fr'     ,
+                  comic_types.banner_en       = '$type_banner_en'   ,
+                  comic_types.banner_fr       = '$type_banner_fr'   ,
+                  comic_types.description_en  = '$type_desc_en'     ,
+                  comic_types.description_fr  = '$type_desc_fr'     ,
                   comic_types.is_major        = '$type_major'
           WHERE   comic_types.id              = '$type_id' ");
 }

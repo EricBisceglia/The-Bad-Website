@@ -54,11 +54,8 @@ if(!page_is_fetched_dynamically()): /*******************************************
 
   <div class="flexcontainer padding_bot">
     <div class="flex">
-      <a href="<?=$path?>pages/comics_list">
-        <img class="desktop" src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
-        <img class="mobile" src="<?=$path?>img/banners/comics/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
-      </a>
-    </div>
+      <img class="desktop" src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+      <img class="mobile" src="<?=$path?>img/banners/comics/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">    </div>
     <div class="flex">
       <div class="spaced">
         <form method="post" action="comics_list">
