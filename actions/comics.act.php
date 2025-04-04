@@ -714,7 +714,7 @@ function comic_types_get( int     $comic_type_id    = 0,
 
   // Determine the query parameter
   $query_where = ($comic_type_id)   ? " WHERE comic_types.id      = '$comic_type_id' "    : " ";
-  $query_where = ($comic_type_slug) ? " WHERE comic_types.slug LIKE '$comic_type_slug' "  : " ";
+  $query_where = ($comic_type_slug) ? " WHERE comic_types.slug LIKE '$comic_type_slug' "  : $query_where;
 
   // Fetch the comic types's data
   $comic_type_data = query("  SELECT  comic_types.id                AS 'ct_id'        ,

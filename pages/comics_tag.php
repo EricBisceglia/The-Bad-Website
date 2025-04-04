@@ -28,7 +28,7 @@ $comic_tag_data = tags_get( tag_slug: $comic_tag);
 
 // Stop here if the comic type does not exist
 if(!$comic_tag_data)
-  exit(header("Location: ./comic_tags"));
+  exit(header("Location: ./comics_tags"));
 
 // Get the tag's ID
 $comic_tag_id = $comic_tag_data['id'];

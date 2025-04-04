@@ -46,7 +46,7 @@ function tags_get(  int     $tag_id   = 0  ,
 
   // Prepare the correct condition
   $query_where = ($tag_id)   ? " WHERE tags.id = '$tag_id' "        : " ";
-  $query_where = ($tag_slug) ? " WHERE tags.name LIKE '$tag_slug' " : " ";
+  $query_where = ($tag_slug) ? " WHERE tags.name LIKE '$tag_slug' " : $query_where;
 
   // Fetch the tag's data
   $tag_data = query(" SELECT    tags.id                 AS 't_id'         ,
