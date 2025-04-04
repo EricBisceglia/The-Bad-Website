@@ -146,7 +146,7 @@ comics_increment_view_count($comic_id);
   </a>
 
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['id'][$i]?>">
+  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
     <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
   </a>
   <?php endfor; ?>

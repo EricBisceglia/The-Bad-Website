@@ -21,18 +21,21 @@ include_once './../lang/comics.lang.php';   # Admin translations
 // Get the tag and its comics
 
 // Fetch the tag
-$comic_tag = (int)form_fetch_element('theme', request_type: 'GET');
+$comic_tag = form_fetch_element('theme', request_type: 'GET');
 
 // Fetch the comic type data
-$comic_tag_data = tags_get($comic_tag);
+$comic_tag_data = tags_get( tag_slug: $comic_tag);
 
 // Stop here if the comic type does not exist
 if(!$comic_tag_data)
   exit(header("Location: ./comic_tags"));
 
+// Get the tag's ID
+$comic_tag_id = $comic_tag_data['id'];
+
 // Get the list of comics in the tag
-$comics_list = comics_list( search:     array('tag_id' => $comic_tag) ,
-                            is_public:  true                          );
+$comics_list = comics_list( search:     array('tag_id' => $comic_tag_id)  ,
+                            is_public:  true                              );
 
 // Update the page sumary
 $page_url       = "pages/comic_tag?theme=".$comic_tag;

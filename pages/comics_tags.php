@@ -46,7 +46,7 @@ $tags_list = tags_list();
 
   <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
   <div class="nopadding_bot">
-    <a href="<?=$path?>pages/comics_tag?theme=<?=$tags_list[$i]['id']?>">
+    <a href="<?=$path?>pages/comics_tag?theme=<?=$tags_list[$i]['name']?>">
       <img src="<?=$path.$tags_list[$i]['banner']?>" alt="<?=$tags_list[$i]['title']?>" title="<?=$tags_list[$i]['title']?>" loading="lazy">
     </a>
   </div>

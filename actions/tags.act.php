@@ -20,22 +20,33 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Fetches a tag.
  *
- * @param   int         $tag_id   The tag's ID
+ * @param   int         $tag_id     (optional)  The tag's ID
+ * @param   string      $tag_slug   (optional)  The tag's slug
  *
- * @return  array|null            An array containing the tag's data
+ * @return  array|null                          An array containing the tag's data
  */
 
-function tags_get( int $tag_id ) : ?array
+function tags_get(  int     $tag_id   = 0  ,
+                    string  $tag_slug = '' ) : ?array
 {
   // Sanitize the data
-  $tag_id = sanitize($tag_id, 'int');
+  $tag_id   = sanitize($tag_id, 'int');
+  $tag_slug = sanitize($tag_slug, 'string');
 
-  // Stop here if the tag does not exist
-  if(!database_row_exists('tags', $tag_id))
+  // Stop here if the tag and slug both do not exist
+  if(!$tag_id && !$tag_slug)
+    return null;
+  if($tag_id && !database_row_exists('tags', $tag_id))
+    return null;
+  if($tag_slug && !database_entry_exists('tags', 'name', $tag_slug))
     return null;
 
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Prepare the correct condition
+  $query_where = ($tag_id)   ? " WHERE tags.id = '$tag_id' "        : " ";
+  $query_where = ($tag_slug) ? " WHERE tags.name LIKE '$tag_slug' " : " ";
 
   // Fetch the tag's data
   $tag_data = query(" SELECT    tags.id                 AS 't_id'         ,
@@ -50,7 +61,7 @@ function tags_get( int $tag_id ) : ?array
                                 tags.description_en     AS 't_desc_en'    ,
                                 tags.description_fr     AS 't_desc_fr'
                       FROM      tags
-                      WHERE     tags.id = '$tag_id' ",
+                      $query_where ",
                       fetch_row: true);
 
   // Prepare the data for display

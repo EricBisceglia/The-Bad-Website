@@ -153,6 +153,7 @@ function comics_get(  int   $comic_id                ,
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT    comic_tags.fk_tags  AS 'ct_id'    ,
+                                  tags.name           AS 't_name'   ,
                                   tags.banner_$lang   AS 't_banner' ,
                                   tags.title_$lang    AS 't_title'
                         FROM      comic_tags
@@ -165,6 +166,7 @@ function comics_get(  int   $comic_id                ,
   for($i = 0; $row = query_row($comic_tags); $i++)
   {
     $data['tags']['id'][$i]     = sanitize_output($row['ct_id']);
+    $data['tags']['name'][$i]   = sanitize_output($row['t_name']);
     $data['tags']['title'][$i]  = sanitize_output($row['t_title']);
     if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
       $data['tags']['banner'][$i] = "img/banners/comics/tags/".$row['t_banner'];
