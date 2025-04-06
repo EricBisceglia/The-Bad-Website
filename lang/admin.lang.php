@@ -13,18 +13,20 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 
 // Admin menu
-___('admin_menu_index',       'EN', "Notes");
-___('admin_menu_index',       'FR', "Notes");
-___('admin_menu_ideas',       'EN', "Ideas");
-___('admin_menu_ideas',       'FR', "Idées");
-___('admin_menu_images',      'EN', "Images");
-___('admin_menu_images',      'FR', "Images");
-___('admin_menu_comics',      'EN', "Comics");
-___('admin_menu_comics',      'FR', "Comics");
-___('admin_menu_tags',        'EN', "Tags");
-___('admin_menu_tags',        'FR', "Tags");
-___('admin_menu_queries',     'EN', "SQL Queries");
-___('admin_menu_queries',     'FR', "Requêtes SQL");
+___('admin_menu_index',     'EN', "Notes");
+___('admin_menu_index',     'FR', "Notes");
+___('admin_menu_ideas',     'EN', "Ideas");
+___('admin_menu_ideas',     'FR', "Idées");
+___('admin_menu_images',    'EN', "Images");
+___('admin_menu_images',    'FR', "Images");
+___('admin_menu_comics',    'EN', "Comics");
+___('admin_menu_comics',    'FR', "Comics");
+___('admin_menu_tags',      'EN', "Tags");
+___('admin_menu_tags',      'FR', "Tags");
+___('admin_menu_searches',  'EN', "Searches");
+___('admin_menu_searches',  'FR', "Recherches");
+___('admin_menu_queries',   'EN', "SQL Queries");
+___('admin_menu_queries',   'FR', "Requêtes SQL");
 
 
 
@@ -95,6 +97,14 @@ ___('admin_images_list_templates',  'EN', "Templates");
 ___('admin_images_list_templates',  'FR', "Modèles");
 ___('admin_images_list_type',       'EN', "Type");
 ___('admin_images_list_type',       'FR', "Type");
+___('admin_images_list_type_comic', 'EN', "Comic");
+___('admin_images_list_type_comic', 'FR', "Comic");
+___('admin_images_list_type_prev',  'EN', "Cover");
+___('admin_images_list_type_prev',  'FR', "Couverture");
+___('admin_images_list_type_templ', 'EN', "Template");
+___('admin_images_list_type_templ', 'FR', "Modèle");
+___('admin_images_list_type_reus',  'EN', "Reusable image");
+___('admin_images_list_type_reus',  'FR', "Image réutilisable");
 ___('admin_images_list_language',   'EN', "Lang.");
 ___('admin_images_list_language',   'FR', "Lang.");
 ___('admin_images_list_name',       'EN', "Name");
@@ -122,10 +132,14 @@ ___('admin_images_add_file',            'EN', "Upload image");
 ___('admin_images_add_file',            'FR', "Téléverser l'image");
 ___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
 ___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
+___('admin_images_add_preview',         'EN', "Is a cover image for a comic");
+___('admin_images_add_preview',         'FR', "Est l'image de couverture d'un comic");
+___('admin_images_add_reusable',        'EN', "Is a reusable image");
+___('admin_images_add_reusable',        'FR', "Est une image réutilisable");
+___('admin_images_add_template',        'EN', "Is a template");
+___('admin_images_add_template',        'FR', "Est un modèle d'image");
 ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
 ___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
-___('admin_images_add_type',            'EN', "Image type");
-___('admin_images_add_type',            'FR', "Type d'image");
 ___('admin_images_add_comic',           'EN', "Linked comic");
 ___('admin_images_add_comic',           'FR', "Comic lié");
 ___('admin_images_add_order',           'EN', "Image display order (optional)");
@@ -179,12 +193,16 @@ ___('admin_images_templates_color_4', 'EN', "Color 4: Blue #99D9EA");
 ___('admin_images_templates_color_4', 'FR', "Couleur 4 : Bleu #99D9EA");
 ___('admin_images_templates_color_5', 'EN', "Color 5: Grey #C3C3C3");
 ___('admin_images_templates_color_5', 'FR', "Couleur 5 : Gris #C3C3C3");
-___('admin_images_templates_banner',  'EN', "Category banner: 490x180<br>img/banners/comics/types/");
-___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 490x180<br>img/banners/comics/types/");
+___('admin_images_templates_banner',  'EN', "Category banner: 1000x200<br>img/banners/comics/types/");
+___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 1000x200<br>img/banners/comics/types/");
 ___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
 ___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_preview', 'EN', "Comic preview: 490x400");
-___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 490x400");
+___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
+___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
+___('admin_images_reusables_gallery', 'EN', "Reusable images gallery");
+___('admin_images_reusables_gallery', 'FR', "Galerie d'images réutilisables");
+___('admin_images_templates_gallery', 'EN', "Template gallery");
+___('admin_images_templates_gallery', 'FR', "Galerie de modèles");
 
 
 
@@ -198,6 +216,8 @@ ___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 490x
 // Comics list
 ___('admin_comics_title',         'EN', "Comics");
 ___('admin_comics_title',         'FR', "Comics");
+___('admin_comics_search_body',   'EN', "Search in descriptions and transcripts");
+___('admin_comics_search_body',   'FR', "Rechercher dans les descriptions et transcriptions");
 ___('admin_comics_list_title',    'EN', "Title");
 ___('admin_comics_list_title',    'FR', "Titre");
 ___('admin_comics_list_type',     'EN', "Type");
@@ -214,6 +234,8 @@ ___('admin_comics_list_images_n', 'EN', "Has no images");
 ___('admin_comics_list_images_n', 'FR', "N'a pas d'images");
 ___('admin_comics_list_tags',     'EN', "Tags");
 ___('admin_comics_list_tags',     'FR', "Tags");
+___('admin_comics_list_views',    'EN', "Views");
+___('admin_comics_list_views',    'FR', "Vues");
 ___('admin_comics_list_count',    'EN', "{{1}} comic");
 ___('admin_comics_list_count',    'FR', "{{1}} comic");
 ___('admin_comics_list_count+',   'EN', "{{1}} comics");
@@ -250,6 +272,10 @@ ___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
 ___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
 ___('admin_comics_edit_submit',   'EN', "Edit comic");
 ___('admin_comics_edit_submit',   'FR', "Modifier le comic");
+___('admin_comics_edit_preview',  'EN', "Cover");
+___('admin_comics_edit_preview',  'FR', "Couverture");
+___('admin_comics_edit_comic',    'EN', "Comic");
+___('admin_comics_edit_comic',    'FR', "Comic");
 
 
 // Delete a comic
@@ -289,6 +315,8 @@ ___('admin_comic_types_add_desc_en',    'EN', "Description (EN)");
 ___('admin_comic_types_add_desc_en',    'FR', "Description (EN)");
 ___('admin_comic_types_add_desc_fr',    'EN', "Description (FR)");
 ___('admin_comic_types_add_desc_fr',    'FR', "Description (FR)");
+___('admin_comic_types_add_major',      'EN', "Is a main category (shows up in random comics)");
+___('admin_comic_types_add_major',      'FR', "Est une catégorie principale (apparaît dans les comics aléatoires)");
 ___('admin_comic_types_add_submit',     'EN', "Add comic type");
 ___('admin_comic_types_add_submit',     'FR', "Ajouter un type de comic");
 
@@ -363,3 +391,20 @@ ___('admin_tags_edit_submit',  'FR', "Modifier le tag");
 // Delete a tag
 ___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
 ___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      SEARCHES                                                     */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Searches list
+___('admin_user_searches_list',       'EN', "Latest user searches");
+___('admin_user_searches_list',       'FR', "Dernières recherches utilisateur");
+___('admin_user_searches_list_empty', 'EN', "The user search file is empty");
+___('admin_user_searches_list_empty', 'FR', "Le fichier des recherches est vide");
+___('admin_user_searches_clear',      'EN', "Confirm the deletion of the entire user search history");
+___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\'historique des recherches");

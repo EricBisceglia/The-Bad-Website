@@ -167,8 +167,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip_container">
           <?=__icon('image', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
           <div class="tooltip">
-            <img src="<?=$path?>img/banners/comics/tags/<?=$tags_list[$i]['banner_en']?>.png" alt="<?=$tags_list[$i]['title_en']?>" title="<?=$tags_list[$i]['title_en']?>"><br>
-            <img src="<?=$path?>img/banners/comics/tags/<?=$tags_list[$i]['banner_fr']?>.png" alt="<?=$tags_list[$i]['title_fr']?>" title="<?=$tags_list[$i]['title_fr']?>">
+            <img src="<?=$path?>img/banners/comics/tags/<?=$tags_list[$i]['banner_en']?>" alt="<?=$tags_list[$i]['title_en']?>" title="<?=$tags_list[$i]['title_en']?>"><br>
+            <img src="<?=$path?>img/banners/comics/tags/<?=$tags_list[$i]['banner_fr']?>" alt="<?=$tags_list[$i]['title_fr']?>" title="<?=$tags_list[$i]['title_fr']?>">
           </div>
         </td>
 

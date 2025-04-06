@@ -38,12 +38,14 @@ if(isset($_POST['image_add']))
   $image_add_file = form_fetch_element('image_file', request_type: 'FILES');
 
   // Assemble an array with the postdata
-  $image_add_data = array(  'name'  => form_fetch_element('image_name')                       ,
-                            'comic' => form_fetch_element('image_comic')                      ,
-                            'type'  => form_fetch_element('image_type')                       ,
-                            'lang'  => form_fetch_element('image_lang')                       ,
-                            'order' => form_fetch_element('image_order')                      ,
-                            'nsfw'  => form_fetch_element('image_nsfw', element_exists: true) );
+  $image_add_data = array(  'name'      => form_fetch_element('image_name')                           ,
+                            'comic'     => form_fetch_element('image_comic')                          ,
+                            'lang'      => form_fetch_element('image_lang')                           ,
+                            'order'     => form_fetch_element('image_order')                          ,
+                            'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     ,
+                            'template'  => form_fetch_element('image_template', element_exists: true) ,
+                            'reusable'  => form_fetch_element('image_reusable', element_exists: true) ,
+                            'preview'   => form_fetch_element('image_preview', element_exists: true)  );
 
   // Add the image to the database
   $images_add = images_add( $image_add_file ,
@@ -59,9 +61,6 @@ if(isset($_POST['image_add']))
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Prepare form values
-
-// List image types
-$image_types_list = image_types_list();
 
 // Get current date
 $image_upload_date = date('Y-m-d');
@@ -118,15 +117,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_bot">
-        <label for="image_type"><?=__('admin_images_add_type')?></label>
-        <select class="indiv align_left" name="image_type" id="image_type">
-          <?php for($i = 0; $i < $image_types_list['rows']; $i++) { ?>
-          <option value="<?=$image_types_list[$i]['id']?>"><?=$image_types_list[$i]['name']?></option>
-          <?php } ?>
-        </select>
-      </div>
-
-      <div class="smallpadding_bot">
         <label for="image_lang"><?=__('admin_images_add_lang')?></label>
         <select class="indiv align_left" name="image_lang" id="image_lang">
           <option value="EN">EN</option>
@@ -139,7 +129,22 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <input class="indiv" type="text" name="image_order">
       </div>
 
-      <div class="tinypadding_top smallpadding_bot">
+      <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_preview">
+        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_reusable">
+        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_template">
+        <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
+      </div>
+
+      <div class="smallpadding_bot">
         <input type="checkbox" class="align_left" name="image_nsfw">
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>

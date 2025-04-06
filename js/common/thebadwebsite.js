@@ -28,6 +28,7 @@
 /*                                                                                                                   */
 /*  unblur                      Removes the blur filter from an element being triggered by an action.                */
 /*  unblur_element              Removes the blur filter from a specific element.                                     */
+/*  unblur_comic                Removes the blur filter from a comic.                                                */
 /*                                                                                                                   */
 /*  popin_close                 Closes an open popin.                                                                */
 /*                                                                                                                   */
@@ -555,6 +556,24 @@ function unblur_element(element_id)
 {
   // Remove the blur filter
   css_remove(element_id, ['blur', 'bigblur', 'nbcode_blur', 'nbcode_blur_2', 'nbcode_blur_3', 'compendium_image_blur']);
+}
+
+
+
+
+/**
+ * Removes the blur filter from a comic.
+ *
+ * @param   {string}  [target_id]   The comic's id.
+ *
+ * @returns {void}
+ */
+
+function unblur_comic(target_id)
+{
+  // Remove the blur filter
+  target_id.style.filter='blur(0)';
+  target_id.style.transition='filter 0.3s ease';
 }
 
 

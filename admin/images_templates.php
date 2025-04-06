@@ -4,6 +4,7 @@
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
+include_once './../actions/images.act.php'; # Image management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
@@ -18,6 +19,25 @@ $admin_menu['images'] = 1;
 $css  = array('admin');
 $js   = array('admin/admin');
 
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                     BACK END                                                      */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch all template images
+
+// Reusable images
+$reusable_list = images_list( search:   array('reusable' => 1) ,
+                              sort_by:  'name'                 ,);
+
+// Templates
+$template_list = images_list( search: array('template' => 1) ,
+                              sort_by:  'name'                 ,);
 
 
 
@@ -54,28 +74,57 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </li>
   </ul>
 
+</div>
+
+<div class="width_30 padding_top padding_bot">
+
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_templates_preview')?>
   </h5>
-  <div style="column-count: 2" class="padding_bot">
-    <img src="<?=$path?>img/templates/preview_en.png">
-    <img src="<?=$path?>img/templates/preview_fr.png">
+  <div class="padding_bot">
+    <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_templates_banner')?>
   </h5>
-  <div style="column-count: 2" class="padding_bot">
-    <img src="<?=$path?>img/templates/comic_type_en.png">
-    <img src="<?=$path?>img/templates/comic_type_fr.png">
+  <div class="padding_bot">
+    <img src="<?=$path?>img/templates/comic_type_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_templates_tag')?>
   </h5>
   <div>
-    <img src="<?=$path?>img/templates/tag_en.png">
-    <img src="<?=$path?>img/templates/tag_fr.png">
+    <img src="<?=$path?>img/templates/tag_<?=$lang_lower?>.png">
+  </div>
+
+</div>
+
+<div class="width_50">
+
+  <h2 class="align_center padding_top padding_bot">
+    <?=__('admin_images_reusables_gallery')?>
+  </h2>
+
+  <div class="padding_bot" style="column-count: 3;">
+    <?php for($i = 0; $i < $reusable_list['rows']; $i++): ?>
+    <a href="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" target="_blank">
+      <img src="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" alt="<?=$reusable_list[$i]['name_full']?>" title="<?=$reusable_list[$i]['name_full']?>" class="indiv">
+    </a>
+    <?php endfor; ?>
+  </div>
+
+  <h2 class="align_center padding_top padding_bot">
+    <?=__('admin_images_templates_gallery')?>
+  </h2>
+
+  <div class="padding_bot" style="column-count: 3;">
+    <?php for($i = 0; $i < $template_list['rows']; $i++): ?>
+    <a href="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" target="_blank">
+      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>" class="indiv">
+    </a>
+    <?php endfor; ?>
   </div>
 
 </div>

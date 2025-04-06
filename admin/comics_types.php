@@ -34,13 +34,14 @@ $js   = array('admin/admin');
 if(isset($_POST['comic_type_add']))
 {
   // Assemble an array with the postdata
-  $comic_type_add_data = array( 'sort'      => form_fetch_element('comic_type_sort')      ,
-                                'name_en'   => form_fetch_element('comic_type_name_en')   ,
-                                'name_fr'   => form_fetch_element('comic_type_name_fr')   ,
-                                'banner_en' => form_fetch_element('comic_type_banner_en') ,
-                                'banner_fr' => form_fetch_element('comic_type_banner_fr') ,
-                                'desc_en'   => form_fetch_element('comic_type_desc_en')   ,
-                                'desc_fr'   => form_fetch_element('comic_type_desc_fr')   );
+  $comic_type_add_data = array( 'sort'      => form_fetch_element('comic_type_sort')                        ,
+                                'name_en'   => form_fetch_element('comic_type_name_en')                     ,
+                                'name_fr'   => form_fetch_element('comic_type_name_fr')                     ,
+                                'banner_en' => form_fetch_element('comic_type_banner_en')                   ,
+                                'banner_fr' => form_fetch_element('comic_type_banner_fr')                   ,
+                                'desc_en'   => form_fetch_element('comic_type_desc_en')                     ,
+                                'desc_fr'   => form_fetch_element('comic_type_desc_fr')                     ,
+                                'major'     => form_fetch_element('comic_type_major', element_exists: true) );
 
   // Add the comic type to the database
   comic_types_add($comic_type_add_data);
@@ -58,13 +59,14 @@ if(isset($_POST['comic_type_edit']))
   $comic_type_edit_id = form_fetch_element('comic_type_id');
 
   // Assemble an array with the postdata
-  $comic_type_edit_data = array( 'order'     => form_fetch_element('comic_type_sort')      ,
-                                 'name_en'   => form_fetch_element('comic_type_name_en')   ,
-                                 'name_fr'   => form_fetch_element('comic_type_name_fr')   ,
-                                 'banner_en' => form_fetch_element('comic_type_banner_en') ,
-                                 'banner_fr' => form_fetch_element('comic_type_banner_fr') ,
-                                 'desc_en'   => form_fetch_element('comic_type_desc_en')   ,
-                                 'desc_fr'   => form_fetch_element('comic_type_desc_fr')   );
+  $comic_type_edit_data = array(  'order'     => form_fetch_element('comic_type_sort')                        ,
+                                  'name_en'   => form_fetch_element('comic_type_name_en')                     ,
+                                  'name_fr'   => form_fetch_element('comic_type_name_fr')                     ,
+                                  'banner_en' => form_fetch_element('comic_type_banner_en')                   ,
+                                  'banner_fr' => form_fetch_element('comic_type_banner_fr')                   ,
+                                  'desc_en'   => form_fetch_element('comic_type_desc_en')                     ,
+                                  'desc_fr'   => form_fetch_element('comic_type_desc_fr')                     ,
+                                  'major'     => form_fetch_element('comic_type_major', element_exists: true) );
 
   // Edit the comic type
   comic_types_edit(  $comic_type_edit_id    ,
@@ -138,7 +140,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <tr id="comit_types_list_row_<?=$comic_types_list[$i]['id']?>">
 
         <td class="align_center nowrap bold">
-          <?=$comic_types_list[$i]['sort']?>
+          <?=$comic_types_list[$i]['sort'].$comic_types_list[$i]['major_p']?>
         </td>
 
         <td class="align_center nowrap bold tooltip_container">
@@ -153,8 +155,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip_container">
           <?=__icon('image', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
           <div class="tooltip">
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>.png" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>.png" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
+            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
           </div>
         </td>
 

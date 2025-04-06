@@ -19,6 +19,9 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 if(!isset($lang))
   exit(__('error_forbidden'));
 
+// Set a lowercase language variable
+$lang_lower = string_change_case($lang, 'lowercase');
+
 
 
 
@@ -151,7 +154,7 @@ $javascripts .= '
     <meta property="og:description" content="<?=$page_description?>">
     <meta property="og:url" content="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta property="og:site_name" content="The Bad Website">
-    <meta property="og:image" content="<?=$GLOBALS['website_url']?>img/common/logo_filled.png">
+    <meta property="og:image" content="<?=$GLOBALS['website_url']?>img/website/header_smuggie_3.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="fr_FR">
     <link rel="icon" href="<?=$path.'favicon.ico'?>">
@@ -183,17 +186,23 @@ $javascripts .= '
             </div>
           </a>
 
-          <div class="header_topmenu_title" id="header_menu_title_comics">
-            <?=__('menu_top_comics')?>
-          </div>
+          <a href="<?=$path?>pages/comics">
+            <div class="header_topmenu_title" id="header_menu_title_comics">
+              <?=__('menu_top_comics')?>
+            </div>
+          </a>
 
-          <div class="header_topmenu_title" id="header_menu_title_videos">
-            <?=__('menu_top_videos')?>
-          </div>
+          <a href="<?=$path?>pages/videos">
+            <div class="header_topmenu_title" id="header_menu_title_videos">
+              <?=__('menu_top_videos')?>
+            </div>
+          </a>
 
-          <div class="header_topmenu_title" id="header_menu_title_about">
-            <?=__('menu_top_about')?>
-          </div>
+          <a href="<?=$path?>pages/faq">
+            <div class="header_topmenu_title" id="header_menu_title_about">
+              <?=__('menu_top_about')?>
+            </div>
+          </a>
 
         </div>
 

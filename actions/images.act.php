@@ -14,8 +14,6 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  images_edit                   Modifies an existing image                                                         */
 /*  images_delete                 Deletes an existing image                                                          */
 /*                                                                                                                   */
-/*  image_types_list              Lists image types                                                                  */
-/*                                                                                                                   */
 /*  images_format_file_name       Formats an image's file name                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -38,27 +36,31 @@ function images_get( int $image_id ) : array|null
     return null;
 
   // Fetch the image's data
-  $image_data = query(" SELECT  images.name           AS 'i_name'   ,
-                                images.fk_image_types AS 'i_type'   ,
-                                images.fk_comics      AS 'i_comic'  ,
-                                images.image_order    AS 'i_order'  ,
-                                images.upload_date    AS 'i_date'   ,
-                                images.is_nsfw        AS 'i_nsfw'   ,
-                                images.language       AS 'i_lang'   ,
+  $image_data = query(" SELECT  images.name           AS 'i_name'     ,
+                                images.fk_comics      AS 'i_comic'    ,
+                                images.image_order    AS 'i_order'    ,
+                                images.upload_date    AS 'i_date'     ,
+                                images.is_a_template  AS 'i_template' ,
+                                images.is_reusable    AS 'i_reusable' ,
+                                images.is_a_preview   AS 'i_preview'  ,
+                                images.is_nsfw        AS 'i_nsfw'     ,
+                                images.language       AS 'i_lang'     ,
                                 images.transcript     AS 'i_trans'
                         FROM    images
                         WHERE   images.id = '$image_id' ",
                         fetch_row: true);
 
   // Sanitize the data for display
-  $data['name']   = sanitize_output($image_data['i_name']);
-  $data['type']   = sanitize_output($image_data['i_type']);
-  $data['comic']  = sanitize_output($image_data['i_comic']);
-  $data['order']  = sanitize_output($image_data['i_order']);
-  $data['lang']   = sanitize_output($image_data['i_lang']);
-  $data['date']   = sanitize_output($image_data['i_date']);
-  $data['nsfw']   = sanitize_output($image_data['i_nsfw']);
-  $data['trans']  = sanitize_output($image_data['i_trans']);
+  $data['name']     = sanitize_output($image_data['i_name']);
+  $data['comic']    = sanitize_output($image_data['i_comic']);
+  $data['order']    = sanitize_output($image_data['i_order']);
+  $data['lang']     = sanitize_output($image_data['i_lang']);
+  $data['date']     = sanitize_output($image_data['i_date']);
+  $data['nsfw']     = sanitize_output($image_data['i_nsfw']);
+  $data['template'] = sanitize_output($image_data['i_template']);
+  $data['preview']  = sanitize_output($image_data['i_preview']);
+  $data['reusable'] = sanitize_output($image_data['i_reusable']);
+  $data['trans']    = sanitize_output($image_data['i_trans']);
 
   // Return the image's data
   return $data;
@@ -83,15 +85,16 @@ function images_list( $sort_by = 'date'   ,
   $lang = user_get_language();
 
   // Sanitize the search parameters
-  $search_name  = sanitize_array_element($search, 'name', 'string');
-  $search_type  = sanitize_array_element($search, 'type', 'int');
-  $search_lang  = sanitize_array_element($search, 'lang', 'string');
-  $search_comic = sanitize_array_element($search, 'comic', 'int');
-  $search_nsfw  = sanitize_array_element($search, 'nsfw', 'int');
+  $search_name      = sanitize_array_element($search, 'name', 'string');
+  $search_lang      = sanitize_array_element($search, 'lang', 'string');
+  $search_comic     = sanitize_array_element($search, 'comic', 'int');
+  $search_type      = sanitize_array_element($search, 'type', 'int');
+  $search_nsfw      = sanitize_array_element($search, 'nsfw', 'int');
+  $search_template  = sanitize_array_element($search, 'template', 'int');
+  $search_reusable  = sanitize_array_element($search, 'reusable', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
-  $query_search .= ($search_type) ? " AND images.fk_image_types   = $search_type      " : "";
   $query_search .= ($search_lang && $search_lang !== '-1') ?
                                     " AND images.language      LIKE '$search_lang'    " : "";
   $query_search .= ($search_lang === '-1') ?
@@ -103,42 +106,58 @@ function images_list( $sort_by = 'date'   ,
                                     " AND images.fk_comics       != 0                 " : "";
   $query_search .= ($search_comic > 0) ?
                                     " AND images.fk_comics       = '$search_comic'    " : "";
+  $query_search .= ($search_type === 1) ?
+                                    " AND images.is_a_preview    = 0
+                                      AND images.is_a_template   = 0
+                                      AND images.is_reusable     = 0                  " : "";
+  $query_search .= ($search_type === 2) ?
+                                    " AND images.is_a_preview    = 1                  " : "";
+  $query_search .= ($search_type === 3) ?
+                                    " AND images.is_a_template   = 1                  " : "";
+  $query_search .= ($search_type === 4) ?
+                                    " AND images.is_reusable     = 1                  " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
+  $query_search .= ($search_template) ?
+                                    " AND images.is_a_template   = $search_template   " : "";
+  $query_search .= ($search_reusable) ?
+                                    " AND images.is_reusable     = $search_reusable   " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'name'    => "  ORDER BY    images.name         ASC   ",
-    'type'    => "  ORDER BY    image_types.name    ASC   ,
-                                images.upload_date  DESC  ,
-                                images.name         ASC   ",
-    'lang'    => "  ORDER BY    images.language     ASC   ,
-                                images.upload_date  DESC  ,
-                                images.name         ASC   ",
-    'nsfw'    => "  ORDER BY    images.is_nsfw      DESC  ,
-                                images.upload_date  DESC  ,
-                                images.name         ASC   ",
-    'comic'   => "  ORDER BY    images.fk_comics    != 0  ,
-                                comics.upload_date  DESC  ,
-                                comics.title_$lang  ASC   ,
-                                images.upload_date  DESC  ,
-                                images.name         ASC   "  ,
-    default   => "  ORDER BY    images.upload_date  DESC  ,
-                                images.name         ASC"  ,
+    'name'    => "  ORDER BY    images.name           ASC   ",
+    'type'    => "  ORDER BY    images.is_a_template  DESC  ,
+                                images.is_reusable    DESC  ,
+                                images.is_a_preview   DESC  ,
+                                images.upload_date    DESC  ,
+                                images.name           ASC   ",
+    'lang'    => "  ORDER BY    images.language       ASC   ,
+                                images.upload_date    DESC  ,
+                                images.name           ASC   ",
+    'nsfw'    => "  ORDER BY    images.is_nsfw        DESC  ,
+                                images.upload_date    DESC  ,
+                                images.name           ASC   ",
+    'comic'   => "  ORDER BY    images.fk_comics      != 0  ,
+                                comics.upload_date    DESC  ,
+                                comics.title_$lang    ASC   ,
+                                images.upload_date    DESC  ,
+                                images.name           ASC   ",
+    default   => "  ORDER BY    images.upload_date    DESC  ,
+                                images.name           ASC   ",
   };
 
   // Fetch the images
-  $images = query("   SELECT    images.id             AS 'i_id'     ,
-                                images.name           AS 'i_name'   ,
-                                images.image_order    AS 'i_order'  ,
-                                images.upload_date    AS 'i_date'   ,
-                                images.is_nsfw        AS 'i_nsfw'   ,
-                                images.language       AS 'i_lang'   ,
-                                image_types.name      AS 'i_type'   ,
+  $images = query("   SELECT    images.id             AS 'i_id'       ,
+                                images.name           AS 'i_name'     ,
+                                images.image_order    AS 'i_order'    ,
+                                images.upload_date    AS 'i_date'     ,
+                                images.is_a_preview   AS 'i_preview'  ,
+                                images.is_a_template  AS 'i_template' ,
+                                images.is_reusable    AS 'i_reusable' ,
+                                images.is_nsfw        AS 'i_nsfw'     ,
+                                images.language       AS 'i_lang'     ,
                                 comics.title_$lang    AS 'c_title'
                       FROM      images
-                      LEFT JOIN image_types
-                      ON        images.fk_image_types = image_types.id
                       LEFT JOIN comics
                       ON        images.fk_comics = comics.id
                       WHERE     1 = 1
@@ -151,12 +170,14 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 30, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
-    $data[$i]['type']       = sanitize_output($row['i_type']);
     $data[$i]['comic']      = sanitize_output($row['c_title']);
     $data[$i]['order']      = sanitize_output($row['i_order']);
     $data[$i]['lang']       = sanitize_output($row['i_lang']);
     $data[$i]['date']       = time_since(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
+    $data[$i]['preview']    = ($row['i_preview']);
+    $data[$i]['template']   = ($row['i_template']);
+    $data[$i]['reusable']   = ($row['i_reusable']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
   }
 
@@ -214,25 +235,49 @@ function images_add(  array $image_file ,
   }
 
   // Sanitize and prepare the rest of the contents
-  $image_comic  = sanitize($image_data['comic'], 'int');
-  $image_type   = sanitize($image_data['type'], 'string');
-  $image_lang   = sanitize($image_data['lang'], 'string');
-  $image_order  = sanitize($image_data['order'], 'int');
-  $image_nsfw   = sanitize($image_data['nsfw'], 'int');
-  $image_date   = sanitize(date('Y-m-d'), 'string');
+  $image_comic    = sanitize($image_data['comic'], 'int');
+  $image_lang     = sanitize($image_data['lang'], 'string');
+  $image_order    = sanitize($image_data['order'], 'int');
+  $image_nsfw     = sanitize($image_data['nsfw'], 'int');
+  $image_date     = sanitize(date('Y-m-d'), 'string');
+  $image_template = sanitize($image_data['template'], 'int');
+  $image_preview  = sanitize($image_data['preview'], 'int');
+  $image_reusable = sanitize($image_data['reusable'], 'int');
+
+  // An image can't be both a template and a preview
+  if($image_template && $image_preview)
+    $image_preview = 0;
+
+  // A reusable image can't be a template
+  if($image_reusable && $image_template)
+    $image_template = 0;
+
+  // A reusable image can't be a preview
+  if($image_reusable && $image_preview)
+    $image_preview = 0;
+
+  // A template can't be part of a comic
+  if($image_template && $image_comic)
+    $image_comic = 0;
+
+  // A reusable image can't be part of a comic
+  if($image_reusable && $image_comic)
+    $image_comic = 0;
 
   // Upload the image
   if(move_uploaded_file($tmp_name, $file_path))
   {
     // Create the image entry
     query(" INSERT INTO images
-            SET         images.name           = '$name'         ,
-                        images.fk_image_types = '$image_type'   ,
-                        images.fk_comics      = '$image_comic'  ,
-                        images.image_order    = '$image_order'  ,
-                        images.language       = '$image_lang'   ,
-                        images.is_nsfw        = '$image_nsfw'   ,
-                        images.upload_date    = '$image_date'   ");
+            SET         images.name           = '$name'           ,
+                        images.fk_comics      = '$image_comic'    ,
+                        images.image_order    = '$image_order'    ,
+                        images.language       = '$image_lang'     ,
+                        images.is_a_template  = '$image_template' ,
+                        images.is_reusable    = '$image_reusable' ,
+                        images.is_a_preview   = '$image_preview'  ,
+                        images.is_nsfw        = '$image_nsfw'     ,
+                        images.upload_date    = '$image_date'     ");
 
     // Fetch the newly created image's id
     $image_id = query_id();
@@ -305,25 +350,49 @@ function images_edit( int   $image_id ,
   }
 
   // Sanitize the rest of the data
-  $image_type   = sanitize($data['type'], 'int');
-  $image_comic  = sanitize($data['comic'], 'int');
-  $image_order  = sanitize($data['order'], 'int');
-  $image_lang   = sanitize($data['lang'], 'string');
-  $image_date   = sanitize($data['date'], 'string');
-  $image_nsfw   = sanitize($data['nsfw'], 'int');
-  $image_trans  = sanitize($data['trans'], 'string');
+  $image_comic    = sanitize($data['comic'], 'int');
+  $image_order    = sanitize($data['order'], 'int');
+  $image_lang     = sanitize($data['lang'], 'string');
+  $image_date     = sanitize($data['date'], 'string');
+  $image_template = sanitize($data['template'], 'int');
+  $image_reusable = sanitize($data['reusable'], 'int');
+  $image_preview  = sanitize($data['preview'], 'int');
+  $image_nsfw     = sanitize($data['nsfw'], 'int');
+  $image_trans    = sanitize($data['trans'], 'string');
+
+  // An image can't be both a template and a preview
+  if($image_template && $image_preview)
+    $image_preview = 0;
+
+  // A reusable image can't be a template
+  if($image_reusable && $image_template)
+    $image_template = 0;
+
+  // A reusable image can't be a preview
+  if($image_reusable && $image_preview)
+    $image_preview = 0;
+
+  // A template can't be part of a comic
+  if($image_template && $image_comic)
+    $image_comic = 0;
+
+  // A reusable image can't be part of a comic
+  if($image_reusable && $image_comic)
+    $image_comic = 0;
 
   // Edit the image
   query(" UPDATE  images
-          SET     images.name           = '$name'         ,
-                  images.fk_image_types = '$image_type'   ,
-                  images.fk_comics      = '$image_comic'  ,
-                  images.image_order    = '$image_order'  ,
-                  images.language       = '$image_lang'   ,
-                  images.upload_date    = '$image_date'   ,
-                  images.is_nsfw        = '$image_nsfw'   ,
+          SET     images.name           = '$name'           ,
+                  images.fk_comics      = '$image_comic'    ,
+                  images.image_order    = '$image_order'    ,
+                  images.language       = '$image_lang'     ,
+                  images.upload_date    = '$image_date'     ,
+                  images.is_a_template  = '$image_template' ,
+                  images.is_a_preview   = '$image_preview'  ,
+                  images.is_reusable    = '$image_reusable' ,
+                  images.is_nsfw        = '$image_nsfw'     ,
                   images.transcript     = '$image_trans'
-          WHERE   images.id             = '$image_id'     ");
+          WHERE   images.id             = '$image_id'       ");
 }
 
 
@@ -359,37 +428,6 @@ function images_delete( int $image_id )
 
 
 /**
- * Lists image types.
- *
- * @return  array   An array containing the image types.
- */
-
-function image_types_list() : array
-{
-  // Fetch the image types
-  $image_types = query("  SELECT    image_types.id    AS 'it_id' ,
-                                    image_types.name  AS 'it_name'
-                          FROM      image_types
-                          ORDER BY  image_types.name ASC ");
-
-  // Prepare the data for display
-  for($i = 0; $row = query_row($image_types); $i++)
-  {
-    $data[$i]['id']   = sanitize_output($row['it_id']);
-    $data[$i]['name'] = sanitize_output($row['it_name']);
-  }
-
-  // Add the number of rows to the returned data
-  $data['rows'] = $i;
-
-  // Return the prepared data
-  return $data;
-}
-
-
-
-
-/**
  * Formats an image's file name.
  *
  * @param   string  $name   The image's file name.
@@ -406,18 +444,7 @@ function images_format_file_name( ?string $name ) : string
   $name = str_replace(' ', '_', $name);
 
   // Remove forbidden characters
-  $name = str_replace('%', '', $name);
-  $name = str_replace('/', '', $name);
-  $name = str_replace('\\', '', $name);
-  $name = str_replace('|', '', $name);
-  $name = str_replace('"', '', $name);
-  $name = str_replace('<', '', $name);
-  $name = str_replace('>', '', $name);
-  $name = str_replace('*', '', $name);
-  $name = str_replace('+', '', $name);
-  $name = str_replace('#', '', $name);
-  $name = str_replace('&', '', $name);
-  $name = str_replace('?', '', $name);
+  $name = preg_replace('/[^a-zA-Z0-9_\.]/', '', $name);
 
   // Return the formatted name
   return $name;

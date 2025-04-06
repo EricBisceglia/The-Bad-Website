@@ -1,6 +1,9 @@
 # Don't commit the admin password
 .htpasswd
 
+# Don't commit the admin htaccess
+admin/.htaccess
+
 # Don't commit assets
 img/comics/*
 !img/comics/index.php
@@ -8,6 +11,9 @@ img/banners/comics/types/*
 !img/banners/comics/types/index.php
 img/banners/comics/tags/*
 !img/banners/comics/tags/index.php
+
+# Don't commit user searches
+admin/user_searches.txt
 
 # Local config should not be committed
 conf/main.conf.php

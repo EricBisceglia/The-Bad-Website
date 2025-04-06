@@ -20,32 +20,48 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Fetches a tag.
  *
- * @param   int         $tag_id   The tag's ID
+ * @param   int         $tag_id     (optional)  The tag's ID
+ * @param   string      $tag_slug   (optional)  The tag's slug
  *
- * @return  array|null            An array containing the tag's data
+ * @return  array|null                          An array containing the tag's data
  */
 
-function tags_get( int $tag_id ) : ?array
+function tags_get(  int     $tag_id   = 0  ,
+                    string  $tag_slug = '' ) : ?array
 {
   // Sanitize the data
-  $tag_id = sanitize($tag_id, 'int');
+  $tag_id   = sanitize($tag_id, 'int');
+  $tag_slug = sanitize($tag_slug, 'string');
 
-  // Stop here if the tag does not exist
-  if(!database_row_exists('tags', $tag_id))
+  // Stop here if the tag and slug both do not exist
+  if(!$tag_id && !$tag_slug)
+    return null;
+  if($tag_id && !database_row_exists('tags', $tag_id))
+    return null;
+  if($tag_slug && !database_entry_exists('tags', 'name', $tag_slug))
     return null;
 
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Prepare the correct condition
+  $query_where = ($tag_id)   ? " WHERE tags.id = '$tag_id' "        : " ";
+  $query_where = ($tag_slug) ? " WHERE tags.name LIKE '$tag_slug' " : $query_where;
+
   // Fetch the tag's data
-  $tag_data = query(" SELECT    tags.id             AS 't_id'         ,
-                                tags.sorting_order  AS 't_sort'       ,
-                                tags.name           AS 't_name'       ,
-                                tags.banner_en      AS 't_banner_en'  ,
-                                tags.banner_fr      AS 't_banner_fr'  ,
-                                tags.title_en       AS 't_title_en'   ,
-                                tags.title_fr       AS 't_title_fr'   ,
-                                tags.description_en AS 't_desc_en'    ,
-                                tags.description_fr AS 't_desc_fr'
+  $tag_data = query(" SELECT    tags.id                 AS 't_id'         ,
+                                tags.sorting_order      AS 't_sort'       ,
+                                tags.name               AS 't_name'       ,
+                                tags.banner_$lang       AS 't_banner'     ,
+                                tags.banner_en          AS 't_banner_en'  ,
+                                tags.banner_fr          AS 't_banner_fr'  ,
+                                tags.title_en           AS 't_title_en'   ,
+                                tags.title_fr           AS 't_title_fr'   ,
+                                tags.description_$lang  AS 't_desc'       ,
+                                tags.description_en     AS 't_desc_en'    ,
+                                tags.description_fr     AS 't_desc_fr'
                       FROM      tags
-                      WHERE     tags.id = '$tag_id' ",
+                      $query_where ",
                       fetch_row: true);
 
   // Prepare the data for display
@@ -56,8 +72,18 @@ function tags_get( int $tag_id ) : ?array
   $data['banner_fr']  = sanitize_output($tag_data['t_banner_fr']);
   $data['title_en']   = sanitize_output($tag_data['t_title_en']);
   $data['title_fr']   = sanitize_output($tag_data['t_title_fr']);
+  $data['page_en']    = sanitize_meta_tags($tag_data['t_title_en']);
+  $data['page_fr']    = sanitize_meta_tags($tag_data['t_title_fr']);
+  $data['desc']       = sanitize_output($tag_data['t_desc'], preserve_line_breaks: true);
   $data['desc_en']    = sanitize_output($tag_data['t_desc_en']);
   $data['desc_fr']    = sanitize_output($tag_data['t_desc_fr']);
+
+  // Get the correct banner images
+  $root = root_path();
+  if($tag_data['t_banner'] && file_exists($root."img/banners/comics/tags/".$tag_data['t_banner']))
+    $data['banner'] = "img/banners/comics/tags/".$tag_data['t_banner'];
+  else
+    $data['banner']= "img/templates/tag_".$lang;
 
   // Return the prepared data
   return $data;
@@ -82,6 +108,7 @@ function tags_list() : array
   $tags = query(" SELECT    tags.id            AS 't_id'        ,
                             tags.sorting_order AS 't_sort'      ,
                             tags.name          AS 't_name'      ,
+                            tags.banner_$lang  AS 't_banner'    ,
                             tags.banner_en     AS 't_banner_en' ,
                             tags.banner_fr     AS 't_banner_fr' ,
                             tags.title_$lang   AS 't_title'     ,
@@ -101,6 +128,13 @@ function tags_list() : array
     $data[$i]['title']      = sanitize_output($row['t_title']);
     $data[$i]['title_en']   = sanitize_output($row['t_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['t_title_fr']);
+
+    // Get the correct banner images
+    $root = root_path();
+    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
+      $data[$i]['banner'] = "img/banners/comics/tags/".$row['t_banner'];
+    else
+      $data[$i]['banner']= "img/templates/tag_".$lang;
   }
 
   // Add the number of rows to the returned data

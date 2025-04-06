@@ -40,6 +40,9 @@ $admin_comic_type_data = comic_types_get($admin_comic_type_id);
 if(!$admin_comic_type_data)
   exit(header("Location: ".$path."admin/comics_types"));
 
+// Prepare the checkbox
+$comic_type_major_checked = ($admin_comic_type_data['major']) ? ' checked' : '';
+
 
 
 
@@ -90,9 +93,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <textarea class="indiv" type="text" name="comic_type_desc_en"><?=$admin_comic_type_data['desc_en']?></textarea>
       </div>
 
-      <div class="padding_bot">
+      <div class="smallpadding_bot">
         <label for="comic_type_desc_fr"><?=__('admin_comic_types_add_desc_fr')?></label>
         <textarea class="indiv" type="text" name="comic_type_desc_fr"><?=$admin_comic_type_data['desc_fr']?></textarea>
+      </div>
+
+      <div class="tinypadding_top smallpadding_bot">
+        <input type="checkbox" class="align_left" name="comic_type_major"<?=$comic_type_major_checked?>>
+        <label for="comic_type_major" class="label_inline"><?=__('admin_comic_types_add_major')?></label>
       </div>
 
       <input type="submit" name="comic_type_edit" value="<?=__('admin_comic_types_edit_submit')?>">

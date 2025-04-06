@@ -60,22 +60,6 @@ for($i = 0; $i < $comics_list['rows']; $i++)
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch image types
-
-// Fetch a list of all image types
-$image_types_list = image_types_list();
-
-// Select the image's type
-for($i = 0; $i < $image_types_list['rows']; $i++)
-{
-  $image_type_selected[$i] = '';
-  if($image_types_list[$i]['id'] === $admin_image_data['type'])
-    $image_type_selected[$i] = ' selected';
-}
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Prepare form values
@@ -86,6 +70,15 @@ $image_lang_fr_selected = ($admin_image_data['lang'] === 'FR') ? ' selected' : '
 
 // NSFW
 $image_nsfw_checked = ($admin_image_data['nsfw']) ? ' checked' : '';
+
+// Reusable image
+$image_reusable_checked = ($admin_image_data['reusable']) ? ' checked' : '';
+
+// Template
+$image_template_checked = ($admin_image_data['template']) ? ' checked' : '';
+
+// Preview
+$image_preview_checked = ($admin_image_data['preview']) ? ' checked' : '';
 
 // Focus the transcript form if the image has none
 if(!$admin_image_data['trans'])
@@ -127,15 +120,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_bot">
-        <label for="image_type"><?=__('admin_images_add_type')?></label>
-        <select class="indiv align_left" name="image_type" id="image_type">
-          <?php for($i = 0; $i < $image_types_list['rows']; $i++) { ?>
-          <option value="<?=$image_types_list[$i]['id']?>"<?=$image_type_selected[$i]?>><?=$image_types_list[$i]['name']?></option>
-          <?php } ?>
-        </select>
-      </div>
-
-      <div class="smallpadding_bot">
         <label for="image_lang"><?=__('admin_images_add_lang')?></label>
         <select class="indiv align_left" name="image_lang" id="image_lang">
           <option value="EN"<?=$image_lang_en_selected?>>EN</option>
@@ -153,14 +137,29 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <input class="indiv" type="text" name="image_date" id="image_date" value="<?=$admin_image_data['date']?>">
       </div>
 
+      <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_preview"<?=$image_preview_checked?>>
+        <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_reusable"<?=$image_reusable_checked?>>
+        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_template"<?=$image_template_checked?>>
+        <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
+      </div>
+
+      <div class="smallpadding_bot">
+        <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
+        <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
+      </div>
+
       <div class="smallpadding_bot" id="image_transcript">
         <label for="image_trans"><?=__('admin_images_add_transcript')?></label>
         <textarea class="indiv" name="image_trans" id="image_trans"><?=$admin_image_data['trans']?></textarea>
-      </div>
-
-      <div class="tinypadding_top smallpadding_bot">
-        <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
-        <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>
 
       <input type="submit" name="image_edit" value="<?=__('admin_images_edit_submit')?>">
