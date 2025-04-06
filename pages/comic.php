@@ -65,6 +65,34 @@ comics_increment_view_count($comic_id);
 /*                                                                                                                   */
 /*******************************************************************************/ include './../inc/header.inc.php'; ?>
 
+<div class="width_50 padding_bot">
+  <div class="flexcontainer smallpadding_bot">
+    <div class="flex smallspaced_right">
+      <?php if($comic_data['previous']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
+        <img src="<?=$path?>img/banners/comics/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
+    </div>
+    <div class="flex smallspaced_right">
+      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>">
+        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      </a>
+    </div>
+    <div class="flex">
+      <?php if($comic_data['next']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['next']?>">
+        <img src="<?=$path?>img/banners/comics/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
 <div class="align_center">
 
   <h1 class="tinypadding_bot">
@@ -115,6 +143,16 @@ comics_increment_view_count($comic_id);
   </div>
   <?php endif; ?>
 
+  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
+    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  </a>
+
+  <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
+  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
+    <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
+  </a>
+  <?php endfor; ?>
+
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
@@ -140,16 +178,6 @@ comics_increment_view_count($comic_id);
       <?php endif; ?>
     </div>
   </div>
-
-  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
-    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
-  </a>
-
-  <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
-    <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
-  </a>
-  <?php endfor; ?>
 
 </div>
 

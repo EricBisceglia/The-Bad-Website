@@ -211,7 +211,7 @@ La satire politique implique de se moquer des opinions, et personne n'aime ça. 
 EOT
 );
 ___('about_offended_body_3', 'EN', <<<EOT
-I'm not here to laugh <span class="italics">at</span> people but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being mocked. Most of the time, it's not you personnally, but rather some problematic ideas. If you agree with those problematic ideas... well, that's on you.
+I'm not here to laugh <span class="italics">at</span> people but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being mocked. Most of the time, it's not you personally, but rather some problematic ideas. If you agree with those problematic ideas... well, that's on you.
 EOT
 );
 ___('about_offended_body_3', 'FR', <<<EOT
