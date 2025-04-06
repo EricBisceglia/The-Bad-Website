@@ -110,7 +110,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <div class="padding_bot" style="column-count: 3;">
     <?php for($i = 0; $i < $reusable_list['rows']; $i++): ?>
     <a href="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" target="_blank">
-      <img src="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" alt="<?=$reusable_list[$i]['name_full']?>" title="<?=$reusable_list[$i]['name_full']?>">
+      <img src="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" alt="<?=$reusable_list[$i]['name_full']?>" title="<?=$reusable_list[$i]['name_full']?>" class="indiv">
     </a>
     <?php endfor; ?>
   </div>
@@ -122,7 +122,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <div class="padding_bot" style="column-count: 3;">
     <?php for($i = 0; $i < $template_list['rows']; $i++): ?>
     <a href="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" target="_blank">
-      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>">
+      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>" class="indiv">
     </a>
     <?php endfor; ?>
   </div>

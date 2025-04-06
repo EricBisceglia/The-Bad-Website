@@ -76,7 +76,6 @@ $comics_list = comics_list( sort_by:    'date'  ,
 
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
-    <?php if($i < 20): ?>
     <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
       <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
         <?php if($comics_list[$i]['preview']) : ?>
@@ -86,7 +85,6 @@ $comics_list = comics_list( sort_by:    'date'  ,
         <?php endif; ?>
       </a>
     </div>
-    <?php endif; ?>
     <?php endfor; ?>
   </div>
 
