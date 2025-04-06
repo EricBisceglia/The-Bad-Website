@@ -25,34 +25,34 @@ $rss_link = ($lang === 'EN') ? 'rss' : 'rss_fr';
 
 <div class="width_50">
 
-  <img src="<?=$path?>img/website/homepage_intro_<?=$lang?>.png" alt="<?=__('home_comics_intro')?>" title="<?=__('home_comics_intro')?>">
+  <img src="<?=$path?>img/website/homepage_intro_<?=$lang_lower?>.png" alt="<?=__('home_comics_intro')?>" title="<?=__('home_comics_intro')?>">
 
-  <img src="<?=$path?>img/website/homepage_satire_<?=$lang?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_satire')?>">
+  <img src="<?=$path?>img/website/homepage_satire_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_satire')?>">
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
       <a href="<?=$path?>pages/faq">
-        <img src="<?=$path?>img/website/homepage_questions_<?=$lang?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
+        <img src="<?=$path?>img/website/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>pages/comics">
-        <img src="<?=$path?>img/website/homepage_comics_<?=$lang?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
+        <img src="<?=$path?>img/website/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
       </a>
     </div>
   </div>
 
-  <img src="<?=$path?>img/website/homepage_language_<?=$lang?>.png" alt="<?=__('home_comics_language')?>" title="<?=__('home_comics_language')?>">
+  <img src="<?=$path?>img/website/homepage_language_<?=$lang_lower?>.png" alt="<?=__('home_comics_language')?>" title="<?=__('home_comics_language')?>">
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
       <a href="https://bsky.app/profile/thebad.website" target="_blank">
-        <img src="<?=$path?>img/website/homepage_bluesky_<?=$lang?>.png" alt="<?=__('home_comics_bluesky')?>" title="<?=__('home_comics_bluesky')?>">
+        <img src="<?=$path?>img/website/homepage_bluesky_<?=$lang_lower?>.png" alt="<?=__('home_comics_bluesky')?>" title="<?=__('home_comics_bluesky')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path.$rss_link?>" target="_blank">
-        <img src="<?=$path?>img/website/homepage_rss_<?=$lang?>.png" alt="<?=__('home_comics_rss')?>" title="<?=__('home_comics_rss')?>">
+        <img src="<?=$path?>img/website/homepage_rss_<?=$lang_lower?>.png" alt="<?=__('home_comics_rss')?>" title="<?=__('home_comics_rss')?>">
       </a>
     </div>
   </div>
