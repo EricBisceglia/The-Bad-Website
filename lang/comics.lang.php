@@ -18,7 +18,7 @@ ___('comics_title_tag',     'FR', "Image du comic - transcription en alt text");
 ___('comics_description',   'EN', "About this comic");
 ___('comics_description',   'FR', "Au sujet de ce comic");
 ___('comics_trans_button',  'EN', "Show image transcriptions");
-___('comics_trans_button',  'FR', "Afficher la transcription des images");
+___('comics_trans_button',  'FR', "Transcription des images");
 ___('comics_transcript',    'EN', "Image transcriptions");
 ___('comics_transcript',    'FR', "Transcription des images");
 

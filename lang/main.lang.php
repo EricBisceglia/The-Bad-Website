@@ -161,7 +161,7 @@ Utiliser des dessins simples me pousse à travailler sur l'humour, la mise en pa
 EOT
 );
 ___('about_quality_body_3', 'EN', <<<EOT
-I call my comics "smuggies": their smug, simplistic style is part of the joke. There's humor in poorly drawn stick figures. It might not be to everyone's taste, and that's fine. You're allowed to dislike my art.
+My comics are in a style called "smuggies": their smug, simplistic style is part of the joke. There's humor in poorly drawn stick figures. It might not be to everyone's taste, and that's fine. You're allowed to dislike my art.
 EOT
 );
 ___('about_quality_body_3', 'FR', <<<EOT
