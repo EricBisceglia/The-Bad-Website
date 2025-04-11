@@ -302,14 +302,18 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
  * @param   array   $search     The search query.
  * @param   bool    $is_public  Hide private comics.
  * @param   bool    $is_major   Hide minor comics.
+ * @param   bool    $is_rss     Whether the list is being used for the RSS feed.
+ * @param   string  $rss_lang   The language to use for the RSS feed.
  *
  * @return  array   An array containing the comics.
  */
 
 function comics_list( string $sort_by   = 'date'  ,
                       array  $search    = array() ,
-                      bool   $is_public = false ,
-                      bool   $is_major  = false ) : array
+                      bool   $is_public = false   ,
+                      bool   $is_major  = false   ,
+                      bool   $is_rss    = false   ,
+                      string $rss_lang  = 'EN'    ) : array
 {
   // Sanitize the search parameters
   $search_body    = sanitize_array_element($search, 'body', 'string');
@@ -453,6 +457,21 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['tags']       = sanitize_output($row['t_names']);
     $data[$i]['nimages']    = sanitize_output($row['i_count']);
     $data[$i]['images']     = sanitize_output($row['i_names']);
+
+    // For the RSS feed, grab the correct preview image
+    if($is_rss)
+    {
+      $comic_id = sanitize($row['c_id'], 'int');
+      $rss_lang = sanitize(string_change_case($rss_lang, 'lowercase'), 'string');
+      $preview_image = query("  SELECT    images.name AS 'i_name'
+                                FROM      images
+                                WHERE     images.fk_comics    = '$comic_id'
+                                AND       images.is_a_preview = 1
+                                AND       images.language  LIKE '$rss_lang'
+                                LIMIT     1 ",
+                                fetch_row: true);
+      $data[$i]['rss_preview'] = sanitize_output($GLOBALS['website_url'].'img/comics/'.$preview_image['i_name']);
+    }
   }
 
   // Add the number of rows to the returned data

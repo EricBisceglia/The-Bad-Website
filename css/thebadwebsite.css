@@ -384,7 +384,7 @@ li  { margin-bottom: 0.5rem;                        } }
 
 pre, code, blockquote   { font-family: monospace, monospace; font-size: 100%; background-color: var(--thebad-dark3) ;
                           border-left: 0.3rem solid var(--thebad-light); overflow-x: auto; padding-left: 1.5rem     ;
-                          padding-top: 1.0rem; padding-bottom: 1.0rem;  padding-right: 1.0rem;                      }
+                          padding-top: 1.0rem; padding-bottom: 1.0rem;  padding-right: 1.0rem; text-align: left;    }
 blockquote              { quotes: none;                                                                             }
 blockquote.nobackground { background-color: var(--thebad-dark);                                                     }
 

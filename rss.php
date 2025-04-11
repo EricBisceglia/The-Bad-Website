@@ -20,7 +20,9 @@ $page_title_fr  = "Flux RSS";
 
 $comics_list = comics_list( sort_by:    'date'  ,
                             is_public:  true    ,
-                            is_major:   true    );
+                            is_major:   true    ,
+                            is_rss:     true    ,
+                            rss_lang:   'EN'    );
 
 
 
@@ -44,7 +46,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <item>
       <title><?=htmlspecialchars($comics_list[$i]['title_en'])?></title>
       <link><?=htmlspecialchars($comics_list[$i]['url'])?></link>
-      <description><?=htmlspecialchars($comics_list[$i]['desc_en'])?></description>
+      <description><![CDATA[
+        <a href="<?=htmlspecialchars($comics_list[$i]['url'])?>">
+          <img src="<?=htmlspecialchars($comics_list[$i]['rss_preview'])?>" alt="Comic">
+        </a>
+      ]]></description>
       <pubDate><?=htmlspecialchars($comics_list[$i]['date'])?></pubDate>
     </item>
     <?php endif; ?>
