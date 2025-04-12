@@ -59,10 +59,15 @@ function comics_get(  int   $comic_id                ,
                                 comics.description_fr     AS 'c_desc_fr'  ,
                                 comic_types.slug          AS 'ct_slug'    ,
                                 comic_types.banner_$lang  AS 'ct_banner'  ,
-                                comic_types.name_$lang    AS 'ct_name'
+                                comic_types.name_$lang    AS 'ct_name'    ,
+                                comics_preview.name       AS 'pi_name'
                       FROM      comics
                       LEFT JOIN comic_types
                       ON        comic_types.id = comics.fk_comic_types
+                      LEFT JOIN images AS comics_preview
+                      ON        comics.id                   = comics_preview.fk_comics
+                      AND       comics_preview.is_a_preview = 1
+                      AND       comics_preview.language  LIKE 'EN'
                       WHERE     comics.id = '$comic_id' ",
                       fetch_row: true);
 
@@ -81,6 +86,9 @@ function comics_get(  int   $comic_id                ,
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
   $data['type_slug']    = sanitize_output($comic_data['ct_slug']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
+  $data['preview_url']  = (isset($comic_data['pi_name']))
+                          ? sanitize_output($GLOBALS['website_url'].'img/comics/'.$comic_data['pi_name'])
+                          : null;
 
   // Get the correct banner image
   $root = root_path();

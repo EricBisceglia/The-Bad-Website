@@ -72,8 +72,11 @@ if(strlen($page_description) >= 155)
 $page_description = sanitize_meta_tags($page_description);
 
 // Set the page description to default if it is too short
-if(strlen($page_description) <= 25)
+if(strlen($page_description) <= 25 && !isset($page_is_a_comic))
   $page_description = $page_title_en." - See more by visiting this page on thebad.website";
+if(strlen($page_description) <= 25 && isset($page_is_a_comic))
+  $page_description = $page_title_en." - A comic on The Bad Website";
+
 
 
 
@@ -85,6 +88,16 @@ $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 
 // Pick the correct Bluesky image
 $header_bluesky = (isset($this_page_is_a_404)) ? 'bluesky_404' : 'bluesky';
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Page image
+
+// If there is no image, use a header smuggie
+$page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header_smuggie_3.png';
+
 
 
 
@@ -154,7 +167,7 @@ $javascripts .= '
     <meta property="og:description" content="<?=$page_description?>">
     <meta property="og:url" content="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta property="og:site_name" content="The Bad Website">
-    <meta property="og:image" content="<?=$GLOBALS['website_url']?>img/website/header_smuggie_3.png">
+    <meta property="og:image" content="<?=$page_image?>">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="fr_FR">
     <link rel="icon" href="<?=$path.'favicon.ico'?>">
