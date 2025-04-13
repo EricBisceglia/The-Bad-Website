@@ -167,13 +167,15 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 30, '...');
+    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 45, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['comic']      = sanitize_output($row['c_title']);
     $data[$i]['order']      = sanitize_output($row['i_order']);
     $data[$i]['lang']       = sanitize_output($row['i_lang']);
-    $data[$i]['date']       = time_since(sanitize_output(strtotime($row['i_date'])));
+    $data[$i]['date']       = ($row['i_date'] !== '0000-00-00')
+                            ? time_since(sanitize_output(strtotime($row['i_date'])))
+                            : '';
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['preview']    = ($row['i_preview']);
     $data[$i]['template']   = ($row['i_template']);

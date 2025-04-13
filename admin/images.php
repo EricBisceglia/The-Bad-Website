@@ -95,7 +95,7 @@ $images_list = images_list( sort_by:  $admin_images_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_60 padding_top">
 
   <h2 class="align_center padding_bot">
     <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: root_path())?>
@@ -267,7 +267,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
         </td>
 
-        <td class="align_center nowrap">
+        <td class="align_center nowrap admin_action_icons">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?id='.$images_list[$i]['id'], path: root_path())?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_list_delete('".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
         </td>

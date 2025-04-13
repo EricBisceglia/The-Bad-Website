@@ -133,7 +133,7 @@ $comics_list = comics_list( sort_by:  $admin_comics_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_60 padding_top">
+<div class="width_70 padding_top">
 
   <h2 class="align_center smallpadding_bot">
     <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
@@ -304,7 +304,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=$comics_list[$i]['views']?>
         </td>
 
-        <td class="align_center nowrap">
+        <td class="align_center nowrap admin_action_icons">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: root_path())?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_list_delete('".$comics_list[$i]['id']."','".__('admin_comics_delete_confirm')."')", path: root_path())?>
         </td>
