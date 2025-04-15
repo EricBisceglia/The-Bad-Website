@@ -59,10 +59,15 @@ function comics_get(  int   $comic_id                ,
                                 comics.description_fr     AS 'c_desc_fr'  ,
                                 comic_types.slug          AS 'ct_slug'    ,
                                 comic_types.banner_$lang  AS 'ct_banner'  ,
-                                comic_types.name_$lang    AS 'ct_name'
+                                comic_types.name_$lang    AS 'ct_name'    ,
+                                comics_preview.name       AS 'pi_name'
                       FROM      comics
                       LEFT JOIN comic_types
                       ON        comic_types.id = comics.fk_comic_types
+                      LEFT JOIN images AS comics_preview
+                      ON        comics.id                   = comics_preview.fk_comics
+                      AND       comics_preview.is_a_preview = 1
+                      AND       comics_preview.language  LIKE 'EN'
                       WHERE     comics.id = '$comic_id' ",
                       fetch_row: true);
 
@@ -81,6 +86,9 @@ function comics_get(  int   $comic_id                ,
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
   $data['type_slug']    = sanitize_output($comic_data['ct_slug']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
+  $data['preview_url']  = (isset($comic_data['pi_name']))
+                          ? sanitize_output($GLOBALS['website_url'].'img/comics/'.$comic_data['pi_name'])
+                          : null;
 
   // Get the correct banner image
   $root = root_path();
@@ -302,14 +310,18 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
  * @param   array   $search     The search query.
  * @param   bool    $is_public  Hide private comics.
  * @param   bool    $is_major   Hide minor comics.
+ * @param   bool    $is_rss     Whether the list is being used for the RSS feed.
+ * @param   string  $rss_lang   The language to use for the RSS feed.
  *
  * @return  array   An array containing the comics.
  */
 
 function comics_list( string $sort_by   = 'date'  ,
                       array  $search    = array() ,
-                      bool   $is_public = false ,
-                      bool   $is_major  = false ) : array
+                      bool   $is_public = false   ,
+                      bool   $is_major  = false   ,
+                      bool   $is_rss    = false   ,
+                      string $rss_lang  = 'EN'    ) : array
 {
   // Sanitize the search parameters
   $search_body    = sanitize_array_element($search, 'body', 'string');
@@ -430,13 +442,15 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
     $data[$i]['url']        = sanitize_output($GLOBALS['website_url'].'comic/'.$row['c_slug']);
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
-    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 38, '...'));
+    $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 45, '...'));
     $data[$i]['ltitle']     = sanitize_output(string_truncate($row['c_title'], 50, '...'));
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
     $data[$i]['type']       = sanitize_output($row['ct_name']);
-    $data[$i]['date']       = time_since(sanitize_output(strtotime($row['c_date'])));
+    $data[$i]['date']       = ($row['c_date'] !== '0000-00-00')
+                            ? time_since(sanitize_output(strtotime($row['c_date'])))
+                            : '';
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
     $data[$i]['date_rss']   = date(DATE_RSS, strtotime($row['c_date']));
     $data[$i]['private']    = (!$row['c_public']);
@@ -453,6 +467,21 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['tags']       = sanitize_output($row['t_names']);
     $data[$i]['nimages']    = sanitize_output($row['i_count']);
     $data[$i]['images']     = sanitize_output($row['i_names']);
+
+    // For the RSS feed, grab the correct preview image
+    if($is_rss)
+    {
+      $comic_id = sanitize($row['c_id'], 'int');
+      $rss_lang = sanitize(string_change_case($rss_lang, 'lowercase'), 'string');
+      $preview_image = query("  SELECT    images.name AS 'i_name'
+                                FROM      images
+                                WHERE     images.fk_comics    = '$comic_id'
+                                AND       images.is_a_preview = 1
+                                AND       images.language  LIKE '$rss_lang'
+                                LIMIT     1 ",
+                                fetch_row: true);
+      $data[$i]['rss_preview'] = sanitize_output($GLOBALS['website_url'].'img/comics/'.$preview_image['i_name']);
+    }
   }
 
   // Add the number of rows to the returned data

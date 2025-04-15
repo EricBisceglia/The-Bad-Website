@@ -71,7 +71,7 @@ body                    { color: var(--thebad-white2); background-color: var(--t
                           font-family: 'ThebadF', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif    ;
                           letter-spacing: 0.01rem; line-height: 1.45; font-weight: 300                  ;
                           -webkit-text-size-adjust: 100%; min-height: 100vh;                            }
-p                       { padding-top: 1.5rem; text-align: justify; font-size: 100%;                    }
+p                       { padding-top: 1.5rem; font-size: 100%;                                         }
 h1, h2, h3, h4, h5, h6  { font-weight: 300; color: var(--thebad-light)                                  ;
                           font-family: 'ThebadF-alt-bold', 'Helvetica', 'Arial';                        }
 h1                      { font-size: 300%; letter-spacing: -0.03rem;                                    }
@@ -384,8 +384,8 @@ li  { margin-bottom: 0.5rem;                        } }
 
 pre, code, blockquote   { font-family: monospace, monospace; font-size: 100%; background-color: var(--thebad-dark3) ;
                           border-left: 0.3rem solid var(--thebad-light); overflow-x: auto; padding-left: 1.5rem     ;
-                          padding-top: 1.0rem; padding-bottom: 1.0rem;  padding-right: 1.0rem;                      }
-blockquote              { quotes: none; text-align: justify;                                                        }
+                          padding-top: 1.0rem; padding-bottom: 1.0rem;  padding-right: 1.0rem; text-align: left;    }
+blockquote              { quotes: none;                                                                             }
 blockquote.nobackground { background-color: var(--thebad-dark);                                                     }
 
 /******************************************************* FORMS *******************************************************/

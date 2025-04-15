@@ -1,1 +1,3 @@
-.admin_menu { margin-top: -2.3rem; }
+.admin_menu           { margin-top: -2.3rem; }
+.admin_action_icons   { min-width: 4.0rem;   }
+.admin_tasks_textarea { min-height: 25.0rem; }

@@ -161,7 +161,7 @@ Utiliser des dessins simples me pousse à travailler sur l'humour, la mise en pa
 EOT
 );
 ___('about_quality_body_3', 'EN', <<<EOT
-I call my comics "smuggies": their smug, simplistic style is part of the joke. There's humor in poorly drawn stick figures. It might not be to everyone's taste, and that's fine. You're allowed to dislike my art.
+My comics are in a style called "smuggies": their smug, simplistic style is part of the joke. There's humor in poorly drawn stick figures. It might not be to everyone's taste, and that's fine. You're allowed to dislike my art.
 EOT
 );
 ___('about_quality_body_3', 'FR', <<<EOT
@@ -211,7 +211,7 @@ La satire politique implique de se moquer des opinions, et personne n'aime ça. 
 EOT
 );
 ___('about_offended_body_3', 'EN', <<<EOT
-I'm not here to laugh <span class="italics">at</span> people but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being mocked. Most of the time, it's not you personnally, but rather some problematic ideas. If you agree with those problematic ideas... well, that's on you.
+I'm not here to laugh <span class="italics">at</span> people but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being mocked. Most of the time, it's not you personally, but rather some problematic ideas. If you agree with those problematic ideas... well, that's on you.
 EOT
 );
 ___('about_offended_body_3', 'FR', <<<EOT

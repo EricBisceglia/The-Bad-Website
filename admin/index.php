@@ -60,7 +60,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </h5>
 
     <div class="tinypadding_bot">
-      <textarea class="padding_bot" name="admin_notes_tasks"><?=$admin_notes['tasks']?></textarea>
+      <textarea class="padding_bot admin_tasks_textarea" name="admin_notes_tasks"><?=$admin_notes['tasks']?></textarea>
     </div>
 
     <div class="tinypadding_top">
