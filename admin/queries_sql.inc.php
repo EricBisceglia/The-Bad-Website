@@ -685,3 +685,26 @@ if($last_query < 6)
 
   sql_update_query_id(6);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Idea types
+
+if($last_query < 7)
+{
+  sql_create_table('idea_types');
+
+  sql_create_field('ideas', 'fk_idea_types', 'INT UNSIGNED NOT NULL', 'id');
+
+  sql_create_table('idea_types');
+  sql_create_field('idea_types', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('idea_types', 'name_en', 'TINYTEXT NOT NULL', 'sorting_order');
+  sql_create_field('idea_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+
+  sql_create_index('ideas', 'ideas_idea_types', 'fk_idea_types');
+  sql_create_index('idea_types', 'idea_types_sorting_order', 'sorting_order');
+
+  sql_update_query_id(7);
+}
