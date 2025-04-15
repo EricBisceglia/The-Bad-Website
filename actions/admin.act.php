@@ -21,6 +21,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  admin_idea_types_list               Returns a list of idea types                                                 */
 /*  admin_idea_types_add                Adds an idea type to the database                                            */
 /*  admin_idea_types_edit               Edits an idea type                                                           */
+/*  admin_idea_types_delete             Deletes an idea type from the database                                       */
 /*                                                                                                                   */
 /*  admin_user_searches_list            Returns a list of user searches                                              */
 /*  admin_user_searches_clear           Clears the user search history                                               */
@@ -276,41 +277,6 @@ function admin_idea_types_get( int $idea_type_id ) : ?array
 
 
 /**
- * Edits an idea type.
- *
- * @param   int     $idea_type_id  The id of the idea type to edit.
- * @param   array   $data          The data to update the idea type with.
- *
- * @return  void
- */
-
-function admin_idea_types_edit( int   $idea_type_id ,
-                                array $data         ) : void
-{
-  // Sanitize the idea type's id
-  $idea_type_id = sanitize($idea_type_id, 'int');
-
-  // Stop here if the idea type does not exist
-  if(!database_row_exists('idea_types', $idea_type_id))
-    return;
-
-  // Sanitize the data
-  $idea_type_order     = sanitize_array_element($data, 'order', 'int');
-  $idea_type_name_en   = sanitize_array_element($data, 'name_en', 'string');
-  $idea_type_name_fr   = sanitize_array_element($data, 'name_fr', 'string');
-
-  // Update the idea type
-  query(" UPDATE  idea_types
-          SET     idea_types.sorting_order  = '$idea_type_order'    ,
-                  idea_types.name_en        = '$idea_type_name_en'  ,
-                  idea_types.name_fr        = '$idea_type_name_fr'
-          WHERE   idea_types.id             = '$idea_type_id' ");
-}
-
-
-
-
-/**
  * Returns a list of idea types.
  *
  * @return  array   An array containing idea types.
@@ -366,6 +332,62 @@ function admin_idea_types_add( array $data ) : void
           SET         idea_types.sorting_order  = '$idea_type_sort'     ,
                       idea_types.name_en        = '$idea_type_name_en'  ,
                       idea_types.name_fr        = '$idea_type_name_fr'  ");
+}
+
+
+
+
+/**
+ * Edits an idea type.
+ *
+ * @param   int     $idea_type_id  The id of the idea type to edit.
+ * @param   array   $data          The data to update the idea type with.
+ *
+ * @return  void
+ */
+
+function admin_idea_types_edit( int   $idea_type_id ,
+                                array $data         ) : void
+{
+  // Sanitize the idea type's id
+  $idea_type_id = sanitize($idea_type_id, 'int');
+
+  // Stop here if the idea type does not exist
+  if(!database_row_exists('idea_types', $idea_type_id))
+    return;
+
+  // Sanitize the data
+  $idea_type_order     = sanitize_array_element($data, 'order', 'int');
+  $idea_type_name_en   = sanitize_array_element($data, 'name_en', 'string');
+  $idea_type_name_fr   = sanitize_array_element($data, 'name_fr', 'string');
+
+  // Update the idea type
+  query(" UPDATE  idea_types
+          SET     idea_types.sorting_order  = '$idea_type_order'    ,
+                  idea_types.name_en        = '$idea_type_name_en'  ,
+                  idea_types.name_fr        = '$idea_type_name_fr'
+          WHERE   idea_types.id             = '$idea_type_id' ");
+}
+
+
+
+
+/**
+ * Deletes an idea type from the database.
+ *
+ * @param   int     $idea_type_id  The id of the idea type to delete.
+ *
+ * @return  void
+ */
+
+function admin_idea_types_delete( int $idea_type_id )
+{
+  // Sanitize the idea type's id
+  $idea_type_id = sanitize($idea_type_id, 'int');
+
+  // Delete the idea type
+  query(" DELETE FROM idea_types
+          WHERE       idea_types.id = '$idea_type_id' ");
 }
 
 

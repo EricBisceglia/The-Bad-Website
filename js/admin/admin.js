@@ -4,6 +4,7 @@
 /*                                                                                                                   */
 /*  admin_ideas_sort                        Sorts the list of smug ideas.                                            */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
+/*  admin_idea_type_delete                  Triggers the deletion of an idea type.                                   */
 /*                                                                                                                   */
 /*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
 /*  admin_image_list_search                 Triggers a search in the image list.                                     */
@@ -73,6 +74,27 @@ function admin_ideas_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('ideas', 'ideas_list', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of an idea type.
+ *
+ * @param   {int}     id        The id of the idea type to delete.
+ * @param   {string}  message   The message to display before deleting the idea type.
+ */
+
+function admin_idea_type_delete(  id      ,
+                                  message )
+{
+  // Assemble the postdata
+  postdata = 'admin_idea_types_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('ideas_types', 'admin_idea_types_tbody', postdata);
 }
 
 

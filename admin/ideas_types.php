@@ -44,6 +44,7 @@ if(isset($_POST['idea_type_add']))
 
 
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Edit an idea type
 
@@ -61,6 +62,16 @@ if(isset($_POST['idea_type_edit']))
   admin_idea_types_edit( $admin_idea_type_id  ,
                          $idea_type_edit_data );
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete an idea type
+
+if(isset($_POST['admin_idea_types_delete']))
+  admin_idea_types_delete(form_fetch_element('admin_idea_types_delete'));
+
 
 
 
