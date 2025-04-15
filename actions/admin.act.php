@@ -17,6 +17,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  admin_ideas_edit                    Edits an idea                                                                */
 /*  admin_ideas_delete                  Deletes an idea from the database                                            */
 /*                                                                                                                   */
+/*  admin_idea_types_add                Adds an idea type to the database                                            */
+/*                                                                                                                   */
 /*  admin_user_searches_list            Returns a list of user searches                                              */
 /*  admin_user_searches_clear           Clears the user search history                                               */
 /*                                                                                                                   */
@@ -226,6 +228,31 @@ function admin_ideas_delete( int $idea_id ) : void
   // Delete the idea
   query(" DELETE FROM ideas
           WHERE       ideas.id = '$idea_id' ");
+}
+
+
+
+
+/**
+ * Adds an idea type to the database.
+ *
+ * @param   array   $data   An array containing the idea type's data.
+ *
+ * @return  void
+ */
+
+function admin_idea_types_add( array $data ) : void
+{
+  // Sanitize the data
+  $idea_type_sort     = sanitize_array_element($data, 'sort', 'int');
+  $idea_type_name_en  = sanitize_array_element($data, 'name_en', 'string');
+  $idea_type_name_fr  = sanitize_array_element($data, 'name_fr', 'string');
+
+  // Add the idea type to the database
+  query(" INSERT INTO idea_types
+          SET         idea_types.sorting_order  = '$idea_type_sort'     ,
+                      idea_types.name_en        = '$idea_type_name_en'  ,
+                      idea_types.name_fr        = '$idea_type_name_fr'  ");
 }
 
 

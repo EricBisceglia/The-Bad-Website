@@ -91,6 +91,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </div>
 
     <div class="tinypadding_bot">
+      <a href="./ideas_types">
+        <label for="admin_ideas_type" class="pointer"><?=__('admin_ideas_type')?></label>
+      </a>
+      <select name="admin_ideas_type" class="indiv">
+        <option value="0">&nbsp;</option>
+      </select>
+    </div>
+
+    <div class="tinypadding_bot">
       <label for="admin_ideas_body"><?=__('admin_ideas_new_body')?></label>
       <textarea class="padding_bot" name="admin_ideas_body"></textarea>
     </div>

@@ -57,11 +57,13 @@ ___('admin_notes_update', 'EN', "Update tasks");
 ___('admin_notes_update', 'FR', "Mettre à jour les tâches");
 
 
-// Admin ideas
+// Comic ideas
 ___('admin_ideas_new_title',    'EN', "New idea");
 ___('admin_ideas_new_title',    'FR', "Nouvelle idée");
 ___('admin_ideas_title',        'EN', "Idea name");
 ___('admin_ideas_title',        'FR', "Nom de l'idée");
+___('admin_ideas_type',         'EN', "Idea type");
+___('admin_ideas_type',         'FR', "Type d'idée");
 ___('admin_ideas_new_body',     'EN', "Idea description");
 ___('admin_ideas_new_body',     'FR', "Description de l'idée");
 ___('admin_ideas_add',          'EN', "Add idea");
@@ -80,6 +82,24 @@ ___('admin_ideas_edit',         'EN', "Edit idea");
 ___('admin_ideas_edit',         'FR', "Modifier l'idée");
 ___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
 ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
+
+
+// Idea types: List
+___('admin_idea_types_title', 'EN', "Idea types");
+___('admin_idea_types_title', 'FR', "Types d'idées");
+
+
+// Idea types: Add
+___('admin_idea_types_add_title',   'EN', "Add an idea type");
+___('admin_idea_types_add_title',   'FR', "Ajouter un type d'idée");
+___('admin_idea_types_add_order',   'EN', "Sorting order");
+___('admin_idea_types_add_order',   'FR', "Ordre de tri");
+___('admin_idea_types_add_name_en', 'EN', "Name (english)");
+___('admin_idea_types_add_name_en', 'FR', "Nom (anglais)");
+___('admin_idea_types_add_name_fr', 'EN', "Name (french)");
+___('admin_idea_types_add_name_fr', 'FR', "Nom (français)");
+___('admin_idea_types_add_submit',  'EN', "Add idea type");
+___('admin_idea_types_add_submit',  'FR', "Ajouter le type d'idée");
 
 
 
