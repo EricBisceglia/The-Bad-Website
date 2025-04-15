@@ -137,7 +137,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
 
-      <tr id="comit_types_list_row_<?=$comic_types_list[$i]['id']?>">
+      <tr id="comic_types_list_row_<?=$comic_types_list[$i]['id']?>">
 
         <td class="align_center nowrap bold">
           <?=$comic_types_list[$i]['sort'].$comic_types_list[$i]['major_p']?>

@@ -17,6 +17,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  admin_ideas_edit                    Edits an idea                                                                */
 /*  admin_ideas_delete                  Deletes an idea from the database                                            */
 /*                                                                                                                   */
+/*  admin_idea_types_list               Returns a list of idea types                                                 */
 /*  admin_idea_types_add                Adds an idea type to the database                                            */
 /*                                                                                                                   */
 /*  admin_user_searches_list            Returns a list of user searches                                              */
@@ -228,6 +229,42 @@ function admin_ideas_delete( int $idea_id ) : void
   // Delete the idea
   query(" DELETE FROM ideas
           WHERE       ideas.id = '$idea_id' ");
+}
+
+
+
+
+/**
+ * Returns a list of idea types.
+ *
+ * @return  array   An array containing idea types.
+ */
+
+function admin_idea_types_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the idea types
+  $idea_types = query(" SELECT    idea_types.id             AS 'it_id'    ,
+                                  idea_types.sorting_order  AS 'it_sort'  ,
+                                  idea_types.name_$lang     AS 'it_name'
+                        FROM      idea_types
+                        ORDER BY  idea_types.sorting_order ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($idea_types); $i++)
+  {
+    $data[$i]['id']   = sanitize_output($row['it_id']);
+    $data[$i]['sort'] = sanitize_output($row['it_sort']);
+    $data[$i]['name'] = sanitize_output($row['it_name']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
 }
 
 

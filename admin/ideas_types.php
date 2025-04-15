@@ -44,6 +44,13 @@ if(isset($_POST['idea_type_add']))
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch a list of all idea types
+
+$idea_types_list = admin_idea_types_list();
+
+
+
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
@@ -57,6 +64,60 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__link('admin/ideas', __('admin_idea_types_title'), style: 'text_light', path: root_path())?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_types_add', path: root_path())?>
   </h2>
+
+  <table>
+    <thead>
+
+      <tr class="uppercase">
+        <th class="align_center">
+          <?=__('admin_idea_types_order')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_idea_types_name')?>
+        </th>
+        <th>
+          <?=__('act')?>
+        </th>
+      </tr>
+
+    </thead>
+
+    <tbody class="altc2 nowrap" id="admin_idea_types_tbody">
+
+      <?php endif; ?>
+
+      <tr>
+        <td colspan="3" class="uppercase text_light dark bold align_center">
+          <?=__('admin_idea_types_count', preset_values: array($idea_types_list['rows']), amount: $idea_types_list['rows'])?>
+        </td>
+      </tr>
+
+      <?php for($i = 0; $i < $idea_types_list['rows']; $i++): ?>
+
+      <tr id="idea_types_list_row_<?=$idea_types_list[$i]['id']?>">
+
+        <td class="align_center nowrap bold">
+          <?=$idea_types_list[$i]['sort']?>
+        </td>
+
+        <td class="align_center nowrap bold">
+          <span class="uppercase"><?=$idea_types_list[$i]['name']?></span>
+        </td>
+
+        <td class="align_center nowrap admin_action_icons">
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/ideas_types_edit?type_id='.$idea_types_list[$i]['id'], path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_idea_type_delete('".$idea_types_list[$i]['id']."','".__('admin_idea_types_delete_confirm')."')", path: root_path())?>
+        </td>
+
+      </tr>
+
+      <?php endfor; ?>
+
+    </tbody>
+
+    <?php if(!page_is_fetched_dynamically()): ?>
+
+  </table>
 
 </div>
 
