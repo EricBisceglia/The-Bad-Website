@@ -113,15 +113,29 @@ function admin_ideas_get( int $idea_id ) : ?array
 /**
  * Returns a list of ideas.
  *
- * @param   string  $sort_by  How the ideas should be sorted.
+ * @param   int     $category   The id of the idea type to filter by.
+ * @param   string  $sort_by    How the ideas should be sorted.
  *
  * @return  array   An array containing ideas.
  */
 
-function admin_ideas_list( string $sort_by = 'random' ) : array
+function admin_ideas_list(  int    $category            ,
+                            string $sort_by = 'random'  ) : array
 {
   // Sanitize the data
-  $sort_by = sanitize($sort_by, 'string');
+  $category = sanitize($category, 'int');
+  $sort_by  = sanitize($sort_by, 'string');
+
+  // If no category is selected, pick the first one
+  if(!$category)
+  {
+    $categories = query(" SELECT    idea_types.id AS 'it_id'
+                          FROM      idea_types
+                          ORDER BY  idea_types.sorting_order ASC
+                          LIMIT     1 ",
+                          fetch_row: true);
+    $category = sanitize($categories['it_id'], 'int');
+  }
 
   // Prepare the sorting
   switch($sort_by)
@@ -144,6 +158,7 @@ function admin_ideas_list( string $sort_by = 'random' ) : array
                               ideas.title AS 'i_title'  ,
                               ideas.body  AS 'i_body'
                     FROM      ideas
+                    WHERE     ideas.fk_idea_types = '$category'
                     ORDER BY  $sort_by ");
 
   // Prepare the data

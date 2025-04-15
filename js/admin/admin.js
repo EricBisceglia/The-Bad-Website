@@ -2,7 +2,7 @@
 /*                                                                                                                   */
 /*  admin_menu                              Navigates between admin pages.                                           */
 /*                                                                                                                   */
-/*  admin_ideas_sort                        Sorts the list of smug ideas.                                            */
+/*  admin_ideas_search                      Searches the list of smug ideas.                                         */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*  admin_idea_type_delete                  Triggers the deletion of an idea type.                                   */
 /*                                                                                                                   */
@@ -39,17 +39,18 @@ function admin_menu()
 
 
 /**
- * Sorts the list of smug ideas.
+ * Searches the list of smug ideas.
  *
- * @param   {string}  sort_by  How the ideas should be sorted.
+ * @param   {string}  sort_by   How the ideas should be sorted.
  *
  * @returns {void}
  */
 
-function admin_ideas_sort( sort_by )
+function admin_ideas_search( sort_by )
 {
   // Assemble the postdata
-  postdata = 'admin_ideas_sort=' + fetch_sanitize(sort_by);
+  postdata =  'admin_ideas_category=' + fetch_sanitize_id('admin_ideas_category');
+  postdata += '&admin_ideas_sort=' + fetch_sanitize(sort_by);
 
   // Go to the ideas list
   fetch_page('ideas', 'ideas_list', postdata);
