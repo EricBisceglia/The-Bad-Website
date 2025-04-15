@@ -57,17 +57,23 @@ ___('admin_notes_update', 'EN', "Update tasks");
 ___('admin_notes_update', 'FR', "Mettre à jour les tâches");
 
 
-// Admin ideas
+// Ideas: List
 ___('admin_ideas_new_title',    'EN', "New idea");
 ___('admin_ideas_new_title',    'FR', "Nouvelle idée");
 ___('admin_ideas_title',        'EN', "Idea name");
 ___('admin_ideas_title',        'FR', "Nom de l'idée");
+___('admin_ideas_type',         'EN', "Idea type");
+___('admin_ideas_type',         'FR', "Type d'idée");
 ___('admin_ideas_new_body',     'EN', "Idea description");
 ___('admin_ideas_new_body',     'FR', "Description de l'idée");
 ___('admin_ideas_add',          'EN', "Add idea");
 ___('admin_ideas_add',          'FR', "Ajouter l'idée");
-___('admin_ideas_list',         'EN', "{{1}} smug ideas");
-___('admin_ideas_list',         'FR', "{{1}} idées arrogantes");
+___('admin_ideas_filters',      'EN', "Filters");
+___('admin_ideas_filters',      'FR', "Filtres");
+___('admin_ideas_list',         'EN', "{{1}} idea");
+___('admin_ideas_list',         'FR', "{{1}} idée");
+___('admin_ideas_list+',        'EN', "{{1}} ideas");
+___('admin_ideas_list+',        'FR', "{{1}} idées");
 ___('admin_ideas_sort_random',  'EN', "Random");
 ___('admin_ideas_sort_random',  'FR', "Aléatoire");
 ___('admin_ideas_sort_title',   'EN', "Title");
@@ -76,10 +82,59 @@ ___('admin_ideas_sort_newest',  'EN', "Newest");
 ___('admin_ideas_sort_newest',  'FR', "Récent");
 ___('admin_ideas_sort_oldest',  'EN', "Oldest");
 ___('admin_ideas_sort_oldest',  'FR', "Ancien");
+
+
+// Ideas: Add
+___('admin_ideas_add_title',  'EN', "Add an idea");
+___('admin_ideas_add_title',  'FR', "Ajouter une idée");
+
+
+// Ideas: Edit
 ___('admin_ideas_edit',         'EN', "Edit idea");
 ___('admin_ideas_edit',         'FR', "Modifier l'idée");
+
+
+// Ideas: Delete
 ___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
 ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
+
+
+// Idea types: List
+___('admin_idea_types_title',   'EN', "Idea types");
+___('admin_idea_types_title',   'FR', "Types d'idées");
+___('admin_idea_types_order',   'EN', "Order");
+___('admin_idea_types_order',   'FR', "Ordre");
+___('admin_idea_types_name',    'EN', "Name");
+___('admin_idea_types_name',    'FR', "Nom");
+___('admin_idea_types_count',   'EN', "{{1}} idea type");
+___('admin_idea_types_count',   'FR', "{{1}} type d'idée");
+___('admin_idea_types_count+',  'EN', "{{1}} idea types");
+___('admin_idea_types_count+',  'FR', "{{1}} types d'idées");
+
+
+// Idea types: Add
+___('admin_idea_types_add_title',   'EN', "Add an idea type");
+___('admin_idea_types_add_title',   'FR', "Ajouter un type d'idée");
+___('admin_idea_types_add_order',   'EN', "Sorting order");
+___('admin_idea_types_add_order',   'FR', "Ordre de tri");
+___('admin_idea_types_add_name_en', 'EN', "Name (english)");
+___('admin_idea_types_add_name_en', 'FR', "Nom (anglais)");
+___('admin_idea_types_add_name_fr', 'EN', "Name (french)");
+___('admin_idea_types_add_name_fr', 'FR', "Nom (français)");
+___('admin_idea_types_add_submit',  'EN', "Add idea type");
+___('admin_idea_types_add_submit',  'FR', "Ajouter le type d'idée");
+
+
+// Idea types: Edit
+___('admin_idea_types_edit_title',   'EN', "Edit an idea type");
+___('admin_idea_types_edit_title',   'FR', "Modifier un type d'idée");
+___('admin_idea_types_edit_submit',  'EN', "Edit idea type");
+___('admin_idea_types_edit_submit',  'FR', "Modifier le type d'idée");
+
+
+// Idea types: Delete
+___('admin_idea_types_delete_confirm', 'EN', "Confirm the permanent deletion of this idea type");
+___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d'idée");
 
 
 

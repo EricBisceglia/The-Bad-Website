@@ -145,7 +145,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
 
-      <tr id="comit_types_list_row_<?=$tags_list[$i]['id']?>">
+      <tr id="tag_types_list_row_<?=$tags_list[$i]['id']?>">
 
         <td class="align_center nowrap bold">
           <?=$tags_list[$i]['sort']?>

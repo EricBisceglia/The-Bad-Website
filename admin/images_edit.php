@@ -9,7 +9,7 @@ include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
-$page_url       = "admin/images";
+$page_url       = "admin/images_edit";
 $page_title_en  = "Admin - Images";
 $page_title_fr  = "Admin - Images";
 

@@ -2,8 +2,9 @@
 /*                                                                                                                   */
 /*  admin_menu                              Navigates between admin pages.                                           */
 /*                                                                                                                   */
-/*  admin_ideas_sort                        Sorts the list of smug ideas.                                            */
+/*  admin_ideas_search                      Searches the list of smug ideas.                                         */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
+/*  admin_idea_type_delete                  Triggers the deletion of an idea type.                                   */
 /*                                                                                                                   */
 /*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
 /*  admin_image_list_search                 Triggers a search in the image list.                                     */
@@ -38,17 +39,18 @@ function admin_menu()
 
 
 /**
- * Sorts the list of smug ideas.
+ * Searches the list of smug ideas.
  *
- * @param   {string}  sort_by  How the ideas should be sorted.
+ * @param   {string}  sort_by   How the ideas should be sorted.
  *
  * @returns {void}
  */
 
-function admin_ideas_sort( sort_by )
+function admin_ideas_search( sort_by )
 {
   // Assemble the postdata
-  postdata = 'admin_ideas_sort=' + fetch_sanitize(sort_by);
+  postdata =  'admin_ideas_category=' + fetch_sanitize_id('admin_ideas_category');
+  postdata += '&admin_ideas_sort=' + fetch_sanitize(sort_by);
 
   // Go to the ideas list
   fetch_page('ideas', 'ideas_list', postdata);
@@ -73,6 +75,27 @@ function admin_ideas_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('ideas', 'ideas_list', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of an idea type.
+ *
+ * @param   {int}     id        The id of the idea type to delete.
+ * @param   {string}  message   The message to display before deleting the idea type.
+ */
+
+function admin_idea_type_delete(  id      ,
+                                  message )
+{
+  // Assemble the postdata
+  postdata = 'admin_idea_types_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('ideas_types', 'admin_idea_types_tbody', postdata);
 }
 
 
