@@ -86,7 +86,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_50 padding_top">
 
-  <h2 class="padding_bot">
+  <h3 class="padding_bot">
+    <?=__('admin_ideas_filters').__(':')?>
     <select name="admin_ideas_category" id="admin_ideas_category" class="align_left bold" onchange="admin_ideas_search();">
       <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
       <option value="<?=$admin_idea_types[$i]['id']?>"><?=$admin_idea_types[$i]['name']?></option>
@@ -96,43 +97,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__icon('done', alt: 'A', title: __('admin_ideas_sort_title'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');")?>
     <?=__icon('sort_down', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');")?>
     <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');")?>
-  </h2>
-
-  <form method="POST" action="ideas" class="bigpadding_bot">
-
-    <div class="tinypadding_bot">
-      <label for="admin_ideas_title"><?=__('admin_ideas_new_title')?></label>
-      <input type="text" name="admin_ideas_title" class="indiv">
-    </div>
-
-    <div class="tinypadding_bot">
-      <a href="./ideas_types">
-        <label for="admin_ideas_type" class="pointer"><?=__('admin_ideas_type')?></label>
-      </a>
-      <select name="admin_ideas_type" class="indiv align_left">
-        <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
-        <option value="<?=$admin_idea_types[$i]['id']?>"><?=$admin_idea_types[$i]['name']?></option>
-        <?php endfor; ?>
-      </select>
-    </div>
-
-    <div class="tinypadding_bot">
-      <label for="admin_ideas_body"><?=__('admin_ideas_new_body')?></label>
-      <textarea class="padding_bot" name="admin_ideas_body"></textarea>
-    </div>
-
-    <div class="tinypadding_top">
-      <input type="submit" name="admin_ideas_add" value="<?=__('admin_ideas_add')?>">
-    </div>
-
-  </form>
+  </h3>
 
   <?php endif; ?>
 
   <div id="ideas_list">
 
-    <h2 class="padding_bot">
+    <h2 class="padding_bot smallpadding_top">
       <?=__('admin_ideas_list', preset_values: array($admin_ideas['rows']), amount: $admin_ideas['rows'])?>
+      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_add', path: root_path())?>
     </h2>
 
     <?php for($i = 0; $i < $admin_ideas['rows']; $i++): ?>

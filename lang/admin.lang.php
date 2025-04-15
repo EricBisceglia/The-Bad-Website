@@ -57,7 +57,7 @@ ___('admin_notes_update', 'EN', "Update tasks");
 ___('admin_notes_update', 'FR', "Mettre à jour les tâches");
 
 
-// Comic ideas
+// Ideas: List
 ___('admin_ideas_new_title',    'EN', "New idea");
 ___('admin_ideas_new_title',    'FR', "Nouvelle idée");
 ___('admin_ideas_title',        'EN', "Idea name");
@@ -68,6 +68,8 @@ ___('admin_ideas_new_body',     'EN', "Idea description");
 ___('admin_ideas_new_body',     'FR', "Description de l'idée");
 ___('admin_ideas_add',          'EN', "Add idea");
 ___('admin_ideas_add',          'FR', "Ajouter l'idée");
+___('admin_ideas_filters',      'EN', "Filters");
+___('admin_ideas_filters',      'FR', "Filtres");
 ___('admin_ideas_list',         'EN', "{{1}} idea");
 ___('admin_ideas_list',         'FR', "{{1}} idée");
 ___('admin_ideas_list+',        'EN', "{{1}} ideas");
@@ -80,8 +82,19 @@ ___('admin_ideas_sort_newest',  'EN', "Newest");
 ___('admin_ideas_sort_newest',  'FR', "Récent");
 ___('admin_ideas_sort_oldest',  'EN', "Oldest");
 ___('admin_ideas_sort_oldest',  'FR', "Ancien");
+
+
+// Ideas: Add
+___('admin_ideas_add_title',  'EN', "Add an idea");
+___('admin_ideas_add_title',  'FR', "Ajouter une idée");
+
+
+// Ideas: Edit
 ___('admin_ideas_edit',         'EN', "Edit idea");
 ___('admin_ideas_edit',         'FR', "Modifier l'idée");
+
+
+// Ideas: Delete
 ___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
 ___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
 
