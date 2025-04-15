@@ -110,6 +110,13 @@ ___('admin_idea_types_add_submit',  'EN', "Add idea type");
 ___('admin_idea_types_add_submit',  'FR', "Ajouter le type d'idée");
 
 
+// Idea types: Edit
+___('admin_idea_types_edit_title',   'EN', "Edit an idea type");
+___('admin_idea_types_edit_title',   'FR', "Modifier un type d'idée");
+___('admin_idea_types_edit_submit',  'EN', "Edit idea type");
+___('admin_idea_types_edit_submit',  'FR', "Modifier le type d'idée");
+
+
 // Idea types: Delete
 ___('admin_idea_types_delete_confirm', 'EN', "Confirm the permanent deletion of this idea type");
 ___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d'idée");

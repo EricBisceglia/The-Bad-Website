@@ -8,7 +8,7 @@ include_once './../actions/comics.act.php'; # Admin actions
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
-$page_url       = "admin/comics";
+$page_url       = "admin/comics_types_add";
 $page_title_en  = "Admin - Comic types";
 $page_title_fr  = "Admin - Types de comics";
 

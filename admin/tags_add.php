@@ -8,7 +8,7 @@ include_once './../actions/tags.act.php'; # Tag actions
 include_once './../lang/admin.lang.php';  # Admin translations
 
 // Page summary
-$page_url       = "admin/tags";
+$page_url       = "admin/tags_add";
 $page_title_en  = "Admin - Tags";
 $page_title_fr  = "Admin - Tags";
 

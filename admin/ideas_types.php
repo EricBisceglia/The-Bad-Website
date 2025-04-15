@@ -45,6 +45,26 @@ if(isset($_POST['idea_type_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit an idea type
+
+if(isset($_POST['idea_type_edit']))
+{
+  // Fetch the idea type's ID
+  $admin_idea_type_id = (int)form_fetch_element('idea_type_id');
+
+  // Assemble an array with the postdata
+  $idea_type_edit_data = array( 'order'   => form_fetch_element('idea_type_sort')     ,
+                                'name_en' => form_fetch_element('idea_type_name_en')  ,
+                                'name_fr' => form_fetch_element('idea_type_name_fr')  );
+
+  // Edit the idea type
+  admin_idea_types_edit( $admin_idea_type_id  ,
+                         $idea_type_edit_data );
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch a list of all idea types
 
 $idea_types_list = admin_idea_types_list();

@@ -8,9 +8,9 @@ include_once './../actions/admin.act.php'; # Admin actions
 include_once './../lang/admin.lang.php';   # Admin translations
 
 // Page summary
-$page_url       = "admin/ideas_edit";
-$page_title_en  = "Admin";
-$page_title_fr  = "Admin";
+$page_url       = "admin/ideas_types_edit";
+$page_title_en  = "Admin - Ideas";
+$page_title_fr  = "Admin - Idées";
 
 // Admin menu selection
 $admin_menu['ideas'] = 1;
@@ -29,40 +29,17 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch idea data
+// Fetch idea type data
 
-// Check whether the idea exists
-if(!isset($_GET['id']) || !is_numeric($_GET['id']))
-  exit(header("Location: ./ideas"));
+// Fetch the idea type's ID
+$admin_idea_type_id = (int)form_fetch_element('type_id', request_type: 'GET');
 
-// Fetch the idea
-$admin_idea_id  = sanitize($_GET['id'], 'int');
-$admin_idea     = admin_ideas_get($admin_idea_id);
+// Fetch the idea type data
+$admin_idea_type_data = admin_idea_types_get($admin_idea_type_id);
 
-// Exit if the idea doesn't exist
-if(is_null($admin_idea['title']))
-  exit(header("Location: ./ideas"));
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Update idea
-
-if(isset($_POST['admin_ideas_edit']))
-{
-  // Fetch the data
-  $admin_idea_title = form_fetch_element('admin_ideas_title');
-  $admin_idea_body  = form_fetch_element('admin_ideas_body');
-
-  // Update the idea
-  admin_ideas_edit( $admin_idea_id                      ,
-                    array('title' => $admin_idea_title  ,
-                          'body'  => $admin_idea_body  ));
-
-  // Redirect to the idea list
-  exit(header("Location: ./ideas#ideas_".$admin_idea_id));
-}
+// Stop here if the idea type does not exist
+if(!$admin_idea_type_data)
+  exit(header("Location: ".$path."admin/ideas_types"));
 
 
 
@@ -73,28 +50,35 @@ if(isset($_POST['admin_ideas_edit']))
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top padding_bot">
+<div class="width_50 padding_top">
 
-  <form method="POST">
+  <h2 class="padding_bot">
+    <?=__link('admin/ideas_types', __('admin_idea_types_edit_title'), 'text_light', path: root_path())?>
+  </h2>
 
-    <h2 class="padding_bot">
-      <?=__link('admin/', __('admin_ideas_edit'), path: $path, style: 'text_light')?>
-    </h2>
+  <form action="ideas_types" method="POST">
+    <fieldset>
 
-    <div class="smallpadding_bot">
-      <label for="admin_ideas_title"><?=__('admin_ideas_title')?></label>
-      <input type="text" name="admin_ideas_title" class="indiv" value="<?=$admin_idea['title']?>">
-    </div>
+      <input type="hidden" name="idea_type_id" value="<?=$admin_idea_type_data['id']?>">
 
-    <div class="tinypadding_bot">
-      <label for="admin_ideas_body"><?=__('admin_ideas_new_body')?></label>
-      <textarea class="padding_bot" name="admin_ideas_body"><?=$admin_idea['body']?></textarea>
-    </div>
+      <div class="smallpadding_bot">
+        <label for="idea_type_sort"><?=__('admin_idea_types_add_order')?></label>
+        <input class="indiv" type="text" name="idea_type_sort" value="<?=$admin_idea_type_data['order']?>">
+      </div>
 
-    <div class="tinypadding_top">
-      <input type="submit" name="admin_ideas_edit" value="<?=__('admin_ideas_edit')?>">
-    </div>
+      <div class="smallpadding_bot">
+        <label for="idea_type_name_en"><?=__('admin_idea_types_add_name_en')?></label>
+        <input class="indiv" type="text" name="idea_type_name_en" value="<?=$admin_idea_type_data['name_en']?>">
+      </div>
 
+      <div class="padding_bot">
+        <label for="idea_type_name_fr"><?=__('admin_idea_types_add_name_fr')?></label>
+        <input class="indiv" type="text" name="idea_type_name_fr" value="<?=$admin_idea_type_data['name_fr']?>">
+      </div>
+
+      <input type="submit" name="idea_type_edit" value="<?=__('admin_idea_types_edit_submit')?>">
+
+    </fieldset>
   </form>
 
 </div>

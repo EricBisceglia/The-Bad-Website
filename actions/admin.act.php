@@ -17,8 +17,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  admin_ideas_edit                    Edits an idea                                                                */
 /*  admin_ideas_delete                  Deletes an idea from the database                                            */
 /*                                                                                                                   */
+/*  admin_idea_types_get                Returns an individual idea type                                              */
 /*  admin_idea_types_list               Returns a list of idea types                                                 */
 /*  admin_idea_types_add                Adds an idea type to the database                                            */
+/*  admin_idea_types_edit               Edits an idea type                                                           */
 /*                                                                                                                   */
 /*  admin_user_searches_list            Returns a list of user searches                                              */
 /*  admin_user_searches_clear           Clears the user search history                                               */
@@ -229,6 +231,80 @@ function admin_ideas_delete( int $idea_id ) : void
   // Delete the idea
   query(" DELETE FROM ideas
           WHERE       ideas.id = '$idea_id' ");
+}
+
+
+
+
+/**
+ * Returns an individual idea type.
+ *
+ * @param   int     $idea_type_id  The id of the idea type to fetch.
+ *
+ * @return  array|null              An array containing the idea type's data, or null if it doesn't exist.
+ */
+
+function admin_idea_types_get( int $idea_type_id ) : ?array
+{
+  // Sanitize the idea type's id
+  $idea_type_id = sanitize($idea_type_id, 'int');
+
+  // Return null if the idea type does not exist
+  if(!database_row_exists('idea_types', $idea_type_id))
+    return null;
+
+  // Fetch the idea types's data
+  $idea_type_data = query(" SELECT  idea_types.id             AS 'it_id'      ,
+                                    idea_types.sorting_order  AS 'it_sort'    ,
+                                    idea_types.name_en        AS 'it_name_en' ,
+                                    idea_types.name_fr        AS 'it_name_fr'
+                            FROM    idea_types
+                            WHERE   idea_types.id = '$idea_type_id' ",
+                            fetch_row: true);
+
+  // Sanitize the data for display
+  $data['id']         = sanitize_output($idea_type_data['it_id']);
+  $data['order']      = sanitize_output($idea_type_data['it_sort']);
+  $data['name_en']    = sanitize_output($idea_type_data['it_name_en']);
+  $data['name_fr']    = sanitize_output($idea_type_data['it_name_fr']);
+
+  // Return the idea type's data
+  return $data;
+}
+
+
+
+
+/**
+ * Edits an idea type.
+ *
+ * @param   int     $idea_type_id  The id of the idea type to edit.
+ * @param   array   $data          The data to update the idea type with.
+ *
+ * @return  void
+ */
+
+function admin_idea_types_edit( int   $idea_type_id ,
+                                array $data         ) : void
+{
+  // Sanitize the idea type's id
+  $idea_type_id = sanitize($idea_type_id, 'int');
+
+  // Stop here if the idea type does not exist
+  if(!database_row_exists('idea_types', $idea_type_id))
+    return;
+
+  // Sanitize the data
+  $idea_type_order     = sanitize_array_element($data, 'order', 'int');
+  $idea_type_name_en   = sanitize_array_element($data, 'name_en', 'string');
+  $idea_type_name_fr   = sanitize_array_element($data, 'name_fr', 'string');
+
+  // Update the idea type
+  query(" UPDATE  idea_types
+          SET     idea_types.sorting_order  = '$idea_type_order'    ,
+                  idea_types.name_en        = '$idea_type_name_en'  ,
+                  idea_types.name_fr        = '$idea_type_name_fr'
+          WHERE   idea_types.id             = '$idea_type_id' ");
 }
 
 
