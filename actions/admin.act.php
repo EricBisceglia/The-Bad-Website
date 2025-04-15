@@ -86,9 +86,10 @@ function admin_ideas_get( int $idea_id ) : ?array
   $idea_id = sanitize($idea_id, 'int');
 
   // Fetch the idea
-  $idea = query("  SELECT   ideas.id    AS 'i_id'  ,
-                            ideas.title AS 'i_title'  ,
-                            ideas.body  AS 'i_body'
+  $idea = query("  SELECT   ideas.id            AS 'i_id'     ,
+                            ideas.fk_idea_types AS 'i_type'   ,
+                            ideas.title         AS 'i_title'  ,
+                            ideas.body          AS 'i_body'
                     FROM    ideas
                     WHERE   ideas.id = '$idea_id' ",
                     fetch_row: true);
@@ -100,6 +101,7 @@ function admin_ideas_get( int $idea_id ) : ?array
   // Prepare the data
   $data['title'] = sanitize_output($idea['i_title']);
   $data['body']  = sanitize_output($idea['i_body']);
+  $data['type']  = sanitize_output($idea['i_type']);
 
   // Return the data
   return $data;
@@ -165,23 +167,23 @@ function admin_ideas_list( string $sort_by = 'random' ) : array
 /**
  * Adds an idea to the database.
  *
- * @param   string  $title   The title of the idea.
- * @param   string  $body    The description of the idea.
+ * @param   array   $data   An array containing the idea's data.
  *
  * @return  void
  */
 
-function admin_ideas_add( string $title ,
-                          string $body  ) : void
+function admin_ideas_add( array $data ) : void
 {
   // Sanitize the data
-  $title  = sanitize($title, 'string');
-  $body   = sanitize($body,  'string');
+  $title  = sanitize_array_element($data, 'title', 'string');
+  $body   = sanitize_array_element($data, 'body', 'string');
+  $type   = sanitize_array_element($data, 'type', 'int');
 
   // Add the idea
   query(" INSERT INTO ideas
-          SET         ideas.title = '$title'  ,
-                      ideas.body  = '$body'   ");
+          SET         ideas.fk_idea_types = '$type'   ,
+                      ideas.title         = '$title'  ,
+                      ideas.body          = '$body'   ");
 }
 
 
@@ -203,6 +205,7 @@ function admin_ideas_edit( int    $idea_id ,
   $idea_id    = sanitize($idea_id, 'int');
   $idea_title = sanitize_array_element($data, 'title', 'string');
   $idea_body  = sanitize_array_element($data, 'body', 'string');
+  $idea_type  = sanitize_array_element($data, 'type', 'int');
 
   // Make sure the idea exists
   if(!isset($idea_id) && !database_row_exists('ideas', $idea_id))
@@ -210,9 +213,10 @@ function admin_ideas_edit( int    $idea_id ,
 
   // Update the idea
   query(" UPDATE  ideas
-          SET     ideas.title = '$idea_title'  ,
-                  ideas.body  = '$idea_body'
-          WHERE   ideas.id    = '$idea_id'     ");
+          SET     ideas.fk_idea_types = '$idea_type'  ,
+                  ideas.title         = '$idea_title' ,
+                  ideas.body          = '$idea_body'
+          WHERE   ideas.id            = '$idea_id'    ");
 }
 
 

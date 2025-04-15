@@ -54,14 +54,33 @@ if(isset($_POST['admin_ideas_edit']))
   // Fetch the data
   $admin_idea_title = form_fetch_element('admin_ideas_title');
   $admin_idea_body  = form_fetch_element('admin_ideas_body');
+  $admin_idea_type  = form_fetch_element('admin_ideas_type');
 
   // Update the idea
   admin_ideas_edit( $admin_idea_id                      ,
                     array('title' => $admin_idea_title  ,
+                          'type'  => $admin_idea_type  ,
                           'body'  => $admin_idea_body  ));
 
   // Redirect to the idea list
   exit(header("Location: ./ideas#ideas_".$admin_idea_id));
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Idea types list
+
+// Fetch the list of idea types
+$admin_idea_types = admin_idea_types_list();
+
+// Select the correct idea type
+for($i = 0; $i < $admin_idea_types['rows']; $i++)
+{
+  $admin_idea_type_selected[$i] = '';
+  if($admin_idea_types[$i]['id'] === $admin_idea['type'])
+    $admin_idea_type_selected[$i] = ' selected';
 }
 
 
@@ -84,6 +103,17 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <div class="smallpadding_bot">
       <label for="admin_ideas_title"><?=__('admin_ideas_title')?></label>
       <input type="text" name="admin_ideas_title" class="indiv" value="<?=$admin_idea['title']?>">
+    </div>
+
+    <div class="smallpadding_bot">
+      <a href="./ideas_types">
+        <label for="admin_ideas_type" class="pointer"><?=__('admin_ideas_type')?></label>
+      </a>
+      <select class="indiv align_left" name="admin_ideas_type" id="admin_ideas_type">
+        <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
+        <option value="<?=$admin_idea_types[$i]['id']?>"<?=$admin_idea_type_selected[$i]?>><?=$admin_idea_types[$i]['name']?></option>
+        <?php endfor; ?>
+      </select>
     </div>
 
     <div class="tinypadding_bot">

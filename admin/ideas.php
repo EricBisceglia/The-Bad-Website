@@ -34,11 +34,12 @@ $js   = array('admin/admin');
 if(isset($_POST['admin_ideas_add']))
 {
   // Sanitize the data
-  $admin_ideas_title = form_fetch_element('admin_ideas_title');
-  $admin_ideas_body  = form_fetch_element('admin_ideas_body');
+  $admin_ideas_data = array(  'title' => form_fetch_element('admin_ideas_title')  ,
+                              'body'  => form_fetch_element('admin_ideas_body')   ,
+                              'type'  => form_fetch_element('admin_ideas_type')   );
 
   // Add the idea
-  admin_ideas_add($admin_ideas_title, $admin_ideas_body);
+  admin_ideas_add($admin_ideas_data);
 }
 
 
@@ -61,6 +62,14 @@ $admin_ideas_sort = form_fetch_element('admin_ideas_sort', default_value: 'rando
 
 // Fetch the ideas
 $admin_ideas = admin_ideas_list( sort_by: $admin_ideas_sort );
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch idea types
+
+$admin_idea_types = admin_idea_types_list();
 
 
 
@@ -94,8 +103,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <a href="./ideas_types">
         <label for="admin_ideas_type" class="pointer"><?=__('admin_ideas_type')?></label>
       </a>
-      <select name="admin_ideas_type" class="indiv">
-        <option value="0">&nbsp;</option>
+      <select name="admin_ideas_type" class="indiv align_left">
+        <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
+        <option value="<?=$admin_idea_types[$i]['id']?>"><?=$admin_idea_types[$i]['name']?></option>
+        <?php endfor; ?>
       </select>
     </div>
 
