@@ -289,7 +289,7 @@ If you're oldschool enough to know how to use RSS, this website has <a href="./.
 EOT
 );
 ___('about_follow_body_3', 'FR', <<<EOT
-Si tu es assez oldschool pour savoir utiliser un flux RSS, ce site <a href="./../rss_fr" target="_blank">en propose un</a>.
+Si tu es assez oldschool pour savoir utiliser un flux RSS, ce site <a href="./../rss" target="_blank">en propose un</a>.
 EOT
 );
 ___('about_follow_body_4', 'EN', <<<EOT

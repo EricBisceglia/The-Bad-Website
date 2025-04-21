@@ -45,7 +45,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="padding_bot">
-    <?=__('admin_ideas_add_title')?>
+    <?=__link('admin/ideas', __('admin_ideas_add_title'), path: $path, style: 'text_light')?>
   </h2>
 
   <form method="POST" action="ideas" class="bigpadding_bot">
