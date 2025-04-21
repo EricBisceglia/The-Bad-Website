@@ -6,7 +6,7 @@
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 include_once './../actions/tags.act.php';   # Tag management
-include_once './../lang/comics.lang.php';   # Admin translations
+include_once './../lang/comics.lang.php';   # Translations
 
 // Page summary
 $page_url       = "pages/comics_tags";
