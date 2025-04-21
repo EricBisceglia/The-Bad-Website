@@ -105,12 +105,48 @@ comics_increment_view_count($comic_id);
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+  <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i]): ?>
   <div class="padding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
       <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
   </div>
+  <?php endif; ?>
   <?php endfor; ?>
+
+  <?php if($comic_data['images']['olds']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_old_button" onclick="show_comic_old();"><?=__('comics_old_button')?></button>
+  </div>
+  <div class="hidden" id="image_old_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['old'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['fulls']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_full_button" onclick="show_comic_full();"><?=__('comics_full_button')?></button>
+  </div>
+  <div class="hidden" id="image_full_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['old'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
 
 </div>
 
@@ -135,7 +171,7 @@ comics_increment_view_count($comic_id);
         <?=__('comics_transcript')?>
       </h5>
       <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-      <?php if($comic_data['images']['trans'][$i]): ?>
+      <?php if($comic_data['images']['trans'][$i] && !$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i]): ?>
       <div class="smallpadding_bot">
         <blockquote><?=$comic_data['images']['trans'][$i]?></blockquote>
       </div>

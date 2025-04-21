@@ -103,12 +103,14 @@ function comics_get(  int   $comic_id                ,
                                                   AND images.is_a_preview = 0 ";
 
   // Prepare the query to fetch images linked to the comic
-  $comic_query_start  = " SELECT    images.id           AS 'i_id'     ,
-                                    images.name         AS 'i_name'   ,
-                                    images.language     AS 'i_lang'   ,
-                                    images.transcript   AS 'i_trans'  ,
-                                    images.is_nsfw      AS 'i_nsfw'   ,
-                                    images.is_a_preview AS 'i_preview'
+  $comic_query_start  = " SELECT    images.id               AS 'i_id'       ,
+                                    images.name             AS 'i_name'     ,
+                                    images.language         AS 'i_lang'     ,
+                                    images.transcript       AS 'i_trans'    ,
+                                    images.is_nsfw          AS 'i_nsfw'     ,
+                                    images.is_a_preview     AS 'i_preview'  ,
+                                    images.is_old_version   AS 'i_old'      ,
+                                    images.is_full_version  AS 'i_full'
                           FROM      images
                           WHERE     images.fk_comics = '$comic_id' ";
   $comic_query_end    = " ORDER BY  images.is_a_preview DESC  ,
@@ -139,8 +141,12 @@ function comics_get(  int   $comic_id                ,
   // Fetch images linked to the comic
   $comic_images = query($comic_query);
 
-  // Prepare the data for display
+  // Initialize some counters
   $transcript_count = 0;
+  $old_count        = 0;
+  $full_count       = 0;
+
+  // Prepare the data for display
   for($i = 0; $row = query_row($comic_images); $i++)
   {
     $data['images']['id'][$i]       = sanitize_output($row['i_id']);
@@ -151,15 +157,25 @@ function comics_get(  int   $comic_id                ,
     $data['images']['preview'][$i]  = ($row['i_preview'])
                                     ? __('admin_comics_edit_preview')
                                     : __('admin_comics_edit_comic');
+    $data['images']['old'][$i]      = $row['i_old'];
+    $data['images']['full'][$i]     = $row['i_full'];
     $data['images']['blur'][$i]     = ($row['i_nsfw']) ? ' blurred_container' : '';
     $data['images']['unblur'][$i]   = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
-    if($row['i_trans'])
+
+    // Increment the counters
+    if($row['i_old'])
+      $old_count++;
+    if($row['i_full'] && !$row['i_old'])
+      $full_count++;
+    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'])
       $transcript_count++;
   }
 
   // Add the number of images to the returned data
   $data['images']['rows']         = $i;
   $data['images']['transcripts']  = $transcript_count;
+  $data['images']['olds']         = $old_count;
+  $data['images']['fulls']        = $full_count;
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT    comic_tags.fk_tags  AS 'ct_id'    ,

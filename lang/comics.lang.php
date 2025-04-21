@@ -19,6 +19,10 @@ ___('comics_description',   'EN', "About this comic");
 ___('comics_description',   'FR', "Au sujet de ce comic");
 ___('comics_trans_button',  'EN', "Show image transcriptions");
 ___('comics_trans_button',  'FR', "Transcription des images");
+___('comics_full_button',   'EN', "Fully assembled comic");
+___('comics_full_button',   'FR', "Version assemblée du comic");
+___('comics_old_button',    'EN', "Older version");
+___('comics_old_button',    'FR', "Ancienne version");
 ___('comics_transcript',    'EN', "Image transcriptions");
 ___('comics_transcript',    'FR', "Transcription des images");
 
