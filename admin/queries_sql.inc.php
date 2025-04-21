@@ -708,3 +708,20 @@ if($last_query < 7)
 
   sql_update_query_id(7);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Alt image versions
+
+if($last_query < 8)
+{
+  sql_create_field('images', 'is_old_version', 'TINYINT(1) NOT NULL', 'is_a_preview');
+  sql_create_field('images', 'is_full_version', 'TINYINT(1) NOT NULL', 'is_old_version');
+
+  sql_create_index('images', 'images_is_old_version', 'is_old_version');
+  sql_create_index('images', 'images_is_full_version', 'is_full_version');
+
+  sql_update_query_id(8);
+}

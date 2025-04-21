@@ -80,6 +80,12 @@ $image_template_checked = ($admin_image_data['template']) ? ' checked' : '';
 // Preview
 $image_preview_checked = ($admin_image_data['preview']) ? ' checked' : '';
 
+// Full
+$image_full_checked = ($admin_image_data['full']) ? ' checked' : '';
+
+// Old
+$image_old_checked = ($admin_image_data['old']) ? ' checked' : '';
+
 // Focus the transcript form if the image has none
 if(!$admin_image_data['trans'])
   $onload = "image_trans.focus(); ";
@@ -143,6 +149,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div>
+        <input type="checkbox" class="align_left" name="image_full"<?=$image_full_checked?>>
+        <label for="image_full" class="label_inline"><?=__('admin_images_add_full')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_old"<?=$image_old_checked?>>
+        <label for="image_old" class="label_inline"><?=__('admin_images_add_old')?></label>
+      </div>
+
+      <div class="smallpadding_top">
         <input type="checkbox" class="align_left" name="image_reusable"<?=$image_reusable_checked?>>
         <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
       </div>
@@ -152,7 +168,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>
 
-      <div class="smallpadding_bot">
+      <div class="smallpadding_top smallpadding_bot">
         <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>

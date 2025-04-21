@@ -47,6 +47,8 @@ if(isset($_POST['image_edit']))
                               'template'  => form_fetch_element('image_template', element_exists: true) ,
                               'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                               'reusable'  => form_fetch_element('image_reusable', element_exists: true) ,
+                              'full'      => form_fetch_element('image_full', element_exists: true)     ,
+                              'old'       => form_fetch_element('image_old', element_exists: true)      ,
                               'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     );
 
   // Edit the image
@@ -149,6 +151,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <option value="1"><?=__('admin_images_list_type_comic')?></option>
             <option value="2"><?=__('admin_images_list_type_prev')?></option>
             <option value="3"><?=__('admin_images_list_type_templ')?></option>
+            <option value="4"><?=__('admin_images_list_type_reus')?></option>
+            <option value="5"><?=__('admin_images_list_type_old')?></option>
+            <option value="6"><?=__('admin_images_list_type_full')?></option>
           </select>
         </th>
 
@@ -214,13 +219,18 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap bold">
+          <?php if($images_list[$i]['old']): ?>
+          <?=__icon('clock', is_small: true, alt: 'O', title: __('admin_images_list_type_old'), path: root_path())?>
+          <?php endif; if($images_list[$i]['full']): ?>
+          <?=__icon('done', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: root_path())?>
+          <?php endif; ?>
           <?php if($images_list[$i]['preview']): ?>
           <?=__icon('duplicate', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
           <?php elseif($images_list[$i]['template']): ?>
           <?=__icon('image', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
           <?php elseif($images_list[$i]['reusable']): ?>
           <?=__icon('refresh', is_small: true, alt: 'R', title: __('admin_images_list_type_reus'), path: root_path())?>
-          <?php else: ?>
+          <?php elseif(!$images_list[$i]['old'] && !$images_list[$i]['full']): ?>
           &nbsp;
           <?php endif; ?>
         </td>
