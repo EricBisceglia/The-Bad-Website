@@ -86,9 +86,6 @@ if(strlen($page_description) <= 25 && isset($page_is_a_comic))
 // Pick a random smuggie
 $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 
-// Pick the correct Bluesky image
-$header_bluesky = (isset($this_page_is_a_404)) ? 'bluesky_404' : 'bluesky';
-
 
 
 
@@ -159,13 +156,16 @@ $javascripts .= '
 <html lang="<?=string_change_case($lang,'lowercase')?>">
   <head>
     <title><?=$page_title?></title>
-    <link rel="shortcut icon" href="<?=$path?>favicon.ico">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="canonical" href="<?='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" href="<?=$path?>favicon.ico">
+    <link rel="icon" href="<?=$path?>favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="<?=$page_description?>">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="<?=$page_title?>">
     <meta property="og:description" content="<?=$page_description?>">
-    <meta property="og:url" content="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
+    <meta property="og:url" content="<?='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta property="og:site_name" content="The Bad Website">
     <meta property="og:image" content="<?=$page_image?>">
     <meta property="og:locale" content="en_US">
@@ -205,25 +205,21 @@ $javascripts .= '
             </div>
           </a>
 
-          <a href="<?=$path?>pages/videos">
-            <div class="header_topmenu_title" id="header_menu_title_videos">
-              <?=__('menu_top_videos')?>
-            </div>
-          </a>
-
           <a href="<?=$path?>pages/faq">
             <div class="header_topmenu_title" id="header_menu_title_about">
               <?=__('menu_top_about')?>
             </div>
           </a>
 
+          <a href="<?=$path?>pages/socials">
+            <div class="header_topmenu_title" id="header_menu_title_social">
+              <?=__('menu_top_social')?>
+            </div>
+          </a>
+
         </div>
 
         <div class="header_topmenu_zone">
-
-          <a href="https://bsky.app/profile/thebad.website" target="_blank">
-            <img class="header_topmenu_icon header_topmenu_bluesky" src="<?=$path?>img/icons/<?=$header_bluesky?>.png" alt="Bluesky" title="Bluesky">
-          </a>
 
           <form id="language" method="post">
             <input type="hidden" name="change_language" value="change_language">

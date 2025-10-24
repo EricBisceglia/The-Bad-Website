@@ -11,6 +11,8 @@ img/banners/comics/types/*
 !img/banners/comics/types/index.php
 img/banners/comics/tags/*
 !img/banners/comics/tags/index.php
+img/banners/social/*
+!img/banners/social/index.php
 
 # Don't commit user searches
 admin/user_searches.txt

@@ -926,10 +926,8 @@ ___('menu_top_home',    'EN', "HOME");
 ___('menu_top_home',    'FR', "INDEX");
 ___('menu_top_comics',  'EN', "COMICS");
 ___('menu_top_comics',  'FR', "COMICS");
-___('menu_top_videos',  'EN', "VIDEOS");
-___('menu_top_videos',  'FR', "VIDEOS");
-___('menu_top_socials', 'EN', "SOCIALS");
-___('menu_top_socials', 'FR', "SOCIAL");
+___('menu_top_social',  'EN', "SOCIALS");
+___('menu_top_social',  'FR', "SOCIAL");
 ___('menu_top_about',   'EN', "FAQ");
 ___('menu_top_about',   'FR', "FAQ");
 
