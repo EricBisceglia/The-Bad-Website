@@ -13,6 +13,10 @@ $page_title_en    = "Socials";
 $page_title_fr    = "Social";
 $page_description = "Follow thebad.website on socials!";
 
+// Prepare the links
+$instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$youtube_link   = ($lang == 'EN') ? 'TheRealBadChannel' : 'LeVraiBad';
+
 
 
 
@@ -41,13 +45,13 @@ $page_description = "Follow thebad.website on socials!";
   </div>
 
   <div>
-    <a href="https://www.instagram.com/thebad.website/" target="_blank">
+    <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
       <img src="<?=$path?>img/banners/social/instagram_<?=$lang_lower?>.png" alt="Instagram" title="Instagram">
     </a>
   </div>
 
   <div>
-    <a href="https://www.youtube.com/@TheRealBadChannel" target="_blank">
+    <a href="https://www.youtube.com/@<?=$youtube_link?>" target="_blank">
       <img src="<?=$path?>img/banners/social/youtube_<?=$lang_lower?>.png" alt="YouTube" title="YouTube">
     </a>
   </div>

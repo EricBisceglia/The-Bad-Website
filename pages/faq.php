@@ -76,10 +76,6 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
     <?=__('about_offended_body_4')?>
   </p>
 
-  <p>
-    <?=__('about_offended_body_5')?>
-  </p>
-
   <h5 class="hugepadding_top smallpadding_bot" id="credits">
     <?=__link('pages/faq#credits', __('about_credits_title'), path: root_path(), style: 'text_light')?>
   </h5>
@@ -96,40 +92,8 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
     <?=__('about_credits_body_3')?>
   </p>
 
-  <h5 class="hugepadding_top smallpadding_bot" id="follow">
-    <?=__link('pages/faq#follow', __('about_follow_title'), path: root_path(), style: 'text_light')?>
-  </h5>
-
   <p>
-    <?=__('about_follow_body_1')?>
-  </p>
-
-  <p>
-    <?=__('about_follow_body_2')?>
-  </p>
-
-  <p>
-    <?=__('about_follow_body_3')?>
-  </p>
-
-  <p>
-    <?=__('about_follow_body_4')?>
-  </p>
-
-  <h5 class="hugepadding_top smallpadding_bot" id="talk">
-    <?=__link('pages/faq#talk', __('about_talk_title'), path: root_path(), style: 'text_light')?>
-  </h5>
-
-  <p>
-    <?=__('about_talk_body_1')?>
-  </p>
-
-  <p>
-    <?=__('about_talk_body_2')?>
-  </p>
-
-  <p>
-    <?=__('about_talk_body_3')?>
+    <?=__('about_credits_body_4')?>
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="reuse">
@@ -148,6 +112,34 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
     <?=__('about_reuse_body_3')?>
   </p>
 
+  <h5 class="hugepadding_top smallpadding_bot" id="follow">
+    <?=__link('pages/faq#follow', __('about_follow_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_follow_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_follow_body_2')?>
+  </p>
+
+  <h5 class="hugepadding_top smallpadding_bot" id="talk">
+    <?=__link('pages/faq#talk', __('about_talk_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_talk_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_talk_body_2')?>
+  </p>
+
+  <p>
+    <?=__('about_talk_body_3')?>
+  </p>
+
   <h5 class="hugepadding_top smallpadding_bot" id="merch">
     <?=__link('pages/faq#merch', __('about_merch_title'), path: root_path(), style: 'text_light')?>
   </h5>
@@ -158,10 +150,6 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
   <p>
     <?=__('about_merch_body_2')?>
-  </p>
-
-  <p>
-    <?=__('about_merch_body_3')?>
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="source">
