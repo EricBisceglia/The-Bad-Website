@@ -725,3 +725,17 @@ if($last_query < 8)
 
   sql_update_query_id(8);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// YouTube links
+
+if($last_query < 9)
+{
+  sql_create_field('comics', 'youtube_id_en', 'TINYTEXT NOT NULL', 'description_fr');
+  sql_create_field('comics', 'youtube_id_fr', 'TINYTEXT NOT NULL', 'youtube_id_en');
+
+  sql_update_query_id(9);
+}

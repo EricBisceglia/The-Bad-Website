@@ -152,6 +152,17 @@ comics_increment_view_count($comic_id);
 
 <div class="width_50 padding_top">
 
+  <?php if($comic_data['youtube_'.$lang_lower]): ?>
+  <div class="bigpadding_bot">
+    <h5 class="smallpadding_bot">
+      <?=__('comics_youtube')?>
+    </h5>
+    <div class="comic_youtube_container">
+      <iframe src="https://www.youtube.com/embed/<?=$comic_data['youtube_'.$lang_lower]?>?rel=0" class="comic_youtube_embed"></iframe>
+    </div>
+  </div>
+  <?php endif; ?>
+
   <?php if($comic_data['desc']): ?>
   <div class="padding_bot">
     <h5 class="smallpadding_bot">

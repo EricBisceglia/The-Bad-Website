@@ -81,6 +81,8 @@ if(isset($_POST['comic_edit']))
                               'title_fr'  => form_fetch_element('comic_title_fr')                       ,
                               'desc_en'   => form_fetch_element('comic_desc_en')                        ,
                               'desc_fr'   => form_fetch_element('comic_desc_fr')                        ,
+                              'yt_en'     => form_fetch_element('comic_youtube_en')                     ,
+                              'yt_fr'     => form_fetch_element('comic_youtube_fr')                     ,
                               'type'      => form_fetch_element('comic_type')                           ,
                               'date'      => form_fetch_element('comic_date')                           ,
                               'private'   => form_fetch_element('comic_private', element_exists: true)  ,
@@ -118,6 +120,7 @@ $admin_comics_search = array( 'body'    => form_fetch_element('admin_comics_sear
                               'type'    => form_fetch_element('admin_comics_search_type')     ,
                               'private' => form_fetch_element('admin_comics_search_private')  ,
                               'images'  => form_fetch_element('admin_comics_search_images')   ,
+                              'video'   => form_fetch_element('admin_comics_search_video')    ,
                               'tag_id'  => form_fetch_element('admin_comics_search_tag_id')   );
 
 // Fetch the comics
@@ -170,6 +173,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('images');")?>
         </th>
         <th>
+          <?=__('admin_comics_list_video')?>
+          <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('video');")?>
+        </th>
+        <th>
           <?=__('admin_comics_list_tags')?>
           <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('tags');")?>
         </th>
@@ -218,6 +225,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </th>
 
         <th>
+          <select class="table_search" name="admin_comics_search_video" id="admin_comics_search_video" onchange="admin_comic_list_search();">
+            <option value="0">&nbsp;</option>
+            <option value="-1"><?=__('admin_comics_list_video_n')?></option>
+            <option value="1"><?=__('admin_comics_list_video_y')?></option>
+          </select>
+        </th>
+
+        <th>
           <select class="table_search" name="admin_comics_search_tags" id="admin_comics_search_tags" onchange="admin_comic_list_search();">
             <option value="0">&nbsp;</option>
             <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
@@ -239,7 +254,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="9" class="uppercase text_light dark bold align_center">
+        <td colspan="10" class="uppercase text_light dark bold align_center">
           <?=__('admin_comics_list_count', preset_values: array($comics_list['rows']), amount: $comics_list['rows'])?>
         </td>
       </tr>
@@ -280,6 +295,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip">
             <?=str_replace(', ', '<br>', $comics_list[$i]['images'])?>
           </div>
+        </td>
+        <?php else: ?>
+        <td class="align_center nowrap">
+          &nbsp;
+        </td>
+        <?php endif; ?>
+
+        <?php if($comics_list[$i]['video']): ?>
+        <td class="align_center nowrap tooltip_container">
+          <?=__icon('done', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: root_path())?>
         </td>
         <?php else: ?>
         <td class="align_center nowrap">

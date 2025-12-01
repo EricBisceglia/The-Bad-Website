@@ -295,6 +295,12 @@ ___('admin_comics_list_images_y', 'EN', "Has images");
 ___('admin_comics_list_images_y', 'FR', "A des images");
 ___('admin_comics_list_images_n', 'EN', "Has no images");
 ___('admin_comics_list_images_n', 'FR', "N'a pas d'images");
+___('admin_comics_list_video',    'EN', "Video");
+___('admin_comics_list_video',    'FR', "Video");
+___('admin_comics_list_video_y',  'EN', "Has a video");
+___('admin_comics_list_video_y',  'FR', "A une vidéo");
+___('admin_comics_list_video_n',  'EN', "Does not have a video");
+___('admin_comics_list_video_n',  'FR', "N'a pas de vidéo");
 ___('admin_comics_list_tags',     'EN', "Tags");
 ___('admin_comics_list_tags',     'FR', "Tags");
 ___('admin_comics_list_views',    'EN', "Views");
@@ -321,24 +327,28 @@ ___('admin_comics_add_submit',    'FR', "Ajouter le comic");
 
 
 // Edit a comic
-___('admin_comics_edit_title',    'EN', "Edit comic");
-___('admin_comics_edit_title',    'FR', "Modifier le comic");
-___('admin_comics_edit_date',     'EN', "Upload date (YYYY-MM-DD)");
-___('admin_comics_edit_date',     'FR', "Date de mise en ligne (YYYY-MM-DD)");
-___('admin_comics_edit_desc_en',  'EN', "English description");
-___('admin_comics_edit_desc_en',  'FR', "Description anglaise");
-___('admin_comics_edit_desc_fr',  'EN', "French description");
-___('admin_comics_edit_desc_fr',  'FR', "Description française");
-___('admin_comics_edit_tags',     'EN', "Comic tags");
-___('admin_comics_edit_tags',     'FR', "Tags du comic");
-___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
-___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
-___('admin_comics_edit_submit',   'EN', "Edit comic");
-___('admin_comics_edit_submit',   'FR', "Modifier le comic");
-___('admin_comics_edit_preview',  'EN', "Cover");
-___('admin_comics_edit_preview',  'FR', "Couverture");
-___('admin_comics_edit_comic',    'EN', "Comic");
-___('admin_comics_edit_comic',    'FR', "Comic");
+___('admin_comics_edit_title',      'EN', "Edit comic");
+___('admin_comics_edit_title',      'FR', "Modifier le comic");
+___('admin_comics_edit_date',       'EN', "Upload date (YYYY-MM-DD)");
+___('admin_comics_edit_date',       'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_comics_edit_desc_en',    'EN', "English description");
+___('admin_comics_edit_desc_en',    'FR', "Description anglaise");
+___('admin_comics_edit_desc_fr',    'EN', "French description");
+___('admin_comics_edit_desc_fr',    'FR', "Description française");
+___('admin_comics_edit_youtube_fr', 'EN', "French YouTube ID");
+___('admin_comics_edit_youtube_fr', 'FR', "ID YouTube français");
+___('admin_comics_edit_youtube_en', 'EN', "English YouTube ID");
+___('admin_comics_edit_youtube_en', 'FR', "ID YouTube anglais");
+___('admin_comics_edit_tags',       'EN', "Comic tags");
+___('admin_comics_edit_tags',       'FR', "Tags du comic");
+___('admin_comics_edit_private',    'EN', "Private (hidden from public view)");
+___('admin_comics_edit_private',    'FR', "Privé (caché du public)");
+___('admin_comics_edit_submit',     'EN', "Edit comic");
+___('admin_comics_edit_submit',     'FR', "Modifier le comic");
+___('admin_comics_edit_preview',    'EN', "Cover");
+___('admin_comics_edit_preview',    'FR', "Couverture");
+___('admin_comics_edit_comic',      'EN', "Comic");
+___('admin_comics_edit_comic',      'FR', "Comic");
 
 
 // Delete a comic

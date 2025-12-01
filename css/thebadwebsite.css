@@ -763,7 +763,9 @@ footer { font-size: 70%; margin-top: 8.0rem; margin-bottom: 5.0rem;   } }
 
 /******************************************************* COMICS ******************************************************/
 
-.comic_container                { width: 100%;                                        }
-.comic_container   img          { margin: 0 auto; max-width: 100%;                    }
-.blurred_container img          { transition: filter 0.3s ease; filter: blur(20px);   }
-.blurred_container img.revealed { filter: blur(0);                                    }
+.comic_container                { width: 100%;                                                        }
+.comic_container   img          { margin: 0 auto; max-width: 100%;                                    }
+.blurred_container img          { transition: filter 0.3s ease; filter: blur(20px);                   }
+.blurred_container img.revealed { filter: blur(0);                                                    }
+.comic_youtube_container        { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; }
+.comic_youtube_embed            { position: absolute; top: 0; left: 0; width: 100%; height: 100%;     }
