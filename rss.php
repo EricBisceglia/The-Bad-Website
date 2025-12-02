@@ -20,7 +20,6 @@ $page_title_fr  = "Flux RSS";
 
 $comics_list = comics_list( sort_by:    'date'  ,
                             is_public:  true    ,
-                            is_major:   true    ,
                             is_rss:     true    ,
                             rss_lang:   'EN'    );
 

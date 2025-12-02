@@ -59,6 +59,7 @@ function comics_get(  int   $comic_id                ,
                                 comics.description_fr     AS 'c_desc_fr'  ,
                                 comics.youtube_id_en      AS 'c_yt_en'    ,
                                 comics.youtube_id_fr      AS 'c_yt_fr'    ,
+                                comic_types.id            AS 'ct_id'      ,
                                 comic_types.slug          AS 'ct_slug'    ,
                                 comic_types.banner_$lang  AS 'ct_banner'  ,
                                 comic_types.name_$lang    AS 'ct_name'    ,
@@ -88,6 +89,7 @@ function comics_get(  int   $comic_id                ,
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
   $data['youtube_en']   = sanitize_output($comic_data['c_yt_en']);
   $data['youtube_fr']   = sanitize_output($comic_data['c_yt_fr']);
+  $data['type_id']      = sanitize_output($comic_data['ct_id']);
   $data['type_slug']    = sanitize_output($comic_data['ct_slug']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
   $data['preview_url']  = (isset($comic_data['pi_name']))
@@ -207,6 +209,9 @@ function comics_get(  int   $comic_id                ,
   // Add the number of tags to the returned data
   $data['tags']['rows'] = $i;
 
+  // Sanitize the comic type's id
+  $comic_type_id = sanitize($data['type_id'], 'int');
+
   // Look up the previous and next comic
   $comics_list = query("  SELECT    comics.id   AS 'c_id' ,
                                     comics.slug AS 'c_slug'
@@ -217,8 +222,8 @@ function comics_get(  int   $comic_id                ,
                           ON        comics.id                 = comic_image.fk_comics
                           AND       comic_image.is_a_preview  = 0
                           AND       comic_image.language      = '$lang'
-                          WHERE     comics.is_public      = 1
-                          AND       comic_types.is_major  = 1
+                          WHERE     comics.is_public          = 1
+                          AND       comic_types.id            = '$comic_type_id'
                           GROUP BY  comics.id
                           HAVING    COUNT(DISTINCT comic_image.id) > 0
                           ORDER BY  comics.upload_date    DESC  ,
@@ -279,22 +284,28 @@ function comics_get_id( string $slug ) : int|null
  * Returns a random comic's slug.
  *
  * @param   string       (OPTIONAL)   $exclude_slug   The slug of the current comic.
+ * @param   int          (OPTIONAL)   $comic_type_id  The id of the comic type to limit the random comic to.
  *
  * @return  string|null                               The comic's slug, or null if there are no comics.
  */
 
-function comics_get_random_slug( string $exclude_slug = '' ) : string|null
+function comics_get_random_slug(  string  $exclude_slug   = ''  ,
+                                  int     $comic_type_id  = 0   ) : string|null
 {
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
-  // Sanitize the slug to exclude
-  $current_slug = sanitize($exclude_slug, 'string');
+  // Sanitize the parameters
+  $current_slug   = sanitize($exclude_slug, 'string');
+  $comic_type_id  = sanitize($comic_type_id, 'int');
 
   // Prepare an extra query condition if there is a slug to exclude
   $query_where = ($current_slug) ? " AND comics.slug NOT LIKE '$current_slug' " : " ";
 
-  // Fetch a random public comic of a major type
+  // Prepare an extra query condition if there's a limited comic type
+  $query_where .= ($comic_type_id) ? " AND comics.fk_comic_types = '$comic_type_id' " : " ";
+
+  // Fetch a random public comic
   $comics = query(" SELECT    comics.slug
                     FROM      comics
                     LEFT JOIN comic_types
@@ -304,7 +315,6 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
                     AND       comic_image.is_a_preview  = 0
                     AND       comic_image.language      = '$lang'
                     WHERE     comics.is_public          = 1
-                    AND       comic_types.is_major      = 1
                               $query_where
                     GROUP BY  comics.id
                     HAVING    COUNT(DISTINCT comic_image.id) > 0

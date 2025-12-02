@@ -11,9 +11,6 @@ $page_lang        = array('FR', 'EN');
 $page_url         = "index";
 $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
-// Prepare the correct RSS link
-$rss_link = ($lang === 'EN') ? 'rss' : 'rss_fr';
-
 
 
 
@@ -51,7 +48,7 @@ $rss_link = ($lang === 'EN') ? 'rss' : 'rss_fr';
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path.$rss_link?>" target="_blank">
+      <a href="<?=$path?>rss" target="_blank">
         <img src="<?=$path?>img/website/homepage_rss_<?=$lang_lower?>.png" alt="<?=__('home_comics_rss')?>" title="<?=__('home_comics_rss')?>">
       </a>
     </div>

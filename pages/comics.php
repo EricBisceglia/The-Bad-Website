@@ -59,7 +59,7 @@ $comics_list = comics_list( sort_by:    'date'  ,
       </a>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random">
+      <a href="<?=$path?>pages/comics_random?type=1">
         <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>

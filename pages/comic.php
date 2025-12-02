@@ -68,6 +68,11 @@ comics_increment_view_count($comic_id);
 /*******************************************************************************/ include './../inc/header.inc.php'; ?>
 
 <div class="width_50 padding_bot">
+
+  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
+    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  </a>
+
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
@@ -79,7 +84,7 @@ comics_increment_view_count($comic_id);
       <?php endif; ?>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>">
+      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
         <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
@@ -95,7 +100,7 @@ comics_increment_view_count($comic_id);
   </div>
 </div>
 
-<div class="align_center">
+<div class="align_center width_80">
 
   <h1 class="tinypadding_bot">
     <?=__link('pages/comics', $comic_data['title'], path: root_path(), style: 'text_light')?>
@@ -191,10 +196,6 @@ comics_increment_view_count($comic_id);
     </div>
   </div>
   <?php endif; ?>
-
-  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
-    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
-  </a>
 
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
   <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
