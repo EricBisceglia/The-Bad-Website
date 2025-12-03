@@ -8,10 +8,13 @@ include_once './../lang/main.lang.php';   # Translations
 
 // Page summary
 $page_lang        = array('FR', 'EN');
-$page_url         = "pages/socials";
+$page_url         = "about/socials";
 $page_title_en    = "Socials";
 $page_title_fr    = "Social";
 $page_description = "Follow thebad.website on socials!";
+
+// Enforce the url
+page_enforce_url($page_url);
 
 // Prepare the links
 $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';

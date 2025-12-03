@@ -69,7 +69,7 @@ comics_increment_view_count($comic_id);
 
 <div class="width_50 padding_bot">
 
-  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
+  <a href="<?=$path?>category/<?=$comic_data['type_slug']?>">
     <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
   </a>
 
@@ -84,7 +84,7 @@ comics_increment_view_count($comic_id);
       <?php endif; ?>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
+      <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
         <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
@@ -103,10 +103,10 @@ comics_increment_view_count($comic_id);
 <div class="align_center width_80">
 
   <h1 class="tinypadding_bot">
-    <?=__link('pages/comics', $comic_data['title'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/list', $comic_data['title'], path: root_path(), style: 'text_light')?>
   </h1>
   <h5 class="bigpadding_bot">
-    <?=__link('pages/comics_list', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/all', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
@@ -198,7 +198,7 @@ comics_increment_view_count($comic_id);
   <?php endif; ?>
 
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
+  <a href="<?=$path?>tag/<?=$comic_data['tags']['name'][$i]?>">
     <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
   </a>
   <?php endfor; ?>
@@ -214,7 +214,7 @@ comics_increment_view_count($comic_id);
       <?php endif; ?>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>">
+      <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
         <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>

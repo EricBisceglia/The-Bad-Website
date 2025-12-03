@@ -199,19 +199,19 @@ $javascripts .= '
             </div>
           </a>
 
-          <a href="<?=$path?>pages/comics">
+          <a href="<?=$path?>comics/list">
             <div class="header_topmenu_title" id="header_menu_title_comics">
               <?=__('menu_top_comics')?>
             </div>
           </a>
 
-          <a href="<?=$path?>pages/faq">
+          <a href="<?=$path?>about/faq">
             <div class="header_topmenu_title" id="header_menu_title_about">
               <?=__('menu_top_about')?>
             </div>
           </a>
 
-          <a href="<?=$path?>pages/socials">
+          <a href="<?=$path?>about/socials">
             <div class="header_topmenu_title" id="header_menu_title_social">
               <?=__('menu_top_social')?>
             </div>

@@ -8,10 +8,13 @@ include_once './../lang/main.lang.php';   # Translations
 
 // Page summary
 $page_lang        = array('FR', 'EN');
-$page_url         = "pages/legal";
+$page_url         = "about/legal";
 $page_title_en    = "Legal notice";
 $page_title_fr    = "Mentions légales";
 $page_description = "The Bad Website - Legal notice and privacy policy";
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 

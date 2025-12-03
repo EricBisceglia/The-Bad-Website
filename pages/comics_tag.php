@@ -38,9 +38,12 @@ $comics_list = comics_list( search:     array('tag_id' => $comic_tag_id)  ,
                             is_public:  true                              );
 
 // Update the page sumary
-$page_url       = "pages/comic_tag?theme=".$comic_tag;
+$page_url       = "tag/".$comic_tag;
 $page_title_en  = $comic_tag_data['page_en'];
 $page_title_fr  = $comic_tag_data['page_fr'];
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 
@@ -54,7 +57,7 @@ $page_title_fr  = $comic_tag_data['page_fr'];
 <div class="width_50 align_center">
 
   <div class="smallpadding_bot">
-    <a href="<?=$path?>pages/comics_tags">
+    <a href="<?=$path?>comics/tags">
       <img src="<?=$path.$comic_tag_data['banner']?>" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
     </a>
   </div>

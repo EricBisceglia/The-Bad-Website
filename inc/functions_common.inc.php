@@ -10,6 +10,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  root_path                           Returns the path to the root of the website                                  */
 /*                                                                                                                   */
+/*  page_enforce_url                    Enforce a single url for the page                                            */
+/*                                                                                                                   */
 /*  database_row_exists                 Checks whether a row exists in a table.                                      */
 /*  database_entry_exists               Checks whether an entry exists in a table.                                   */
 /*                                                                                                                   */
@@ -82,6 +84,29 @@ function root_path() : string
   return $path;
 }
 
+
+
+/**
+ * Enforce a single url for the page.
+ *
+ * @param   string  $url  The url to enforce.
+ */
+
+function page_enforce_url( string $enforced_url ) : void
+{
+  // Get the current requested URL path
+  $requested_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+  // Remove any extra folders
+  $segments       = explode('/', ltrim($requested_url, '/'));
+  $segments       = array_slice($segments, $GLOBALS['extra_folders']);
+  $requested_url  = implode('/', $segments);
+
+  // If the enforced url isn't the requested url, redirect to it
+  if ($enforced_url !== $requested_url) {
+    exit(header("Location: ./../$enforced_url", true, 301));
+  }
+}
 
 
 

@@ -28,12 +28,12 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
-      <a href="<?=$path?>pages/faq">
+      <a href="<?=$path?>about/faq">
         <img src="<?=$path?>img/website/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path?>pages/comics">
+      <a href="<?=$path?>comics/list">
         <img src="<?=$path?>img/website/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
       </a>
     </div>

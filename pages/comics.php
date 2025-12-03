@@ -8,9 +8,13 @@ include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/comics.lang.php';   # Translations
 
 // Page summary
-$page_url       = "pages/comics";
+$page_url       = "comics/list";
+$enforce_url    = true;
 $page_title_en  = "Comics";
 $page_title_fr  = "Comics";
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 
@@ -41,12 +45,12 @@ $comics_list = comics_list( sort_by:    'date'  ,
 
   <div class="flexcontainer nopadding_bot">
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_list">
+      <a href="<?=$path?>comics/all">
         <img src="<?=$path?>img/banners/comics/full_list_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path?>pages/comics_list">
+      <a href="<?=$path?>comics/all">
         <img src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
       </a>
     </div>
@@ -54,17 +58,17 @@ $comics_list = comics_list( sort_by:    'date'  ,
 
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_categories">
+      <a href="<?=$path?>comics/categories">
         <img src="<?=$path?>img/banners/comics/categories_<?=$lang_lower?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?type=1">
+      <a href="<?=$path?>comics/random?type=1">
         <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path?>pages/comics_tags">
+      <a href="<?=$path?>comics/tags">
         <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
       </a>
     </div>
