@@ -3,11 +3,12 @@
 /*                                                       SETUP                                                       */
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
-include_once './../inc/includes.inc.php';   # Core
-include_once './../actions/comics.act.php'; # Comic management
-include_once './../actions/images.act.php'; # Image management
-include_once './../actions/tags.act.php';   # Tag management
-include_once './../lang/admin.lang.php';    # Admin translations
+include_once './../inc/includes.inc.php';     # Core
+include_once './../actions/comics.act.php';   # Comic management
+include_once './../actions/images.act.php';   # Image management
+include_once './../actions/tags.act.php';     # Tag management
+include_once './../actions/sitemap.act.php';  # Sitemap generation
+include_once './../lang/admin.lang.php';      # Admin translations
 
 // Page summary
 $page_url       = "admin/comics";

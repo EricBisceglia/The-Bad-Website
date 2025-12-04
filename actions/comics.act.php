@@ -593,6 +593,9 @@ function comics_add( array $data ) : int
   // Fetch the newly created comic's id
   $comic_id = query_id();
 
+  // Regenerate the sitemap
+  sitemap_generate();
+
   // Return the comic's id
   return $comic_id;
 }
@@ -658,6 +661,9 @@ function comics_edit( int   $comic_id ,
                   comics.youtube_id_en  = '$comic_yt_en'    ,
                   comics.youtube_id_fr  = '$comic_yt_fr'
           WHERE   comics.id             = '$comic_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 
   // Get a list of all tags
   $tags_list = tags_list();
@@ -755,6 +761,9 @@ function comics_delete( int $comic_id )
           SET     images.fk_comics    = 0 ,
                   images.image_order  = 0
           WHERE   images.fk_comics    = '$comic_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -766,7 +775,7 @@ function comics_delete( int $comic_id )
  * @param   int         $comic_type_id    (optional)  The comic type's ID
  * @param   string      $comic_type_slug  (optional)  The comic type's slug
  *
- * @return  array|null                                An array containing the comic type's data, or null if it doesn't exist.
+ * @return  array|null                                An array containing comic type data, or null if it doesn't exist.
  */
 
 function comic_types_get( int     $comic_type_id    = 0,
@@ -928,6 +937,9 @@ function comic_types_add( array $data ) : void
                       comic_types.description_en  = '$comic_type_desc_en'   ,
                       comic_types.description_fr  = '$comic_type_desc_fr'   ,
                       comic_types.is_major        = '$comic_type_major'     ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -978,6 +990,9 @@ function comic_types_edit( int   $type_id  ,
                   comic_types.description_fr  = '$type_desc_fr'     ,
                   comic_types.is_major        = '$type_major'
           WHERE   comic_types.id              = '$type_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -1004,4 +1019,7 @@ function comic_types_delete( int $type_id )
   query(" UPDATE comics
           SET    comics.fk_comic_types = NULL
           WHERE  comics.fk_comic_types = '$type_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
