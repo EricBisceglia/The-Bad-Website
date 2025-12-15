@@ -66,7 +66,7 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/random?type=1">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+        <img src="<?=$path?>img/banners/comics/random_full_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
@@ -83,6 +83,12 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
     </a>
   </div>
   <?php endfor; ?>
+
+  <div class="nopadding_bot">
+    <a href="<?=$path?>memes/templates">
+      <img src="<?=$path?>img/banners/comics/category_templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
+    </a>
+  </div>
 
 </div>
 

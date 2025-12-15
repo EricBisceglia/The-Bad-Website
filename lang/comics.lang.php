@@ -49,6 +49,8 @@ ___('comics_list_tags',       'EN', "Tags");
 ___('comics_list_tags',       'FR', "Tags");
 ___('comics_list_latest',     'EN', "Latest comics");
 ___('comics_list_latest',     'FR', "Comics récents");
+___('comics_list_templates',  'EN', "Templates");
+___('comics_list_templates',  'FR', "Modèles");
 
 
 // Full comics list
@@ -66,3 +68,26 @@ ___('comics_list_count',  'EN', "{{1}} comic");
 ___('comics_list_count',  'FR', "{{1}} comic");
 ___('comics_list_count+', 'EN', "{{1}} comics");
 ___('comics_list_count+', 'FR', "{{1}} comics");
+
+
+// Templates
+___('comics_templates_desc', 'EN', <<<EOT
+Below are a bunch of images that you can use to make your own memes.<br>
+<br>
+Feel free to use them however you like, without asking for permission, as long as you leave the website's credits/signature.<br>
+<br>
+Click on an image to see it in its full size.<br>
+<br>
+Confused by some of these images? It's part of the fun, you'll have to figure out how to use them properly!
+EOT
+);
+___('comics_templates_desc', 'FR', <<<EOT
+Ci-dessous, des images que vous pouvez utiliser pour faire vos propres memes.<br>
+<br>
+Utilisez-les comme vous le désirez, pas besoin de demander la permission, tant que vous laissez la signature du site.<br>
+<br>
+Cliquez sur une image pour la voir dans sa taille réelle.<br>
+<br>
+Certaines des images vous laissent perplexe ? Ça fait partie du fun, à vous de deviner comment les utiliser correctement !
+EOT
+);
