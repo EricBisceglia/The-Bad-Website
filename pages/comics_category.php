@@ -27,7 +27,7 @@ $comic_type_data = comic_types_get( comic_type_slug: $comic_type );
 
 // Stop here if the comic type does not exist
 if(!$comic_type_data)
-  exit(header("Location: ./comics_categories"));
+  exit(header("Location: ./../comics/list"));
 
 // Get the comic type's ID
 $comic_type_id = $comic_type_data['id'];
@@ -56,7 +56,7 @@ page_enforce_url($page_url);
 <div class="width_50 align_center">
 
   <div class="smallpadding_bot">
-    <a href="<?=$path?>comics/categories">
+    <a href="<?=$path?>comics/list">
       <img src="<?=$path.$comic_type_data['banner']?>" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_next')?>">
     </a>
   </div>
@@ -66,6 +66,10 @@ page_enforce_url($page_url);
     <blockquote><?=$comic_type_data['desc']?></blockquote>
   </div>
   <?php endif; ?>
+
+  <div class="smallpadding_bot">
+    <img src="<?=$path?>img/banners/comics/latest_comics_<?=$lang_lower?>.png" alt="<?=__('comics_list_latest')?>" title="<?=__('comics_list_latest')?>">
+  </div>
 
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>

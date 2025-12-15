@@ -28,31 +28,22 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
-      <a href="<?=$path?>about/faq">
-        <img src="<?=$path?>img/website/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
+      <a href="<?=$path?>comics/list">
+        <img src="<?=$path?>img/website/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path?>comics/list">
-        <img src="<?=$path?>img/website/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
+      <a href="<?=$path?>about/faq">
+        <img src="<?=$path?>img/website/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
       </a>
     </div>
   </div>
 
   <img src="<?=$path?>img/website/homepage_language_<?=$lang_lower?>.png" alt="<?=__('home_comics_language')?>" title="<?=__('home_comics_language')?>">
 
-  <div class="flexcontainer">
-    <div class="flex spaced_right">
-      <a href="https://bsky.app/profile/thebad.website" target="_blank">
-        <img src="<?=$path?>img/website/homepage_bluesky_<?=$lang_lower?>.png" alt="<?=__('home_comics_bluesky')?>" title="<?=__('home_comics_bluesky')?>">
-      </a>
-    </div>
-    <div class="flex">
-      <a href="<?=$path?>rss" target="_blank">
-        <img src="<?=$path?>img/website/homepage_rss_<?=$lang_lower?>.png" alt="<?=__('home_comics_rss')?>" title="<?=__('home_comics_rss')?>">
-      </a>
-    </div>
-  </div>
+  <a href="<?=$path?>about/socials">
+    <img src="<?=$path?>img/website/homepage_socials_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_socials')?>">
+  </a>
 
 </div>
 

@@ -28,7 +28,7 @@ $comic_tag_data = tags_get( tag_slug: $comic_tag);
 
 // Stop here if the comic type does not exist
 if(!$comic_tag_data)
-  exit(header("Location: ./comics_tags"));
+  exit(header("Location: ./../comics/tags"));
 
 // Get the tag's ID
 $comic_tag_id = $comic_tag_data['id'];
@@ -67,6 +67,10 @@ page_enforce_url($page_url);
     <blockquote><?=$comic_tag_data['desc']?></blockquote>
   </div>
   <?php endif; ?>
+
+  <div class="smallpadding_bot">
+    <img src="<?=$path?>img/banners/comics/latest_comics_<?=$lang_lower?>.png" alt="<?=__('comics_list_latest')?>" title="<?=__('comics_list_latest')?>">
+  </div>
 
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>

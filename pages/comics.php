@@ -26,11 +26,13 @@ page_enforce_url($page_url);
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Get the list of comics
+// Page data
 
-$comics_list = comics_list( sort_by:    'date'  ,
-                            is_public:  true    ,
-                            is_major:   true    );
+// Get the list of comic types
+$comic_types_list = comic_types_list();
+
+// Get the latest smuggie's slug
+$latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
 
 
 
@@ -56,10 +58,10 @@ $comics_list = comics_list( sort_by:    'date'  ,
     </div>
   </div>
 
-  <div class="flexcontainer smallpadding_bot">
+  <div class="flexcontainer">
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>comics/categories">
-        <img src="<?=$path?>img/banners/comics/categories_<?=$lang_lower?>.png" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_list_categories')?>">
+      <a href="<?=$path?>comics/tags">
+        <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
@@ -68,29 +70,19 @@ $comics_list = comics_list( sort_by:    'date'  ,
       </a>
     </div>
     <div class="flex">
-      <a href="<?=$path?>comics/tags">
-        <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
+      <a href="<?=$path?>comic/<?=$latest_comic_slug?>">
+        <img src="<?=$path?>img/banners/comics/latest_<?=$lang_lower?>.png" alt="<?=__('comics_list_new')?>" title="<?=__('comics_list_latest')?>">
       </a>
     </div>
   </div>
 
-  <div class="smallpadding_bot">
-    <img src="<?=$path?>img/banners/comics/latest_comics_<?=$lang_lower?>.png" alt="<?=__('comics_list_latest')?>" title="<?=__('comics_list_latest')?>">
+  <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
+  <div class="nopadding_bot">
+    <a href="<?=$path?>category/<?=$comic_types_list[$i]['slug']?>">
+      <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name']?>" title="<?=$comic_types_list[$i]['name']?>" loading="lazy">
+    </a>
   </div>
-
-  <div class="align_center">
-    <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
-    <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
-      <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
-        <?php if($comics_list[$i]['preview']) : ?>
-        <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
-        <?php else: ?>
-        <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
-        <?php endif; ?>
-      </a>
-    </div>
-    <?php endfor; ?>
-  </div>
+  <?php endfor; ?>
 
 </div>
 

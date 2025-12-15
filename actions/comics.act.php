@@ -11,6 +11,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comics_get                    Returns data related to a comic                                                    */
 /*  comics_get_id                 Returns a comic's id from its slug                                                 */
 /*  comics_get_random_slug        Returns a random comic's slug                                                      */
+/*  comics_get_latest_comic_slug  Returns the latest comic's slug                                                    */
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
@@ -328,6 +329,44 @@ function comics_get_random_slug(  string  $exclude_slug   = ''  ,
 
   // Return the comic's slug
   return $comics['slug'];
+}
+
+
+
+
+/**
+ * Returns the latest comic's slug.
+ *
+ * @param   string        (OPTIONAL)   $enforce_type  Return the latest comic of this type (slug).
+ *
+ * @return  string|null                               The latest comic's slug, or null if there are no comics.
+ */
+
+function comics_get_latest_comic_slug( $enforce_type = '' ) : string|null
+{
+  // Sanitize the enforced type
+  $enforce_type = sanitize($enforce_type, 'string');
+
+  // Prepare the query
+  $query_where = ($enforce_type) ? " comic_types.slug LIKE '$enforce_type' " : " comic_types.is_major  = 1 ";
+
+  // Fetch the latest major public comic's id
+  $comics = query(" SELECT    comics.slug AS 'c_slug'
+                    FROM      comics
+                    LEFT JOIN comic_types
+                    ON        comic_types.id        = comics.fk_comic_types
+                    WHERE     comics.is_public      = 1
+                    AND       $query_where
+                    ORDER BY  comics.upload_date DESC
+                    LIMIT     1 ",
+                    fetch_row: true);
+
+  // If there are no comics, return null
+  if(!$comics)
+    return null;
+
+  // Return the comic's id
+  return $comics['c_slug'];
 }
 
 

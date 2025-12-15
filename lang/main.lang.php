@@ -78,20 +78,12 @@ ___('home_comics_language', 'FR', <<<EOT
 Euh... as-tu remarqué que tu peux changer la langue entre le français et l'anglais en cliquant sur le drapeau en haut à droite de la page ? Cool.
 EOT
 );
-___('home_comics_bluesky', 'EN', <<<EOT
-Click me and follow me to stay updated, I'm @thebad.website on Bluesky
+___('home_comics_socials', 'EN', <<<EOT
+Damn I wish I could follow this cool website… Good news! The Bad Website posts updates to a bunch of a different socials, including some exclusive content! Click me to see the list fo places where you can stay updated.
 EOT
 );
-___('home_comics_bluesky', 'FR', <<<EOT
-Clique-moi et suis-moi pour rester à jour, je suis @thebad.website sur Bluesky
-EOT
-);
-___('home_comics_rss', 'EN', <<<EOT
-Or maybe you're more oldschool? Cilck me if you'd like an RSS feed
-EOT
-);
-___('home_comics_rss', 'FR', <<<EOT
-Es-tu une personne à l'ancienne ? Clique-moi pour avoir un flux RSS !
+___('home_comics_socials', 'FR', <<<EOT
+J'aimerais trop pouvoir suivre le contenu de ce site… Bonne nouvelle ! Le mauvais site poste ses contenus sur plusieurs médias sociaux, en plus de contenus exclusifs ! Clique moi pour voir la liste des plateformes où tu peux le suivre.
 EOT
 );
 
