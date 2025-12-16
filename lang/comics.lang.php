@@ -38,6 +38,15 @@ ___('comics_nav_random',   'EN', "Random comic");
 ___('comics_nav_random',   'FR', "Comic aléatoire");
 
 
+// Socials
+___('comics_socials_follow',    'EN', "Follow on socials");
+___('comics_socials_follow',    'FR', "Suivre sur les réseaux");
+___('comics_socials_bluesky',   'EN', "Bluesky");
+___('comics_socials_bluesky',   'FR', "Bluesky");
+___('comics_socials_instagram', 'EN', "Instagram");
+___('comics_socials_instagram', 'FR', "Instagram");
+
+
 // Comics list
 ___('comics_list_all',        'EN', "All comics");
 ___('comics_list_all',        'FR', "Tous les comics");

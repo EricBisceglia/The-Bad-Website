@@ -58,6 +58,10 @@ $page_image       = $comic_data['preview_url'];
 // Increment the comic's view count
 comics_increment_view_count($comic_id);
 
+// Prepare socials links in the correct language
+$bluesky_link   = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+
 
 
 
@@ -202,6 +206,24 @@ comics_increment_view_count($comic_id);
     <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
   </a>
   <?php endfor; ?>
+
+  <div class="flexcontainer">
+    <div class="flex smallspaced_right">
+      <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
+        <img src="<?=$path?>img/banners/comics/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_bluesky')?>">
+      </a>
+    </div>
+    <div class="flex smallspaced_right">
+      <a href="<?=$path?>about/socials">
+        <img src="<?=$path?>img/banners/comics/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_follow')?>">
+      </a>
+    </div>
+    <div class="flex">
+      <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
+        <img src="<?=$path?>img/banners/comics/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_instagram')?>">
+      </a>
+    </div>
+  </div>
 
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">

@@ -9,7 +9,6 @@ include_once './../lang/comics.lang.php';   # Translations
 
 // Page summary
 $page_url       = "comics/list";
-$enforce_url    = true;
 $page_title_en  = "Comics";
 $page_title_fr  = "Comics";
 

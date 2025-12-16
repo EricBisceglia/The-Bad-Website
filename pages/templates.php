@@ -12,6 +12,9 @@ $page_url       = "memes/templates";
 $page_title_en  = "Templates";
 $page_title_fr  = "Modèles";
 
+// Enforce the url
+page_enforce_url($page_url);
+
 
 
 
