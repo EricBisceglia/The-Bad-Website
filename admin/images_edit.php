@@ -71,9 +71,6 @@ $image_lang_fr_selected = ($admin_image_data['lang'] === 'FR') ? ' selected' : '
 // NSFW
 $image_nsfw_checked = ($admin_image_data['nsfw']) ? ' checked' : '';
 
-// Reusable image
-$image_reusable_checked = ($admin_image_data['reusable']) ? ' checked' : '';
-
 // Template
 $image_template_checked = ($admin_image_data['template']) ? ' checked' : '';
 
@@ -159,11 +156,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_top">
-        <input type="checkbox" class="align_left" name="image_reusable"<?=$image_reusable_checked?>>
-        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
-      </div>
-
-      <div>
         <input type="checkbox" class="align_left" name="image_template"<?=$image_template_checked?>>
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>

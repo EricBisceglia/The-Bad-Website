@@ -162,8 +162,6 @@ ___('admin_images_list_type_old',   'EN', "Old version");
 ___('admin_images_list_type_old',   'FR', "Vieille version");
 ___('admin_images_list_type_templ', 'EN', "Template");
 ___('admin_images_list_type_templ', 'FR', "Modèle");
-___('admin_images_list_type_reus',  'EN', "Reusable image");
-___('admin_images_list_type_reus',  'FR', "Image réutilisable");
 ___('admin_images_list_language',   'EN', "Lang.");
 ___('admin_images_list_language',   'FR', "Lang.");
 ___('admin_images_list_name',       'EN', "Name");
@@ -193,8 +191,6 @@ ___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
 ___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
 ___('admin_images_add_preview',         'EN', "Is a cover image for a comic");
 ___('admin_images_add_preview',         'FR', "Est l'image de couverture d'un comic");
-___('admin_images_add_reusable',        'EN', "Is a reusable image");
-___('admin_images_add_reusable',        'FR', "Est une image réutilisable");
 ___('admin_images_add_full',            'EN', "Is a fully assembled image");
 ___('admin_images_add_full',            'FR', "Est une image complète assemblée");
 ___('admin_images_add_old',             'EN', "Is an old version");
@@ -242,30 +238,26 @@ ___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive d
 
 
 // Image templates
-___('admin_images_templates_title',   'EN', "Templates");
-___('admin_images_templates_title',   'FR', "Modèles");
-___('admin_images_templates_font',    'EN', "Font used for text: Segoe UI");
-___('admin_images_templates_font',    'FR', "Police de caractères : Segoe UI");
-___('admin_images_templates_color_1', 'EN', "Color 1: Beige #EFE4B0");
-___('admin_images_templates_color_1', 'FR', "Couleur 1 : Beige #EFE4B0");
-___('admin_images_templates_color_2', 'EN', "Color 2: Purple #C8BFE7");
-___('admin_images_templates_color_2', 'FR', "Couleur 2 : Violet #C8BFE7");
-___('admin_images_templates_color_3', 'EN', "Color 3: Green #C2E7BF");
-___('admin_images_templates_color_3', 'FR', "Couleur 3 : Vert #C2E7BF");
-___('admin_images_templates_color_4', 'EN', "Color 4: Blue #99D9EA");
-___('admin_images_templates_color_4', 'FR', "Couleur 4 : Bleu #99D9EA");
-___('admin_images_templates_color_5', 'EN', "Color 5: Grey #C3C3C3");
-___('admin_images_templates_color_5', 'FR', "Couleur 5 : Gris #C3C3C3");
-___('admin_images_templates_banner',  'EN', "Category banner: 1000x200<br>img/banners/comics/types/");
-___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 1000x200<br>img/banners/comics/types/");
-___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
-___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
-___('admin_images_reusables_gallery', 'EN', "Reusable images gallery");
-___('admin_images_reusables_gallery', 'FR', "Galerie d'images réutilisables");
-___('admin_images_templates_gallery', 'EN', "Template gallery");
-___('admin_images_templates_gallery', 'FR', "Galerie de modèles");
+___('admin_images_info_title',    'EN', "Templates");
+___('admin_images_info_title',    'FR', "Modèles");
+___('admin_images_info_font',     'EN', "Font used for text: Segoe UI");
+___('admin_images_info_font',     'FR', "Police de caractères : Segoe UI");
+___('admin_images_info_color_1',  'EN', "Color 1: Beige #EFE4B0");
+___('admin_images_info_color_1',  'FR', "Couleur 1 : Beige #EFE4B0");
+___('admin_images_info_color_2',  'EN', "Color 2: Purple #C8BFE7");
+___('admin_images_info_color_2',  'FR', "Couleur 2 : Violet #C8BFE7");
+___('admin_images_info_color_3',  'EN', "Color 3: Green #C2E7BF");
+___('admin_images_info_color_3',  'FR', "Couleur 3 : Vert #C2E7BF");
+___('admin_images_info_color_4',  'EN', "Color 4: Blue #99D9EA");
+___('admin_images_info_color_4',  'FR', "Couleur 4 : Bleu #99D9EA");
+___('admin_images_info_color_5',  'EN', "Color 5: Grey #C3C3C3");
+___('admin_images_info_color_5',  'FR', "Couleur 5 : Gris #C3C3C3");
+___('admin_images_info_banner',   'EN', "Category banner: 1000x200<br>img/banners/comics/types/");
+___('admin_images_info_banner',   'FR', "Bannière de catégorie : 1000x200<br>img/banners/comics/types/");
+___('admin_images_info_tag',      'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
+___('admin_images_info_tag',      'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
+___('admin_images_info_preview',  'EN', "Comic preview: 1000x400");
+___('admin_images_info_preview',  'FR', "Prévisualisation de comic : 1000x400");
 
 
 

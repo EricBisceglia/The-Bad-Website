@@ -44,7 +44,6 @@ if(isset($_POST['image_add']))
                             'order'     => form_fetch_element('image_order')                          ,
                             'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     ,
                             'template'  => form_fetch_element('image_template', element_exists: true) ,
-                            'reusable'  => form_fetch_element('image_reusable', element_exists: true) ,
                             'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                             'full'      => form_fetch_element('image_full', element_exists: true)     ,
                             'old'       => form_fetch_element('image_old', element_exists: true)      );
@@ -147,11 +146,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div class="smallpadding_top">
-        <input type="checkbox" class="align_left" name="image_reusable">
-        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
-      </div>
-
-      <div>
         <input type="checkbox" class="align_left" name="image_template">
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>

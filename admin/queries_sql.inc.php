@@ -739,3 +739,16 @@ if($last_query < 9)
 
   sql_update_query_id(9);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get rid of reusable images
+
+if($last_query < 10)
+{
+  sql_delete_field('images', 'is_reusable');
+
+  sql_update_query_id(10);
+}

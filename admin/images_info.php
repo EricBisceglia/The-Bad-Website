@@ -31,10 +31,6 @@ $js   = array('admin/admin');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch all template images
 
-// Reusable images
-$reusable_list = images_list( search:   array('reusable' => 1) ,
-                              sort_by:  'name'                 ,);
-
 // Templates
 $template_list = images_list( search: array('template' => 1) ,
                               sort_by:  'name'                 ,);
@@ -50,27 +46,27 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/images', __('admin_images_templates_title'), style: 'text_light', path: root_path())?>
+    <?=__link('admin/images', __('admin_images_info_title'), style: 'text_light', path: root_path())?>
   </h2>
 
   <ul class="align_left bold padding_bot">
     <li class="light text_dark">
-      <?=__('admin_images_templates_font')?>
+      <?=__('admin_images_info_font')?>
     </li>
     <li style="background-color: #EFE4B0" class="text_dark">
-      <?=__('admin_images_templates_color_1')?>
+      <?=__('admin_images_info_color_1')?>
     </li>
     <li style="background-color: #C8BFE7" class="text_dark">
-      <?=__('admin_images_templates_color_2')?>
+      <?=__('admin_images_info_color_2')?>
     </li>
     <li style="background-color: #C2E7BF" class="text_dark">
-      <?=__('admin_images_templates_color_3')?>
+      <?=__('admin_images_info_color_3')?>
     </li>
     <li style="background-color: #99D9EA" class="text_dark">
-      <?=__('admin_images_templates_color_4')?>
+      <?=__('admin_images_info_color_4')?>
     </li>
     <li style="background-color: #C3C3C3" class="text_dark">
-      <?=__('admin_images_templates_color_5')?>
+      <?=__('admin_images_info_color_5')?>
     </li>
   </ul>
 
@@ -79,52 +75,24 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_30 padding_top padding_bot">
 
   <h5 class="smallpadding_bot align_center">
-    <?=__('admin_images_templates_preview')?>
+    <?=__('admin_images_info_preview')?>
   </h5>
   <div class="padding_bot">
     <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
-    <?=__('admin_images_templates_banner')?>
+    <?=__('admin_images_info_banner')?>
   </h5>
   <div class="padding_bot">
     <img src="<?=$path?>img/templates/comic_type_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
-    <?=__('admin_images_templates_tag')?>
+    <?=__('admin_images_info_tag')?>
   </h5>
   <div>
     <img src="<?=$path?>img/templates/tag_<?=$lang_lower?>.png">
-  </div>
-
-</div>
-
-<div class="width_50">
-
-  <h2 class="align_center padding_top padding_bot">
-    <?=__('admin_images_reusables_gallery')?>
-  </h2>
-
-  <div class="padding_bot" style="column-count: 3;">
-    <?php for($i = 0; $i < $reusable_list['rows']; $i++): ?>
-    <a href="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" target="_blank">
-      <img src="<?=$path?>img/comics/<?=$reusable_list[$i]['name_full']?>" alt="<?=$reusable_list[$i]['name_full']?>" title="<?=$reusable_list[$i]['name_full']?>" class="indiv">
-    </a>
-    <?php endfor; ?>
-  </div>
-
-  <h2 class="align_center padding_top padding_bot">
-    <?=__('admin_images_templates_gallery')?>
-  </h2>
-
-  <div class="padding_bot" style="column-count: 3;">
-    <?php for($i = 0; $i < $template_list['rows']; $i++): ?>
-    <a href="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" target="_blank">
-      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>" class="indiv">
-    </a>
-    <?php endfor; ?>
   </div>
 
 </div>
