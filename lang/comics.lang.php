@@ -60,6 +60,8 @@ ___('comics_list_latest',     'EN', "Latest comics");
 ___('comics_list_latest',     'FR', "Comics récents");
 ___('comics_list_templates',  'EN', "Templates");
 ___('comics_list_templates',  'FR', "Modèles");
+___('comics_list_emojis',     'EN', "Emojis");
+___('comics_list_emojis',     'FR', "Emojis");
 
 
 // Full comics list
@@ -98,5 +100,24 @@ Utilisez-les comme vous le désirez, pas besoin de demander la permission, tant 
 Cliquez sur une image pour la voir dans sa taille réelle.<br>
 <br>
 Certaines des images vous laissent perplexe ? Ça fait partie du fun, à vous de deviner comment les utiliser correctement !
+EOT
+);
+
+
+// Emojis
+___('comics_emojis_desc', 'EN', <<<EOT
+Below are a collection emojis. You are free to use any of them wherever you want.<br>
+<br>
+They are all shown twice: first as large images, then in a smaller emoji size.<br>
+<br>
+Click on any emoji to open it, which will make downloading it easier.
+EOT
+);
+___('comics_emojis_desc', 'FR', <<<EOT
+Ci-dessous, une collection d'emojis. Vous pouvez les utiliser où vous voulez.<br>
+<br>
+Ils sont tous listés deux fois : d'abord en grand, puis à la taille emoji.<br>
+<br>
+Cliquez sur un emoji pour l'ouvrir, ce qui le rendra plus facile à télécharger.
 EOT
 );

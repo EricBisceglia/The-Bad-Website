@@ -28,7 +28,8 @@ function sitemap_generate()
   $sitemap .= sitemap_add_page('comics/all', 'daily', '0.5');
   $sitemap .= sitemap_add_page('comics/list', 'daily', '1.0');
   $sitemap .= sitemap_add_page('comics/tags', 'weekly', '0.6');
-  $sitemap .= sitemap_add_page('memes/templates', 'weekly', '0.7');
+  $sitemap .= sitemap_add_page('memes/emojis', 'monthly', '0.5');
+  $sitemap .= sitemap_add_page('memes/templates', 'monthly', '0.6');
   $sitemap .= sitemap_add_page('rss', 'daily', '0.5');
 
   // Categories

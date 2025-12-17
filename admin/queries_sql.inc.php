@@ -752,3 +752,16 @@ if($last_query < 10)
 
   sql_update_query_id(10);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Emoji images
+
+if($last_query < 11)
+{
+  sql_create_field('images', 'is_an_emoji', 'TINYINT(1) NOT NULL', 'is_a_template');
+
+  sql_update_query_id(11);
+}
