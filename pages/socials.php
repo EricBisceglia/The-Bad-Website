@@ -17,10 +17,12 @@ $page_description = "Follow thebad.website on socials!";
 page_enforce_url($page_url);
 
 // Prepare links in the correct language
-$bluesky_link   = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
-$instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$bluesky_link   = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
+$instagram_link = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
 $youtube_link   = ($lang == 'EN') ? 'TheRealBadChannel' : 'LeVraiBad';
-$tiktok_link    = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$tiktok_link    = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
+$reddit_link    = ($lang == 'EN') ? 'thebadwebsite'     : 'lemauvaissite';
+$lemmy_link     = ($lang == 'EN') ? 'thebadwebsite'     : 'lemauvaissite';
 
 
 
@@ -50,6 +52,24 @@ $tiktok_link    = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   </div>
 
   <div>
+    <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
+      <img src="<?=$path?>img/banners/social/discord_<?=$lang_lower?>.png" alt="Discord" title="Discord">
+    </a>
+  </div>
+
+  <div>
+    <a href="https://www.reddit.com/r/<?=$reddit_link?>" target="_blank">
+      <img src="<?=$path?>img/banners/social/reddit_<?=$lang_lower?>.png" alt="Reddit" title="Reddit">
+    </a>
+  </div>
+
+  <div>
+    <a href="https://lemmy.world/c/<?=$lemmy_link?>" target="_blank">
+      <img src="<?=$path?>img/banners/social/lemmy_<?=$lang_lower?>.png" alt="Lemmy" title="Lemmy">
+    </a>
+  </div>
+
+  <div>
     <a href="https://www.youtube.com/@<?=$youtube_link?>" target="_blank">
       <img src="<?=$path?>img/banners/social/youtube_<?=$lang_lower?>.png" alt="YouTube" title="YouTube">
     </a>
@@ -58,12 +78,6 @@ $tiktok_link    = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   <div>
     <a href="https://www.tiktok.com/@<?=$tiktok_link?>" target="_blank">
       <img src="<?=$path?>img/banners/social/tiktok_<?=$lang_lower?>.png" alt="TikTok" title="TikTok">
-    </a>
-  </div>
-
-  <div>
-    <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
-      <img src="<?=$path?>img/banners/social/discord_<?=$lang_lower?>.png" alt="Discord" title="Discord">
     </a>
   </div>
 
@@ -89,6 +103,10 @@ $tiktok_link    = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
     <a href="https://www.instagram.com/thebad.cats/" target="_blank">
       <img src="<?=$path?>img/banners/social/instagram2_<?=$lang_lower?>.png" alt="Instagram" title="Instagram">
     </a>
+  </div>
+
+  <div>
+    <img src="<?=$path?>img/website/socials_nox_<?=$lang_lower?>.png" alt="thebad.website" title="thebad.website">
   </div>
 
   <div>
