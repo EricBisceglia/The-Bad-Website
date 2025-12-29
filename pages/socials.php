@@ -17,12 +17,12 @@ $page_description = "Follow thebad.website on socials!";
 page_enforce_url($page_url);
 
 // Prepare links in the correct language
-$bluesky_link   = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
-$instagram_link = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
-$youtube_link   = ($lang == 'EN') ? 'TheRealBadChannel' : 'LeVraiBad';
-$tiktok_link    = ($lang == 'EN') ? 'thebad.website'    : 'lemauvais.site';
-$reddit_link    = ($lang == 'EN') ? 'thebadwebsite'     : 'lemauvaissite';
-$lemmy_link     = ($lang == 'EN') ? 'thebadwebsite'     : 'lemauvaissite';
+$bluesky_link   = ($lang == 'EN') ? 'thebad.website'              : 'lemauvais.site';
+$instagram_link = ($lang == 'EN') ? 'thebad.website'              : 'lemauvais.site';
+$youtube_link   = ($lang == 'EN') ? 'TheRealBadChannel'           : 'LeVraiBad';
+$tiktok_link    = ($lang == 'EN') ? 'thebad.website'              : 'lemauvais.site';
+$reddit_link    = ($lang == 'EN') ? 'thebadwebsite'               : 'lemauvaissite';
+$lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/lemauvaissite';
 
 
 
@@ -64,7 +64,7 @@ $lemmy_link     = ($lang == 'EN') ? 'thebadwebsite'     : 'lemauvaissite';
   </div>
 
   <div>
-    <a href="https://lemmy.world/c/<?=$lemmy_link?>" target="_blank">
+    <a href="https://<?=$lemmy_link?>" target="_blank">
       <img src="<?=$path?>img/banners/social/lemmy_<?=$lang_lower?>.png" alt="Lemmy" title="Lemmy">
     </a>
   </div>

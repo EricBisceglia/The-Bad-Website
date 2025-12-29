@@ -74,6 +74,16 @@ page_enforce_url($page_url);
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
+      <div class="desktop smallpadding_bot indiv uppercase bold comic_preview_title">
+        <a class="text_light" href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+          <?=$comics_list[$i]['title']?>
+        </a>
+      </div>
+      <div class="mobile smallpadding_bot indiv uppercase bold comic_preview_title">
+        <a class="text_light" href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+          <?=$comics_list[$i]['mtitle']?>
+        </a>
+      </div>
       <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
         <?php if($comics_list[$i]['preview']) : ?>
         <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>

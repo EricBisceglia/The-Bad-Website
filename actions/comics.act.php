@@ -522,6 +522,7 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
     $data[$i]['url']        = sanitize_output($GLOBALS['website_url'].'comic/'.$row['c_slug']);
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
+    $data[$i]['mtitle']     = sanitize_output(string_truncate($row['c_title'], 35, '...'));
     $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 45, '...'));
     $data[$i]['ltitle']     = sanitize_output(string_truncate($row['c_title'], 50, '...'));
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
