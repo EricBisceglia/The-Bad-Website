@@ -58,6 +58,8 @@ ___('comics_list_tags',       'EN', "Tags");
 ___('comics_list_tags',       'FR', "Tags");
 ___('comics_list_latest',     'EN', "Latest comics");
 ___('comics_list_latest',     'FR', "Comics récents");
+___('comics_list_generator',  'EN', "Random smuggie generator");
+___('comics_list_generator',  'FR', "Générateur d'arroganterie aléatoire");
 ___('comics_list_templates',  'EN', "Templates");
 ___('comics_list_templates',  'FR', "Modèles");
 ___('comics_list_emojis',     'EN', "Emojis");
@@ -79,6 +81,19 @@ ___('comics_list_count',  'EN', "{{1}} comic");
 ___('comics_list_count',  'FR', "{{1}} comic");
 ___('comics_list_count+', 'EN', "{{1}} comics");
 ___('comics_list_count+', 'FR', "{{1}} comics");
+
+
+// Random generator
+___('comics_generator_generate', 'EN', "Click here to generate a new random smuggie");
+___('comics_generator_generate', 'FR', "Cliquez ici pour générer une nouvelle arroganterie");
+___('comics_generator_image',    'EN', "Randomly generated smuggie");
+___('comics_generator_image',    'FR', "Arroganterie générée aléatoirement");
+___('comics_generator_socials',  'EN', "Follow thebad.website on socials for more smuggies and other man made horrors");
+___('comics_generator_socials',  'FR', "Suivez lemauvais.site pour voir de nouvelles arroganteries et d'autres horreurs inhumaines");
+___('comics_generator_desc',     'EN', "Share this randomly generated comic with others by giving them this unique link:<br>
+<a href=\"{{1}}\">{{1}}</a>");
+___('comics_generator_desc',     'FR', "Pour partager ce comic aléatoirement généré, utilisez ce lien unique :<br>
+<a href=\"{{1}}\">{{1}}</a>");
 
 
 // Templates

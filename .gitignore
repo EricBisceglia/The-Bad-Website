@@ -8,6 +8,10 @@ admin/.htaccess
 img/comics/*
 !img/comics/index.php
 
+# Don't commit the random comic generator
+img/generator/*
+!img/generator/index.php
+
 # Don't commit user searches
 admin/user_searches.txt
 

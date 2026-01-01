@@ -8,9 +8,9 @@ include_once './../actions/comics.act.php'; # Comic management
 include_once './../lang/comics.lang.php';   # Translations
 
 // Page summary
-$page_url       = "comics/list";
-$page_title_en  = "Comics";
-$page_title_fr  = "Comics";
+$page_url       = "comics/generator";
+$page_title_en  = "Smug generator";
+$page_title_fr  = "Générateur d'arroganteries";
 
 // Enforce the url
 page_enforce_url($page_url);
@@ -25,13 +25,9 @@ page_enforce_url($page_url);
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Page data
+// Generate the random smuggie's seed
 
-// Get the list of comic types
-$comic_types_list = comic_types_list();
-
-// Get the latest smuggie's slug
-$latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
+$seed = (isset($_GET['seed']) ? (int)$_GET['seed'] : random_int(1, PHP_INT_MAX));
 
 
 
@@ -44,60 +40,38 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
 
 <div class="width_50">
 
-  <div class="flexcontainer nopadding_bot">
-    <div class="flex smallspaced_right">
-      <a href="<?=$path?>comics/all">
-        <img src="<?=$path?>img/banners/comics/full_list_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
-      </a>
-    </div>
-    <div class="flex">
-      <a href="<?=$path?>comics/all">
-        <img src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+  <a href="<?=$path?>comics/list">
+    <img src="<?=$path?>img/banners/comics/category_generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
+  </a>
+
+  <div class="smallpadding_top smallpadding_bot align_center">
+    <div class="comic_container">
+      <a href="<?=$path?>./pages/random_smug.php?seed=<?=$seed?>" target="_blank">
+        <img src="<?=$path?>./pages/random_smug.php?seed=<?=$seed?>" alt="<?=__('comics_generator_image')?>">
       </a>
     </div>
   </div>
 
-  <div class="flexcontainer">
-    <div class="flex smallspaced_right">
-      <a href="<?=$path?>comics/tags">
-        <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
-      </a>
-    </div>
-    <div class="flex smallspaced_right">
-      <a href="<?=$path?>comics/random?type=1">
-        <img src="<?=$path?>img/banners/comics/random_full_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
-      </a>
-    </div>
-    <div class="flex">
-      <a href="<?=$path?>comic/<?=$latest_comic_slug?>">
-        <img src="<?=$path?>img/banners/comics/latest_<?=$lang_lower?>.png" alt="<?=__('comics_list_new')?>" title="<?=__('comics_list_latest')?>">
-      </a>
-    </div>
+  <div class="desktop">
+    <blockquote>
+      <?=__('comics_generator_desc', preset_values: array($GLOBALS['website_url'].'comics/generator?seed='.$seed))?>
+    </blockquote>
+  </div>
+  <div class="mobile">
+    <blockquote class="smallish">
+      <?=__('comics_generator_desc', preset_values: array($GLOBALS['website_url'].'comics/generator?seed='.$seed))?>
+    </blockquote>
   </div>
 
-  <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
-  <div class="nopadding_bot">
-    <a href="<?=$path?>category/<?=$comic_types_list[$i]['slug']?>">
-      <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name']?>" title="<?=$comic_types_list[$i]['name']?>" loading="lazy">
-    </a>
-  </div>
-  <?php endfor; ?>
-
-  <div class="nopadding_bot">
+  <div class="smallpadding_top">
     <a href="<?=$path?>comics/generator">
-      <img src="<?=$path?>img/banners/comics/category_generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
+      <img src="<?=$path?>img/banners/comics/generator_roll_<?=$lang_lower?>.png" alt="<?=__('comics_generator_generate')?>" title="<?=__('comics_generator_generate')?>">
     </a>
   </div>
 
-  <div class="nopadding_bot">
-    <a href="<?=$path?>memes/emojis">
-      <img src="<?=$path?>img/banners/comics/category_emojis_<?=$lang_lower?>.png" alt="<?=__('comics_list_emojis')?>" title="<?=__('comics_list_emojis')?>">
-    </a>
-  </div>
-
-  <div class="nopadding_bot">
-    <a href="<?=$path?>memes/templates">
-      <img src="<?=$path?>img/banners/comics/category_templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
+  <div>
+    <a href="<?=$path?>about/socials">
+      <img src="<?=$path?>img/banners/comics/follow_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
     </a>
   </div>
 

@@ -190,6 +190,7 @@ hr   { height: 3px;                                                 } }
 .strikethrough        { text-decoration: line-through;                      }
 .small                { font-size: 75%;                                     }
 .smaller              { font-size: 50%;                                     }
+.smallish             { font-size: 40%;                                     }
 .smallest             { font-size: 25%;                                     }
 .big                  { font-size: 125%;                                    }
 .bigger               { font-size: 150%;                                    }
