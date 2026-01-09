@@ -134,30 +134,22 @@ ___('about_comics_intro', 'FR', "FAQ du Mauvais Site");
 
 
 // Art quality
-___('about_quality_title',  'EN', "Why don't you draw better?");
-___('about_quality_title',  'FR', "Pourquoi ne pas dessiner mieux ?");
+___('about_quality_title',  'EN', "Why do you draw stickmen?");
+___('about_quality_title',  'FR', "Pourquoi dessiner des personnages en bâtons ?");
 ___('about_quality_body_1', 'EN', <<<EOT
-As you might have seen from my other projects, I can drew decently well.
+I can draw more "seriously", but sticking to simple drawings forces me to focus on letting the satire, paneling, colors, and humor grab people's attention.
 EOT
 );
 ___('about_quality_body_1', 'FR', <<<EOT
-Comme vous avez pu le voir via mes autres projets, je sais dessiner plutôt correctement.
+Je pourrais dessiner plus "sérieusement", mais faire des dessins simples me force à travailler sur la satire, la mise en page, les couleurs et l'humour pour attirer l'attention des gens.
 EOT
 );
 ___('about_quality_body_2', 'EN', <<<EOT
-Using simple drawings forces me to focus on letting the humor, paneling, colors, and characters grab people's attention.
+The simplistic style is part of the joke. There's humor in silly stick figures.
 EOT
 );
 ___('about_quality_body_2', 'FR', <<<EOT
-Utiliser des dessins simples me force à travailler sur l'humour, la mise en page, les couleurs, les personnages pour attirer l'attention des gens.
-EOT
-);
-___('about_quality_body_3', 'EN', <<<EOT
-The simplistic style is part of the joke. There's humor in poorly drawn stick figures. It might not be to everyone's taste, and that's fine. You're allowed to dislike my art.
-EOT
-);
-___('about_quality_body_3', 'FR', <<<EOT
-Le style fait partie de la blague. Il y a quelque chose de drôle dans des personnages en bâtons dessinés à l'arrache. Ce n'est pas au goût de tout le monde, mais ce n'est pas grave. Vous avez le droit de ne pas aimer.
+Le style fait partie de la blague : il y a une forme d'humour particulière inhérente aux personnages en bâton.
 EOT
 );
 
@@ -166,19 +158,19 @@ EOT
 ___('about_pastels_title',  'EN', "What's with the pastel colors?");
 ___('about_pastels_title',  'FR', "Pourquoi ces couleurs pastel ?");
 ___('about_pastels_body_1', 'EN', <<<EOT
-I like them. They make me feel relaxed. It's that simple.
+I like them.
 EOT
 );
 ___('about_pastels_body_1', 'FR', <<<EOT
-Je les aime bien. Elles me détendent. C'est aussi simple que ça.
+Je les aime bien.
 EOT
 );
 ___('about_pastels_body_2', 'EN', <<<EOT
-Don't vibe with my pastels? That's okay. You're allowed to.
+It's that simple.
 EOT
 );
 ___('about_pastels_body_2', 'FR', <<<EOT
-Vous n'accrochez pas ? Pas de souci, c'est la vie.
+C'est aussi simple que ça.
 EOT
 );
 
@@ -195,27 +187,27 @@ Oups. Ça arrive.
 EOT
 );
 ___('about_offended_body_2', 'EN', <<<EOT
-I'm not here to laugh <span class="italics">at</span> people but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being mocked. Most of the time, it's not you personally, but rather some problematic ideas. If you agree with those problematic ideas... well, that's on you.
+I'm not here to laugh <span class="italics">at</span> people, but <span class="italics">with</span> them. If one of my comics stings, take a step back and consider what's really being satirized. Most of the time, it's not about you personally, but rather about some problematic ideas. If you happen to agree with those problematic ideas... well, you're meant to be offended.
 EOT
 );
 ___('about_offended_body_2', 'FR', <<<EOT
-Mon but n'est pas de rire <span class="italics">des</span> gens, mais de rire <span class="italics">avec</span> eux. Si un de mes comics vous pique, prenez du recul et demandez-vous ce qui est réellement parodié. En général, ce sont des idées très problématiques. Si vous partagez ces idées... en effet, vous êtes la cible.
+Mon but n'est pas de rire <span class="italics">des</span> gens, mais de rire <span class="italics">avec</span> eux. Si un de mes comics vous pique, prenez du recul et demandez-vous ce qui est réellement satirisé. En général, ce sont des idées problématiques. Si vous partagez ces idées... en effet, c'est normal que ça vous offense.
 EOT
 );
 ___('about_offended_body_3', 'EN', <<<EOT
-I also mock my own traits and opinions. If you're going to dish it out, you should be able to take it too. It's important to know how to laugh at yourself, and can turn into opportunities to reflect and grow.
+Keep in mind I also mock my own traits and opinions. If you're going to dish it out, you should be able to take it too. It's important to know how to laugh at yourself.
 EOT
 );
 ___('about_offended_body_3', 'FR', <<<EOT
-Beaucoup de mes comics se moquent aussi de mes propres travers et opinions. Si on veut frapper, il faut savoir encaisser. Mieux vaut en rire qu'en faire une affaire personnelle, ça peut même être des opportunités de réfléchir et de grandir.
+Certains de mes comics se moquent aussi de mes propres travers et opinions. Si on veut frapper, il faut savoir encaisser. Mieux vaut en rire qu'en faire une affaire personnelle.
 EOT
 );
 ___('about_offended_body_4', 'EN', <<<EOT
-If my comics really offend you, that's fine. Keep in mind, nobody's forcing you to read them.
+If my comics really do offend you, remember that nobody's forcing you to keep reading them.
 EOT
 );
 ___('about_offended_body_4', 'FR', <<<EOT
-Si mes comics vous semblent trop offensants pour être drôles, peut-être vaut-il mieux arrêter de les lire.
+Si mes comics vous offensent fort, n'oubliez pas que personne ne vous oblige à continuer à les lire.
 EOT
 );
 
@@ -236,23 +228,23 @@ Yeah, that's why it's called the Bad Website.
 EOT
 );
 ___('about_credits_body_2', 'FR', <<<EOT
-Oui, c'est pour ça que ça s'appelle le Mauvais Site.
+Oui, c'est pour ça que ça s'appelle The Bad Website, soit en français Le Mauvais Site.
 EOT
 );
 ___('about_credits_body_3', 'EN', <<<EOT
-I'm just a guy, from France, who likes to draw stuff.
+I'm just a french guy who likes to draw silly things.
 EOT
 );
 ___('about_credits_body_3', 'FR', <<<EOT
-Je suis juste un mec, de France, qui aime bien dessiner des trucs.
+Je suis juste un gars qui aime bien dessiner des conneries.
 EOT
 );
 ___('about_credits_body_4', 'EN', <<<EOT
-You don't really need to know more than that.
+You don't need to know more than that about me.
 EOT
 );
 ___('about_credits_body_4', 'FR', <<<EOT
-Pas besoin d'en savoir plus à mon sujet.
+Vous n'avez pas besoin d'en savoir plus à mon sujet.
 EOT
 );
 
@@ -269,19 +261,19 @@ Bien sûr ! L'art est fait pour être partagé, merde aux gens et entreprises 
 EOT
 );
 ___('about_reuse_body_2', 'EN', <<<EOT
-You can share my comics, use my characters, steal my jokes, and best of all, you don't even need to ask for permission. Have fun.
+You can share my comics, use my characters, steal my jokes, and best of all, you don't even need to ask for permission. I'd appreciate if you could keep the signature / website name on any images you modify.
 EOT
 );
 ___('about_reuse_body_2', 'FR', <<<EOT
-Vous pouvez partager mes comics, utiliser mes personnages, voler mes blagues... et le meilleur dans tout ça, c'est que vous n'avez même pas besoin de demander la permission. Faites-vous plaisir.
+Vous pouvez partager mes comics, utiliser mes personnages, voler mes blagues, sans demander la permission. J'apprécierais que vous gardiez la signature / le nom du site sur les images que vous modifiez.
 EOT
 );
 ___('about_reuse_body_3', 'EN', <<<EOT
-The only restriction is that you can't use them in commercial projects without my explicit permission. Any revenue generated from The Bad Website's intellectual property would violate intellectual property laws and may result in legal action.
+The only restriction is that you can't use them in commercial projects without my explicit permission. Revenue generated using The Bad Website's content without discussing it with me first may result in legal action.
 EOT
 );
 ___('about_reuse_body_3', 'FR', <<<EOT
-La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial sans mon accord explicite. Tout revenu généré en exploitant la propriété intellectuelle du Mauvais Site constituerait une violation des lois sur la propriété intellectuelle et pourrait entraîner des poursuites judiciaires.
+La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial sans mon accord explicite. Tout revenu généré en exploitant les contenus du Mauvais Site sans m'avoir consulté préalablement pourrait entraîner des poursuites judiciaires.
 EOT
 );
 
@@ -290,18 +282,18 @@ EOT
 ___('about_follow_title',  'EN', "How can I stay updated?");
 ___('about_follow_title',  'FR', "Comment rester à jour ?");
 ___('about_follow_body_1', 'EN', <<<EOT
-You can follow thebad.website <a href="./socials" target="_blank">on various social media platforms</a>.
+You can follow thebad.website on several social media platforms: <a href="./socials" target="_blank">click here for a list of platforms</a>.
 EOT
 );
 ___('about_follow_body_1', 'FR', <<<EOT
-Vous pouvez suivre lemauvais.site <a href="./socials" target="_blank">via plusieurs médias sociaux</a>.
+Vous pouvez suivre lemauvais.site sur plusieurs médias sociaux : <a href="./socials" target="_blank">cliquez ici pour une liste de plateformes</a>.
 EOT
 );
-___('about_follow_body_2Bienvenue aux USA nous avons des mouvements de gauchistes variés:', 'EN', <<<EOT
+___('about_follow_body_2', 'EN', <<<EOT
 I don't do any promotion or marketing, so following, liking, sharing my content does a lot to help me.
 EOT
 );
-___('about_follow_body_2Bienvenue aux USA nous avons des mouvements de gauchistes variés:', 'FR', <<<EOT
+___('about_follow_body_2', 'FR', <<<EOT
 Je ne fais pas de promotion ni de marketing, donc suivre, liker, partager mes contenus m'aide énormément.
 EOT
 );
@@ -311,26 +303,18 @@ EOT
 ___('about_talk_title',  'EN', "Can I talk with you?");
 ___('about_talk_title',  'FR', "Est-ce qu'on peut discuter ?");
 ___('about_talk_body_1', 'EN', <<<EOT
-Sure.
+Sure, you can chat with me <a href="https://discord.gg/XTd3qQKZqV" target="_blank">on Discord</a>.
 EOT
 );
 ___('about_talk_body_1', 'FR', <<<EOT
-Bien sûr.
+Oui, on peut discuter <a href="https://discord.gg/XTd3qQKZqV" target="_blank">sur Discord</a>
 EOT
 );
 ___('about_talk_body_2', 'EN', <<<EOT
-You can chat with me on <a href="https://nobleme.com/pages/social/discord" target="_blank">NoBleme's Discord server</a> and <a href="https://nobleme.com/pages/social/irc" target="_blank">NoBleme's IRC chat</a>.
-EOT
-);
-___('about_talk_body_2', 'FR', <<<EOT
-On peut discuter sur <a href="https://nobleme.com/pages/social/discord" target="_blank">le serveur Discord de NoBleme</a> et <a href="https://nobleme.com/pages/social/irc" target="_blank">le chat IRC de NoBleme</a>.
-EOT
-);
-___('about_talk_body_3', 'EN', <<<EOT
 Talk to you soon!
 EOT
 );
-___('about_talk_body_3', 'FR', <<<EOT
+___('about_talk_body_2', 'FR', <<<EOT
 À bientôt !
 EOT
 );
@@ -369,11 +353,19 @@ Oui, tout est fait à la main.
 EOT
 );
 ___('about_source_body_2', 'EN', <<<EOT
-If you're curious, the source code is open sourced and <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">publicly available on GitHub</a>.
+The website's source code is publicly available, as I believe everything should be open sourced.
 EOT
 );
 ___('about_source_body_2', 'FR', <<<EOT
-Si ça vous dit de voir le code source, il est open source et <a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">disponible publiquement sur GitHub</a>.
+Le code source du site est visible publiquement, car j'ai la conviction que tout doit être open sourcé.
+EOT
+);
+___('about_source_body_3', 'EN', <<<EOT
+<a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">Click here to check out the bad website's source code on GitHub</a>.
+EOT
+);
+___('about_source_body_3', 'FR', <<<EOT
+<a href="https://github.com/EricBisceglia/The-Bad-Website" target="_blank">Cliquez ici pour voir le code source du mauvais site sur GitHub</a>.
 EOT
 );
 
@@ -382,19 +374,35 @@ EOT
 ___('about_cookies_title',  'EN', "Why wasn't I asked to accept cookies?");
 ___('about_cookies_title',  'FR', "Pourquoi le site ne m'a-t-il pas demandé d'accepter des cookies ?");
 ___('about_cookies_body_1', 'EN', <<<EOT
-Because this is just a simple website full of silly pastel drawings. There's no need to track you, serve you ads, or sell your data to third parties. Since no personal data is being collected, there's nothing you need to consent to.
+Because this is a simple website full of silly pastel drawings, and nothing more.
 EOT
 );
 ___('about_cookies_body_1', 'FR', <<<EOT
-Parce que ce n'est qu'un simple site rempli de dessins pastels idiots. Il n'y a aucune raison de traquer vos données, de vous afficher des publicités ou de les vendre à des tiers. Puisque vos données personnelles ne sont pas collectées, vous n'avez rien à accepter.
+Parce que ce n'est qu'un simple site rempli de dessins pastel idiots.
 EOT
 );
 ___('about_cookies_body_2', 'EN', <<<EOT
-Maybe you should start asking why other websites need your personal data. Just saying.
+There's no need to track you or sell your data to third parties.
 EOT
 );
 ___('about_cookies_body_2', 'FR', <<<EOT
-Vous devriez vous demander pourquoi les autres sites réclament vos données personnelles.
+Il n'y a aucune raison de traquer vos données ou de les vendre à des tiers.
+EOT
+);
+___('about_cookies_body_3', 'EN', <<<EOT
+Since none of your personal data is being collected or shared, there's nothing you need to consent to.
+EOT
+);
+___('about_cookies_body_3', 'FR', <<<EOT
+Comme vos données personnelles ne sont ni collectées ni partagées, vous n'avez pas de cookies à accepter.
+EOT
+);
+___('about_cookies_body_4', 'EN', <<<EOT
+Maybe you should start wondering why every other website asks for your personal data.
+EOT
+);
+___('about_cookies_body_4', 'FR', <<<EOT
+Vous devriez vous demander pourquoi tous les autres sites réclament vos données personnelles.
 EOT
 );
 
