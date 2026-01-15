@@ -193,6 +193,18 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <?php for($i = 0; $i < $admin_comic_data['images']['rows']; $i++): ?>
 
+  <?php if($i > 0 && $admin_comic_data['images']['lang'][$i] !== $admin_comic_data['images']['lang'][$i-1]): ?>
+
+</div>
+
+<div class="bigpadding_top">
+  <hr>
+</div>
+
+<div class="width_30">
+
+  <?php endif; ?>
+
     <div class="padding_top align_center">
       <h5 class="padding_bot">
         [<?=$admin_comic_data['images']['lang'][$i]?>]

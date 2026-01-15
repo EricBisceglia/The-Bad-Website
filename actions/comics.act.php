@@ -109,25 +109,31 @@ function comics_get(  int   $comic_id                ,
                                               : " AND images.language  LIKE '$lang'
                                                   AND images.is_a_preview = 0 ";
 
-  // Prepare the query to fetch images linked to the comic
-  $comic_query_start  = " SELECT    images.id               AS 'i_id'       ,
-                                    images.name             AS 'i_name'     ,
-                                    images.language         AS 'i_lang'     ,
-                                    images.transcript       AS 'i_trans'    ,
-                                    images.is_nsfw          AS 'i_nsfw'     ,
-                                    images.is_a_preview     AS 'i_preview'  ,
-                                    images.is_old_version   AS 'i_old'      ,
-                                    images.is_full_version  AS 'i_full'
-                          FROM      images
-                          WHERE     images.fk_comics = '$comic_id' ";
-  $comic_query_end    = " ORDER BY  images.is_a_preview DESC  ,
-                                    images.image_order  ASC   ,
-                                    images.name         ASC   ,
-                                    images.language     ASC   ";
-  $comic_query        = $comic_query_start.$query_where.$comic_query_end;
+  // Decide how to sort the images
+  $query_sort = ($show_all_images ===  true)  ? " ORDER BY  images.language         ASC   ,
+                                                            images.is_a_preview     DESC  ,
+                                                            images.is_full_version  ASC   ,
+                                                            images.image_order      ASC   ,
+                                                            images.name             ASC   "
+                                              : " ORDER BY  images.is_a_preview     DESC  ,
+                                                            images.image_order      ASC   ,
+                                                            images.name             ASC   ,
+                                                            images.language         ASC   ";
 
+  // Prepare the query to fetch images linked to the comic
+  $query_body  = " SELECT    images.id               AS 'i_id'       ,
+                              images.name             AS 'i_name'     ,
+                              images.language         AS 'i_lang'     ,
+                              images.transcript       AS 'i_trans'    ,
+                              images.is_nsfw          AS 'i_nsfw'     ,
+                              images.is_a_preview     AS 'i_preview'  ,
+                              images.is_old_version   AS 'i_old'      ,
+                              images.is_full_version  AS 'i_full'
+                    FROM      images
+                    WHERE     images.fk_comics = '$comic_id' ";
 
   // Check for results
+  $comic_query  = $query_body.$query_where.$query_sort;
   $comic_images = query($comic_query, fetch_row: true);
 
   // If there are no images, try the opposite language
@@ -142,7 +148,7 @@ function comics_get(  int   $comic_id                ,
                                                        AND images.is_a_preview = 0 ";
 
     // Rewrite the updated query
-    $comic_query = $comic_query_start.$query_where.$comic_query_end;
+    $comic_query = $query_body.$query_where.$query_sort;
   }
 
   // Fetch images linked to the comic
