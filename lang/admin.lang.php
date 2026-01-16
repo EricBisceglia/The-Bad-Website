@@ -309,6 +309,8 @@ ___('admin_comics_list_count+',   'EN', "{{1}} comics");
 ___('admin_comics_list_count+',   'FR', "{{1}} comics");
 ___('admin_comics_list_link_img', 'EN', "Linked images");
 ___('admin_comics_list_link_img', 'FR', "Images liées");
+___('admin_comics_list_share',    'EN', "Sharing tools");
+___('admin_comics_list_share',    'FR', "Outils de partage");
 
 
 // Add a comic
@@ -352,6 +354,21 @@ ___('admin_comics_edit_comic',      'FR', "Comic");
 // Delete a comic
 ___('admin_comics_delete_confirm', 'EN', "Confirm the permanent deletion of this comic");
 ___('admin_comics_delete_confirm', 'FR', "Confirmer la suppression définitive de ce comic");
+
+
+// Sharing tools
+___('admin_comics_share_link',        'EN', "Link to the comic");
+___('admin_comics_share_link',        'FR', "Lien du comic");
+___('admin_comics_share_private',     'EN', "This comic is private and shouldn't be shared!");
+___('admin_comics_share_private',     'FR', "Ce comic est privé et ne devrait pas être partagé!");
+___('admin_comics_share_title',       'EN', "Comic title");
+___('admin_comics_share_title',       'FR', "Title du comic");
+___('admin_comics_share_youtube',     'EN', "YouTube link");
+___('admin_comics_share_youtube',     'FR', "Lien YouTube");
+___('admin_comics_share_transcript',  'EN', "Comic transcript");
+___('admin_comics_share_transcript',  'FR', "Transcription du comic");
+___('admin_comics_share_markdown',    'EN', "Markdown transcript");
+___('admin_comics_share_markdown',    'FR', "Transcription Markdown");
 
 
 // Comic types: List

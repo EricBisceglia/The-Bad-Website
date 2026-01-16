@@ -50,6 +50,7 @@ function comics_get(  int   $comic_id                ,
 
   // Fetch the comics's data
   $comic_data = query(" SELECT  comics.is_public          AS 'c_public'   ,
+                                comics.slug               AS 'c_slug'     ,
                                 comics.fk_comic_types     AS 'c_type'     ,
                                 comics.upload_date        AS 'c_date'     ,
                                 comics.title_$lang        AS 'c_title'    ,
@@ -77,6 +78,7 @@ function comics_get(  int   $comic_id                ,
 
   // Sanitize the data for display
   $data['private']      = sanitize_output(!$comic_data['c_public']);
+  $data['slug']         = sanitize_output($comic_data['c_slug']);
   $data['type']         = sanitize_output($comic_data['c_type']);
   $data['date']         = sanitize_output($comic_data['c_date']);
   $data['date_full']    = date_to_text($comic_data['c_date'], strip_day: true);
@@ -154,10 +156,12 @@ function comics_get(  int   $comic_id                ,
   // Fetch images linked to the comic
   $comic_images = query($comic_query);
 
-  // Initialize some counters
-  $transcript_count = 0;
-  $old_count        = 0;
-  $full_count       = 0;
+  // Initialize some counters and variables
+  $transcript_count   = 0;
+  $old_count          = 0;
+  $full_count         = 0;
+  $full_transcript_en = '';
+  $full_transcript_fr = '';
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_images); $i++)
@@ -182,6 +186,19 @@ function comics_get(  int   $comic_id                ,
       $full_count++;
     if($row['i_trans'] && !$row['i_old'] && !$row['i_full'])
       $transcript_count++;
+
+    // Update the full transcripts
+    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'])
+    {
+      if($data['images']['lang'][$i] === 'EN')
+        $full_transcript_en = ($full_transcript_en)
+                            ? $full_transcript_en.PHP_EOL.PHP_EOL.$row['i_trans']
+                            : $row['i_trans'];
+      else
+        $full_transcript_fr = ($full_transcript_fr)
+                            ? $full_transcript_fr.PHP_EOL.PHP_EOL.$row['i_trans']
+                            : $row['i_trans'];
+    }
   }
 
   // Add the number of images to the returned data
@@ -189,6 +206,14 @@ function comics_get(  int   $comic_id                ,
   $data['images']['transcripts']  = $transcript_count;
   $data['images']['olds']         = $old_count;
   $data['images']['fulls']        = $full_count;
+
+  // Add the full transcripts to the returned data
+  $data['images']['transcript_text_en'] = sanitize_output($full_transcript_en,  preserve_line_breaks: true);
+  $data['images']['transcript_text_fr'] = sanitize_output($full_transcript_fr,  preserve_line_breaks: true);
+  $data['images']['transcript_md_en']   = sanitize_output($full_transcript_en,  preserve_line_breaks: true,
+                                                                                markdown_line_breaks: true);
+  $data['images']['transcript_md_fr']   = sanitize_output($full_transcript_fr,  preserve_line_breaks: true,
+                                                                                markdown_line_breaks: true);
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT    comic_tags.fk_tags  AS 'ct_id'    ,
