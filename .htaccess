@@ -21,6 +21,11 @@ RewriteRule ^comics/generator$ pages/comic_generator.php [QSA,NC]
 RewriteRule ^comics/list$ pages/comics.php [QSA,NC]
 RewriteRule ^comics/random$ pages/comics_random.php [QSA,NC]
 RewriteRule ^comics/tags$ pages/comics_tags.php [QSA,NC]
-RewriteRule ^memes/emojis$ pages/emojis.php [QSA,NC]
-RewriteRule ^memes/templates$ pages/templates.php [QSA,NC]
+RewriteRule ^stuff/emojis$ pages/emojis.php [QSA,NC]
+RewriteRule ^stuff/templates$ pages/templates.php [QSA,NC]
+RewriteRule ^stuff/list$ pages/stuff.php [QSA,NC]
 RewriteRule ^tag/(.*)$ pages/comics_tag.php?theme=$1 [QSA,NC]
+
+# Redirects deprecated pages
+RewriteRule ^memes/emojis/?$ https://thebad.website/stuff/emojis [R=301,L]
+RewriteRule ^memes/templates$ https://thebad.website/stuff/templates [R=301,L]

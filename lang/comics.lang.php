@@ -136,3 +136,16 @@ Ils sont tous listés deux fois : d'abord en grand, puis à la taille emoji.<b
 Cliquez sur un emoji pour l'ouvrir, ce qui le rendra plus facile à télécharger.
 EOT
 );
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      STUFF                                                        */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Stuff list
+___('stuff_list_header', 'EN', "More stuff? I thought this website was just comics!");
+___('stuff_list_header', 'FR', "D'autres trucs ? Je pensais que ce site ne contenait que des comics !");

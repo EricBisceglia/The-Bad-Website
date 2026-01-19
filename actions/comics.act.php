@@ -918,13 +918,21 @@ function comic_types_get( int     $comic_type_id    = 0,
 /**
  * Lists comic types.
  *
+ * @param   string  $is_major  Whether to only list major comic types.
+ * @param   string  $is_minor  Whether to only list minor comic types.
+ *
  * @return  array   An array containing the comic types.
  */
 
-function comic_types_list() : array
+function comic_types_list(  bool   $is_major  = false  ,
+                            bool   $is_minor  = false  ) : array
 {
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Filter by major or minor types if requested
+  $query_where = ($is_major)  ? " AND comic_types.is_major = 1 " : "";
+  $query_where .= ($is_minor) ? " AND comic_types.is_major = 0 " : "";
 
   // Fetch the comic types
   $comic_types = query("  SELECT    comic_types.id            AS 'ct_id'        ,
@@ -938,6 +946,8 @@ function comic_types_list() : array
                                     comic_types.banner_fr     AS 'ct_banner_fr' ,
                                     comic_types.is_major      AS 'ct_is_major'
                           FROM      comic_types
+                          WHERE     1 = 1
+                          $query_where
                           ORDER BY  comic_types.sorting_order ASC ");
 
   // Prepare the data for display

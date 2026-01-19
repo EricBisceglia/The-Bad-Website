@@ -8,7 +8,7 @@ include_once './../lang/comics.lang.php';   # Translations
 include_once './../actions/images.act.php'; # Image management
 
 // Page summary
-$page_url       = "memes/templates";
+$page_url       = "stuff/templates";
 $page_title_en  = "Templates";
 $page_title_fr  = "Modèles";
 

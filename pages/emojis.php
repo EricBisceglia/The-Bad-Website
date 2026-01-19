@@ -8,7 +8,7 @@ include_once './../lang/comics.lang.php';   # Translations
 include_once './../actions/images.act.php'; # Image management
 
 // Page summary
-$page_url       = "memes/emojis";
+$page_url       = "stuff/emojis";
 $page_title_en  = "Emojis";
 $page_title_fr  = "Emojis";
 

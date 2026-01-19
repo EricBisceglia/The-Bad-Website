@@ -205,6 +205,12 @@ $javascripts .= '
             </div>
           </a>
 
+          <a href="<?=$path?>stuff/list">
+            <div class="header_topmenu_title" id="header_menu_title_stuff">
+              <?=__('menu_top_stuff')?>
+            </div>
+          </a>
+
           <a href="<?=$path?>about/faq">
             <div class="header_topmenu_title" id="header_menu_title_about">
               <?=__('menu_top_about')?>
