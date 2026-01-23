@@ -56,7 +56,11 @@ page_enforce_url($page_url);
 <div class="width_50 align_center">
 
   <div class="smallpadding_bot">
+    <?php if($comic_type_data['major']): ?>
     <a href="<?=$path?>comics/list">
+    <?php else: ?>
+    <a href="<?=$path?>stuff/list">
+    <?php endif; ?>
       <img src="<?=$path.$comic_type_data['banner']?>" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_next')?>">
     </a>
   </div>

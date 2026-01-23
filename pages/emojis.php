@@ -40,7 +40,7 @@ if(!page_is_fetched_dynamically()): /*******************************************
 
 <div class="width_50">
 
-  <a href="<?=$path?>comics/list">
+  <a href="<?=$path?>stuff/list">
     <img src="<?=$path?>img/banners/comics/category_emojis_<?=$lang_lower?>.png" alt="<?=__('comics_list_emojis')?>" title="<?=__('comics_list_emojis')?>">
   </a>
 

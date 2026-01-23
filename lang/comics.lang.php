@@ -64,6 +64,8 @@ ___('comics_list_templates',  'EN', "Templates");
 ___('comics_list_templates',  'FR', "Modèles");
 ___('comics_list_emojis',     'EN', "Emojis");
 ___('comics_list_emojis',     'FR', "Emojis");
+___('comics_list_merch',      'EN', "Merch");
+___('comics_list_merch',      'FR', "Goodies");
 
 
 // Full comics list
@@ -149,3 +151,34 @@ EOT
 // Stuff list
 ___('stuff_list_header', 'EN', "More stuff? I thought this website was just comics!");
 ___('stuff_list_header', 'FR', "D'autres trucs ? Je pensais que ce site ne contenait que des comics !");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      MERCH                                                        */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Merch gallery
+___('comics_merch_desc', 'EN', <<<EOT
+The Bad Website's merch is currently not for sale.<br>
+<br>
+It's exclusive products only for Bad, friends, and family :)<br>
+<br>
+Who knows what the future holds though…<br>
+<br>
+The streets whisper a rumor that people who know me personally might get access to free merch every now and then. If you know me, maybe you should ask me about it.
+EOT
+);
+___('comics_merch_desc', 'FR', <<<EOT
+Les goodies du Mauvais Site ne sont pas disponibles à la vente<br>
+<br>
+Ils sont des produits exclusifs uniquement pour Bad, les amis, et la famille :)<br>
+<br>
+Mais qui sait de quoi le futur est fait...<br>
+<br>
+Les rues chuchottent une rumeur selon laquelle les gens qui me connaissent personnellement auraient accès à des goodies gratuits de temps en temps. Si vous me connaissez, peut-être devriez-vous me poser des questions à ce sujet.
+EOT
+);

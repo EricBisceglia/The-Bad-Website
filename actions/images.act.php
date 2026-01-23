@@ -16,6 +16,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  images_format_file_name       Formats an image's file name                                                       */
 /*                                                                                                                   */
+/*  merch_get_images              Fetches all images in the merch folder                                             */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -496,4 +498,35 @@ function images_format_file_name( ?string $name ) : string
 
   // Return the formatted name
   return $name;
+}
+
+
+
+
+/**
+ * Fetches all images in the merch folder.
+ *
+ * @param   string  $get_templates  Fetch images from the templates folder instead of the photos folder.
+ *
+ * @return  array   An array containing the images.
+ */
+
+function merch_get_images( bool $get_templates = false ) : array
+{
+  // Determine which folder to get the images from
+  $folder  = root_path().'img/merch/';
+  $folder .= ($get_templates) ? 'templates' : 'photos';
+
+  // Grab all images in the folder
+  $images = glob($folder.'/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+
+  // Only use the image names
+  for($i = 0; $i < count($images); $i++)
+    $images[$i] = basename($images[$i]);
+
+  // Sort the image names alphabetically
+  sort($images);
+
+  // Return the images
+  return $images;
 }

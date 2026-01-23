@@ -12,6 +12,12 @@ img/comics/*
 img/generator/*
 !img/generator/index.php
 
+# Don't commit merch images
+img/merch/photos/*
+!img/merch/photos/index.php
+img/merch/templates/*
+!img/merch/templates/index.php
+
 # Don't commit user searches
 admin/user_searches.txt
 
