@@ -47,6 +47,7 @@ function images_get( int $image_id ) : array|null
                                 images.is_old_version   AS 'i_old'     ,
                                 images.is_full_version  AS 'i_full'    ,
                                 images.is_a_preview     AS 'i_preview'  ,
+                                images.is_bonus_panel   AS 'i_bonus'    ,
                                 images.is_nsfw          AS 'i_nsfw'     ,
                                 images.language         AS 'i_lang'     ,
                                 images.transcript       AS 'i_trans'
@@ -64,6 +65,7 @@ function images_get( int $image_id ) : array|null
   $data['template'] = sanitize_output($image_data['i_template']);
   $data['emoji']    = sanitize_output($image_data['i_emoji']);
   $data['preview']  = sanitize_output($image_data['i_preview']);
+  $data['bonus']    = sanitize_output($image_data['i_bonus']);
   $data['full']     = sanitize_output($image_data['i_full']);
   $data['old']      = sanitize_output($image_data['i_old']);
   $data['trans']    = sanitize_output($image_data['i_trans']);
@@ -125,6 +127,8 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_type === 5) ?
                                     " AND images.is_old_version = 1                   " : "";
   $query_search .= ($search_type === 6) ?
+                                    " AND images.is_bonus_panel = 1                   " : "";
+  $query_search .= ($search_type === 7) ?
                                     " AND images.is_full_version = 1                  " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
   $query_search .= ($search_template) ?
@@ -141,6 +145,7 @@ function images_list( $sort_by = 'date'   ,
                                 images.is_a_preview     DESC  ,
                                 images.is_full_version  DESC  ,
                                 images.is_old_version   DESC  ,
+                                images.is_bonus_panel   DESC  ,
                                 images.upload_date      DESC  ,
                                 images.name             ASC   ",
     'lang'    => "  ORDER BY    images.language         ASC   ,
@@ -167,6 +172,7 @@ function images_list( $sort_by = 'date'   ,
                                 images.is_old_version   AS 'i_old'      ,
                                 images.is_full_version  AS 'i_full'     ,
                                 images.is_a_template    AS 'i_template' ,
+                                images.is_bonus_panel   AS 'i_bonus'    ,
                                 images.is_an_emoji      AS 'i_emoji'    ,
                                 images.is_nsfw          AS 'i_nsfw'     ,
                                 images.language         AS 'i_lang'     ,
@@ -195,6 +201,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['full']       = ($row['i_full']);
     $data[$i]['old']        = ($row['i_old']);
     $data[$i]['template']   = ($row['i_template']);
+    $data[$i]['bonus']      = ($row['i_bonus']);
     $data[$i]['emoji']      = ($row['i_emoji']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
   }
@@ -261,6 +268,7 @@ function images_add(  array $image_file ,
   $image_template = sanitize($image_data['template'], 'int');
   $image_emoji    = sanitize($image_data['emoji'], 'int');
   $image_preview  = sanitize($image_data['preview'], 'int');
+  $image_bonus    = sanitize($image_data['bonus'], 'int');
   $image_full     = sanitize($image_data['full'], 'int');
   $image_old      = sanitize($image_data['old'], 'int');
 
@@ -270,6 +278,7 @@ function images_add(  array $image_file ,
     $image_preview  = 0;
     $image_full     = 0;
     $image_old      = 0;
+    $image_bonus    = 0;
   }
 
   // A template can't be anything else
@@ -279,13 +288,15 @@ function images_add(  array $image_file ,
     $image_full     = 0;
     $image_old      = 0;
     $image_emoji    = 0;
+    $image_bonus    = 0;
   }
 
-  // A preview can't be assembled or old
+  // A preview can't be an extra panel, assembled, or an old version
   else if($image_preview)
   {
     $image_full     = 0;
     $image_old      = 0;
+    $image_bonus    = 0;
   }
 
   // An emoji can't be part of a comic
@@ -306,6 +317,7 @@ function images_add(  array $image_file ,
                         images.image_order      = '$image_order'    ,
                         images.language         = '$image_lang'     ,
                         images.is_a_template    = '$image_template' ,
+                        images.is_bonus_panel   = '$image_bonus'    ,
                         images.is_an_emoji      = '$image_emoji'    ,
                         images.is_old_version   = '$image_old'      ,
                         images.is_full_version  = '$image_full'     ,
@@ -391,6 +403,7 @@ function images_edit( int   $image_id ,
   $image_template = sanitize($data['template'], 'int');
   $image_emoji    = sanitize($data['emoji'], 'int');
   $image_preview  = sanitize($data['preview'], 'int');
+  $image_bonus    = sanitize($data['bonus'], 'int');
   $image_full     = sanitize($data['full'], 'int');
   $image_old      = sanitize($data['old'], 'int');
   $image_nsfw     = sanitize($data['nsfw'], 'int');
@@ -402,6 +415,7 @@ function images_edit( int   $image_id ,
     $image_preview  = 0;
     $image_full     = 0;
     $image_old      = 0;
+    $image_bonus    = 0;
   }
 
   // A template can't be anything else
@@ -411,13 +425,15 @@ function images_edit( int   $image_id ,
     $image_full     = 0;
     $image_old      = 0;
     $image_emoji    = 0;
+    $image_bonus    = 0;
   }
 
-  // A preview can't be assembled or old
+  // A preview can't be an extra panel, assembled, or an old version
   else if($image_preview)
   {
     $image_full     = 0;
     $image_old      = 0;
+    $image_bonus    = 0;
   }
 
   // An emoji can't be part of a comic
@@ -440,6 +456,7 @@ function images_edit( int   $image_id ,
                   images.is_old_version   = '$image_old'      ,
                   images.is_full_version  = '$image_full'     ,
                   images.is_a_preview     = '$image_preview'  ,
+                  images.is_bonus_panel   = '$image_bonus'    ,
                   images.is_nsfw          = '$image_nsfw'     ,
                   images.transcript       = '$image_trans'
           WHERE   images.id               = '$image_id'       ");

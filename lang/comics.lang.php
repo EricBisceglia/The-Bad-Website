@@ -25,6 +25,8 @@ ___('comics_full_button',   'EN', "Fully assembled comic");
 ___('comics_full_button',   'FR', "Version assemblée du comic");
 ___('comics_old_button',    'EN', "Older version");
 ___('comics_old_button',    'FR', "Ancienne version");
+___('comics_bonus_button',  'EN', "Bonus panel, click me!");
+___('comics_bonus_button',  'FR', "Contenu additionnel, cliquez-moi !");
 ___('comics_transcript',    'EN', "Image transcriptions");
 ___('comics_transcript',    'FR', "Transcription des images");
 

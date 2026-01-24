@@ -80,6 +80,9 @@ $image_emoji_checked = ($admin_image_data['emoji']) ? ' checked' : '';
 // Preview
 $image_preview_checked = ($admin_image_data['preview']) ? ' checked' : '';
 
+// Extra panel
+$image_bonus_checked = ($admin_image_data['bonus']) ? ' checked' : '';
+
 // Full
 $image_full_checked = ($admin_image_data['full']) ? ' checked' : '';
 
@@ -146,6 +149,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div class="tinypadding_top">
         <input type="checkbox" class="align_left" name="image_preview"<?=$image_preview_checked?>>
         <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
+      </div>
+
+      <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_bonus"<?=$image_bonus_checked?>>
+        <label for="image_bonus" class="label_inline"><?=__('admin_images_add_bonus')?></label>
       </div>
 
       <div>

@@ -765,3 +765,16 @@ if($last_query < 11)
 
   sql_update_query_id(11);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Bonus panels
+
+if($last_query < 12)
+{
+  sql_create_field('images', 'is_bonus_panel', 'TINYINT(1) NOT NULL', 'is_a_preview');
+
+  sql_update_query_id(12);
+}

@@ -123,12 +123,13 @@ function comics_get(  int   $comic_id                ,
                                                             images.language         ASC   ";
 
   // Prepare the query to fetch images linked to the comic
-  $query_body  = " SELECT    images.id               AS 'i_id'       ,
+  $query_body  = " SELECT     images.id               AS 'i_id'       ,
                               images.name             AS 'i_name'     ,
                               images.language         AS 'i_lang'     ,
                               images.transcript       AS 'i_trans'    ,
                               images.is_nsfw          AS 'i_nsfw'     ,
                               images.is_a_preview     AS 'i_preview'  ,
+                              images.is_bonus_panel   AS 'i_bonus'    ,
                               images.is_old_version   AS 'i_old'      ,
                               images.is_full_version  AS 'i_full'
                     FROM      images
@@ -158,6 +159,7 @@ function comics_get(  int   $comic_id                ,
 
   // Initialize some counters and variables
   $transcript_count   = 0;
+  $bonus_count        = 0;
   $old_count          = 0;
   $full_count         = 0;
   $full_transcript_en = '';
@@ -176,6 +178,7 @@ function comics_get(  int   $comic_id                ,
                                     : __('admin_comics_edit_comic');
     $data['images']['old'][$i]      = $row['i_old'];
     $data['images']['full'][$i]     = $row['i_full'];
+    $data['images']['bonus'][$i]    = $row['i_bonus'];
     $data['images']['blur'][$i]     = ($row['i_nsfw']) ? ' blurred_container' : '';
     $data['images']['unblur'][$i]   = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
 
@@ -184,7 +187,9 @@ function comics_get(  int   $comic_id                ,
       $old_count++;
     if($row['i_full'] && !$row['i_old'])
       $full_count++;
-    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'])
+    if($row['i_bonus'] && !$row['i_old'] && !$row['i_full'])
+      $bonus_count++;
+    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
       $transcript_count++;
 
     // Update the full transcripts
@@ -204,6 +209,7 @@ function comics_get(  int   $comic_id                ,
   // Add the number of images to the returned data
   $data['images']['rows']         = $i;
   $data['images']['transcripts']  = $transcript_count;
+  $data['images']['bonuses']      = $bonus_count;
   $data['images']['olds']         = $old_count;
   $data['images']['fulls']        = $full_count;
 

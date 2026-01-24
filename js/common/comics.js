@@ -2,6 +2,7 @@
 /*                                                                                                                   */
 /*  show_comic_full            Shows a comic's full version.                                                         */
 /*  show_comic_old             Shows a comic's old version.                                                          */
+/*  show_comic_bonus           Shows a comic's bonus extra content.                                                  */
 /*  show_comic_transcripts     Shows a comic's transcripts.                                                          */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -37,6 +38,24 @@ function show_comic_old()
 
   // Hide the old version button
   toggle_element_oneway('image_old_button', 0);
+}
+
+
+
+
+/**
+ * Shows a comic's extra panels.
+ *
+ * @returns {void}
+ */
+
+function show_comic_bonus()
+{
+  // Show the extra panels
+  toggle_element_oneway('image_bonus_versions', 1);
+
+  // Hide the extra panels button
+  toggle_element_oneway('image_bonus_button', 0);
 }
 
 

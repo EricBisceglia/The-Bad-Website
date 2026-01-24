@@ -114,7 +114,7 @@ $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-  <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i]): ?>
+  <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i] && !$comic_data['images']['bonus'][$i]): ?>
   <div class="padding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
       <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
@@ -123,13 +123,13 @@ $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   <?php endif; ?>
   <?php endfor; ?>
 
-  <?php if($comic_data['images']['olds']): ?>
+  <?php if($comic_data['images']['bonuses']): ?>
   <div class="padding_bot align_center">
-    <button class="button" id="image_old_button" onclick="show_comic_old();"><?=__('comics_old_button')?></button>
+    <button class="button" id="image_bonus_button" onclick="show_comic_bonus();"><?=__('comics_bonus_button')?></button>
   </div>
-  <div class="hidden" id="image_old_versions">
+  <div class="hidden" id="image_bonus_versions">
     <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-    <?php if($comic_data['images']['old'][$i]): ?>
+    <?php if($comic_data['images']['bonus'][$i]): ?>
     <div class="padding_bot tinypadding_top">
       <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
         <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
@@ -147,6 +147,23 @@ $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   <div class="hidden" id="image_full_versions">
     <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
     <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['old'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['olds']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_old_button" onclick="show_comic_old();"><?=__('comics_old_button')?></button>
+  </div>
+  <div class="hidden" id="image_old_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['old'][$i]): ?>
     <div class="padding_bot tinypadding_top">
       <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
         <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>

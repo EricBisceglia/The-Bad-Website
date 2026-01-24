@@ -46,6 +46,7 @@ if(isset($_POST['image_add']))
                             'template'  => form_fetch_element('image_template', element_exists: true) ,
                             'emoji'     => form_fetch_element('image_emoji', element_exists: true)    ,
                             'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
+                            'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
                             'full'      => form_fetch_element('image_full', element_exists: true)     ,
                             'old'       => form_fetch_element('image_old', element_exists: true)      );
 
@@ -134,6 +135,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div class="tinypadding_top">
         <input type="checkbox" class="align_left" name="image_preview">
         <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
+      </div>
+
+      <div class="smallpadding_top">
+        <input type="checkbox" class="align_left" name="image_bonus">
+        <label for="image_bonus" class="label_inline"><?=__('admin_images_add_bonus')?></label>
       </div>
 
       <div>
