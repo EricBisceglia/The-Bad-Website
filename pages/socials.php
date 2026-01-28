@@ -40,8 +40,8 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   </div>
 
   <div>
-    <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
-      <img src="<?=$path?>img/banners/social/bluesky_<?=$lang_lower?>.png" alt="Bluesky" title="Bluesky">
+    <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
+      <img src="<?=$path?>img/banners/social/discord_<?=$lang_lower?>.png" alt="Discord" title="Discord">
     </a>
   </div>
 
@@ -52,8 +52,8 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   </div>
 
   <div>
-    <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
-      <img src="<?=$path?>img/banners/social/discord_<?=$lang_lower?>.png" alt="Discord" title="Discord">
+    <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
+      <img src="<?=$path?>img/banners/social/bluesky_<?=$lang_lower?>.png" alt="Bluesky" title="Bluesky">
     </a>
   </div>
 
@@ -82,14 +82,14 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   </div>
 
   <div>
-    <a href="https://nobleme.com/pages/social/irc" target="_blank">
-      <img src="<?=$path?>img/banners/social/irc_<?=$lang_lower?>.png" alt="IRC" title="IRC">
+    <a href="<?=$GLOBALS['website_url']?>rss" target="_blank">
+      <img src="<?=$path?>img/banners/social/rss_<?=$lang_lower?>.png" alt="RSS" title="RSS">
     </a>
   </div>
 
   <div>
-    <a href="<?=$GLOBALS['website_url']?>rss" target="_blank">
-      <img src="<?=$path?>img/banners/social/rss_<?=$lang_lower?>.png" alt="RSS" title="RSS">
+    <a href="https://nobleme.com/pages/social/irc" target="_blank">
+      <img src="<?=$path?>img/banners/social/irc_<?=$lang_lower?>.png" alt="IRC" title="IRC">
     </a>
   </div>
 

@@ -61,6 +61,8 @@ comics_increment_view_count($comic_id);
 // Prepare socials links in the correct language
 $bluesky_link   = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
 $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$reddit_link    = ($lang == 'EN') ? 'thebadwebsite' : 'lemauvaissite';
+$lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/lemauvaissite';
 
 
 
@@ -227,17 +229,35 @@ $instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
   <div class="flexcontainer">
     <div class="flex smallspaced_right">
       <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
-        <img src="<?=$path?>img/banners/comics/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_bluesky')?>">
+        <img src="<?=$path?>img/banners/comics/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_bluesky')?>" title="<?=__('comics_socials_bluesky')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>about/socials">
-        <img src="<?=$path?>img/banners/comics/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_follow')?>">
+        <img src="<?=$path?>img/banners/comics/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_follow')?>" title="<?=__('comics_socials_follow')?>">
       </a>
     </div>
     <div class="flex">
       <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
-        <img src="<?=$path?>img/banners/comics/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_socials_instagram')?>">
+        <img src="<?=$path?>img/banners/comics/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_instagram')?>" title="<?=__('comics_socials_instagram')?>">
+      </a>
+    </div>
+  </div>
+
+  <div class="flexcontainer">
+    <div class="flex smallspaced_right">
+      <a href="https://reddit.com/r/<?=$reddit_link?>" target="_blank">
+        <img src="<?=$path?>img/banners/comics/reddit_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_reddit')?>" title="<?=__('comics_socials_reddit')?>">
+      </a>
+    </div>
+    <div class="flex smallspaced_right">
+      <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
+        <img src="<?=$path?>img/banners/comics/discord_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_discord')?>" title="<?=__('comics_socials_discord')?>">
+      </a>
+    </div>
+    <div class="flex">
+      <a href="https://<?=$lemmy_link?>" target="_blank">
+        <img src="<?=$path?>img/banners/comics/lemmy_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_lemmy')?>" title="<?=__('comics_socials_lemmy')?>">
       </a>
     </div>
   </div>
