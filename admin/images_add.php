@@ -44,8 +44,11 @@ if(isset($_POST['image_add']))
                             'order'     => form_fetch_element('image_order')                          ,
                             'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     ,
                             'template'  => form_fetch_element('image_template', element_exists: true) ,
-                            'reusable'  => form_fetch_element('image_reusable', element_exists: true) ,
-                            'preview'   => form_fetch_element('image_preview', element_exists: true)  );
+                            'emoji'     => form_fetch_element('image_emoji', element_exists: true)    ,
+                            'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
+                            'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
+                            'full'      => form_fetch_element('image_full', element_exists: true)     ,
+                            'old'       => form_fetch_element('image_old', element_exists: true)      );
 
   // Add the image to the database
   $images_add = images_add( $image_add_file ,
@@ -134,17 +137,32 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
       </div>
 
-      <div>
-        <input type="checkbox" class="align_left" name="image_reusable">
-        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
+      <div class="smallpadding_top">
+        <input type="checkbox" class="align_left" name="image_bonus">
+        <label for="image_bonus" class="label_inline"><?=__('admin_images_add_bonus')?></label>
       </div>
 
       <div>
+        <input type="checkbox" class="align_left" name="image_full">
+        <label for="image_full" class="label_inline"><?=__('admin_images_add_full')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_old">
+        <label for="image_old" class="label_inline"><?=__('admin_images_add_old')?></label>
+      </div>
+
+      <div class="smallpadding_top">
         <input type="checkbox" class="align_left" name="image_template">
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>
 
-      <div class="smallpadding_bot">
+      <div>
+        <input type="checkbox" class="align_left" name="image_emoji">
+        <label for="image_emoji" class="label_inline"><?=__('admin_images_add_emoji')?></label>
+      </div>
+
+      <div class="smallpadding_top smallpadding_bot">
         <input type="checkbox" class="align_left" name="image_nsfw">
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>

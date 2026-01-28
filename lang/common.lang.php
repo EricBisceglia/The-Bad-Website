@@ -251,7 +251,7 @@ function __icon(  string  $icon                                   ,
 
   // Prepare the image path
   $icon = ($is_small) ? $icon.'_small' : $icon;
-  $src  = 'src="'.$path.'img/icons/'.$icon.'.svg"';
+  $src  = 'src="'.$path.'img/website/icons/'.$icon.'.svg"';
 
   // Prepare the alt text and title
   $alt = 'alt="'.$alt.'"';
@@ -798,17 +798,6 @@ ___('bbcodes_spoiler_show', 'EN', "SHOW SPOILER CONTENTS");
 ___('bbcodes_spoiler_show', 'FR', "VOIR LE CONTENU CACHÉ");
 
 
-// NBCodes
-___('nbcodes_menu_contents',      'EN', "Page contents:");
-___('nbcodes_menu_contents',      'FR', "Contenu de la page :");
-___('nbcodes_video_hidden',       'EN', "This video is hidden ({{link|pages/account/settings_privacy|privacy options}})");
-___('nbcodes_video_hidden',       'FR', "Cette vidéo est masquée ({{link|pages/account/settings_privacy|options de vie privée}}");
-___('nbcodes_video_hidden_small', 'EN', "Video hidden ({{link|pages/account/settings_privacy|privacy options}})");
-___('nbcodes_video_hidden_small', 'FR', "Vidéo masquée ({{link|pages/account/settings_privacy|options de vie privée}})");
-___('nbcodes_trends_hidden',      'EN', "This Google trends graph is hidden ({{link|pages/account/settings_privacy|privacy options}})");
-___('nbcodes_trends_hidden',      'FR', "Ce graphe Google trends est masqué ({{link|pages/account/settings_privacy|options de vie privée}})");
-
-
 
 
 /*********************************************************************************************************************/
@@ -926,10 +915,10 @@ ___('menu_top_home',    'EN', "HOME");
 ___('menu_top_home',    'FR', "INDEX");
 ___('menu_top_comics',  'EN', "COMICS");
 ___('menu_top_comics',  'FR', "COMICS");
-___('menu_top_videos',  'EN', "VIDEOS");
-___('menu_top_videos',  'FR', "VIDEOS");
-___('menu_top_socials', 'EN', "SOCIALS");
-___('menu_top_socials', 'FR', "SOCIAL");
+___('menu_top_stuff',   'EN', "STUFF");
+___('menu_top_stuff',   'FR', "TRUCS");
+___('menu_top_social',  'EN', "SOCIALS");
+___('menu_top_social',  'FR', "SOCIAL");
 ___('menu_top_about',   'EN', "FAQ");
 ___('menu_top_about',   'FR', "FAQ");
 

@@ -708,3 +708,73 @@ if($last_query < 7)
 
   sql_update_query_id(7);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Alt image versions
+
+if($last_query < 8)
+{
+  sql_create_field('images', 'is_old_version', 'TINYINT(1) NOT NULL', 'is_a_preview');
+  sql_create_field('images', 'is_full_version', 'TINYINT(1) NOT NULL', 'is_old_version');
+
+  sql_create_index('images', 'images_is_old_version', 'is_old_version');
+  sql_create_index('images', 'images_is_full_version', 'is_full_version');
+
+  sql_update_query_id(8);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// YouTube links
+
+if($last_query < 9)
+{
+  sql_create_field('comics', 'youtube_id_en', 'TINYTEXT NOT NULL', 'description_fr');
+  sql_create_field('comics', 'youtube_id_fr', 'TINYTEXT NOT NULL', 'youtube_id_en');
+
+  sql_update_query_id(9);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Get rid of reusable images
+
+if($last_query < 10)
+{
+  sql_delete_field('images', 'is_reusable');
+
+  sql_update_query_id(10);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Emoji images
+
+if($last_query < 11)
+{
+  sql_create_field('images', 'is_an_emoji', 'TINYINT(1) NOT NULL', 'is_a_template');
+
+  sql_update_query_id(11);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Bonus panels
+
+if($last_query < 12)
+{
+  sql_create_field('images', 'is_bonus_panel', 'TINYINT(1) NOT NULL', 'is_a_preview');
+
+  sql_update_query_id(12);
+}

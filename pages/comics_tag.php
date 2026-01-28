@@ -6,7 +6,7 @@
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
 include_once './../actions/tags.act.php';   # Tag management
-include_once './../lang/comics.lang.php';   # Admin translations
+include_once './../lang/comics.lang.php';   # Translations
 
 
 
@@ -28,7 +28,7 @@ $comic_tag_data = tags_get( tag_slug: $comic_tag);
 
 // Stop here if the comic type does not exist
 if(!$comic_tag_data)
-  exit(header("Location: ./comics_tags"));
+  exit(header("Location: ./../comics/tags"));
 
 // Get the tag's ID
 $comic_tag_id = $comic_tag_data['id'];
@@ -38,9 +38,12 @@ $comics_list = comics_list( search:     array('tag_id' => $comic_tag_id)  ,
                             is_public:  true                              );
 
 // Update the page sumary
-$page_url       = "pages/comic_tag?theme=".$comic_tag;
+$page_url       = "tag/".$comic_tag;
 $page_title_en  = $comic_tag_data['page_en'];
 $page_title_fr  = $comic_tag_data['page_fr'];
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 
@@ -54,7 +57,7 @@ $page_title_fr  = $comic_tag_data['page_fr'];
 <div class="width_50 align_center">
 
   <div class="smallpadding_bot">
-    <a href="<?=$path?>pages/comics_tags">
+    <a href="<?=$path?>comics/tags">
       <img src="<?=$path.$comic_tag_data['banner']?>" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_nav_next')?>">
     </a>
   </div>
@@ -65,14 +68,28 @@ $page_title_fr  = $comic_tag_data['page_fr'];
   </div>
   <?php endif; ?>
 
+  <div class="smallpadding_bot">
+    <img src="<?=$path?>img/website/pages/latest_comics_<?=$lang_lower?>.png" alt="<?=__('comics_list_latest')?>" title="<?=__('comics_list_latest')?>">
+  </div>
+
   <div class="align_center">
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <div class="smallpadding_bot<?=$comics_list[$i]['blur']?>">
+      <div class="desktop smallpadding_bot indiv uppercase bold comic_preview_title">
+        <a class="text_light" href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+          <?=$comics_list[$i]['title']?>
+        </a>
+      </div>
+      <div class="mobile smallpadding_bot indiv uppercase bold comic_preview_title">
+        <a class="text_light" href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
+          <?=$comics_list[$i]['mtitle']?>
+        </a>
+      </div>
       <a href="<?=$path?>comic/<?=$comics_list[$i]['slug']?>">
         <?php if($comics_list[$i]['preview']) : ?>
         <img src="<?=$path?>img/comics/<?=$comics_list[$i]['preview']?>" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy"<?=$comics_list[$i]['unblur']?>>
         <?php else: ?>
-        <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
+        <img src="<?=$path?>img/website/templates/preview_<?=$lang_lower?>.png" alt="<?=$comics_list[$i]['alt']?>" title="<?=$comics_list[$i]['title']?>" loading="lazy">
         <?php endif; ?>
       </a>
     </div>

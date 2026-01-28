@@ -86,9 +86,6 @@ if(strlen($page_description) <= 25 && isset($page_is_a_comic))
 // Pick a random smuggie
 $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 
-// Pick the correct Bluesky image
-$header_bluesky = (isset($this_page_is_a_404)) ? 'bluesky_404' : 'bluesky';
-
 
 
 
@@ -96,7 +93,7 @@ $header_bluesky = (isset($this_page_is_a_404)) ? 'bluesky_404' : 'bluesky';
 // Page image
 
 // If there is no image, use a header smuggie
-$page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header_smuggie_3.png';
+$page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header/header_smuggie_3.png';
 
 
 
@@ -159,13 +156,16 @@ $javascripts .= '
 <html lang="<?=string_change_case($lang,'lowercase')?>">
   <head>
     <title><?=$page_title?></title>
-    <link rel="shortcut icon" href="<?=$path?>favicon.ico">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="canonical" href="<?='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" href="<?=$path?>favicon.ico">
+    <link rel="icon" href="<?=$path?>favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="<?=$page_description?>">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="<?=$page_title?>">
     <meta property="og:description" content="<?=$page_description?>">
-    <meta property="og:url" content="<?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
+    <meta property="og:url" content="<?='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta property="og:site_name" content="The Bad Website">
     <meta property="og:image" content="<?=$page_image?>">
     <meta property="og:locale" content="en_US">
@@ -195,25 +195,31 @@ $javascripts .= '
 
           <a href="<?=$path?>index">
             <div class="header_topmenu_title header_topmenu_smug" id="header_menu_title_home">
-              <img src="<?=$path?>img/website/header_smuggie_<?=$header_smuggie?>.png" alt="Home" title="<?=__('menu_top_home')?>" class="header_topmenu_smuggie">
+              <img src="<?=$path?>img/website/header/header_smuggie_<?=$header_smuggie?>.png" alt="Home" title="<?=__('menu_top_home')?>" class="header_topmenu_smuggie">
             </div>
           </a>
 
-          <a href="<?=$path?>pages/comics">
+          <a href="<?=$path?>comics/list">
             <div class="header_topmenu_title" id="header_menu_title_comics">
               <?=__('menu_top_comics')?>
             </div>
           </a>
 
-          <a href="<?=$path?>pages/videos">
-            <div class="header_topmenu_title" id="header_menu_title_videos">
-              <?=__('menu_top_videos')?>
+          <a href="<?=$path?>stuff/list">
+            <div class="header_topmenu_title" id="header_menu_title_stuff">
+              <?=__('menu_top_stuff')?>
             </div>
           </a>
 
-          <a href="<?=$path?>pages/faq">
+          <a href="<?=$path?>about/faq">
             <div class="header_topmenu_title" id="header_menu_title_about">
               <?=__('menu_top_about')?>
+            </div>
+          </a>
+
+          <a href="<?=$path?>about/socials">
+            <div class="header_topmenu_title" id="header_menu_title_social">
+              <?=__('menu_top_social')?>
             </div>
           </a>
 
@@ -221,16 +227,12 @@ $javascripts .= '
 
         <div class="header_topmenu_zone">
 
-          <a href="https://bsky.app/profile/thebad.website" target="_blank">
-            <img class="header_topmenu_icon header_topmenu_bluesky" src="<?=$path?>img/icons/<?=$header_bluesky?>.png" alt="Bluesky" title="Bluesky">
-          </a>
-
           <form id="language" method="post">
             <input type="hidden" name="change_language" value="change_language">
             <?php if($lang === 'FR') { ?>
-            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_en.png" alt="EN" title="<?=string_change_case(__('english'), 'initials')?>" onclick="user_change_language();">
+            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/website/icons/lang_en.png" alt="EN" title="<?=string_change_case(__('english'), 'initials')?>" onclick="user_change_language();">
             <?php } else { ?>
-            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
+            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/website/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
             <?php } ?>
           </form>
 

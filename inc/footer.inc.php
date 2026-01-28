@@ -29,9 +29,9 @@ $copyright_date = date('Y');
 
       <footer>
 
-        <?=__link("pages/legal", __('footer_legal'), "text_light text_white_hover", true, $path);?><br>
+        <?=__link("about/legal", __('footer_legal'), "text_light text_white_hover", true, $path);?><br>
 
-        <?=__link("pages/intellectual_property", __('footer_copyright', preset_values: array($copyright_date)), "text_light text_white_hover", true, $path);?><br>
+        <?=__link("about/copyright", __('footer_copyright', preset_values: array($copyright_date)), "text_light text_white_hover", true, $path);?><br>
 
       </footer>
 

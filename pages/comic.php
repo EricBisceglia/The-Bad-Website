@@ -5,7 +5,7 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
-include_once './../lang/comics.lang.php';   # Admin translations
+include_once './../lang/comics.lang.php';   # Translations
 
 // Extra JS
 $js = array('common/comics');
@@ -58,6 +58,12 @@ $page_image       = $comic_data['preview_url'];
 // Increment the comic's view count
 comics_increment_view_count($comic_id);
 
+// Prepare socials links in the correct language
+$bluesky_link   = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$instagram_link = ($lang == 'EN') ? 'thebad.website' : 'lemauvais.site';
+$reddit_link    = ($lang == 'EN') ? 'thebadwebsite' : 'lemauvaissite';
+$lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/lemauvaissite';
+
 
 
 
@@ -68,25 +74,30 @@ comics_increment_view_count($comic_id);
 /*******************************************************************************/ include './../inc/header.inc.php'; ?>
 
 <div class="width_50 padding_bot">
+
+  <a href="<?=$path?>category/<?=$comic_data['type_slug']?>">
+    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
+  </a>
+
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
-        <img src="<?=$path?>img/banners/comics/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+        <img src="<?=$path?>img/website/buttons/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
       </a>
       <?php else: ?>
       &nbsp;
       <?php endif; ?>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
+        <img src="<?=$path?>img/website/buttons/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <?php if($comic_data['next']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['next']?>">
-        <img src="<?=$path?>img/banners/comics/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+        <img src="<?=$path?>img/website/buttons/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
       </a>
       <?php else: ?>
       &nbsp;
@@ -95,26 +106,90 @@ comics_increment_view_count($comic_id);
   </div>
 </div>
 
-<div class="align_center">
+<div class="align_center width_80">
 
   <h1 class="tinypadding_bot">
-    <?=__link('pages/comics', $comic_data['title'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/list', $comic_data['title'], path: root_path(), style: 'text_light')?>
   </h1>
   <h5 class="bigpadding_bot">
-    <?=__link('pages/comics_list', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/all', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+  <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i] && !$comic_data['images']['bonus'][$i]): ?>
   <div class="padding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
       <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
   </div>
+  <?php endif; ?>
   <?php endfor; ?>
+
+  <?php if($comic_data['images']['bonuses']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_bonus_button" onclick="show_comic_bonus();"><?=__('comics_bonus_button')?></button>
+  </div>
+  <div class="hidden" id="image_bonus_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['bonus'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['fulls']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_full_button" onclick="show_comic_full();"><?=__('comics_full_button')?></button>
+  </div>
+  <div class="hidden" id="image_full_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['old'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['olds']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_old_button" onclick="show_comic_old();"><?=__('comics_old_button')?></button>
+  </div>
+  <div class="hidden" id="image_old_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['old'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
 
 </div>
 
 <div class="width_50 padding_top">
+
+  <?php if($comic_data['youtube_'.$lang_lower]): ?>
+  <div class="bigpadding_bot">
+    <h5 class="smallpadding_bot">
+      <?=__('comics_youtube')?>
+    </h5>
+    <div class="comic_youtube_container">
+      <iframe src="https://www.youtube.com/embed/<?=$comic_data['youtube_'.$lang_lower]?>?rel=0" class="comic_youtube_embed"></iframe>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <?php if($comic_data['desc']): ?>
   <div class="padding_bot">
@@ -135,7 +210,7 @@ comics_increment_view_count($comic_id);
         <?=__('comics_transcript')?>
       </h5>
       <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-      <?php if($comic_data['images']['trans'][$i]): ?>
+      <?php if($comic_data['images']['trans'][$i] && !$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i]): ?>
       <div class="smallpadding_bot">
         <blockquote><?=$comic_data['images']['trans'][$i]?></blockquote>
       </div>
@@ -145,35 +220,67 @@ comics_increment_view_count($comic_id);
   </div>
   <?php endif; ?>
 
-  <a href="<?=$path?>pages/comics_category?type=<?=$comic_data['type_slug']?>">
-    <img src="<?=$path.$comic_data['type_banner']?>" alt="<?=$comic_data['type_name']?>" title="<?=$comic_data['type_name']?>">
-  </a>
-
   <?php for($i = 0; $i < $comic_data['tags']['rows']; $i++): ?>
-  <a href="<?=$path?>pages/comics_tag?theme=<?=$comic_data['tags']['name'][$i]?>">
+  <a href="<?=$path?>tag/<?=$comic_data['tags']['name'][$i]?>">
     <img src="<?=$path.$comic_data['tags']['banner'][$i]?>" alt="<?=$comic_data['tags']['title'][$i]?>" title="<?=$comic_data['tags']['title'][$i]?>">
   </a>
   <?php endfor; ?>
+
+  <div class="flexcontainer">
+    <div class="flex smallspaced_right">
+      <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
+        <img src="<?=$path?>img/website/socials/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_bluesky')?>" title="<?=__('comics_socials_bluesky')?>">
+      </a>
+    </div>
+    <div class="flex smallspaced_right">
+      <a href="<?=$path?>about/socials">
+        <img src="<?=$path?>img/website/socials/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_follow')?>" title="<?=__('comics_socials_follow')?>">
+      </a>
+    </div>
+    <div class="flex">
+      <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
+        <img src="<?=$path?>img/website/socials/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_instagram')?>" title="<?=__('comics_socials_instagram')?>">
+      </a>
+    </div>
+  </div>
+
+  <div class="flexcontainer">
+    <div class="flex smallspaced_right">
+      <a href="https://reddit.com/r/<?=$reddit_link?>" target="_blank">
+        <img src="<?=$path?>img/website/socials/reddit_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_reddit')?>" title="<?=__('comics_socials_reddit')?>">
+      </a>
+    </div>
+    <div class="flex smallspaced_right">
+      <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
+        <img src="<?=$path?>img/website/socials/discord_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_discord')?>" title="<?=__('comics_socials_discord')?>">
+      </a>
+    </div>
+    <div class="flex">
+      <a href="https://<?=$lemmy_link?>" target="_blank">
+        <img src="<?=$path?>img/website/socials/lemmy_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_lemmy')?>" title="<?=__('comics_socials_lemmy')?>">
+      </a>
+    </div>
+  </div>
 
   <div class="flexcontainer smallpadding_bot">
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
-        <img src="<?=$path?>img/banners/comics/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+        <img src="<?=$path?>img/website/buttons/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
       </a>
       <?php else: ?>
       &nbsp;
       <?php endif; ?>
     </div>
     <div class="flex smallspaced_right">
-      <a href="<?=$path?>pages/comics_random?exclude=<?=$comic_slug?>">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+      <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
+        <img src="<?=$path?>img/website/buttons/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <?php if($comic_data['next']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['next']?>">
-        <img src="<?=$path?>img/banners/comics/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+        <img src="<?=$path?>img/website/buttons/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
       </a>
       <?php else: ?>
       &nbsp;

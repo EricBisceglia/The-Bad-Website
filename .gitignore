@@ -4,16 +4,25 @@
 # Don't commit the admin htaccess
 admin/.htaccess
 
-# Don't commit assets
+# Don't commit comics
 img/comics/*
 !img/comics/index.php
-img/banners/comics/types/*
-!img/banners/comics/types/index.php
-img/banners/comics/tags/*
-!img/banners/comics/tags/index.php
+
+# Don't commit the random comic generator
+img/generator/*
+!img/generator/index.php
+
+# Don't commit merch images
+img/merch/photos/*
+!img/merch/photos/index.php
+img/merch/templates/*
+!img/merch/templates/index.php
 
 # Don't commit user searches
 admin/user_searches.txt
+
+# Don't commit the sitemap
+sitemap.xml
 
 # Local config should not be committed
 conf/main.conf.php

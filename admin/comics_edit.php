@@ -136,6 +136,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <textarea class="indiv" name="comic_desc_en" id="comic_desc_en"><?=$admin_comic_data['desc_en']?></textarea>
           </div>
 
+          <div class="smallpadding_bot">
+            <label for="comic_youtube_en"><?=__('admin_comics_edit_youtube_en')?></label>
+            <input class="indiv" type="text" name="comic_youtube_en" id="comic_youtube_en" value="<?=$admin_comic_data['youtube_en']?>">
+          </div>
+
         </div>
         <div style="flex: 1">
           &nbsp;
@@ -150,6 +155,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="smallpadding_bot">
             <label for="comic_desc_fr"><?=__('admin_comics_edit_desc_fr')?></label>
             <textarea class="indiv" name="comic_desc_fr" id="comic_desc_fr"><?=$admin_comic_data['desc_fr']?></textarea>
+          </div>
+
+          <div class="smallpadding_bot">
+            <label for="comic_youtube_fr"><?=__('admin_comics_edit_youtube_fr')?></label>
+            <input class="indiv" type="text" name="comic_youtube_fr" id="comic_youtube_fr" value="<?=$admin_comic_data['youtube_fr']?>">
           </div>
 
         </div>
@@ -182,6 +192,18 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_30">
 
   <?php for($i = 0; $i < $admin_comic_data['images']['rows']; $i++): ?>
+
+  <?php if($i > 0 && $admin_comic_data['images']['lang'][$i] !== $admin_comic_data['images']['lang'][$i-1]): ?>
+
+</div>
+
+<div class="bigpadding_top">
+  <hr>
+</div>
+
+<div class="width_30">
+
+  <?php endif; ?>
 
     <div class="padding_top align_center">
       <h5 class="padding_bot">

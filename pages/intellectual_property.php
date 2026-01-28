@@ -8,10 +8,13 @@ include_once './../lang/main.lang.php';   # Translations
 
 // Page summary
 $page_lang        = array('FR', 'EN');
-$page_url         = "pages/intellectual_property";
+$page_url         = "about/copyright";
 $page_title_en    = "Intellectual property";
 $page_title_fr    = "Propriété intellectuelle";
 $page_description = "The Bad Website - Intellectual property";
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 

@@ -5,12 +5,15 @@
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
 include_once './../actions/comics.act.php'; # Comic management
-include_once './../lang/comics.lang.php';   # Admin translations
+include_once './../lang/comics.lang.php';   # Translations
 
 // Page summary
-$page_url       = "pages/comics_list";
+$page_url       = "comics/all";
 $page_title_en  = "Comics list";
 $page_title_fr  = "Liste des comics";
+
+// Enforce the url
+page_enforce_url($page_url);
 
 
 
@@ -47,18 +50,18 @@ if(!page_is_fetched_dynamically()): /*******************************************
 <div class="width_50">
 
   <div class="nopadding_bot">
-    <a href="<?=$path?>pages/comics">
-      <img src="<?=$path?>img/banners/comics/full_list_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
+    <a href="<?=$path?>comics/list">
+      <img src="<?=$path?>img/website/pages/full_list_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
     </a>
   </div>
 
   <div class="flexcontainer padding_bot">
     <div class="flex">
-      <img class="desktop" src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
-      <img class="mobile" src="<?=$path?>img/banners/comics/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">    </div>
+      <img class="desktop" src="<?=$path?>img/website/buttons/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+      <img class="mobile" src="<?=$path?>img/website/buttons/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">    </div>
     <div class="flex">
       <div class="spaced">
-        <form method="post" action="comics_list">
+        <form method="post" action="all">
           <div class="tinypadding_top tinypadding_bot">
             <input name="comics_list_search" id="comics_list_search" value="" onkeyup="comics_list_search();" class="table_search" placeholder="<?=__('comics_list_input')?>">
           </div>
@@ -84,7 +87,7 @@ if(!page_is_fetched_dynamically()): /*******************************************
       </tr>
 
     </thead>
-    <tbody class="altc2 nowrap" id="admin_comics_tbody">
+    <tbody class="altc2 nowrap" id="comics_tbody">
 
       <?php endif; ?>
 

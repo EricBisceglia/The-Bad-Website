@@ -23,6 +23,8 @@ ___('admin_menu_comics',    'EN', "Comics");
 ___('admin_menu_comics',    'FR', "Comics");
 ___('admin_menu_tags',      'EN', "Tags");
 ___('admin_menu_tags',      'FR', "Tags");
+___('admin_menu_merch',     'EN', "Merch");
+___('admin_menu_merch',     'FR', "Merch");
 ___('admin_menu_searches',  'EN', "Searches");
 ___('admin_menu_searches',  'FR', "Recherches");
 ___('admin_menu_queries',   'EN', "SQL Queries");
@@ -156,10 +158,16 @@ ___('admin_images_list_type_comic', 'EN', "Comic");
 ___('admin_images_list_type_comic', 'FR', "Comic");
 ___('admin_images_list_type_prev',  'EN', "Cover");
 ___('admin_images_list_type_prev',  'FR', "Couverture");
+___('admin_images_list_type_full',  'EN', "Assembled image");
+___('admin_images_list_type_full',  'FR', "Image asemblée");
+___('admin_images_list_type_old',   'EN', "Old version");
+___('admin_images_list_type_old',   'FR', "Vieille version");
+___('admin_images_list_type_bonus', 'EN', "Extra panel");
+___('admin_images_list_type_bonus', 'FR', "Contenu additionnel");
 ___('admin_images_list_type_templ', 'EN', "Template");
 ___('admin_images_list_type_templ', 'FR', "Modèle");
-___('admin_images_list_type_reus',  'EN', "Reusable image");
-___('admin_images_list_type_reus',  'FR', "Image réutilisable");
+___('admin_images_list_type_emoji', 'EN', "Emoji");
+___('admin_images_list_type_emoji', 'FR', "Emoji");
 ___('admin_images_list_language',   'EN', "Lang.");
 ___('admin_images_list_language',   'FR', "Lang.");
 ___('admin_images_list_name',       'EN', "Name");
@@ -189,10 +197,16 @@ ___('admin_images_add_nsfw',            'EN', "Blur image (NSFW)");
 ___('admin_images_add_nsfw',            'FR', "Flouter l'image (NSFW)");
 ___('admin_images_add_preview',         'EN', "Is a cover image for a comic");
 ___('admin_images_add_preview',         'FR', "Est l'image de couverture d'un comic");
-___('admin_images_add_reusable',        'EN', "Is a reusable image");
-___('admin_images_add_reusable',        'FR', "Est une image réutilisable");
+___('admin_images_add_bonus',           'EN', "Is an extra panel");
+___('admin_images_add_bonus',           'FR', "Est un contenu additionnel");
+___('admin_images_add_full',            'EN', "Is a fully assembled image");
+___('admin_images_add_full',            'FR', "Est une image complète assemblée");
+___('admin_images_add_old',             'EN', "Is an old version");
+___('admin_images_add_old',             'FR', "Est une version ancienne");
 ___('admin_images_add_template',        'EN', "Is a template");
 ___('admin_images_add_template',        'FR', "Est un modèle d'image");
+___('admin_images_add_emoji',           'EN', "Is an emoji");
+___('admin_images_add_emoji',           'FR', "Est un emoji");
 ___('admin_images_add_name',            'EN', "Image name (lowercase, no spaces)");
 ___('admin_images_add_name',            'FR', "Nom de l'image (minuscules, sans espaces)");
 ___('admin_images_add_comic',           'EN', "Linked comic");
@@ -234,30 +248,26 @@ ___('admin_images_delete_confirm', 'FR', "Confirmer la suppression définitive d
 
 
 // Image templates
-___('admin_images_templates_title',   'EN', "Templates");
-___('admin_images_templates_title',   'FR', "Modèles");
-___('admin_images_templates_font',    'EN', "Font used for text: Segoe UI");
-___('admin_images_templates_font',    'FR', "Police de caractères : Segoe UI");
-___('admin_images_templates_color_1', 'EN', "Color 1: Beige #EFE4B0");
-___('admin_images_templates_color_1', 'FR', "Couleur 1 : Beige #EFE4B0");
-___('admin_images_templates_color_2', 'EN', "Color 2: Purple #C8BFE7");
-___('admin_images_templates_color_2', 'FR', "Couleur 2 : Violet #C8BFE7");
-___('admin_images_templates_color_3', 'EN', "Color 3: Green #C2E7BF");
-___('admin_images_templates_color_3', 'FR', "Couleur 3 : Vert #C2E7BF");
-___('admin_images_templates_color_4', 'EN', "Color 4: Blue #99D9EA");
-___('admin_images_templates_color_4', 'FR', "Couleur 4 : Bleu #99D9EA");
-___('admin_images_templates_color_5', 'EN', "Color 5: Grey #C3C3C3");
-___('admin_images_templates_color_5', 'FR', "Couleur 5 : Gris #C3C3C3");
-___('admin_images_templates_banner',  'EN', "Category banner: 1000x200<br>img/banners/comics/types/");
-___('admin_images_templates_banner',  'FR', "Bannière de catégorie : 1000x200<br>img/banners/comics/types/");
-___('admin_images_templates_tag',     'EN', "Tag banner: 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_tag',     'FR', "Bannière de tag : 1000x130<br>img/banners/comics/tags/");
-___('admin_images_templates_preview', 'EN', "Comic preview: 1000x400");
-___('admin_images_templates_preview', 'FR', "Prévisualisation de comic : 1000x400");
-___('admin_images_reusables_gallery', 'EN', "Reusable images gallery");
-___('admin_images_reusables_gallery', 'FR', "Galerie d'images réutilisables");
-___('admin_images_templates_gallery', 'EN', "Template gallery");
-___('admin_images_templates_gallery', 'FR', "Galerie de modèles");
+___('admin_images_info_title',    'EN', "Templates");
+___('admin_images_info_title',    'FR', "Modèles");
+___('admin_images_info_font',     'EN', "Font used for text: Segoe UI");
+___('admin_images_info_font',     'FR', "Police de caractères : Segoe UI");
+___('admin_images_info_color_1',  'EN', "Color 1: Beige #EFE4B0");
+___('admin_images_info_color_1',  'FR', "Couleur 1 : Beige #EFE4B0");
+___('admin_images_info_color_2',  'EN', "Color 2: Purple #C8BFE7");
+___('admin_images_info_color_2',  'FR', "Couleur 2 : Violet #C8BFE7");
+___('admin_images_info_color_3',  'EN', "Color 3: Green #C2E7BF");
+___('admin_images_info_color_3',  'FR', "Couleur 3 : Vert #C2E7BF");
+___('admin_images_info_color_4',  'EN', "Color 4: Blue #99D9EA");
+___('admin_images_info_color_4',  'FR', "Couleur 4 : Bleu #99D9EA");
+___('admin_images_info_color_5',  'EN', "Color 5: Grey #C3C3C3");
+___('admin_images_info_color_5',  'FR', "Couleur 5 : Gris #C3C3C3");
+___('admin_images_info_banner',   'EN', "Category banner: 1000x200<br>img/website/categories/");
+___('admin_images_info_banner',   'FR', "Bannière de catégorie : 1000x200<br>img/website/categories/");
+___('admin_images_info_tag',      'EN', "Tag banner: 1000x130<br>img/website/tags/");
+___('admin_images_info_tag',      'FR', "Bannière de tag : 1000x130<br>img/website/tags/");
+___('admin_images_info_preview',  'EN', "Comic preview: 1000x400");
+___('admin_images_info_preview',  'FR', "Prévisualisation de comic : 1000x400");
 
 
 
@@ -287,16 +297,26 @@ ___('admin_comics_list_images_y', 'EN', "Has images");
 ___('admin_comics_list_images_y', 'FR', "A des images");
 ___('admin_comics_list_images_n', 'EN', "Has no images");
 ___('admin_comics_list_images_n', 'FR', "N'a pas d'images");
+___('admin_comics_list_video',    'EN', "Video");
+___('admin_comics_list_video',    'FR', "Video");
+___('admin_comics_list_video_y',  'EN', "Has a video");
+___('admin_comics_list_video_y',  'FR', "A une vidéo");
+___('admin_comics_list_video_n',  'EN', "Does not have a video");
+___('admin_comics_list_video_n',  'FR', "N'a pas de vidéo");
 ___('admin_comics_list_tags',     'EN', "Tags");
 ___('admin_comics_list_tags',     'FR', "Tags");
 ___('admin_comics_list_views',    'EN', "Views");
 ___('admin_comics_list_views',    'FR', "Vues");
+___('admin_comics_list_search',   'EN', "Search");
+___('admin_comics_list_search',   'FR', "Chercher");
 ___('admin_comics_list_count',    'EN', "{{1}} comic");
 ___('admin_comics_list_count',    'FR', "{{1}} comic");
 ___('admin_comics_list_count+',   'EN', "{{1}} comics");
 ___('admin_comics_list_count+',   'FR', "{{1}} comics");
 ___('admin_comics_list_link_img', 'EN', "Linked images");
 ___('admin_comics_list_link_img', 'FR', "Images liées");
+___('admin_comics_list_share',    'EN', "Sharing tools");
+___('admin_comics_list_share',    'FR', "Outils de partage");
 
 
 // Add a comic
@@ -313,29 +333,48 @@ ___('admin_comics_add_submit',    'FR', "Ajouter le comic");
 
 
 // Edit a comic
-___('admin_comics_edit_title',    'EN', "Edit comic");
-___('admin_comics_edit_title',    'FR', "Modifier le comic");
-___('admin_comics_edit_date',     'EN', "Upload date (YYYY-MM-DD)");
-___('admin_comics_edit_date',     'FR', "Date de mise en ligne (YYYY-MM-DD)");
-___('admin_comics_edit_desc_en',  'EN', "English description");
-___('admin_comics_edit_desc_en',  'FR', "Description anglaise");
-___('admin_comics_edit_desc_fr',  'EN', "French description");
-___('admin_comics_edit_desc_fr',  'FR', "Description française");
-___('admin_comics_edit_tags',     'EN', "Comic tags");
-___('admin_comics_edit_tags',     'FR', "Tags du comic");
-___('admin_comics_edit_private',  'EN', "Private (hidden from public view)");
-___('admin_comics_edit_private',  'FR', "Privé (caché du public)");
-___('admin_comics_edit_submit',   'EN', "Edit comic");
-___('admin_comics_edit_submit',   'FR', "Modifier le comic");
-___('admin_comics_edit_preview',  'EN', "Cover");
-___('admin_comics_edit_preview',  'FR', "Couverture");
-___('admin_comics_edit_comic',    'EN', "Comic");
-___('admin_comics_edit_comic',    'FR', "Comic");
+___('admin_comics_edit_title',      'EN', "Edit comic");
+___('admin_comics_edit_title',      'FR', "Modifier le comic");
+___('admin_comics_edit_date',       'EN', "Upload date (YYYY-MM-DD)");
+___('admin_comics_edit_date',       'FR', "Date de mise en ligne (YYYY-MM-DD)");
+___('admin_comics_edit_desc_en',    'EN', "English description");
+___('admin_comics_edit_desc_en',    'FR', "Description anglaise");
+___('admin_comics_edit_desc_fr',    'EN', "French description");
+___('admin_comics_edit_desc_fr',    'FR', "Description française");
+___('admin_comics_edit_youtube_fr', 'EN', "French YouTube ID");
+___('admin_comics_edit_youtube_fr', 'FR', "ID YouTube français");
+___('admin_comics_edit_youtube_en', 'EN', "English YouTube ID");
+___('admin_comics_edit_youtube_en', 'FR', "ID YouTube anglais");
+___('admin_comics_edit_tags',       'EN', "Comic tags");
+___('admin_comics_edit_tags',       'FR', "Tags du comic");
+___('admin_comics_edit_private',    'EN', "Private (hidden from public view)");
+___('admin_comics_edit_private',    'FR', "Privé (caché du public)");
+___('admin_comics_edit_submit',     'EN', "Edit comic");
+___('admin_comics_edit_submit',     'FR', "Modifier le comic");
+___('admin_comics_edit_preview',    'EN', "Cover");
+___('admin_comics_edit_preview',    'FR', "Couverture");
+___('admin_comics_edit_comic',      'EN', "Comic");
+___('admin_comics_edit_comic',      'FR', "Comic");
 
 
 // Delete a comic
 ___('admin_comics_delete_confirm', 'EN', "Confirm the permanent deletion of this comic");
 ___('admin_comics_delete_confirm', 'FR', "Confirmer la suppression définitive de ce comic");
+
+
+// Sharing tools
+___('admin_comics_share_link',        'EN', "Link to the comic");
+___('admin_comics_share_link',        'FR', "Lien du comic");
+___('admin_comics_share_private',     'EN', "This comic is private and shouldn't be shared!");
+___('admin_comics_share_private',     'FR', "Ce comic est privé et ne devrait pas être partagé!");
+___('admin_comics_share_title',       'EN', "Comic title");
+___('admin_comics_share_title',       'FR', "Title du comic");
+___('admin_comics_share_youtube',     'EN', "YouTube link");
+___('admin_comics_share_youtube',     'FR', "Lien YouTube");
+___('admin_comics_share_transcript',  'EN', "Comic transcript");
+___('admin_comics_share_transcript',  'FR', "Transcription du comic");
+___('admin_comics_share_markdown',    'EN', "Markdown transcript");
+___('admin_comics_share_markdown',    'FR', "Transcription Markdown");
 
 
 // Comic types: List

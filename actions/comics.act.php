@@ -11,6 +11,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comics_get                    Returns data related to a comic                                                    */
 /*  comics_get_id                 Returns a comic's id from its slug                                                 */
 /*  comics_get_random_slug        Returns a random comic's slug                                                      */
+/*  comics_get_latest_comic_slug  Returns the latest comic's slug                                                    */
 /*  comics_list                   Lists comics                                                                       */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
@@ -49,6 +50,7 @@ function comics_get(  int   $comic_id                ,
 
   // Fetch the comics's data
   $comic_data = query(" SELECT  comics.is_public          AS 'c_public'   ,
+                                comics.slug               AS 'c_slug'     ,
                                 comics.fk_comic_types     AS 'c_type'     ,
                                 comics.upload_date        AS 'c_date'     ,
                                 comics.title_$lang        AS 'c_title'    ,
@@ -57,6 +59,9 @@ function comics_get(  int   $comic_id                ,
                                 comics.description_$lang  AS 'c_desc'     ,
                                 comics.description_en     AS 'c_desc_en'  ,
                                 comics.description_fr     AS 'c_desc_fr'  ,
+                                comics.youtube_id_en      AS 'c_yt_en'    ,
+                                comics.youtube_id_fr      AS 'c_yt_fr'    ,
+                                comic_types.id            AS 'ct_id'      ,
                                 comic_types.slug          AS 'ct_slug'    ,
                                 comic_types.banner_$lang  AS 'ct_banner'  ,
                                 comic_types.name_$lang    AS 'ct_name'    ,
@@ -73,6 +78,7 @@ function comics_get(  int   $comic_id                ,
 
   // Sanitize the data for display
   $data['private']      = sanitize_output(!$comic_data['c_public']);
+  $data['slug']         = sanitize_output($comic_data['c_slug']);
   $data['type']         = sanitize_output($comic_data['c_type']);
   $data['date']         = sanitize_output($comic_data['c_date']);
   $data['date_full']    = date_to_text($comic_data['c_date'], strip_day: true);
@@ -84,6 +90,9 @@ function comics_get(  int   $comic_id                ,
   $data['desc']         = sanitize_output($comic_data['c_desc'], preserve_line_breaks: true);
   $data['desc_en']      = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
+  $data['youtube_en']   = sanitize_output($comic_data['c_yt_en']);
+  $data['youtube_fr']   = sanitize_output($comic_data['c_yt_fr']);
+  $data['type_id']      = sanitize_output($comic_data['ct_id']);
   $data['type_slug']    = sanitize_output($comic_data['ct_slug']);
   $data['type_name']    = sanitize_output($comic_data['ct_name']);
   $data['preview_url']  = (isset($comic_data['pi_name']))
@@ -92,33 +101,42 @@ function comics_get(  int   $comic_id                ,
 
   // Get the correct banner image
   $root = root_path();
-  if($comic_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_data['ct_banner']))
-    $data['type_banner'] = "img/banners/comics/types/".$comic_data['ct_banner'];
+  if($comic_data['ct_banner'] && file_exists($root."img/website/categories/".$comic_data['ct_banner']))
+    $data['type_banner'] = "img/website/categories/".$comic_data['ct_banner'];
   else
-    $data['type_banner'] = "img/templates/comic_type_".$lang;
+    $data['type_banner'] = "img/website/templates/comic_type_".$lang;
 
   // Prepare a condition for the images linked to the comic
   $query_where = ($show_all_images ===  true) ? " "
                                               : " AND images.language  LIKE '$lang'
                                                   AND images.is_a_preview = 0 ";
 
-  // Prepare the query to fetch images linked to the comic
-  $comic_query_start  = " SELECT    images.id           AS 'i_id'     ,
-                                    images.name         AS 'i_name'   ,
-                                    images.language     AS 'i_lang'   ,
-                                    images.transcript   AS 'i_trans'  ,
-                                    images.is_nsfw      AS 'i_nsfw'   ,
-                                    images.is_a_preview AS 'i_preview'
-                          FROM      images
-                          WHERE     images.fk_comics = '$comic_id' ";
-  $comic_query_end    = " ORDER BY  images.is_a_preview DESC  ,
-                                    images.image_order  ASC   ,
-                                    images.name         ASC   ,
-                                    images.language     ASC   ";
-  $comic_query        = $comic_query_start.$query_where.$comic_query_end;
+  // Decide how to sort the images
+  $query_sort = ($show_all_images ===  true)  ? " ORDER BY  images.language         ASC   ,
+                                                            images.is_a_preview     DESC  ,
+                                                            images.is_full_version  ASC   ,
+                                                            images.image_order      ASC   ,
+                                                            images.name             ASC   "
+                                              : " ORDER BY  images.is_a_preview     DESC  ,
+                                                            images.image_order      ASC   ,
+                                                            images.name             ASC   ,
+                                                            images.language         ASC   ";
 
+  // Prepare the query to fetch images linked to the comic
+  $query_body  = " SELECT     images.id               AS 'i_id'       ,
+                              images.name             AS 'i_name'     ,
+                              images.language         AS 'i_lang'     ,
+                              images.transcript       AS 'i_trans'    ,
+                              images.is_nsfw          AS 'i_nsfw'     ,
+                              images.is_a_preview     AS 'i_preview'  ,
+                              images.is_bonus_panel   AS 'i_bonus'    ,
+                              images.is_old_version   AS 'i_old'      ,
+                              images.is_full_version  AS 'i_full'
+                    FROM      images
+                    WHERE     images.fk_comics = '$comic_id' ";
 
   // Check for results
+  $comic_query  = $query_body.$query_where.$query_sort;
   $comic_images = query($comic_query, fetch_row: true);
 
   // If there are no images, try the opposite language
@@ -133,14 +151,21 @@ function comics_get(  int   $comic_id                ,
                                                        AND images.is_a_preview = 0 ";
 
     // Rewrite the updated query
-    $comic_query = $comic_query_start.$query_where.$comic_query_end;
+    $comic_query = $query_body.$query_where.$query_sort;
   }
 
   // Fetch images linked to the comic
   $comic_images = query($comic_query);
 
+  // Initialize some counters and variables
+  $transcript_count   = 0;
+  $bonus_count        = 0;
+  $old_count          = 0;
+  $full_count         = 0;
+  $full_transcript_en = '';
+  $full_transcript_fr = '';
+
   // Prepare the data for display
-  $transcript_count = 0;
   for($i = 0; $row = query_row($comic_images); $i++)
   {
     $data['images']['id'][$i]       = sanitize_output($row['i_id']);
@@ -151,15 +176,50 @@ function comics_get(  int   $comic_id                ,
     $data['images']['preview'][$i]  = ($row['i_preview'])
                                     ? __('admin_comics_edit_preview')
                                     : __('admin_comics_edit_comic');
+    $data['images']['old'][$i]      = $row['i_old'];
+    $data['images']['full'][$i]     = $row['i_full'];
+    $data['images']['bonus'][$i]    = $row['i_bonus'];
     $data['images']['blur'][$i]     = ($row['i_nsfw']) ? ' blurred_container' : '';
     $data['images']['unblur'][$i]   = ($row['i_nsfw']) ? ' onmouseover="unblur_comic(this);"' : '';
-    if($row['i_trans'])
+
+    // Increment the counters
+    if($row['i_old'])
+      $old_count++;
+    if($row['i_full'] && !$row['i_old'])
+      $full_count++;
+    if($row['i_bonus'] && !$row['i_old'] && !$row['i_full'])
+      $bonus_count++;
+    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
       $transcript_count++;
+
+    // Update the full transcripts
+    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'])
+    {
+      if($data['images']['lang'][$i] === 'EN')
+        $full_transcript_en = ($full_transcript_en)
+                            ? $full_transcript_en.PHP_EOL.PHP_EOL.$row['i_trans']
+                            : $row['i_trans'];
+      else
+        $full_transcript_fr = ($full_transcript_fr)
+                            ? $full_transcript_fr.PHP_EOL.PHP_EOL.$row['i_trans']
+                            : $row['i_trans'];
+    }
   }
 
   // Add the number of images to the returned data
   $data['images']['rows']         = $i;
   $data['images']['transcripts']  = $transcript_count;
+  $data['images']['bonuses']      = $bonus_count;
+  $data['images']['olds']         = $old_count;
+  $data['images']['fulls']        = $full_count;
+
+  // Add the full transcripts to the returned data
+  $data['images']['transcript_text_en'] = sanitize_output($full_transcript_en,  preserve_line_breaks: true);
+  $data['images']['transcript_text_fr'] = sanitize_output($full_transcript_fr,  preserve_line_breaks: true);
+  $data['images']['transcript_md_en']   = sanitize_output($full_transcript_en,  preserve_line_breaks: true,
+                                                                                markdown_line_breaks: true);
+  $data['images']['transcript_md_fr']   = sanitize_output($full_transcript_fr,  preserve_line_breaks: true,
+                                                                                markdown_line_breaks: true);
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT    comic_tags.fk_tags  AS 'ct_id'    ,
@@ -178,14 +238,17 @@ function comics_get(  int   $comic_id                ,
     $data['tags']['id'][$i]     = sanitize_output($row['ct_id']);
     $data['tags']['name'][$i]   = sanitize_output($row['t_name']);
     $data['tags']['title'][$i]  = sanitize_output($row['t_title']);
-    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
-      $data['tags']['banner'][$i] = "img/banners/comics/tags/".$row['t_banner'];
+    if($row['t_banner'] && file_exists($root."img/website/tags/".$row['t_banner']))
+      $data['tags']['banner'][$i] = "img/website/tags/".$row['t_banner'];
     else
-      $data['tags']['banner'][$i] = "img/templates/tag_".$lang;
+      $data['tags']['banner'][$i] = "img/website/templates/tag_".$lang;
   }
 
   // Add the number of tags to the returned data
   $data['tags']['rows'] = $i;
+
+  // Sanitize the comic type's id
+  $comic_type_id = sanitize($data['type_id'], 'int');
 
   // Look up the previous and next comic
   $comics_list = query("  SELECT    comics.id   AS 'c_id' ,
@@ -197,8 +260,8 @@ function comics_get(  int   $comic_id                ,
                           ON        comics.id                 = comic_image.fk_comics
                           AND       comic_image.is_a_preview  = 0
                           AND       comic_image.language      = '$lang'
-                          WHERE     comics.is_public      = 1
-                          AND       comic_types.is_major  = 1
+                          WHERE     comics.is_public          = 1
+                          AND       comic_types.id            = '$comic_type_id'
                           GROUP BY  comics.id
                           HAVING    COUNT(DISTINCT comic_image.id) > 0
                           ORDER BY  comics.upload_date    DESC  ,
@@ -259,22 +322,28 @@ function comics_get_id( string $slug ) : int|null
  * Returns a random comic's slug.
  *
  * @param   string       (OPTIONAL)   $exclude_slug   The slug of the current comic.
+ * @param   int          (OPTIONAL)   $comic_type_id  The id of the comic type to limit the random comic to.
  *
  * @return  string|null                               The comic's slug, or null if there are no comics.
  */
 
-function comics_get_random_slug( string $exclude_slug = '' ) : string|null
+function comics_get_random_slug(  string  $exclude_slug   = ''  ,
+                                  int     $comic_type_id  = 0   ) : string|null
 {
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
-  // Sanitize the slug to exclude
-  $current_slug = sanitize($exclude_slug, 'string');
+  // Sanitize the parameters
+  $current_slug   = sanitize($exclude_slug, 'string');
+  $comic_type_id  = sanitize($comic_type_id, 'int');
 
   // Prepare an extra query condition if there is a slug to exclude
   $query_where = ($current_slug) ? " AND comics.slug NOT LIKE '$current_slug' " : " ";
 
-  // Fetch a random public comic of a major type
+  // Prepare an extra query condition if there's a limited comic type
+  $query_where .= ($comic_type_id) ? " AND comics.fk_comic_types = '$comic_type_id' " : " ";
+
+  // Fetch a random public comic
   $comics = query(" SELECT    comics.slug
                     FROM      comics
                     LEFT JOIN comic_types
@@ -284,7 +353,6 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
                     AND       comic_image.is_a_preview  = 0
                     AND       comic_image.language      = '$lang'
                     WHERE     comics.is_public          = 1
-                    AND       comic_types.is_major      = 1
                               $query_where
                     GROUP BY  comics.id
                     HAVING    COUNT(DISTINCT comic_image.id) > 0
@@ -298,6 +366,44 @@ function comics_get_random_slug( string $exclude_slug = '' ) : string|null
 
   // Return the comic's slug
   return $comics['slug'];
+}
+
+
+
+
+/**
+ * Returns the latest comic's slug.
+ *
+ * @param   string        (OPTIONAL)   $enforce_type  Return the latest comic of this type (slug).
+ *
+ * @return  string|null                               The latest comic's slug, or null if there are no comics.
+ */
+
+function comics_get_latest_comic_slug( $enforce_type = '' ) : string|null
+{
+  // Sanitize the enforced type
+  $enforce_type = sanitize($enforce_type, 'string');
+
+  // Prepare the query
+  $query_where = ($enforce_type) ? " comic_types.slug LIKE '$enforce_type' " : " comic_types.is_major  = 1 ";
+
+  // Fetch the latest major public comic's id
+  $comics = query(" SELECT    comics.slug AS 'c_slug'
+                    FROM      comics
+                    LEFT JOIN comic_types
+                    ON        comic_types.id        = comics.fk_comic_types
+                    WHERE     comics.is_public      = 1
+                    AND       $query_where
+                    ORDER BY  comics.upload_date DESC
+                    LIMIT     1 ",
+                    fetch_row: true);
+
+  // If there are no comics, return null
+  if(!$comics)
+    return null;
+
+  // Return the comic's id
+  return $comics['c_slug'];
 }
 
 
@@ -331,31 +437,36 @@ function comics_list( string $sort_by   = 'date'  ,
   $search_type    = sanitize_array_element($search, 'type', 'int');
   $search_private = sanitize_array_element($search, 'private', 'int');
   $search_images  = sanitize_array_element($search, 'images', 'int');
+  $search_video   = sanitize_array_element($search, 'video', 'int');
   $search_tag_id  = sanitize_array_element($search, 'tag_id', 'int');
 
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Search through the data
-  $query_search = ($search_title)     ? " AND ( comics.title_en  LIKE '%$search_title%'
-                                          OR    comics.title_fr  LIKE '%$search_title%' ) "           : "";
-  $query_search .= ($search_type)     ? " AND comics.fk_comic_types = $search_type "                  : "";
-  $query_search .= ($search_private)  ? " AND comics.is_public = 0 "                                  : "";
-  $query_search .= ($is_public)       ? " AND comics.is_public = 1 "                                  : "";
-  $query_search .= ($is_major)        ? " AND comic_types.is_major = 1 "                              : "";
-  $query_search .= ($search_body)     ? " AND ( comics.description_en  LIKE '%$search_body%'
-                                          OR    comics.description_fr  LIKE '%$search_body%'
-                                          OR    comics.title_en        LIKE '%$search_body%'
-                                          OR    comics.title_fr        LIKE '%$search_body%'
-                                          OR    images.transcript      LIKE '%$search_body%' ) "      : "";
-  $query_search .= ($search_body_en)  ? " AND ( comics.title_en        LIKE '%$search_body_en%'
-                                          OR    comics.description_en  LIKE '%$search_body_en%'
-                                          OR    comic_types.name_en    LIKE '%$search_body_en%'
-                                          OR    images.transcript      LIKE '%$search_body_en%' ) "   : "";
-  $query_search .= ($search_body_fr)  ? " AND ( comics.title_fr        LIKE '%$search_body_fr%'
-                                          OR    comics.description_fr  LIKE '%$search_body_fr%'
-                                          OR    comic_types.name_fr    LIKE '%$search_body_fr%'
-                                          OR    images.transcript      LIKE '%$search_body_fr%' ) "   : "";
+  $query_search = ($search_title)     ? "       AND ( comics.title_en       LIKE '%$search_title%'
+                                                OR    comics.title_fr       LIKE '%$search_title%' ) "    : "";
+  $query_search .= ($search_type)     ? "       AND comics.fk_comic_types   =     $search_type "          : "";
+  $query_search .= ($search_private)  ? "       AND comics.is_public        =     0 "                     : "";
+  $query_search .= ($is_public)       ? "       AND comics.is_public        =     1 "                     : "";
+  $query_search .= ($is_major)        ? "       AND comic_types.is_major    =     1 "                     : "";
+  $query_search .= ($search_body)     ? "       AND ( comics.description_en LIKE '%$search_body%'
+                                                OR    comics.description_fr LIKE '%$search_body%'
+                                                OR    comics.title_en       LIKE '%$search_body%'
+                                                OR    comics.title_fr       LIKE '%$search_body%'
+                                                OR    images.transcript     LIKE '%$search_body%' ) "     : "";
+  $query_search .= ($search_body_en)  ? "       AND ( comics.title_en       LIKE '%$search_body_en%'
+                                                OR    comics.description_en LIKE '%$search_body_en%'
+                                                OR    comic_types.name_en   LIKE '%$search_body_en%'
+                                                OR    images.transcript     LIKE '%$search_body_en%' ) "  : "";
+  $query_search .= ($search_body_fr)  ? "       AND ( comics.title_fr       LIKE '%$search_body_fr%'
+                                                OR    comics.description_fr LIKE '%$search_body_fr%'
+                                                OR    comic_types.name_fr   LIKE '%$search_body_fr%'
+                                                OR    images.transcript     LIKE '%$search_body_fr%' ) "  : "";
+  $query_search .= ($search_video === 1) ? "    AND ( comics.youtube_id_en  !=   ''
+                                                OR    comics.youtube_id_fr  !=   '' ) "                   : "";
+  $query_search .= ($search_video === -1) ? "   AND ( comics.youtube_id_en  =    ''
+                                                AND    comics.youtube_id_fr =    '' ) "                   : "";
 
   // Different search for tags and images
   $query_having  = ($search_tag_id)         ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0  " : "";
@@ -380,6 +491,10 @@ function comics_list( string $sort_by   = 'date'  ,
     'images'  => "  ORDER BY    COUNT(DISTINCT images.id)     DESC  ,
                                 comics.upload_date            DESC  ,
                                 comics.title_$lang            ASC   ",
+    'video'   => "  ORDER BY    (comics.youtube_id_en = '')         ,
+                                (comics.youtube_id_fr = '')         ,
+                                comics.upload_date            DESC  ,
+                                comics.title_$lang            ASC   ",
     'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id) DESC  ,
                                 comics.upload_date            DESC  ,
                                 comics.title_$lang            ASC   ",
@@ -401,6 +516,8 @@ function comics_list( string $sort_by   = 'date'  ,
                                 comics.view_count             AS 'c_views'    ,
                                 comics.description_en         AS 'c_desc_en'  ,
                                 comics.description_fr         AS 'c_desc_fr'  ,
+                                comics.youtube_id_en          AS 'c_yt_en'    ,
+                                comics.youtube_id_fr          AS 'c_yt_fr'    ,
                                 comic_types.name_$lang        AS 'ct_name'    ,
                                 preview_image.name            AS 'pi_name'    ,
                                 preview_image.is_nsfw         AS 'pi_nsfw'    ,
@@ -442,11 +559,13 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
     $data[$i]['url']        = sanitize_output($GLOBALS['website_url'].'comic/'.$row['c_slug']);
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
+    $data[$i]['mtitle']     = sanitize_output(string_truncate($row['c_title'], 35, '...'));
     $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 45, '...'));
     $data[$i]['ltitle']     = sanitize_output(string_truncate($row['c_title'], 50, '...'));
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
+    $data[$i]['video']      = ($row['c_yt_en'] || $row['c_yt_fr']);
     $data[$i]['type']       = sanitize_output($row['ct_name']);
     $data[$i]['date']       = ($row['c_date'] !== '0000-00-00')
                             ? time_since(sanitize_output(strtotime($row['c_date'])))
@@ -551,6 +670,9 @@ function comics_add( array $data ) : int
   // Fetch the newly created comic's id
   $comic_id = query_id();
 
+  // Regenerate the sitemap
+  sitemap_generate();
+
   // Return the comic's id
   return $comic_id;
 }
@@ -585,6 +707,8 @@ function comics_edit( int   $comic_id ,
   $comic_title_fr = sanitize_array_element($data, 'title_fr', 'string');
   $comic_desc_en  = sanitize_array_element($data, 'desc_en', 'string');
   $comic_desc_fr  = sanitize_array_element($data, 'desc_fr', 'string');
+  $comic_yt_en    = sanitize_array_element($data, 'yt_en', 'string');
+  $comic_yt_fr    = sanitize_array_element($data, 'yt_fr', 'string');
 
   // Get rid of the comic's slug
   query(" UPDATE  comics
@@ -610,8 +734,13 @@ function comics_edit( int   $comic_id ,
                   comics.title_en       = '$comic_title_en' ,
                   comics.title_fr       = '$comic_title_fr' ,
                   comics.description_en = '$comic_desc_en'  ,
-                  comics.description_fr = '$comic_desc_fr'
+                  comics.description_fr = '$comic_desc_fr'  ,
+                  comics.youtube_id_en  = '$comic_yt_en'    ,
+                  comics.youtube_id_fr  = '$comic_yt_fr'
           WHERE   comics.id             = '$comic_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 
   // Get a list of all tags
   $tags_list = tags_list();
@@ -709,6 +838,9 @@ function comics_delete( int $comic_id )
           SET     images.fk_comics    = 0 ,
                   images.image_order  = 0
           WHERE   images.fk_comics    = '$comic_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -720,7 +852,7 @@ function comics_delete( int $comic_id )
  * @param   int         $comic_type_id    (optional)  The comic type's ID
  * @param   string      $comic_type_slug  (optional)  The comic type's slug
  *
- * @return  array|null                                An array containing the comic type's data, or null if it doesn't exist.
+ * @return  array|null                                An array containing comic type data, or null if it doesn't exist.
  */
 
 function comic_types_get( int     $comic_type_id    = 0,
@@ -777,10 +909,10 @@ function comic_types_get( int     $comic_type_id    = 0,
 
   // Get the correct banner images
   $root = root_path();
-  if($comic_type_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_type_data['ct_banner']))
-    $data['banner'] = "img/banners/comics/types/".$comic_type_data['ct_banner'];
+  if($comic_type_data['ct_banner'] && file_exists($root."img/website/categories/".$comic_type_data['ct_banner']))
+    $data['banner'] = "img/website/categories/".$comic_type_data['ct_banner'];
   else
-    $data['banner']= "img/templates/comic_type_".$lang;
+    $data['banner']= "img/website/templates/comic_type_".$lang;
 
   // Return the comic type's data
   return $data;
@@ -792,13 +924,21 @@ function comic_types_get( int     $comic_type_id    = 0,
 /**
  * Lists comic types.
  *
+ * @param   string  $is_major  Whether to only list major comic types.
+ * @param   string  $is_minor  Whether to only list minor comic types.
+ *
  * @return  array   An array containing the comic types.
  */
 
-function comic_types_list() : array
+function comic_types_list(  bool   $is_major  = false  ,
+                            bool   $is_minor  = false  ) : array
 {
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Filter by major or minor types if requested
+  $query_where = ($is_major)  ? " AND comic_types.is_major = 1 " : "";
+  $query_where .= ($is_minor) ? " AND comic_types.is_major = 0 " : "";
 
   // Fetch the comic types
   $comic_types = query("  SELECT    comic_types.id            AS 'ct_id'        ,
@@ -812,6 +952,8 @@ function comic_types_list() : array
                                     comic_types.banner_fr     AS 'ct_banner_fr' ,
                                     comic_types.is_major      AS 'ct_is_major'
                           FROM      comic_types
+                          WHERE     1 = 1
+                          $query_where
                           ORDER BY  comic_types.sorting_order ASC ");
 
   // Prepare the data for display
@@ -829,10 +971,10 @@ function comic_types_list() : array
 
     // Get the correct banner images
     $root = root_path();
-    if($row['ct_banner'] && file_exists($root."img/banners/comics/types/".$row['ct_banner']))
-      $data[$i]['banner'] = "img/banners/comics/types/".$row['ct_banner'];
+    if($row['ct_banner'] && file_exists($root."img/website/categories/".$row['ct_banner']))
+      $data[$i]['banner'] = "img/website/categories/".$row['ct_banner'];
     else
-      $data[$i]['banner']= "img/templates/comic_type_".$lang;
+      $data[$i]['banner']= "img/website/templates/comic_type_".$lang;
   }
 
   // Add the number of rows to the returned data
@@ -882,6 +1024,9 @@ function comic_types_add( array $data ) : void
                       comic_types.description_en  = '$comic_type_desc_en'   ,
                       comic_types.description_fr  = '$comic_type_desc_fr'   ,
                       comic_types.is_major        = '$comic_type_major'     ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -932,6 +1077,9 @@ function comic_types_edit( int   $type_id  ,
                   comic_types.description_fr  = '$type_desc_fr'     ,
                   comic_types.is_major        = '$type_major'
           WHERE   comic_types.id              = '$type_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -958,4 +1106,7 @@ function comic_types_delete( int $type_id )
   query(" UPDATE comics
           SET    comics.fk_comic_types = NULL
           WHERE  comics.fk_comic_types = '$type_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }

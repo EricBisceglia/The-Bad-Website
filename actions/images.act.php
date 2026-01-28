@@ -16,6 +16,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  images_format_file_name       Formats an image's file name                                                       */
 /*                                                                                                                   */
+/*  merch_get_images              Fetches all images in the merch folder                                             */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -36,16 +38,19 @@ function images_get( int $image_id ) : array|null
     return null;
 
   // Fetch the image's data
-  $image_data = query(" SELECT  images.name           AS 'i_name'     ,
-                                images.fk_comics      AS 'i_comic'    ,
-                                images.image_order    AS 'i_order'    ,
-                                images.upload_date    AS 'i_date'     ,
-                                images.is_a_template  AS 'i_template' ,
-                                images.is_reusable    AS 'i_reusable' ,
-                                images.is_a_preview   AS 'i_preview'  ,
-                                images.is_nsfw        AS 'i_nsfw'     ,
-                                images.language       AS 'i_lang'     ,
-                                images.transcript     AS 'i_trans'
+  $image_data = query(" SELECT  images.name             AS 'i_name'     ,
+                                images.fk_comics        AS 'i_comic'    ,
+                                images.image_order      AS 'i_order'    ,
+                                images.upload_date      AS 'i_date'     ,
+                                images.is_a_template    AS 'i_template' ,
+                                images.is_an_emoji      AS 'i_emoji'    ,
+                                images.is_old_version   AS 'i_old'     ,
+                                images.is_full_version  AS 'i_full'    ,
+                                images.is_a_preview     AS 'i_preview'  ,
+                                images.is_bonus_panel   AS 'i_bonus'    ,
+                                images.is_nsfw          AS 'i_nsfw'     ,
+                                images.language         AS 'i_lang'     ,
+                                images.transcript       AS 'i_trans'
                         FROM    images
                         WHERE   images.id = '$image_id' ",
                         fetch_row: true);
@@ -58,8 +63,11 @@ function images_get( int $image_id ) : array|null
   $data['date']     = sanitize_output($image_data['i_date']);
   $data['nsfw']     = sanitize_output($image_data['i_nsfw']);
   $data['template'] = sanitize_output($image_data['i_template']);
+  $data['emoji']    = sanitize_output($image_data['i_emoji']);
   $data['preview']  = sanitize_output($image_data['i_preview']);
-  $data['reusable'] = sanitize_output($image_data['i_reusable']);
+  $data['bonus']    = sanitize_output($image_data['i_bonus']);
+  $data['full']     = sanitize_output($image_data['i_full']);
+  $data['old']      = sanitize_output($image_data['i_old']);
   $data['trans']    = sanitize_output($image_data['i_trans']);
 
   // Return the image's data
@@ -91,7 +99,7 @@ function images_list( $sort_by = 'date'   ,
   $search_type      = sanitize_array_element($search, 'type', 'int');
   $search_nsfw      = sanitize_array_element($search, 'nsfw', 'int');
   $search_template  = sanitize_array_element($search, 'template', 'int');
-  $search_reusable  = sanitize_array_element($search, 'reusable', 'int');
+  $search_emoji     = sanitize_array_element($search, 'emoji', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
@@ -109,54 +117,66 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_type === 1) ?
                                     " AND images.is_a_preview    = 0
                                       AND images.is_a_template   = 0
-                                      AND images.is_reusable     = 0                  " : "";
+                                      AND images.is_an_emoji     = 0                  " : "";
   $query_search .= ($search_type === 2) ?
                                     " AND images.is_a_preview    = 1                  " : "";
   $query_search .= ($search_type === 3) ?
                                     " AND images.is_a_template   = 1                  " : "";
   $query_search .= ($search_type === 4) ?
-                                    " AND images.is_reusable     = 1                  " : "";
+                                    " AND images.is_an_emoji     = 1                  " : "";
+  $query_search .= ($search_type === 5) ?
+                                    " AND images.is_old_version = 1                   " : "";
+  $query_search .= ($search_type === 6) ?
+                                    " AND images.is_bonus_panel = 1                   " : "";
+  $query_search .= ($search_type === 7) ?
+                                    " AND images.is_full_version = 1                  " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
   $query_search .= ($search_template) ?
                                     " AND images.is_a_template   = $search_template   " : "";
-  $query_search .= ($search_reusable) ?
-                                    " AND images.is_reusable     = $search_reusable   " : "";
+  $query_search .= ($search_emoji) ?
+                                    " AND images.is_an_emoji     = $search_emoji      " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'name'    => "  ORDER BY    images.name           ASC   ",
-    'type'    => "  ORDER BY    images.is_a_template  DESC  ,
-                                images.is_reusable    DESC  ,
-                                images.is_a_preview   DESC  ,
-                                images.upload_date    DESC  ,
-                                images.name           ASC   ",
-    'lang'    => "  ORDER BY    images.language       ASC   ,
-                                images.upload_date    DESC  ,
-                                images.name           ASC   ",
-    'nsfw'    => "  ORDER BY    images.is_nsfw        DESC  ,
-                                images.upload_date    DESC  ,
-                                images.name           ASC   ",
-    'comic'   => "  ORDER BY    images.fk_comics      != 0  ,
-                                comics.upload_date    DESC  ,
-                                comics.title_$lang    ASC   ,
-                                images.upload_date    DESC  ,
-                                images.name           ASC   ",
-    default   => "  ORDER BY    images.upload_date    DESC  ,
-                                images.name           ASC   ",
+    'name'    => "  ORDER BY    images.name             ASC   ",
+    'type'    => "  ORDER BY    images.is_a_template    DESC  ,
+                                images.is_an_emoji      DESC  ,
+                                images.is_a_preview     DESC  ,
+                                images.is_full_version  DESC  ,
+                                images.is_old_version   DESC  ,
+                                images.is_bonus_panel   DESC  ,
+                                images.upload_date      DESC  ,
+                                images.name             ASC   ",
+    'lang'    => "  ORDER BY    images.language         ASC   ,
+                                images.upload_date      DESC  ,
+                                images.name             ASC   ",
+    'nsfw'    => "  ORDER BY    images.is_nsfw          DESC  ,
+                                images.upload_date      DESC  ,
+                                images.name             ASC   ",
+    'comic'   => "  ORDER BY    images.fk_comics        != 0  ,
+                                comics.upload_date      DESC  ,
+                                comics.title_$lang      ASC   ,
+                                images.upload_date      DESC  ,
+                                images.name             ASC   ",
+    default   => "  ORDER BY    images.upload_date      DESC  ,
+                                images.name             ASC   ",
   };
 
   // Fetch the images
-  $images = query("   SELECT    images.id             AS 'i_id'       ,
-                                images.name           AS 'i_name'     ,
-                                images.image_order    AS 'i_order'    ,
-                                images.upload_date    AS 'i_date'     ,
-                                images.is_a_preview   AS 'i_preview'  ,
-                                images.is_a_template  AS 'i_template' ,
-                                images.is_reusable    AS 'i_reusable' ,
-                                images.is_nsfw        AS 'i_nsfw'     ,
-                                images.language       AS 'i_lang'     ,
-                                comics.title_$lang    AS 'c_title'
+  $images = query("   SELECT    images.id               AS 'i_id'       ,
+                                images.name             AS 'i_name'     ,
+                                images.image_order      AS 'i_order'    ,
+                                images.upload_date      AS 'i_date'     ,
+                                images.is_a_preview     AS 'i_preview'  ,
+                                images.is_old_version   AS 'i_old'      ,
+                                images.is_full_version  AS 'i_full'     ,
+                                images.is_a_template    AS 'i_template' ,
+                                images.is_bonus_panel   AS 'i_bonus'    ,
+                                images.is_an_emoji      AS 'i_emoji'    ,
+                                images.is_nsfw          AS 'i_nsfw'     ,
+                                images.language         AS 'i_lang'     ,
+                                comics.title_$lang      AS 'c_title'
                       FROM      images
                       LEFT JOIN comics
                       ON        images.fk_comics = comics.id
@@ -178,8 +198,11 @@ function images_list( $sort_by = 'date'   ,
                             : '';
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['preview']    = ($row['i_preview']);
+    $data[$i]['full']       = ($row['i_full']);
+    $data[$i]['old']        = ($row['i_old']);
     $data[$i]['template']   = ($row['i_template']);
-    $data[$i]['reusable']   = ($row['i_reusable']);
+    $data[$i]['bonus']      = ($row['i_bonus']);
+    $data[$i]['emoji']      = ($row['i_emoji']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
   }
 
@@ -243,27 +266,45 @@ function images_add(  array $image_file ,
   $image_nsfw     = sanitize($image_data['nsfw'], 'int');
   $image_date     = sanitize(date('Y-m-d'), 'string');
   $image_template = sanitize($image_data['template'], 'int');
+  $image_emoji    = sanitize($image_data['emoji'], 'int');
   $image_preview  = sanitize($image_data['preview'], 'int');
-  $image_reusable = sanitize($image_data['reusable'], 'int');
+  $image_bonus    = sanitize($image_data['bonus'], 'int');
+  $image_full     = sanitize($image_data['full'], 'int');
+  $image_old      = sanitize($image_data['old'], 'int');
 
-  // An image can't be both a template and a preview
-  if($image_template && $image_preview)
-    $image_preview = 0;
+  // An emoji can't be anything else
+  if($image_emoji)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
 
-  // A reusable image can't be a template
-  if($image_reusable && $image_template)
-    $image_template = 0;
+  // A template can't be anything else
+  if($image_template)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_emoji    = 0;
+    $image_bonus    = 0;
+  }
 
-  // A reusable image can't be a preview
-  if($image_reusable && $image_preview)
-    $image_preview = 0;
+  // A preview can't be an extra panel, assembled, or an old version
+  else if($image_preview)
+  {
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
+
+  // An emoji can't be part of a comic
+  if($image_emoji && $image_comic)
+    $image_comic = 0;
 
   // A template can't be part of a comic
   if($image_template && $image_comic)
-    $image_comic = 0;
-
-  // A reusable image can't be part of a comic
-  if($image_reusable && $image_comic)
     $image_comic = 0;
 
   // Upload the image
@@ -271,15 +312,18 @@ function images_add(  array $image_file ,
   {
     // Create the image entry
     query(" INSERT INTO images
-            SET         images.name           = '$name'           ,
-                        images.fk_comics      = '$image_comic'    ,
-                        images.image_order    = '$image_order'    ,
-                        images.language       = '$image_lang'     ,
-                        images.is_a_template  = '$image_template' ,
-                        images.is_reusable    = '$image_reusable' ,
-                        images.is_a_preview   = '$image_preview'  ,
-                        images.is_nsfw        = '$image_nsfw'     ,
-                        images.upload_date    = '$image_date'     ");
+            SET         images.name             = '$name'           ,
+                        images.fk_comics        = '$image_comic'    ,
+                        images.image_order      = '$image_order'    ,
+                        images.language         = '$image_lang'     ,
+                        images.is_a_template    = '$image_template' ,
+                        images.is_bonus_panel   = '$image_bonus'    ,
+                        images.is_an_emoji      = '$image_emoji'    ,
+                        images.is_old_version   = '$image_old'      ,
+                        images.is_full_version  = '$image_full'     ,
+                        images.is_a_preview     = '$image_preview'  ,
+                        images.is_nsfw          = '$image_nsfw'     ,
+                        images.upload_date      = '$image_date'     ");
 
     // Fetch the newly created image's id
     $image_id = query_id();
@@ -357,44 +401,65 @@ function images_edit( int   $image_id ,
   $image_lang     = sanitize($data['lang'], 'string');
   $image_date     = sanitize($data['date'], 'string');
   $image_template = sanitize($data['template'], 'int');
-  $image_reusable = sanitize($data['reusable'], 'int');
+  $image_emoji    = sanitize($data['emoji'], 'int');
   $image_preview  = sanitize($data['preview'], 'int');
+  $image_bonus    = sanitize($data['bonus'], 'int');
+  $image_full     = sanitize($data['full'], 'int');
+  $image_old      = sanitize($data['old'], 'int');
   $image_nsfw     = sanitize($data['nsfw'], 'int');
   $image_trans    = sanitize($data['trans'], 'string');
 
-  // An image can't be both a template and a preview
-  if($image_template && $image_preview)
-    $image_preview = 0;
+  // An emoji can't be anything else
+  if($image_emoji)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
 
-  // A reusable image can't be a template
-  if($image_reusable && $image_template)
-    $image_template = 0;
+  // A template can't be anything else
+  if($image_template)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_emoji    = 0;
+    $image_bonus    = 0;
+  }
 
-  // A reusable image can't be a preview
-  if($image_reusable && $image_preview)
-    $image_preview = 0;
+  // A preview can't be an extra panel, assembled, or an old version
+  else if($image_preview)
+  {
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
+
+  // An emoji can't be part of a comic
+  if($image_emoji && $image_comic)
+    $image_comic = 0;
 
   // A template can't be part of a comic
   if($image_template && $image_comic)
     $image_comic = 0;
 
-  // A reusable image can't be part of a comic
-  if($image_reusable && $image_comic)
-    $image_comic = 0;
-
   // Edit the image
   query(" UPDATE  images
-          SET     images.name           = '$name'           ,
-                  images.fk_comics      = '$image_comic'    ,
-                  images.image_order    = '$image_order'    ,
-                  images.language       = '$image_lang'     ,
-                  images.upload_date    = '$image_date'     ,
-                  images.is_a_template  = '$image_template' ,
-                  images.is_a_preview   = '$image_preview'  ,
-                  images.is_reusable    = '$image_reusable' ,
-                  images.is_nsfw        = '$image_nsfw'     ,
-                  images.transcript     = '$image_trans'
-          WHERE   images.id             = '$image_id'       ");
+          SET     images.name             = '$name'           ,
+                  images.fk_comics        = '$image_comic'    ,
+                  images.image_order      = '$image_order'    ,
+                  images.language         = '$image_lang'     ,
+                  images.upload_date      = '$image_date'     ,
+                  images.is_a_template    = '$image_template' ,
+                  images.is_an_emoji      = '$image_emoji'    ,
+                  images.is_old_version   = '$image_old'      ,
+                  images.is_full_version  = '$image_full'     ,
+                  images.is_a_preview     = '$image_preview'  ,
+                  images.is_bonus_panel   = '$image_bonus'    ,
+                  images.is_nsfw          = '$image_nsfw'     ,
+                  images.transcript       = '$image_trans'
+          WHERE   images.id               = '$image_id'       ");
 }
 
 
@@ -450,4 +515,35 @@ function images_format_file_name( ?string $name ) : string
 
   // Return the formatted name
   return $name;
+}
+
+
+
+
+/**
+ * Fetches all images in the merch folder.
+ *
+ * @param   string  $get_templates  Fetch images from the templates folder instead of the photos folder.
+ *
+ * @return  array   An array containing the images.
+ */
+
+function merch_get_images( bool $get_templates = false ) : array
+{
+  // Determine which folder to get the images from
+  $folder  = root_path().'img/merch/';
+  $folder .= ($get_templates) ? 'templates' : 'photos';
+
+  // Grab all images in the folder
+  $images = glob($folder.'/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+
+  // Only use the image names
+  for($i = 0; $i < count($images); $i++)
+    $images[$i] = basename($images[$i]);
+
+  // Sort the image names alphabetically
+  sort($images);
+
+  // Return the images
+  return $images;
 }

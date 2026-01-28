@@ -80,10 +80,10 @@ function tags_get(  int     $tag_id   = 0  ,
 
   // Get the correct banner images
   $root = root_path();
-  if($tag_data['t_banner'] && file_exists($root."img/banners/comics/tags/".$tag_data['t_banner']))
-    $data['banner'] = "img/banners/comics/tags/".$tag_data['t_banner'];
+  if($tag_data['t_banner'] && file_exists($root."img/website/tags/".$tag_data['t_banner']))
+    $data['banner'] = "img/website/tags/".$tag_data['t_banner'];
   else
-    $data['banner']= "img/templates/tag_".$lang;
+    $data['banner']= "img/website/templates/tag_".$lang;
 
   // Return the prepared data
   return $data;
@@ -131,10 +131,10 @@ function tags_list() : array
 
     // Get the correct banner images
     $root = root_path();
-    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
-      $data[$i]['banner'] = "img/banners/comics/tags/".$row['t_banner'];
+    if($row['t_banner'] && file_exists($root."img/website/tags/".$row['t_banner']))
+      $data[$i]['banner'] = "img/website/tags/".$row['t_banner'];
     else
-      $data[$i]['banner']= "img/templates/tag_".$lang;
+      $data[$i]['banner']= "img/website/templates/tag_".$lang;
   }
 
   // Add the number of rows to the returned data
@@ -181,6 +181,9 @@ function tags_add( array $data ) : void
                       tags.banner_fr       = '$tag_banner_fr' ,
                       tags.description_en  = '$tag_desc_en'   ,
                       tags.description_fr  = '$tag_desc_fr'   ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -228,6 +231,9 @@ function tags_edit( int   $tag_id  ,
                   tags.description_en  = '$tag_desc_en'   ,
                   tags.description_fr  = '$tag_desc_fr'
           WHERE   tags.id              = '$tag_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }
 
 
@@ -253,4 +259,7 @@ function tags_delete( int $tag_id )
   // Remove any links to the deleted tag
   query(" DELETE FROM comic_tags
           WHERE       comic_tags.fk_tags = '$tag_id' ");
+
+  // Regenerate the sitemap
+  sitemap_generate();
 }

@@ -71,14 +71,23 @@ $image_lang_fr_selected = ($admin_image_data['lang'] === 'FR') ? ' selected' : '
 // NSFW
 $image_nsfw_checked = ($admin_image_data['nsfw']) ? ' checked' : '';
 
-// Reusable image
-$image_reusable_checked = ($admin_image_data['reusable']) ? ' checked' : '';
-
 // Template
 $image_template_checked = ($admin_image_data['template']) ? ' checked' : '';
 
+// Emoji
+$image_emoji_checked = ($admin_image_data['emoji']) ? ' checked' : '';
+
 // Preview
 $image_preview_checked = ($admin_image_data['preview']) ? ' checked' : '';
+
+// Extra panel
+$image_bonus_checked = ($admin_image_data['bonus']) ? ' checked' : '';
+
+// Full
+$image_full_checked = ($admin_image_data['full']) ? ' checked' : '';
+
+// Old
+$image_old_checked = ($admin_image_data['old']) ? ' checked' : '';
 
 // Focus the transcript form if the image has none
 if(!$admin_image_data['trans'])
@@ -142,17 +151,32 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <label for="image_preview" class="label_inline"><?=__('admin_images_add_preview')?></label>
       </div>
 
-      <div>
-        <input type="checkbox" class="align_left" name="image_reusable"<?=$image_reusable_checked?>>
-        <label for="image_reusable" class="label_inline"><?=__('admin_images_add_reusable')?></label>
+      <div class="tinypadding_top">
+        <input type="checkbox" class="align_left" name="image_bonus"<?=$image_bonus_checked?>>
+        <label for="image_bonus" class="label_inline"><?=__('admin_images_add_bonus')?></label>
       </div>
 
       <div>
+        <input type="checkbox" class="align_left" name="image_full"<?=$image_full_checked?>>
+        <label for="image_full" class="label_inline"><?=__('admin_images_add_full')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_old"<?=$image_old_checked?>>
+        <label for="image_old" class="label_inline"><?=__('admin_images_add_old')?></label>
+      </div>
+
+      <div class="smallpadding_top">
         <input type="checkbox" class="align_left" name="image_template"<?=$image_template_checked?>>
         <label for="image_template" class="label_inline"><?=__('admin_images_add_template')?></label>
       </div>
 
-      <div class="smallpadding_bot">
+      <div>
+        <input type="checkbox" class="align_left" name="image_emoji"<?=$image_emoji_checked?>>
+        <label for="image_emoji" class="label_inline"><?=__('admin_images_add_emoji')?></label>
+      </div>
+
+      <div class="smallpadding_top smallpadding_bot">
         <input type="checkbox" class="align_left" name="image_nsfw"<?=$image_nsfw_checked?>>
         <label for="image_nsfw" class="label_inline"><?=__('admin_images_add_nsfw')?></label>
       </div>

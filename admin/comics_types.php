@@ -3,9 +3,11 @@
 /*                                                       SETUP                                                       */
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
-include_once './../inc/includes.inc.php';   # Core
-include_once './../actions/comics.act.php'; # Admin actions
-include_once './../lang/admin.lang.php';    # Admin translations
+include_once './../inc/includes.inc.php';     # Core
+include_once './../actions/comics.act.php';   # Comic management
+include_once './../actions/tags.act.php';     # Tag management
+include_once './../actions/sitemap.act.php';  # Sitemap generation
+include_once './../lang/admin.lang.php';      # Admin translations
 
 // Page summary
 $page_url       = "admin/comics_types";
@@ -155,8 +157,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <div class="tooltip_container">
           <?=__icon('image', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
           <div class="tooltip">
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_en']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
-            <img src="<?=$path?>img/banners/comics/types/<?=$comic_types_list[$i]['banner_fr']?>" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
+            <img src="<?=$path?>img/website/categories/<?=$comic_types_list[$i]['banner_en']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
+            <img src="<?=$path?>img/website/categories/<?=$comic_types_list[$i]['banner_fr']?>" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
           </div>
         </td>
 
