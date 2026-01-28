@@ -41,7 +41,7 @@ if(!page_is_fetched_dynamically()): /*******************************************
 <div class="width_50">
 
   <a href="<?=$path?>stuff/list">
-    <img src="<?=$path?>img/banners/comics/category_templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
+    <img src="<?=$path?>img/website/categories/templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
   </a>
 
   <div class="smallpadding_top smallpadding_bot">

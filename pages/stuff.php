@@ -42,7 +42,7 @@ $comic_types_list = comic_types_list( is_minor: true );
 <div class="width_50">
 
   <div class="nopadding_bot">
-    <img src="<?=$path?>img/website/stuff_<?=$lang_lower?>.png" alt="<?=__('stuff_list_header')?>" title="<?=__('stuff_list_header')?>">
+    <img src="<?=$path?>img/website/pages/stuff_<?=$lang_lower?>.png" alt="<?=__('stuff_list_header')?>" title="<?=__('stuff_list_header')?>">
   </div>
 
   <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
@@ -55,19 +55,19 @@ $comic_types_list = comic_types_list( is_minor: true );
 
   <div class="nopadding_bot">
     <a href="<?=$path?>merch/gallery">
-      <img src="<?=$path?>img/banners/comics/category_merch_<?=$lang_lower?>.png" alt="<?=__('comics_list_merch')?>" title="<?=__('comics_list_merch')?>">
+      <img src="<?=$path?>img/website/categories/merch_<?=$lang_lower?>.png" alt="<?=__('comics_list_merch')?>" title="<?=__('comics_list_merch')?>">
     </a>
   </div>
 
   <div class="nopadding_bot">
     <a href="<?=$path?>stuff/emojis">
-      <img src="<?=$path?>img/banners/comics/category_emojis_<?=$lang_lower?>.png" alt="<?=__('comics_list_emojis')?>" title="<?=__('comics_list_emojis')?>">
+      <img src="<?=$path?>img/website/categories/emojis_<?=$lang_lower?>.png" alt="<?=__('comics_list_emojis')?>" title="<?=__('comics_list_emojis')?>">
     </a>
   </div>
 
   <div class="nopadding_bot">
     <a href="<?=$path?>stuff/templates">
-      <img src="<?=$path?>img/banners/comics/category_templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
+      <img src="<?=$path?>img/website/categories/templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
     </a>
   </div>
 

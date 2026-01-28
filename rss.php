@@ -47,9 +47,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
       <link><?=htmlspecialchars($comics_list[$i]['url'])?></link>
       <description><![CDATA[
         <a href="<?=htmlspecialchars($comics_list[$i]['url'])?>">
-          <img src="<?=$GLOBALS['website_url'].'img/banners/rss_top.png'?>" alt="The bad website presents...">
+          <img src="<?=$GLOBALS['website_url'].'img/website/pages/rss_top.png'?>" alt="The bad website presents...">
           <img src="<?=htmlspecialchars($comics_list[$i]['rss_preview'])?>" alt="Comic preview">
-          <img src="<?=$GLOBALS['website_url'].'img/banners/rss_bottom.png'?>" alt="Click here to read the comic">
+          <img src="<?=$GLOBALS['website_url'].'img/website/pages/rss_bottom.png'?>" alt="Click here to read the comic">
         </a>
       ]]></description>
       <pubDate><?=htmlspecialchars($comics_list[$i]['date'])?></pubDate>

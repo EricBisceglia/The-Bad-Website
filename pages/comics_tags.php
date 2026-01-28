@@ -43,7 +43,7 @@ $tags_list = tags_list();
 
   <div class="smallpadding_bot">
     <a href="<?=$path?>comics/list">
-      <img src="<?=$path?>img/banners/comics/tags_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
+      <img src="<?=$path?>img/website/pages/tags_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
     </a>
   </div>
 

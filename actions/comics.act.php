@@ -101,10 +101,10 @@ function comics_get(  int   $comic_id                ,
 
   // Get the correct banner image
   $root = root_path();
-  if($comic_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_data['ct_banner']))
-    $data['type_banner'] = "img/banners/comics/types/".$comic_data['ct_banner'];
+  if($comic_data['ct_banner'] && file_exists($root."img/website/categories/".$comic_data['ct_banner']))
+    $data['type_banner'] = "img/website/categories/".$comic_data['ct_banner'];
   else
-    $data['type_banner'] = "img/templates/comic_type_".$lang;
+    $data['type_banner'] = "img/website/templates/comic_type_".$lang;
 
   // Prepare a condition for the images linked to the comic
   $query_where = ($show_all_images ===  true) ? " "
@@ -238,10 +238,10 @@ function comics_get(  int   $comic_id                ,
     $data['tags']['id'][$i]     = sanitize_output($row['ct_id']);
     $data['tags']['name'][$i]   = sanitize_output($row['t_name']);
     $data['tags']['title'][$i]  = sanitize_output($row['t_title']);
-    if($row['t_banner'] && file_exists($root."img/banners/comics/tags/".$row['t_banner']))
-      $data['tags']['banner'][$i] = "img/banners/comics/tags/".$row['t_banner'];
+    if($row['t_banner'] && file_exists($root."img/website/tags/".$row['t_banner']))
+      $data['tags']['banner'][$i] = "img/website/tags/".$row['t_banner'];
     else
-      $data['tags']['banner'][$i] = "img/templates/tag_".$lang;
+      $data['tags']['banner'][$i] = "img/website/templates/tag_".$lang;
   }
 
   // Add the number of tags to the returned data
@@ -909,10 +909,10 @@ function comic_types_get( int     $comic_type_id    = 0,
 
   // Get the correct banner images
   $root = root_path();
-  if($comic_type_data['ct_banner'] && file_exists($root."img/banners/comics/types/".$comic_type_data['ct_banner']))
-    $data['banner'] = "img/banners/comics/types/".$comic_type_data['ct_banner'];
+  if($comic_type_data['ct_banner'] && file_exists($root."img/website/categories/".$comic_type_data['ct_banner']))
+    $data['banner'] = "img/website/categories/".$comic_type_data['ct_banner'];
   else
-    $data['banner']= "img/templates/comic_type_".$lang;
+    $data['banner']= "img/website/templates/comic_type_".$lang;
 
   // Return the comic type's data
   return $data;
@@ -971,10 +971,10 @@ function comic_types_list(  bool   $is_major  = false  ,
 
     // Get the correct banner images
     $root = root_path();
-    if($row['ct_banner'] && file_exists($root."img/banners/comics/types/".$row['ct_banner']))
-      $data[$i]['banner'] = "img/banners/comics/types/".$row['ct_banner'];
+    if($row['ct_banner'] && file_exists($root."img/website/categories/".$row['ct_banner']))
+      $data[$i]['banner'] = "img/website/categories/".$row['ct_banner'];
     else
-      $data[$i]['banner']= "img/templates/comic_type_".$lang;
+      $data[$i]['banner']= "img/website/templates/comic_type_".$lang;
   }
 
   // Add the number of rows to the returned data

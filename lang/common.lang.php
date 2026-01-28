@@ -251,7 +251,7 @@ function __icon(  string  $icon                                   ,
 
   // Prepare the image path
   $icon = ($is_small) ? $icon.'_small' : $icon;
-  $src  = 'src="'.$path.'img/icons/'.$icon.'.svg"';
+  $src  = 'src="'.$path.'img/website/icons/'.$icon.'.svg"';
 
   // Prepare the alt text and title
   $alt = 'alt="'.$alt.'"';

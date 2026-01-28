@@ -93,7 +93,7 @@ $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 // Page image
 
 // If there is no image, use a header smuggie
-$page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header_smuggie_3.png';
+$page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header/header_smuggie_3.png';
 
 
 
@@ -195,7 +195,7 @@ $javascripts .= '
 
           <a href="<?=$path?>index">
             <div class="header_topmenu_title header_topmenu_smug" id="header_menu_title_home">
-              <img src="<?=$path?>img/website/header_smuggie_<?=$header_smuggie?>.png" alt="Home" title="<?=__('menu_top_home')?>" class="header_topmenu_smuggie">
+              <img src="<?=$path?>img/website/header/header_smuggie_<?=$header_smuggie?>.png" alt="Home" title="<?=__('menu_top_home')?>" class="header_topmenu_smuggie">
             </div>
           </a>
 
@@ -230,9 +230,9 @@ $javascripts .= '
           <form id="language" method="post">
             <input type="hidden" name="change_language" value="change_language">
             <?php if($lang === 'FR') { ?>
-            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_en.png" alt="EN" title="<?=string_change_case(__('english'), 'initials')?>" onclick="user_change_language();">
+            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/website/icons/lang_en.png" alt="EN" title="<?=string_change_case(__('english'), 'initials')?>" onclick="user_change_language();">
             <?php } else { ?>
-            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
+            <img class="header_topmenu_icon header_topmenu_flag" src="<?=$path?>img/website/icons/lang_fr.png" alt="FR" title="<?=string_change_case(__('french'), 'initials')?>" onclick="user_change_language();">
             <?php } ?>
           </form>
 

@@ -51,14 +51,14 @@ if(!page_is_fetched_dynamically()): /*******************************************
 
   <div class="nopadding_bot">
     <a href="<?=$path?>comics/list">
-      <img src="<?=$path?>img/banners/comics/full_list_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
+      <img src="<?=$path?>img/website/pages/full_list_header_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
     </a>
   </div>
 
   <div class="flexcontainer padding_bot">
     <div class="flex">
-      <img class="desktop" src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
-      <img class="mobile" src="<?=$path?>img/banners/comics/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">    </div>
+      <img class="desktop" src="<?=$path?>img/website/buttons/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+      <img class="mobile" src="<?=$path?>img/website/buttons/search_bigger_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">    </div>
     <div class="flex">
       <div class="spaced">
         <form method="post" action="all">

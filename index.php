@@ -22,27 +22,27 @@ $page_description = "Hi, this is Bad, and you're on the wrong website.";
 
 <div class="width_50">
 
-  <img src="<?=$path?>img/website/homepage_intro_<?=$lang_lower?>.png" alt="<?=__('home_comics_intro')?>" title="<?=__('home_comics_intro')?>">
+  <img src="<?=$path?>img/website/pages/homepage_intro_<?=$lang_lower?>.png" alt="<?=__('home_comics_intro')?>" title="<?=__('home_comics_intro')?>">
 
-  <img src="<?=$path?>img/website/homepage_satire_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_satire')?>">
+  <img src="<?=$path?>img/website/pages/homepage_satire_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_satire')?>">
 
   <div class="flexcontainer">
     <div class="flex spaced_right">
       <a href="<?=$path?>comics/list">
-        <img src="<?=$path?>img/website/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
+        <img src="<?=$path?>img/website/pages/homepage_comics_<?=$lang_lower?>.png" alt="<?=__('home_comics_comics')?>" title="<?=__('home_comics_comics')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>about/faq">
-        <img src="<?=$path?>img/website/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
+        <img src="<?=$path?>img/website/pages/homepage_questions_<?=$lang_lower?>.png" alt="<?=__('home_comics_questions')?>" title="<?=__('home_comics_questions')?>">
       </a>
     </div>
   </div>
 
-  <img src="<?=$path?>img/website/homepage_language_<?=$lang_lower?>.png" alt="<?=__('home_comics_language')?>" title="<?=__('home_comics_language')?>">
+  <img src="<?=$path?>img/website/pages/homepage_language_<?=$lang_lower?>.png" alt="<?=__('home_comics_language')?>" title="<?=__('home_comics_language')?>">
 
   <a href="<?=$path?>about/socials">
-    <img src="<?=$path?>img/website/homepage_socials_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_socials')?>">
+    <img src="<?=$path?>img/website/pages/homepage_socials_<?=$lang_lower?>.png" alt="<?=__('home_comics_satire')?>" title="<?=__('home_comics_socials')?>">
   </a>
 
 </div>

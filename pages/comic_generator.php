@@ -41,7 +41,7 @@ $seed = (isset($_GET['seed']) ? (int)$_GET['seed'] : random_int(1, PHP_INT_MAX))
 <div class="width_50">
 
   <a href="<?=$path?>comics/list">
-    <img src="<?=$path?>img/banners/comics/category_generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
+    <img src="<?=$path?>img/website/categories/generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
   </a>
 
   <div class="smallpadding_top smallpadding_bot align_center">
@@ -65,13 +65,13 @@ $seed = (isset($_GET['seed']) ? (int)$_GET['seed'] : random_int(1, PHP_INT_MAX))
 
   <div class="smallpadding_top">
     <a href="<?=$path?>comics/generator">
-      <img src="<?=$path?>img/banners/comics/generator_roll_<?=$lang_lower?>.png" alt="<?=__('comics_generator_generate')?>" title="<?=__('comics_generator_generate')?>">
+      <img src="<?=$path?>img/website/pages/generator_roll_<?=$lang_lower?>.png" alt="<?=__('comics_generator_generate')?>" title="<?=__('comics_generator_generate')?>">
     </a>
   </div>
 
   <div>
     <a href="<?=$path?>about/socials">
-      <img src="<?=$path?>img/banners/comics/follow_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
+      <img src="<?=$path?>img/website/pages/generator_follow_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
     </a>
   </div>
 

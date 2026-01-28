@@ -63,21 +63,21 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__('admin_images_info_preview')?>
   </h5>
   <div class="padding_bot">
-    <img src="<?=$path?>img/templates/preview_<?=$lang_lower?>.png">
+    <img src="<?=$path?>img/website/templates/preview_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_info_banner')?>
   </h5>
   <div class="padding_bot">
-    <img src="<?=$path?>img/templates/comic_type_<?=$lang_lower?>.png">
+    <img src="<?=$path?>img/website/templates/comic_type_<?=$lang_lower?>.png">
   </div>
 
   <h5 class="smallpadding_bot align_center">
     <?=__('admin_images_info_tag')?>
   </h5>
   <div>
-    <img src="<?=$path?>img/templates/tag_<?=$lang_lower?>.png">
+    <img src="<?=$path?>img/website/templates/tag_<?=$lang_lower?>.png">
   </div>
 
 </div>

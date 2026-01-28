@@ -83,7 +83,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
-        <img src="<?=$path?>img/banners/comics/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+        <img src="<?=$path?>img/website/buttons/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
       </a>
       <?php else: ?>
       &nbsp;
@@ -91,13 +91,13 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+        <img src="<?=$path?>img/website/buttons/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <?php if($comic_data['next']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['next']?>">
-        <img src="<?=$path?>img/banners/comics/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+        <img src="<?=$path?>img/website/buttons/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
       </a>
       <?php else: ?>
       &nbsp;
@@ -229,17 +229,17 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   <div class="flexcontainer">
     <div class="flex smallspaced_right">
       <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
-        <img src="<?=$path?>img/banners/comics/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_bluesky')?>" title="<?=__('comics_socials_bluesky')?>">
+        <img src="<?=$path?>img/website/socials/bluesky_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_bluesky')?>" title="<?=__('comics_socials_bluesky')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>about/socials">
-        <img src="<?=$path?>img/banners/comics/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_follow')?>" title="<?=__('comics_socials_follow')?>">
+        <img src="<?=$path?>img/website/socials/follow_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_follow')?>" title="<?=__('comics_socials_follow')?>">
       </a>
     </div>
     <div class="flex">
       <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
-        <img src="<?=$path?>img/banners/comics/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_instagram')?>" title="<?=__('comics_socials_instagram')?>">
+        <img src="<?=$path?>img/website/socials/instagram_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_instagram')?>" title="<?=__('comics_socials_instagram')?>">
       </a>
     </div>
   </div>
@@ -247,17 +247,17 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   <div class="flexcontainer">
     <div class="flex smallspaced_right">
       <a href="https://reddit.com/r/<?=$reddit_link?>" target="_blank">
-        <img src="<?=$path?>img/banners/comics/reddit_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_reddit')?>" title="<?=__('comics_socials_reddit')?>">
+        <img src="<?=$path?>img/website/socials/reddit_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_reddit')?>" title="<?=__('comics_socials_reddit')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
       <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
-        <img src="<?=$path?>img/banners/comics/discord_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_discord')?>" title="<?=__('comics_socials_discord')?>">
+        <img src="<?=$path?>img/website/socials/discord_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_discord')?>" title="<?=__('comics_socials_discord')?>">
       </a>
     </div>
     <div class="flex">
       <a href="https://<?=$lemmy_link?>" target="_blank">
-        <img src="<?=$path?>img/banners/comics/lemmy_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_lemmy')?>" title="<?=__('comics_socials_lemmy')?>">
+        <img src="<?=$path?>img/website/socials/lemmy_small_<?=$lang_lower?>.png" alt="<?=__('comics_socials_lemmy')?>" title="<?=__('comics_socials_lemmy')?>">
       </a>
     </div>
   </div>
@@ -266,7 +266,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
-        <img src="<?=$path?>img/banners/comics/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
+        <img src="<?=$path?>img/website/buttons/previous_<?=$lang_lower?>.png" alt="<?=__('comics_nav_previous')?>" title="<?=__('comics_nav_previous')?>">
       </a>
       <?php else: ?>
       &nbsp;
@@ -274,13 +274,13 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/random?exclude=<?=$comic_slug?>&type=<?=$comic_data['type_id']?>">
-        <img src="<?=$path?>img/banners/comics/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+        <img src="<?=$path?>img/website/buttons/random_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <?php if($comic_data['next']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['next']?>">
-        <img src="<?=$path?>img/banners/comics/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
+        <img src="<?=$path?>img/website/buttons/next_<?=$lang_lower?>.png" alt="<?=__('comics_nav_next')?>" title="<?=__('comics_nav_next')?>">
       </a>
       <?php else: ?>
       &nbsp;

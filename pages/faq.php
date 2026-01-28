@@ -28,7 +28,7 @@ page_enforce_url($page_url);
 <div class="width_50 padding_bot">
 
   <div>
-    <img src="<?=$path?>img/website/faq_intro_<?=$lang_lower?>.png" alt="<?=__('about_comics_intro')?>" title="<?=__('about_comics_intro')?>">
+    <img src="<?=$path?>img/website/pages/faq_intro_<?=$lang_lower?>.png" alt="<?=__('about_comics_intro')?>" title="<?=__('about_comics_intro')?>">
   </div>
 
   <ul class="padding_top big_desktop">

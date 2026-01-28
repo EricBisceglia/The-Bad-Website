@@ -47,7 +47,7 @@ $lang_404 = string_change_case(user_get_language(), 'lowercase');
 
 <div class="width_50 align_center">
   <a href="<?=$path?>index">
-    <img src="img/website/404_<?=$lang_404?>.png" alt="404">
+    <img src="img/website/pages/404_<?=$lang_404?>.png" alt="404">
   </a>
 </div>
 

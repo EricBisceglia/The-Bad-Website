@@ -47,12 +47,12 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
   <div class="flexcontainer nopadding_bot">
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/all">
-        <img src="<?=$path?>img/banners/comics/full_list_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
+        <img src="<?=$path?>img/website/buttons/full_list_<?=$lang_lower?>.png" alt="<?=__('comics_list_all')?>" title="<?=__('comics_list_all')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>comics/all">
-        <img src="<?=$path?>img/banners/comics/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
+        <img src="<?=$path?>img/website/buttons/search_<?=$lang_lower?>.png" alt="<?=__('comics_list_search')?>" title="<?=__('comics_list_search')?>">
       </a>
     </div>
   </div>
@@ -60,17 +60,17 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
   <div class="flexcontainer">
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/tags">
-        <img src="<?=$path?>img/banners/comics/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
+        <img src="<?=$path?>img/website/buttons/tags_<?=$lang_lower?>.png" alt="<?=__('comics_list_tags')?>" title="<?=__('comics_list_tags')?>">
       </a>
     </div>
     <div class="flex smallspaced_right">
       <a href="<?=$path?>comics/random?type=1">
-        <img src="<?=$path?>img/banners/comics/random_full_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
+        <img src="<?=$path?>img/website/buttons/random_full_<?=$lang_lower?>.png" alt="<?=__('comics_nav_random')?>" title="<?=__('comics_nav_random')?>">
       </a>
     </div>
     <div class="flex">
       <a href="<?=$path?>comic/<?=$latest_comic_slug?>">
-        <img src="<?=$path?>img/banners/comics/latest_<?=$lang_lower?>.png" alt="<?=__('comics_list_new')?>" title="<?=__('comics_list_latest')?>">
+        <img src="<?=$path?>img/website/buttons/latest_<?=$lang_lower?>.png" alt="<?=__('comics_list_new')?>" title="<?=__('comics_list_latest')?>">
       </a>
     </div>
   </div>
@@ -85,7 +85,7 @@ $latest_comic_slug = comics_get_latest_comic_slug( enforce_type: 'smuggies' );
 
   <div class="nopadding_bot">
     <a href="<?=$path?>comics/generator">
-      <img src="<?=$path?>img/banners/comics/category_generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
+      <img src="<?=$path?>img/website/categories/generator_<?=$lang_lower?>.png" alt="<?=__('comics_list_generator')?>" title="<?=__('comics_list_generator')?>">
     </a>
   </div>
 
