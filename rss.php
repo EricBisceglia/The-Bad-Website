@@ -52,7 +52,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
           <img src="<?=$GLOBALS['website_url'].'img/website/pages/rss_bottom.png'?>" alt="Click here to read the comic">
         </a>
       ]]></description>
-      <pubDate><?=htmlspecialchars($comics_list[$i]['date'])?></pubDate>
+      <pubDate><?=htmlspecialchars($comics_list[$i]['date_rss'])?></pubDate>
     </item>
     <?php endif; ?>
     <?php endfor; ?>
