@@ -341,6 +341,27 @@ EOT
 );
 
 
+// Commissions
+___('about_commissions_title',  'EN', "Do you do drawings on request?");
+___('about_commissions_title',  'FR', "Fais-tu des dessins sur demande ?");
+___('about_commissions_body_1', 'EN', <<<EOT
+Got ideas for a fun comic, a new meme template, or any other cool thing you'd like me to draw? Suggest it <a href="https://discord.gg/XTd3qQKZqV" target="_blank">on Discord</a> or <a href="https://thebad.website/about/socials">other socials</a>, and I might do it (and credit you!).
+EOT
+);
+___('about_commissions_body_1', 'FR', <<<EOT
+Tu as des idées pour un comic rigolo, un nouveau modèle de meme, ou d'autres trucs cool que tu voudrais que je dessine ? Tu peux me les suggérer <a href="https://discord.gg/XTd3qQKZqV" target="_blank">sur Discord</a> ou <a href="https://thebad.website/about/socials">un réseau social</a>, et peut-être que je le ferai (et te créditerai !).
+EOT
+);
+___('about_commissions_body_2', 'EN', <<<EOT
+If you're looking for a more serious (paid) commission, contact me and we'll discuss it privately.
+EOT
+);
+___('about_commissions_body_2', 'FR', <<<EOT
+Si tu veux me passer commande d'un dessin plus sérieux (payant), contacte-moi, discutons-en en privé.
+EOT
+);
+
+
 // Source
 ___('about_source_title',  'EN', "Cool website, did you make it yourself?");
 ___('about_source_title',  'FR', "Ce site est cool, tu l'as fait toi-même ?");
@@ -372,7 +393,7 @@ EOT
 
 // Cookies
 ___('about_cookies_title',  'EN', "Why wasn't I asked to accept cookies?");
-___('about_cookies_title',  'FR', "Pourquoi le site ne m'a-t-il pas demandé d'accepter des cookies ?");
+___('about_cookies_title',  'FR', "Pourquoi le site ne m'a pas demandé d'accepter des cookies ?");
 ___('about_cookies_body_1', 'EN', <<<EOT
 Because this is a simple website full of silly pastel drawings, and nothing more.
 EOT
