@@ -57,6 +57,9 @@ page_enforce_url($page_url);
       <?=__link('about/faq#merch', __('about_merch_title'), path: root_path())?>
     </li>
     <li>
+      <?=__link('about/faq#commissions', __('about_commissions_title'), path: root_path())?>
+    </li>
+    <li>
       <?=__link('about/faq#source', __('about_source_title'), path: root_path())?>
     </li>
     <li>
@@ -178,6 +181,18 @@ page_enforce_url($page_url);
 
   <p>
     <?=__('about_merch_body_2')?>
+  </p>
+
+  <h5 class="hugepadding_top smallpadding_bot" id="commissions">
+    <?=__link('about/faq#commissions', __('about_commissions_title'), path: root_path(), style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_commissions_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_commissions_body_2')?>
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="source">
