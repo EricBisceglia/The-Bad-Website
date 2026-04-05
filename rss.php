@@ -43,7 +43,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
     <?php if($i < 25): ?>
     <item>
-      <title><?=$comics_list[$i]['title_en']?></title>
+      <title><?=$comics_list[$i]['title_rss']?></title>
       <link><?=$comics_list[$i]['url']?></link>
       <description><![CDATA[
         <a href="<?=$comics_list[$i]['url']?>">

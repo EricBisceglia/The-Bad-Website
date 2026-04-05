@@ -558,6 +558,8 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['id']         = sanitize_output($row['c_id']);
     $data[$i]['slug']       = sanitize_output($row['c_slug']);
     $data[$i]['url']        = sanitize_output($GLOBALS['website_url'].'comic/'.$row['c_slug']);
+    $data[$i]['url_rss']    = htmlspecialchars( $GLOBALS['website_url'].'comic/'.$row['c_slug'] ,
+                                                ENT_XML1 | ENT_QUOTES, 'UTF-8');
     $data[$i]['stitle']     = sanitize_output(string_truncate($row['c_title'], 25, '...'));
     $data[$i]['mtitle']     = sanitize_output(string_truncate($row['c_title'], 35, '...'));
     $data[$i]['title']      = sanitize_output(string_truncate($row['c_title'], 45, '...'));
@@ -565,13 +567,15 @@ function comics_list( string $sort_by   = 'date'  ,
     $data[$i]['ftitle']     = sanitize_output($row['c_title']);
     $data[$i]['title_en']   = sanitize_output($row['c_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['c_title_fr']);
+    $data[$i]['title_rss']  = htmlspecialchars($row['c_title_en'], ENT_XML1 | ENT_QUOTES, 'UTF-8');
     $data[$i]['video']      = ($row['c_yt_en'] || $row['c_yt_fr']);
     $data[$i]['type']       = sanitize_output($row['ct_name']);
     $data[$i]['date']       = ($row['c_date'] !== '0000-00-00')
                             ? time_since(sanitize_output(strtotime($row['c_date'])))
                             : '';
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['c_date'])));
-    $data[$i]['date_rss']   = date(DATE_RSS, strtotime($row['c_date']));
+    $data[$i]['date_rss']   = htmlspecialchars( date(DATE_RSS, strtotime($row['c_date'])) ,
+                                                ENT_XML1 | ENT_QUOTES, 'UTF-8');
     $data[$i]['private']    = (!$row['c_public']);
     $data[$i]['views']      = sanitize_output($row['c_views']);
     $data[$i]['desc_en']    = sanitize_output($row['c_desc_en']);
