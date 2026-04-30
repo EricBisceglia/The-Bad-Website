@@ -46,6 +46,7 @@ if(isset($_POST['image_edit']))
                               'trans'     => form_fetch_element('image_trans')                          ,
                               'template'  => form_fetch_element('image_template', element_exists: true) ,
                               'emoji'     => form_fetch_element('image_emoji', element_exists: true)    ,
+                              'bubble'    => form_fetch_element('image_bubble', element_exists: true)   ,
                               'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                               'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
                               'full'      => form_fetch_element('image_full', element_exists: true)     ,
@@ -155,6 +156,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
               <option value="2"><?=__('admin_images_list_type_prev')?></option>
               <option value="3"><?=__('admin_images_list_type_templ')?></option>
               <option value="4"><?=__('admin_images_list_type_emoji')?></option>
+              <option value="8"><?=__('admin_images_list_type_bubble')?></option>
               <option value="5"><?=__('admin_images_list_type_old')?></option>
               <option value="6"><?=__('admin_images_list_type_bonus')?></option>
               <option value="7"><?=__('admin_images_list_type_full')?></option>
@@ -240,6 +242,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__icon('image', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
             <?php elseif($images_list[$i]['emoji']): ?>
             <?=__icon('user', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: root_path())?>
+            <?php elseif($images_list[$i]['bubble']): ?>
+            <?=__icon('info', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: root_path())?>
             <?php elseif(!$images_list[$i]['old'] && !$images_list[$i]['full'] && !$images_list[$i]['bonus']): ?>
             &nbsp;
             <?php endif; ?>

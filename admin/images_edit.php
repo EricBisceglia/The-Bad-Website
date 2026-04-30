@@ -77,6 +77,9 @@ $image_template_checked = ($admin_image_data['template']) ? ' checked' : '';
 // Emoji
 $image_emoji_checked = ($admin_image_data['emoji']) ? ' checked' : '';
 
+// Speech bubble
+$image_bubble_checked = ($admin_image_data['bubble']) ? ' checked' : '';
+
 // Preview
 $image_preview_checked = ($admin_image_data['preview']) ? ' checked' : '';
 
@@ -174,6 +177,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div>
         <input type="checkbox" class="align_left" name="image_emoji"<?=$image_emoji_checked?>>
         <label for="image_emoji" class="label_inline"><?=__('admin_images_add_emoji')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_bubble"<?=$image_bubble_checked?>>
+        <label for="image_bubble" class="label_inline"><?=__('admin_images_add_bubble')?></label>
       </div>
 
       <div class="smallpadding_top smallpadding_bot">

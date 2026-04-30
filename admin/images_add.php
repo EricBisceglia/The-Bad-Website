@@ -45,6 +45,7 @@ if(isset($_POST['image_add']))
                             'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     ,
                             'template'  => form_fetch_element('image_template', element_exists: true) ,
                             'emoji'     => form_fetch_element('image_emoji', element_exists: true)    ,
+                            'bubble'    => form_fetch_element('image_bubble', element_exists: true)   ,
                             'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                             'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
                             'full'      => form_fetch_element('image_full', element_exists: true)     ,
@@ -160,6 +161,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div>
         <input type="checkbox" class="align_left" name="image_emoji">
         <label for="image_emoji" class="label_inline"><?=__('admin_images_add_emoji')?></label>
+      </div>
+
+      <div>
+        <input type="checkbox" class="align_left" name="image_bubble">
+        <label for="image_bubble" class="label_inline"><?=__('admin_images_add_bubble')?></label>
       </div>
 
       <div class="smallpadding_top smallpadding_bot">
