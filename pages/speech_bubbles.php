@@ -8,9 +8,9 @@ include_once './../lang/comics.lang.php';   # Translations
 include_once './../actions/images.act.php'; # Image management
 
 // Page summary
-$page_url       = "stuff/templates";
-$page_title_en  = "Templates";
-$page_title_fr  = "Modèles";
+$page_url       = "stuff/bubbles";
+$page_title_en  = "Speech bubbles";
+$page_title_fr  = "Bulles de texte";
 
 // Enforce the url
 page_enforce_url($page_url);
@@ -25,10 +25,11 @@ page_enforce_url($page_url);
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch all template images
+// Fetch all speech bubbles
 
-$template_list = images_list( search: array('template' => 1) ,
-                              sort_by:  'name'                 ,);
+$bubbles_list = images_list( search: array('bubble' => 1) ,
+                             sort_by:  'order'            );
+
 
 
 
@@ -41,23 +42,23 @@ if(!page_is_fetched_dynamically()): /*******************************************
 <div class="width_50">
 
   <a href="<?=$path?>stuff/list">
-    <img src="<?=$path?>img/website/categories/templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
+    <img src="<?=$path?>img/website/categories/bubbles_<?=$lang_lower?>.png" alt="<?=__('comics_list_bubbles')?>" title="<?=__('comics_list_bubbles')?>">
   </a>
 
   <div class="smallpadding_top smallpadding_bot">
-    <blockquote><?=__('comics_templates_desc')?></blockquote>
+    <blockquote><?=__('comics_bubbles_desc')?></blockquote>
   </div>
 
-  <div class="tinypadding_top padding_bot" style="column-count: 3;">
-    <?php for($i = 0; $i < $template_list['rows']; $i++): ?>
-    <a href="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" target="_blank">
-      <img src="<?=$path?>img/comics/<?=$template_list[$i]['name_full']?>" alt="<?=$template_list[$i]['name_full']?>" title="<?=$template_list[$i]['name_full']?>" class="indiv">
+  <div class="tinypadding_top padding_bot" style="column-count: 2;">
+    <?php for($i = 0; $i < $bubbles_list['rows']; $i++): ?>
+    <a href="<?=$path?>img/comics/<?=$bubbles_list[$i]['name_full']?>" target="_blank">
+      <img src="<?=$path?>img/comics/<?=$bubbles_list[$i]['name_full']?>" alt="<?=$bubbles_list[$i]['name_full']?>" title="<?=$bubbles_list[$i]['name_full']?>" class="indiv">
     </a>
     <?php endfor; ?>
   </div>
 
   <div class="comic_youtube_container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ais7i7VHlUo?si=FWi4JMilmveKs6lU" class="comic_youtube_embed"></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/L45Btd3stb4?si=GzTVlSyQPOm6r3QX" class="comic_youtube_embed"></iframe>
   </div>
 
 </div>

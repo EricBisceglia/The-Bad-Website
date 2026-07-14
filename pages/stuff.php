@@ -66,6 +66,12 @@ $comic_types_list = comic_types_list( is_minor: true );
   </div>
 
   <div class="nopadding_bot">
+    <a href="<?=$path?>stuff/bubbles">
+      <img src="<?=$path?>img/website/categories/bubbles_<?=$lang_lower?>.png" alt="<?=__('comics_list_bubbles')?>" title="<?=__('comics_list_bubbles')?>">
+    </a>
+  </div>
+
+  <div class="nopadding_bot">
     <a href="<?=$path?>stuff/templates">
       <img src="<?=$path?>img/website/categories/templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
     </a>

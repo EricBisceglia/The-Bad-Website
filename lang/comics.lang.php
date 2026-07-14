@@ -66,6 +66,8 @@ ___('comics_list_templates',  'EN', "Templates");
 ___('comics_list_templates',  'FR', "Modèles");
 ___('comics_list_emojis',     'EN', "Emojis");
 ___('comics_list_emojis',     'FR', "Emojis");
+___('comics_list_bubbles',    'EN', "Speech bubbles");
+___('comics_list_bubbles',    'FR', "Bulles vocales");
 ___('comics_list_merch',      'EN', "Merch");
 ___('comics_list_merch',      'FR', "Goodies");
 
@@ -138,6 +140,25 @@ Ci-dessous, une collection d'emojis. Vous pouvez les utiliser où vous voulez.<b
 Ils sont tous listés deux fois : d'abord en grand, puis à la taille emoji.<br>
 <br>
 Cliquez sur un emoji pour l'ouvrir, ce qui le rendra plus facile à télécharger.
+EOT
+);
+
+
+// Speech bubbles
+___('comics_bubbles_desc', 'EN', <<<EOT
+Below are are various characters with their speech bubbles.<br>
+<br>
+They are meant to be used on social media (or other communication platforms), by using them as replies to other people's messages, making it look like the character portrayed in the image was the actual author of their message.<br>
+<br>
+Click on an image to open it, which will make downloading it easier.
+EOT
+);
+___('comics_bubbles_desc', 'FR', <<<EOT
+Ci-dessous, des personnages accompagnés de bulles de texte.<br>
+<br>
+Ils sont destinés à être utilisés sur les réseaux sociaux (ou d'autres modes de communication), en tant que réponses à placer sous les messages des gens, afin de suggérer que le personnage représenté dans l'image est l'auteur de leur message.<br>
+<br>
+Cliquez sur une image pour l'ouvrir, ce qui la rendra plus facile à télécharger.
 EOT
 );
 

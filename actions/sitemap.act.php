@@ -30,6 +30,7 @@ function sitemap_generate()
   $sitemap .= sitemap_add_page('comics/list', 'monthly', '1.0');
   $sitemap .= sitemap_add_page('comics/tags', 'weekly', '0.6');
   $sitemap .= sitemap_add_page('merch/gallery', 'weekly', '0.6');
+  $sitemap .= sitemap_add_page('stuff/bubbles', 'monthly', '0.5');
   $sitemap .= sitemap_add_page('stuff/emojis', 'monthly', '0.5');
   $sitemap .= sitemap_add_page('stuff/list', 'monthly', '1.0');
   $sitemap .= sitemap_add_page('stuff/templates', 'monthly', '0.6');

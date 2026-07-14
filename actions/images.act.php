@@ -38,19 +38,20 @@ function images_get( int $image_id ) : array|null
     return null;
 
   // Fetch the image's data
-  $image_data = query(" SELECT  images.name             AS 'i_name'     ,
-                                images.fk_comics        AS 'i_comic'    ,
-                                images.image_order      AS 'i_order'    ,
-                                images.upload_date      AS 'i_date'     ,
-                                images.is_a_template    AS 'i_template' ,
-                                images.is_an_emoji      AS 'i_emoji'    ,
-                                images.is_old_version   AS 'i_old'     ,
-                                images.is_full_version  AS 'i_full'    ,
-                                images.is_a_preview     AS 'i_preview'  ,
-                                images.is_bonus_panel   AS 'i_bonus'    ,
-                                images.is_nsfw          AS 'i_nsfw'     ,
-                                images.language         AS 'i_lang'     ,
-                                images.transcript       AS 'i_trans'
+  $image_data = query(" SELECT  images.name               AS 'i_name'     ,
+                                images.fk_comics          AS 'i_comic'    ,
+                                images.image_order        AS 'i_order'    ,
+                                images.upload_date        AS 'i_date'     ,
+                                images.is_a_template      AS 'i_template' ,
+                                images.is_an_emoji        AS 'i_emoji'    ,
+                                images.is_a_speech_bubble AS 'i_bubble'   ,
+                                images.is_old_version     AS 'i_old'      ,
+                                images.is_full_version    AS 'i_full'     ,
+                                images.is_a_preview       AS 'i_preview'  ,
+                                images.is_bonus_panel     AS 'i_bonus'    ,
+                                images.is_nsfw            AS 'i_nsfw'     ,
+                                images.language           AS 'i_lang'     ,
+                                images.transcript         AS 'i_trans'
                         FROM    images
                         WHERE   images.id = '$image_id' ",
                         fetch_row: true);
@@ -64,6 +65,7 @@ function images_get( int $image_id ) : array|null
   $data['nsfw']     = sanitize_output($image_data['i_nsfw']);
   $data['template'] = sanitize_output($image_data['i_template']);
   $data['emoji']    = sanitize_output($image_data['i_emoji']);
+  $data['bubble']   = sanitize_output($image_data['i_bubble']);
   $data['preview']  = sanitize_output($image_data['i_preview']);
   $data['bonus']    = sanitize_output($image_data['i_bonus']);
   $data['full']     = sanitize_output($image_data['i_full']);
@@ -100,6 +102,7 @@ function images_list( $sort_by = 'date'   ,
   $search_nsfw      = sanitize_array_element($search, 'nsfw', 'int');
   $search_template  = sanitize_array_element($search, 'template', 'int');
   $search_emoji     = sanitize_array_element($search, 'emoji', 'int');
+  $search_bubble    = sanitize_array_element($search, 'bubble', 'int');
 
   // Search through the data
   $query_search  = ($search_name) ? " AND images.name          LIKE '%$search_name%'  " : "";
@@ -115,9 +118,10 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_comic > 0) ?
                                     " AND images.fk_comics       = '$search_comic'    " : "";
   $query_search .= ($search_type === 1) ?
-                                    " AND images.is_a_preview    = 0
-                                      AND images.is_a_template   = 0
-                                      AND images.is_an_emoji     = 0                  " : "";
+                                    " AND images.is_a_preview       = 0
+                                      AND images.is_a_template      = 0
+                                      AND images.is_an_emoji        = 0
+                                      AND images.is_a_speech_bubble = 0               " : "";
   $query_search .= ($search_type === 2) ?
                                     " AND images.is_a_preview    = 1                  " : "";
   $query_search .= ($search_type === 3) ?
@@ -130,53 +134,61 @@ function images_list( $sort_by = 'date'   ,
                                     " AND images.is_bonus_panel = 1                   " : "";
   $query_search .= ($search_type === 7) ?
                                     " AND images.is_full_version = 1                  " : "";
+  $query_search .= ($search_type === 8) ?
+                                    " AND images.is_a_speech_bubble = 1               " : "";
   $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
   $query_search .= ($search_template) ?
                                     " AND images.is_a_template   = $search_template   " : "";
   $query_search .= ($search_emoji) ?
                                     " AND images.is_an_emoji     = $search_emoji      " : "";
+  $query_search .= ($search_bubble) ?
+                                    " AND images.is_a_speech_bubble = $search_bubble  " : "";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'name'    => "  ORDER BY    images.name             ASC   ",
-    'type'    => "  ORDER BY    images.is_a_template    DESC  ,
-                                images.is_an_emoji      DESC  ,
-                                images.is_a_preview     DESC  ,
-                                images.is_full_version  DESC  ,
-                                images.is_old_version   DESC  ,
-                                images.is_bonus_panel   DESC  ,
-                                images.upload_date      DESC  ,
-                                images.name             ASC   ",
-    'lang'    => "  ORDER BY    images.language         ASC   ,
-                                images.upload_date      DESC  ,
-                                images.name             ASC   ",
-    'nsfw'    => "  ORDER BY    images.is_nsfw          DESC  ,
-                                images.upload_date      DESC  ,
-                                images.name             ASC   ",
-    'comic'   => "  ORDER BY    images.fk_comics        != 0  ,
-                                comics.upload_date      DESC  ,
-                                comics.title_$lang      ASC   ,
-                                images.upload_date      DESC  ,
-                                images.name             ASC   ",
-    default   => "  ORDER BY    images.upload_date      DESC  ,
-                                images.name             ASC   ",
+    'name'    => "  ORDER BY    images.name               ASC   ",
+    'order'   => "  ORDER BY    images.image_order        ASC   ,
+                                images.name               ASC   ",
+    'type'    => "  ORDER BY    images.is_a_template      DESC  ,
+                                images.is_an_emoji        DESC  ,
+                                images.is_a_speech_bubble DESC  ,
+                                images.is_a_preview       DESC  ,
+                                images.is_full_version    DESC  ,
+                                images.is_old_version     DESC  ,
+                                images.is_bonus_panel     DESC  ,
+                                images.upload_date        DESC  ,
+                                images.name               ASC   ",
+    'lang'    => "  ORDER BY    images.language           ASC   ,
+                                images.upload_date        DESC  ,
+                                images.name               ASC   ",
+    'nsfw'    => "  ORDER BY    images.is_nsfw            DESC  ,
+                                images.upload_date        DESC  ,
+                                images.name               ASC   ",
+    'comic'   => "  ORDER BY    images.fk_comics          != 0  ,
+                                comics.upload_date        DESC  ,
+                                comics.title_$lang        ASC   ,
+                                images.upload_date        DESC  ,
+                                images.name               ASC   ",
+    default   => "  ORDER BY    images.upload_date        DESC  ,
+                                images.name               ASC   ",
   };
 
   // Fetch the images
-  $images = query("   SELECT    images.id               AS 'i_id'       ,
-                                images.name             AS 'i_name'     ,
-                                images.image_order      AS 'i_order'    ,
-                                images.upload_date      AS 'i_date'     ,
-                                images.is_a_preview     AS 'i_preview'  ,
-                                images.is_old_version   AS 'i_old'      ,
-                                images.is_full_version  AS 'i_full'     ,
-                                images.is_a_template    AS 'i_template' ,
-                                images.is_bonus_panel   AS 'i_bonus'    ,
-                                images.is_an_emoji      AS 'i_emoji'    ,
-                                images.is_nsfw          AS 'i_nsfw'     ,
-                                images.language         AS 'i_lang'     ,
-                                comics.title_$lang      AS 'c_title'
+  $images = query("   SELECT    images.id                 AS 'i_id'       ,
+                                images.name               AS 'i_name'     ,
+                                images.image_order        AS 'i_order'    ,
+                                images.upload_date        AS 'i_date'     ,
+                                images.is_a_preview       AS 'i_preview'  ,
+                                images.is_old_version     AS 'i_old'      ,
+                                images.is_full_version    AS 'i_full'     ,
+                                images.is_a_template      AS 'i_template' ,
+                                images.is_bonus_panel     AS 'i_bonus'    ,
+                                images.is_an_emoji        AS 'i_emoji'    ,
+                                images.is_a_speech_bubble AS 'i_bubble'   ,
+                                images.is_nsfw            AS 'i_nsfw'     ,
+                                images.language           AS 'i_lang'     ,
+                                comics.title_$lang        AS 'c_title'
                       FROM      images
                       LEFT JOIN comics
                       ON        images.fk_comics = comics.id
@@ -203,6 +215,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['template']   = ($row['i_template']);
     $data[$i]['bonus']      = ($row['i_bonus']);
     $data[$i]['emoji']      = ($row['i_emoji']);
+    $data[$i]['bubble']     = ($row['i_bubble']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
   }
 
@@ -267,19 +280,11 @@ function images_add(  array $image_file ,
   $image_date     = sanitize(date('Y-m-d'), 'string');
   $image_template = sanitize($image_data['template'], 'int');
   $image_emoji    = sanitize($image_data['emoji'], 'int');
+  $image_bubble   = sanitize($image_data['bubble'], 'int');
   $image_preview  = sanitize($image_data['preview'], 'int');
   $image_bonus    = sanitize($image_data['bonus'], 'int');
   $image_full     = sanitize($image_data['full'], 'int');
   $image_old      = sanitize($image_data['old'], 'int');
-
-  // An emoji can't be anything else
-  if($image_emoji)
-  {
-    $image_preview  = 0;
-    $image_full     = 0;
-    $image_old      = 0;
-    $image_bonus    = 0;
-  }
 
   // A template can't be anything else
   if($image_template)
@@ -287,7 +292,27 @@ function images_add(  array $image_file ,
     $image_preview  = 0;
     $image_full     = 0;
     $image_old      = 0;
+    $image_bubble   = 0;
     $image_emoji    = 0;
+    $image_bonus    = 0;
+  }
+
+  // An emoji can't be anything else
+  if($image_emoji)
+  {
+    $image_preview  = 0;
+    $image_bubble   = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
+
+  // A speech bubble can't be anything else
+  if($image_bubble)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
     $image_bonus    = 0;
   }
 
@@ -307,23 +332,28 @@ function images_add(  array $image_file ,
   if($image_template && $image_comic)
     $image_comic = 0;
 
+  // A speech bubble can't be part of a comic
+  if($image_bubble && $image_comic)
+    $image_comic = 0;
+
   // Upload the image
   if(move_uploaded_file($tmp_name, $file_path))
   {
     // Create the image entry
     query(" INSERT INTO images
-            SET         images.name             = '$name'           ,
-                        images.fk_comics        = '$image_comic'    ,
-                        images.image_order      = '$image_order'    ,
-                        images.language         = '$image_lang'     ,
-                        images.is_a_template    = '$image_template' ,
-                        images.is_bonus_panel   = '$image_bonus'    ,
-                        images.is_an_emoji      = '$image_emoji'    ,
-                        images.is_old_version   = '$image_old'      ,
-                        images.is_full_version  = '$image_full'     ,
-                        images.is_a_preview     = '$image_preview'  ,
-                        images.is_nsfw          = '$image_nsfw'     ,
-                        images.upload_date      = '$image_date'     ");
+            SET         images.name               = '$name'           ,
+                        images.fk_comics          = '$image_comic'    ,
+                        images.image_order        = '$image_order'    ,
+                        images.language           = '$image_lang'     ,
+                        images.is_a_template      = '$image_template' ,
+                        images.is_bonus_panel     = '$image_bonus'    ,
+                        images.is_an_emoji        = '$image_emoji'    ,
+                        images.is_a_speech_bubble = '$image_bubble'   ,
+                        images.is_old_version     = '$image_old'      ,
+                        images.is_full_version    = '$image_full'     ,
+                        images.is_a_preview       = '$image_preview'  ,
+                        images.is_nsfw            = '$image_nsfw'     ,
+                        images.upload_date        = '$image_date'     ");
 
     // Fetch the newly created image's id
     $image_id = query_id();
@@ -402,6 +432,7 @@ function images_edit( int   $image_id ,
   $image_date     = sanitize($data['date'], 'string');
   $image_template = sanitize($data['template'], 'int');
   $image_emoji    = sanitize($data['emoji'], 'int');
+  $image_bubble   = sanitize($data['bubble'], 'int');
   $image_preview  = sanitize($data['preview'], 'int');
   $image_bonus    = sanitize($data['bonus'], 'int');
   $image_full     = sanitize($data['full'], 'int');
@@ -409,22 +440,33 @@ function images_edit( int   $image_id ,
   $image_nsfw     = sanitize($data['nsfw'], 'int');
   $image_trans    = sanitize($data['trans'], 'string');
 
-  // An emoji can't be anything else
-  if($image_emoji)
-  {
-    $image_preview  = 0;
-    $image_full     = 0;
-    $image_old      = 0;
-    $image_bonus    = 0;
-  }
-
   // A template can't be anything else
   if($image_template)
   {
     $image_preview  = 0;
     $image_full     = 0;
     $image_old      = 0;
+    $image_bubble   = 0;
     $image_emoji    = 0;
+    $image_bonus    = 0;
+  }
+
+  // An emoji can't be anything else
+  else if($image_emoji)
+  {
+    $image_preview  = 0;
+    $image_bubble   = 0;
+    $image_full     = 0;
+    $image_old      = 0;
+    $image_bonus    = 0;
+  }
+
+  // A speech bubble can't be anything else
+  else if($image_bubble)
+  {
+    $image_preview  = 0;
+    $image_full     = 0;
+    $image_old      = 0;
     $image_bonus    = 0;
   }
 
@@ -444,22 +486,27 @@ function images_edit( int   $image_id ,
   if($image_template && $image_comic)
     $image_comic = 0;
 
+  // A speech bubble can't be part of a comic
+  if($image_bubble && $image_comic)
+    $image_comic = 0;
+
   // Edit the image
   query(" UPDATE  images
-          SET     images.name             = '$name'           ,
-                  images.fk_comics        = '$image_comic'    ,
-                  images.image_order      = '$image_order'    ,
-                  images.language         = '$image_lang'     ,
-                  images.upload_date      = '$image_date'     ,
-                  images.is_a_template    = '$image_template' ,
-                  images.is_an_emoji      = '$image_emoji'    ,
-                  images.is_old_version   = '$image_old'      ,
-                  images.is_full_version  = '$image_full'     ,
-                  images.is_a_preview     = '$image_preview'  ,
-                  images.is_bonus_panel   = '$image_bonus'    ,
-                  images.is_nsfw          = '$image_nsfw'     ,
-                  images.transcript       = '$image_trans'
-          WHERE   images.id               = '$image_id'       ");
+          SET     images.name               = '$name'           ,
+                  images.fk_comics          = '$image_comic'    ,
+                  images.image_order        = '$image_order'    ,
+                  images.language           = '$image_lang'     ,
+                  images.upload_date        = '$image_date'     ,
+                  images.is_a_template      = '$image_template' ,
+                  images.is_an_emoji        = '$image_emoji'    ,
+                  images.is_a_speech_bubble = '$image_bubble'   ,
+                  images.is_old_version     = '$image_old'      ,
+                  images.is_full_version    = '$image_full'     ,
+                  images.is_a_preview       = '$image_preview'  ,
+                  images.is_bonus_panel     = '$image_bonus'    ,
+                  images.is_nsfw            = '$image_nsfw'     ,
+                  images.transcript         = '$image_trans'
+          WHERE   images.id                 = '$image_id'       ");
 }
 
 

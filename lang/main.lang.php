@@ -261,19 +261,19 @@ Bien sûr ! L'art est fait pour être partagé, merde aux gens et entreprises 
 EOT
 );
 ___('about_reuse_body_2', 'EN', <<<EOT
-You can share my comics, use my characters, steal my jokes, and best of all, you don't even need to ask for permission. I'd appreciate if you could keep the signature / website name on any images you modify.
+You can share my comics, use my characters, steal my jokes, and best of all, you don't even need to ask for permission. Please keep the signature / website name on any images you modify whenever possible.
 EOT
 );
 ___('about_reuse_body_2', 'FR', <<<EOT
-Vous pouvez partager mes comics, utiliser mes personnages, voler mes blagues, sans demander la permission. J'apprécierais que vous gardiez la signature / le nom du site sur les images que vous modifiez.
+Vous pouvez partager mes comics, utiliser mes personnages, voler mes blagues, sans demander la permission. Merci de garder la signature / le nom du site sur les images que vous modifiez lorsque c'est possible.
 EOT
 );
 ___('about_reuse_body_3', 'EN', <<<EOT
-The only restriction is that you can't use them in commercial projects without my explicit permission. Revenue generated using The Bad Website's content without discussing it with me first may result in legal action.
+The only restriction is that you can't use them in commercial projects or in advertisements without my explicit permission. Revenue generated using The Bad Website's content without discussing it with me first may result in legal action.
 EOT
 );
 ___('about_reuse_body_3', 'FR', <<<EOT
-La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial sans mon accord explicite. Tout revenu généré en exploitant les contenus du Mauvais Site sans m'avoir consulté préalablement pourrait entraîner des poursuites judiciaires.
+La seule restriction est que vous ne pouvez pas les utiliser dans un projet commercial ou dans une publicité sans mon accord explicite. Tout revenu généré en exploitant les contenus du Mauvais Site sans m'avoir consulté préalablement pourrait entraîner des poursuites judiciaires.
 EOT
 );
 

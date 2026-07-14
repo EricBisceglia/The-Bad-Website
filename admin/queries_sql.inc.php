@@ -778,3 +778,16 @@ if($last_query < 12)
 
   sql_update_query_id(12);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Speech bubble images
+
+if($last_query < 13)
+{
+  sql_create_field('images', 'is_a_speech_bubble', 'TINYINT(1) NOT NULL', 'is_an_emoji');
+
+  sql_update_query_id(13);
+}
