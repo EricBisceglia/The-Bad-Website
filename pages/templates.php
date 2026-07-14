@@ -56,6 +56,10 @@ if(!page_is_fetched_dynamically()): /*******************************************
     <?php endfor; ?>
   </div>
 
+  <div class="comic_youtube_container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ais7i7VHlUo?si=FWi4JMilmveKs6lU" class="comic_youtube_embed"></iframe>
+  </div>
+
 </div>
 
 <?php /***************************************************************************************************************/
