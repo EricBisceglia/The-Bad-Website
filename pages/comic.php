@@ -106,18 +106,18 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   </div>
 </div>
 
-<div class="align_center width_80">
+<div class="align_center width_50">
 
-  <h1 class="tinypadding_bot">
+  <h2 class="tinypadding_bot">
     <?=__link('comics/list', $comic_data['title'], path: root_path(), style: 'text_light')?>
-  </h1>
+  </h2>
   <h5 class="bigpadding_bot">
     <?=__link('comics/all', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
   <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i] && !$comic_data['images']['bonus'][$i]): ?>
-  <div class="padding_bot tinypadding_top">
+  <div class="tinypadding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
       <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
