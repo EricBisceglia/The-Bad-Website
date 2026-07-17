@@ -97,7 +97,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <form method="POST">
 
     <h2 class="padding_bot">
-      <?=__link('admin/', __('admin_ideas_edit'), path: $path, style: 'text_light')?>
+      <?=__link('admin/ideas#ideas_'.$admin_idea_id, __('admin_ideas_edit'), path: $path, style: 'text_light')?>
     </h2>
 
     <div class="smallpadding_bot">
