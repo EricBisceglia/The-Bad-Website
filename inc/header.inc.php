@@ -54,6 +54,7 @@ $page_title = ($lang === 'FR' && isset($page_title_fr)) ? $page_title_fr : $page
 // If the current page is unnamed, simply call it The Bad Website - or Devmode when in dev mode
 $default_page_title = ($lang === 'EN') ? 'The Bad Website' : 'Le mauvais site';
 $page_title = ($page_title) ? sanitize_meta_tags($page_title.' | '.$default_page_title) : $default_page_title;
+$page_title = ($GLOBALS['dev_mode']) ? $page_title.' | Devmode' : $page_title;
 
 
 
@@ -94,6 +95,15 @@ $header_smuggie = (isset($this_page_is_a_404)) ? '404_'.rand(1,8) : rand(1,12);
 
 // If there is no image, use a header smuggie
 $page_image = (isset($page_image)) ? $page_image : $GLOBALS['website_url'].'img/website/header/header_smuggie_3.png';
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Favicon
+
+// Use a different favicon for dev mode
+$favicon = ($GLOBALS['dev_mode']) ? 'favicon_dev.ico' : 'favicon.ico';
 
 
 
@@ -158,8 +168,8 @@ $javascripts .= '
     <title><?=$page_title?></title>
     <link rel="canonical" href="<?='https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?>">
     <meta name="robots" content="index, follow">
-    <link rel="shortcut icon" href="<?=$path?>favicon.ico">
-    <link rel="icon" href="<?=$path?>favicon.ico">
+    <link rel="shortcut icon" href="<?=$path.$favicon?>">
+    <link rel="icon" href="<?=$path.$favicon?>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="<?=$page_description?>">
     <meta property="og:type" content="website">
@@ -170,7 +180,7 @@ $javascripts .= '
     <meta property="og:image" content="<?=$page_image?>">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="fr_FR">
-    <link rel="icon" href="<?=$path.'favicon.ico'?>">
+    <link rel="icon" href="<?=$path.$favicon?>">
     <?=$stylesheets?>
     <?=$javascripts?>
   </head>

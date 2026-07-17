@@ -21,3 +21,9 @@ $GLOBALS['extra_folders']   = 0;                      /* If website_url is not a
                                                       /  if website is at http://example.com/ leave this as 0
                                                       /  if website is at http://example.com/example/, set this to 1
                                                       /  at http://example.com/domains/example/, set this to 2, etc. */
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Enable dev mode only on local dev environments
+
+$GLOBALS['dev_mode'] = false;
