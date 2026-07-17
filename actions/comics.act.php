@@ -613,8 +613,9 @@ function comics_list( string $sort_by   = 'date'  ,
   // If a search was performed by a user, add the query to the txt file
   if($search_body_fr || $search_body_en)
   {
-    // Grab and sanitize the search query
+    // Grab, timestamp, and sanitize the search query
     $user_search = ($search_body_en) ? $search_body_en : $search_body_fr;
+    $user_search     = '['.date('d/m/y H:i').'] '.$user_search;
     $user_search = addslashes(htmlspecialchars(strip_tags(trim(substr($user_search, 0, 500))), ENT_QUOTES, 'UTF-8'));
 
     // Determine the text file's path
@@ -626,7 +627,7 @@ function comics_list( string $sort_by   = 'date'  ,
       file_put_contents($file_path, '');
 
     // Append the search query to the end of the text file
-    file_put_contents($file_path, $user_search."\n", FILE_APPEND);
+    file_put_contents($file_path, $user_search."\n", FILE_APPEND | LOCK_EX);
   }
 
   // Return the prepared data
