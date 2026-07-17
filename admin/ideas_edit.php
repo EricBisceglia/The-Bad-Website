@@ -63,7 +63,7 @@ if(isset($_POST['admin_ideas_edit']))
                           'body'  => $admin_idea_body  ));
 
   // Redirect to the idea list
-  exit(header("Location: ./ideas#ideas_".$admin_idea_id));
+  exit(header("Location: ./ideas?category=".$admin_idea_type."#ideas_".$admin_idea_id));
 }
 
 
@@ -97,7 +97,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <form method="POST">
 
     <h2 class="padding_bot">
-      <?=__link('admin/ideas#ideas_'.$admin_idea_id, __('admin_ideas_edit'), path: $path, style: 'text_light')?>
+      <?=__link('admin/ideas?category='.$admin_idea['type'].'#ideas_'.$admin_idea_id, __('admin_ideas_edit'), path: $path, style: 'text_light')?>
     </h2>
 
     <div class="smallpadding_bot">
