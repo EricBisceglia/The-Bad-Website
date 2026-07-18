@@ -90,6 +90,8 @@ function comics_get(  int   $comic_id                ,
   $data['desc']         = sanitize_output($comic_data['c_desc'], preserve_line_breaks: true);
   $data['desc_en']      = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
+  $data['fdesc_en']     = sanitize_output($comic_data['c_desc_en'], preserve_line_breaks: true);
+  $data['fdesc_fr']     = sanitize_output($comic_data['c_desc_fr'], preserve_line_breaks: true);
   $data['youtube_en']   = sanitize_output($comic_data['c_yt_en']);
   $data['youtube_fr']   = sanitize_output($comic_data['c_yt_fr']);
   $data['type_id']      = sanitize_output($comic_data['ct_id']);

@@ -108,6 +108,22 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php endif; ?>
   <?php endif; ?>
 
+  <?php if($admin_comic_data['desc_en'] || $admin_comic_data['desc_fr']): ?>
+  <h5 class="padding_top smallpadding_bot">
+    <?=__('admin_comics_share_desc').__(':')?>
+  </h5>
+  <?php if($admin_comic_data['desc_en']): ?>
+  <div class="smallpadding_bot">
+    <blockquote><?=$admin_comic_data['fdesc_en']?></blockquote>
+  </div>
+  <?php endif; ?>
+  <?php if($admin_comic_data['desc_fr']): ?>
+  <div class="smallpadding_bot">
+    <blockquote><?=$admin_comic_data['fdesc_fr']?></blockquote>
+  </div>
+  <?php endif; ?>
+  <?php endif; ?>
+
   <?php if($admin_comic_data['images']['transcripts'] > 0): ?>
   <h5 class="padding_top smallpadding_bot">
     <?=__('admin_comics_share_transcript').__(':')?>

@@ -377,6 +377,8 @@ ___('admin_comics_share_private',     'EN', "This comic is private and shouldn't
 ___('admin_comics_share_private',     'FR', "Ce comic est privé et ne devrait pas être partagé!");
 ___('admin_comics_share_title',       'EN', "Comic title");
 ___('admin_comics_share_title',       'FR', "Title du comic");
+___('admin_comics_share_desc',        'EN', "Comic description");
+___('admin_comics_share_desc',        'FR', "Description du comic");
 ___('admin_comics_share_youtube',     'EN', "YouTube link");
 ___('admin_comics_share_youtube',     'FR', "Lien YouTube");
 ___('admin_comics_share_transcript',  'EN', "Comic transcript");
