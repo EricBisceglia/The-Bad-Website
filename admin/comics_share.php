@@ -108,7 +108,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php endif; ?>
   <?php endif; ?>
 
-  <?php if($admin_comic_data['images']['rows'] > 0): ?>
+  <?php if($admin_comic_data['images']['transcripts'] > 0): ?>
   <h5 class="padding_top smallpadding_bot">
     <?=__('admin_comics_share_transcript').__(':')?>
   </h5>
@@ -116,7 +116,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php if($i > 0 && $admin_comic_data['images']['lang'][$i] !== $admin_comic_data['images']['lang'][$i-1]): ?>
   <br>
   <?php endif; ?>
-  <?php if($admin_comic_data['images']['preview'][$i] === 'Comic' && !$admin_comic_data['images']['old'][$i] && !$admin_comic_data['images']['full'][$i]): ?>
+  <?php if($admin_comic_data['images']['preview'][$i] === 'Comic'
+        && !$admin_comic_data['images']['old'][$i]
+        && !$admin_comic_data['images']['full'][$i]
+        && $admin_comic_data['images']['trans'][$i]): ?>
   <div class="smallpadding_bot">
     <blockquote><?=$admin_comic_data['images']['trans'][$i]?></blockquote>
   </div>
@@ -133,6 +136,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <div class="smallpadding_bot">
     <blockquote><?=$admin_comic_data['images']['transcript_md_en']?></blockquote>
   </div>
+  <?php endif; ?>
+  <?php if($admin_comic_data['images']['transcript_text_en'] && $admin_comic_data['images']['transcript_text_fr']): ?>
+  <br>
   <?php endif; ?>
   <?php if($admin_comic_data['images']['transcript_text_fr']): ?>
   <div class="smallpadding_bot">

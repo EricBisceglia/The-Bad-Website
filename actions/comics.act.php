@@ -189,7 +189,7 @@ function comics_get(  int   $comic_id                ,
       $full_count++;
     if($row['i_bonus'] && !$row['i_old'] && !$row['i_full'])
       $bonus_count++;
-    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
+    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'] && !$row['i_preview'])
       $transcript_count++;
 
     // Update the full transcripts
