@@ -94,13 +94,15 @@ ___('admin_ideas_add_title',  'FR', "Ajouter une idée");
 
 
 // Ideas: Edit
-___('admin_ideas_edit',         'EN', "Edit idea");
-___('admin_ideas_edit',         'FR', "Modifier l'idée");
+___('admin_ideas_edit', 'EN', "Edit idea");
+___('admin_ideas_edit', 'FR', "Modifier l'idée");
 
 
 // Ideas: Delete
-___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
-___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
+___('admin_ideas_delete',   'EN', "Confirm the deletion of this idea");
+___('admin_ideas_delete',   'FR', "Confirmez la suppression de cette idée");
+___('admin_ideas_deleted',  'EN', "The idea has been deleted");
+___('admin_ideas_deleted',  'FR', "L'idée a été supprimée");
 
 
 // Idea types: List

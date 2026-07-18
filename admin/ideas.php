@@ -110,6 +110,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <?php endif; ?>
 
+  <?php if(!isset($_POST['admin_ideas_delete'])): ?>
+
   <div id="ideas_list">
 
     <h2 class="padding_bot smallpadding_top">
@@ -136,6 +138,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?php endfor; ?>
 
   </div>
+
+  <?php else: ?>
+
+  <div class="red vspaced">
+    <h5 class="text_white uppercase align_center">
+      <?=__('admin_ideas_deleted')?>
+    </h5>
+  </div>
+
+  <?php endif; ?>
 
   <?php if(!page_is_fetched_dynamically()): ?>
 
