@@ -115,6 +115,7 @@ function comics_get(  int   $comic_id                ,
   $query_sort = ($show_all_images ===  true)  ? " ORDER BY  images.language         ASC   ,
                                                             images.is_a_preview     DESC  ,
                                                             images.is_full_version  ASC   ,
+                                                            images.is_bonus_panel   ASC   ,
                                                             images.image_order      ASC   ,
                                                             images.name             ASC   "
                                               : " ORDER BY  images.is_a_preview     DESC  ,
@@ -193,7 +194,7 @@ function comics_get(  int   $comic_id                ,
       $transcript_count++;
 
     // Update the full transcripts
-    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'])
+    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
     {
       if($data['images']['lang'][$i] === 'EN')
         $full_transcript_en = ($full_transcript_en)
