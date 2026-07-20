@@ -484,8 +484,8 @@ ___('socials_links_tiktok',     'EN', "TikTok (animated comics and shorts)");
 ___('socials_links_tiktok',     'FR', "TikTok (comics animés, vidéos courtes)");
 ___('socials_links_rss',        'EN', "RSS feed (follow oldschool style, no social media required)");
 ___('socials_links_rss',        'FR', "Flux RSS (suivez le site à l'ancienne, sans médias sociaux)");
-___('socials_links_mastodon',   'EN', "Mastodon (personal stuff, pictures, drawings)");
-___('socials_links_mastodon',   'FR', "Mastodon (vie privée, photos, dessins)");
+___('socials_links_mastodon',   'EN', "Mastodon (personal stuff, pictures, drawings, politics)");
+___('socials_links_mastodon',   'FR', "Mastodon (vie privée, photos, dessins, politique)");
 ___('socials_links_instagram2', 'EN', "Another instagram?! (cat pictures)");
 ___('socials_links_instagram2', 'FR', "Un autre instagram ?! (photos de chats)");
 

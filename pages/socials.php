@@ -46,6 +46,12 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   </div>
 
   <div>
+    <a href="https://hsnl.social/@Bad" target="_blank">
+      <img src="<?=$path?>img/website/socials/mastodon_<?=$lang_lower?>.png" alt="<?= __('socials_links_mastodon')?>" title="<?= __('socials_links_mastodon')?>">
+    </a>
+  </div>
+
+  <div>
     <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
       <img src="<?=$path?>img/website/socials/instagram_<?=$lang_lower?>.png" alt="<?= __('socials_links_instagram')?>" title="<?= __('socials_links_instagram')?>">
     </a>
@@ -84,12 +90,6 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   <div>
     <a href="<?=$GLOBALS['website_url']?>rss" target="_blank">
       <img src="<?=$path?>img/website/socials/rss_<?=$lang_lower?>.png" alt="<?= __('socials_links_rss')?>" title="<?= __('socials_links_rss')?>">
-    </a>
-  </div>
-
-  <div>
-    <a href="https://hsnl.social/@Bad" target="_blank">
-      <img src="<?=$path?>img/website/socials/mastodon_<?=$lang_lower?>.png" alt="<?= __('socials_links_mastodon')?>" title="<?= __('socials_links_mastodon')?>">
     </a>
   </div>
 
