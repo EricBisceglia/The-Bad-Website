@@ -889,6 +889,7 @@ function comic_types_get( int     $comic_type_id    = 0,
   // Fetch the comic types's data
   $comic_type_data = query("  SELECT  comic_types.id                AS 'ct_id'        ,
                                       comic_types.sorting_order     AS 'ct_order'     ,
+                                      comic_types.name_$lang        AS 'ct_name'      ,
                                       comic_types.name_en           AS 'ct_name_en'   ,
                                       comic_types.name_fr           AS 'ct_name_fr'   ,
                                       comic_types.banner_$lang      AS 'ct_banner'    ,
@@ -905,6 +906,7 @@ function comic_types_get( int     $comic_type_id    = 0,
   // Sanitize the data for display
   $data['id']         = sanitize_output($comic_type_data['ct_id']);
   $data['order']      = sanitize_output($comic_type_data['ct_order']);
+  $data['name']       = sanitize_output($comic_type_data['ct_name']);
   $data['name_en']    = sanitize_output($comic_type_data['ct_name_en']);
   $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
   $data['page_en']    = sanitize_meta_tags($comic_type_data['ct_name_en']);

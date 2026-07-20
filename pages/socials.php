@@ -36,81 +36,75 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
 <div class="width_50">
 
   <div>
-    <img src="<?=$path?>img/website/pages/socials_<?=$lang_lower?>.png" alt="thebad.website" title="thebad.website">
+    <img src="<?=$path?>img/website/pages/socials_<?=$lang_lower?>.png" alt="<?=__('socials_comic_header')?>" title="<?=__('socials_comic_header')?>">
   </div>
 
   <div>
     <a href="https://discord.gg/XTd3qQKZqV" target="_blank">
-      <img src="<?=$path?>img/website/socials/discord_<?=$lang_lower?>.png" alt="Discord" title="Discord">
+      <img src="<?=$path?>img/website/socials/discord_<?=$lang_lower?>.png" alt="<?= __('socials_links_discord')?>" title="<?= __('socials_links_discord')?>">
     </a>
   </div>
 
   <div>
     <a href="https://www.instagram.com/<?=$instagram_link?>/" target="_blank">
-      <img src="<?=$path?>img/website/socials/instagram_<?=$lang_lower?>.png" alt="Instagram" title="Instagram">
+      <img src="<?=$path?>img/website/socials/instagram_<?=$lang_lower?>.png" alt="<?= __('socials_links_instagram')?>" title="<?= __('socials_links_instagram')?>">
     </a>
   </div>
 
   <div>
     <a href="https://bsky.app/profile/<?=$bluesky_link?>" target="_blank">
-      <img src="<?=$path?>img/website/socials/bluesky_<?=$lang_lower?>.png" alt="Bluesky" title="Bluesky">
+      <img src="<?=$path?>img/website/socials/bluesky_<?=$lang_lower?>.png" alt="<?= __('socials_links_bluesky')?>" title="<?= __('socials_links_bluesky')?>">
     </a>
   </div>
 
   <div>
     <a href="https://www.reddit.com/r/<?=$reddit_link?>" target="_blank">
-      <img src="<?=$path?>img/website/socials/reddit_<?=$lang_lower?>.png" alt="Reddit" title="Reddit">
+      <img src="<?=$path?>img/website/socials/reddit_<?=$lang_lower?>.png" alt="<?= __('socials_links_reddit')?>" title="<?= __('socials_links_reddit')?>">
     </a>
   </div>
 
   <div>
     <a href="https://<?=$lemmy_link?>" target="_blank">
-      <img src="<?=$path?>img/website/socials/lemmy_<?=$lang_lower?>.png" alt="Lemmy" title="Lemmy">
+      <img src="<?=$path?>img/website/socials/lemmy_<?=$lang_lower?>.png" alt="<?= __('socials_links_lemmy')?>" title="<?= __('socials_links_lemmy')?>">
     </a>
   </div>
 
   <div>
     <a href="https://www.youtube.com/@<?=$youtube_link?>" target="_blank">
-      <img src="<?=$path?>img/website/socials/youtube_<?=$lang_lower?>.png" alt="YouTube" title="YouTube">
+      <img src="<?=$path?>img/website/socials/youtube_<?=$lang_lower?>.png" alt="<?= __('socials_links_youtube')?>" title="<?= __('socials_links_youtube')?>">
     </a>
   </div>
 
   <div>
     <a href="https://www.tiktok.com/@<?=$tiktok_link?>" target="_blank">
-      <img src="<?=$path?>img/website/socials/tiktok_<?=$lang_lower?>.png" alt="TikTok" title="TikTok">
+      <img src="<?=$path?>img/website/socials/tiktok_<?=$lang_lower?>.png" alt="<?= __('socials_links_tiktok')?>" title="<?= __('socials_links_tiktok')?>">
     </a>
   </div>
 
   <div>
     <a href="<?=$GLOBALS['website_url']?>rss" target="_blank">
-      <img src="<?=$path?>img/website/socials/rss_<?=$lang_lower?>.png" alt="RSS" title="RSS">
-    </a>
-  </div>
-
-  <div>
-    <a href="https://nobleme.com/pages/social/irc" target="_blank">
-      <img src="<?=$path?>img/website/socials/irc_<?=$lang_lower?>.png" alt="IRC" title="IRC">
+      <img src="<?=$path?>img/website/socials/rss_<?=$lang_lower?>.png" alt="<?= __('socials_links_rss')?>" title="<?= __('socials_links_rss')?>">
     </a>
   </div>
 
   <div>
     <a href="https://hsnl.social/@Bad" target="_blank">
-      <img src="<?=$path?>img/website/socials/mastodon_<?=$lang_lower?>.png" alt="Mastodon" title="Mastodon">
+      <img src="<?=$path?>img/website/socials/mastodon_<?=$lang_lower?>.png" alt="<?= __('socials_links_mastodon')?>" title="<?= __('socials_links_mastodon')?>">
     </a>
   </div>
 
   <div>
     <a href="https://www.instagram.com/thebad.cats/" target="_blank">
-      <img src="<?=$path?>img/website/socials/instagram2_<?=$lang_lower?>.png" alt="Instagram" title="Instagram">
+      <img src="<?=$path?>img/website/socials/instagram2_<?=$lang_lower?>.png" alt="<?= __('socials_links_instagram2')?>" title="<?= __('socials_links_instagram2')?>">
     </a>
   </div>
 
   <div>
-    <img src="<?=$path?>img/website/pages/socials_nox_<?=$lang_lower?>.png" alt="thebad.website" title="thebad.website">
+    <img src="<?=$path?>img/website/pages/socials_nox_<?=$lang_lower?>.png" alt="<?=__('socials_comic_x')?>" title="<?=__('socials_comic_x')?>">
   </div>
 
   <div>
-    <img src="<?=$path?>img/website/pages/socials_language_<?=$lang_lower?>.png" alt="thebad.website" title="thebad.website">
+    <img src="<?=$path?>img/website/pages/socials_language_<?=$lang_lower?>.png" alt="<?=__('socials_comic_footer')?>" title="<?=__('socials_comic_footer')?>">
   </div>
 
 </div>
