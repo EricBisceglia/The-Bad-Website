@@ -53,10 +53,12 @@ ___('admin_query_ok', 'FR', "Requêtes exécutées avec succès");
 /*********************************************************************************************************************/
 
 // Admin notes
-___('admin_notes_tasks',  'EN', "Tasks");
-___('admin_notes_tasks',  'FR', "Tâches");
-___('admin_notes_update', 'EN', "Update tasks");
-___('admin_notes_update', 'FR', "Mettre à jour les tâches");
+___('admin_notes_tasks',    'EN', "Tasks");
+___('admin_notes_tasks',    'FR', "Tâches");
+___('admin_notes_update',   'EN', "Update tasks");
+___('admin_notes_update',   'FR', "Mettre à jour les tâches");
+___('admin_notes_devmode',  'EN', "You are currently in local dev mode");
+___('admin_notes_devmode',  'FR', "Vous êtes actuellement en mode dev local");
 
 
 // Ideas: List
@@ -92,13 +94,15 @@ ___('admin_ideas_add_title',  'FR', "Ajouter une idée");
 
 
 // Ideas: Edit
-___('admin_ideas_edit',         'EN', "Edit idea");
-___('admin_ideas_edit',         'FR', "Modifier l'idée");
+___('admin_ideas_edit', 'EN', "Edit idea");
+___('admin_ideas_edit', 'FR', "Modifier l'idée");
 
 
 // Ideas: Delete
-___('admin_ideas_delete',       'EN', "Confirm the deletion of this idea");
-___('admin_ideas_delete',       'FR', "Confirmez la suppression de cette idée");
+___('admin_ideas_delete',   'EN', "Confirm the deletion of this idea");
+___('admin_ideas_delete',   'FR', "Confirmez la suppression de cette idée");
+___('admin_ideas_deleted',  'EN', "The idea has been deleted");
+___('admin_ideas_deleted',  'FR', "L'idée a été supprimée");
 
 
 // Idea types: List
@@ -373,6 +377,8 @@ ___('admin_comics_share_private',     'EN', "This comic is private and shouldn't
 ___('admin_comics_share_private',     'FR', "Ce comic est privé et ne devrait pas être partagé!");
 ___('admin_comics_share_title',       'EN', "Comic title");
 ___('admin_comics_share_title',       'FR', "Title du comic");
+___('admin_comics_share_desc',        'EN', "Comic description");
+___('admin_comics_share_desc',        'FR', "Description du comic");
 ___('admin_comics_share_youtube',     'EN', "YouTube link");
 ___('admin_comics_share_youtube',     'FR', "Lien YouTube");
 ___('admin_comics_share_transcript',  'EN', "Comic transcript");

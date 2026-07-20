@@ -53,6 +53,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_50 padding_top padding_bot">
 
+  <?php if(!$GLOBALS['dev_mode']): ?>
+
   <form method="POST">
 
     <h5>
@@ -68,6 +70,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </div>
 
   </form>
+
+  <?php else: ?>
+
+  <div class="align_center bigpadding_top">
+    <h4 class="red text_white uppercase">
+      <?=__('admin_notes_devmode')?>
+    </h4>
+  </div>
+
+  <?php endif; ?>
 
 </div>
 

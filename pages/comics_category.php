@@ -61,7 +61,7 @@ page_enforce_url($page_url);
     <?php else: ?>
     <a href="<?=$path?>stuff/list">
     <?php endif; ?>
-      <img src="<?=$path.$comic_type_data['banner']?>" alt="<?=__('comics_list_categories')?>" title="<?=__('comics_nav_next')?>">
+      <img src="<?=$path.$comic_type_data['banner']?>" alt="<?=$comic_type_data['name']?>" title="<?=$comic_type_data['name']?>">
     </a>
   </div>
 

@@ -189,7 +189,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <hr>
 
-<div class="width_30">
+<div class="width_50">
 
   <?php for($i = 0; $i < $admin_comic_data['images']['rows']; $i++): ?>
 
@@ -201,11 +201,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <hr>
 </div>
 
-<div class="width_30">
+<div class="width_50">
 
   <?php endif; ?>
 
-    <div class="padding_top align_center">
+    <div class="padding_top align_center smallpadding_bot">
       <h5 class="padding_bot">
         [<?=$admin_comic_data['images']['lang'][$i]?>]
         <?=$admin_comic_data['images']['preview'][$i]?>

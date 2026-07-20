@@ -15,6 +15,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 // Description
 ___('comics_title_tag',     'EN', "Comic image - transcription in alt text");
 ___('comics_title_tag',     'FR', "Image du comic - transcription en alt text");
+___('comics_title_noalt',   'EN', "Comic image");
+___('comics_title_noalt',   'FR', "Image du comic");
+___('comics_notrans',       'EN', "This image does not have a transcription");
+___('comics_notrans',       'FR', "Cette image n'a pas de transcription");
 ___('comics_description',   'EN', "About this comic");
 ___('comics_description',   'FR', "Au sujet de ce comic");
 ___('comics_youtube',       'EN', "Video version");
@@ -172,9 +176,18 @@ EOT
 /*********************************************************************************************************************/
 
 // Stuff list
-___('stuff_list_header', 'EN', "More stuff? I thought this website was just comics!");
-___('stuff_list_header', 'FR', "D'autres trucs ? Je pensais que ce site ne contenait que des comics !");
-
+___('stuff_list_header', 'EN', <<<EOT
+[a character seems lost]
+Wait, there's even more stuff?
+I thought this website was just comics! It's loaded with content!
+EOT
+);
+___('stuff_list_header', 'FR', <<<EOT
+[un personnage a l'air perdu]
+Attends il y a d'autres trucs ?!
+Je pensais que c'était juste un site de comics, y'a plein de choses différentes ici en fait !
+EOT
+);
 
 
 

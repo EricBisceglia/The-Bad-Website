@@ -201,7 +201,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 </div>
 
-<div class="width_100 bigpadding_top align_center">
+<div class="width_50 bigpadding_top align_center">
 
   <img src="<?=$path?>img/comics/<?=$admin_image_data['name']?>" alt="<?=$admin_image_data['name']?>" title="<?=$admin_image_data['name']?>">
 

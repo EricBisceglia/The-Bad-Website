@@ -39,7 +39,10 @@ if(isset($_POST['admin_ideas_add']))
                               'type'  => form_fetch_element('admin_ideas_type')   );
 
   // Add the idea
-  admin_ideas_add($admin_ideas_data);
+  $admin_ideas_add_id = admin_ideas_add($admin_ideas_data);
+
+  // Reload the ideas list
+  exit(header("Location: ./ideas?category=".$admin_ideas_data['type']."#ideas_".$admin_ideas_add_id));
 }
 
 
@@ -58,7 +61,8 @@ if(isset($_POST['admin_ideas_delete']))
 // Fetch ideas
 
 // Fetch the category
-$admin_ideas_category = (int)form_fetch_element('admin_ideas_category', default_value: 0);
+$admin_ideas_category = isset($_GET['category']) ? (int)$_GET['category'] : 0;
+$admin_ideas_category = (int)form_fetch_element('admin_ideas_category', default_value: $admin_ideas_category);
 
 // Fetch the sort order
 $admin_ideas_sort = form_fetch_element('admin_ideas_sort', default_value: 'random');
@@ -73,7 +77,12 @@ $admin_ideas = admin_ideas_list(  category: $admin_ideas_category ,
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch idea types
 
+// Fetch idea categories
 $admin_idea_types = admin_idea_types_list();
+
+// Prepare the category dropdown menu
+for($i = 0; $i < $admin_idea_types['rows']; $i++)
+  $admin_idea_types_selected[$i] = ($admin_idea_types[$i]['id'] == $admin_ideas_category) ? ' selected' : '';
 
 
 
@@ -90,7 +99,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__('admin_ideas_filters').__(':')?>
     <select name="admin_ideas_category" id="admin_ideas_category" class="align_left bold" onchange="admin_ideas_search();">
       <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
-      <option value="<?=$admin_idea_types[$i]['id']?>"><?=$admin_idea_types[$i]['name']?></option>
+      <option value="<?=$admin_idea_types[$i]['id']?>"<?=$admin_idea_types_selected[$i]?>><?=$admin_idea_types[$i]['name']?></option>
       <?php endfor; ?>
     </select>
     <?=__icon('refresh', alt: 'R', title: __('admin_ideas_sort_random'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('random');")?>
@@ -100,6 +109,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   </h3>
 
   <?php endif; ?>
+
+  <?php if(!isset($_POST['admin_ideas_delete'])): ?>
 
   <div id="ideas_list">
 
@@ -127,6 +138,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?php endfor; ?>
 
   </div>
+
+  <?php else: ?>
+
+  <div class="red vspaced">
+    <h5 class="text_white uppercase align_center">
+      <?=__('admin_ideas_deleted')?>
+    </h5>
+  </div>
+
+  <?php endif; ?>
 
   <?php if(!page_is_fetched_dynamically()): ?>
 

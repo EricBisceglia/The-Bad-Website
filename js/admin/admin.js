@@ -72,7 +72,7 @@ function admin_ideas_delete(  id      ,
 
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
-    fetch_page('ideas', 'ideas_list', postdata);
+    fetch_page('ideas', 'ideas_'+id, postdata);
 }
 
 

@@ -31,6 +31,7 @@ $GLOBALS['mysql_host']    = isset($GLOBALS['mysql_host'])     ? $GLOBALS['mysql_
 $GLOBALS['mysql_user']    = isset($GLOBALS['mysql_user'])     ? $GLOBALS['mysql_user']    : 'thebadwebsite';
 $GLOBALS['timezone']      = isset($GLOBALS['timezone'])       ? $GLOBALS['timezone']      : 'Europe/Paris';
 $GLOBALS['extra_folders'] = isset($GLOBALS['extra_folders'])  ? $GLOBALS['extra_folders'] : 0;
+$GLOBALS['dev_mode']      = isset($GLOBALS['dev_mode'])       ? $GLOBALS['dev_mode']      : false;
 
 // Enforce a global timezone on the server side
 date_default_timezone_set($GLOBALS['timezone']);

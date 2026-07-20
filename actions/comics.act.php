@@ -90,6 +90,8 @@ function comics_get(  int   $comic_id                ,
   $data['desc']         = sanitize_output($comic_data['c_desc'], preserve_line_breaks: true);
   $data['desc_en']      = sanitize_output($comic_data['c_desc_en']);
   $data['desc_fr']      = sanitize_output($comic_data['c_desc_fr']);
+  $data['fdesc_en']     = sanitize_output($comic_data['c_desc_en'], preserve_line_breaks: true);
+  $data['fdesc_fr']     = sanitize_output($comic_data['c_desc_fr'], preserve_line_breaks: true);
   $data['youtube_en']   = sanitize_output($comic_data['c_yt_en']);
   $data['youtube_fr']   = sanitize_output($comic_data['c_yt_fr']);
   $data['type_id']      = sanitize_output($comic_data['ct_id']);
@@ -115,6 +117,7 @@ function comics_get(  int   $comic_id                ,
   $query_sort = ($show_all_images ===  true)  ? " ORDER BY  images.language         ASC   ,
                                                             images.is_a_preview     DESC  ,
                                                             images.is_full_version  ASC   ,
+                                                            images.is_bonus_panel   ASC   ,
                                                             images.image_order      ASC   ,
                                                             images.name             ASC   "
                                               : " ORDER BY  images.is_a_preview     DESC  ,
@@ -171,8 +174,9 @@ function comics_get(  int   $comic_id                ,
     $data['images']['id'][$i]       = sanitize_output($row['i_id']);
     $data['images']['name'][$i]     = sanitize_output($row['i_name']);
     $data['images']['lang'][$i]     = sanitize_output($row['i_lang']);
-    $data['images']['ftrans'][$i]   = sanitize_output($row['i_trans']);
+    $data['images']['ftrans'][$i]   = ($row['i_trans']) ? sanitize_output($row['i_trans']) : __('comics_notrans');
     $data['images']['trans'][$i]    = sanitize_output($row['i_trans'], preserve_line_breaks: true);
+    $data['images']['transalt'][$i] = ($row['i_trans']) ? __('comics_title_tag') : __('comics_title_noalt');
     $data['images']['preview'][$i]  = ($row['i_preview'])
                                     ? __('admin_comics_edit_preview')
                                     : __('admin_comics_edit_comic');
@@ -189,11 +193,11 @@ function comics_get(  int   $comic_id                ,
       $full_count++;
     if($row['i_bonus'] && !$row['i_old'] && !$row['i_full'])
       $bonus_count++;
-    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
+    if($row['i_trans'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'] && !$row['i_preview'])
       $transcript_count++;
 
     // Update the full transcripts
-    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'])
+    if(!$row['i_preview'] && !$row['i_old'] && !$row['i_full'] && !$row['i_bonus'])
     {
       if($data['images']['lang'][$i] === 'EN')
         $full_transcript_en = ($full_transcript_en)
@@ -613,8 +617,9 @@ function comics_list( string $sort_by   = 'date'  ,
   // If a search was performed by a user, add the query to the txt file
   if($search_body_fr || $search_body_en)
   {
-    // Grab and sanitize the search query
+    // Grab, timestamp, and sanitize the search query
     $user_search = ($search_body_en) ? $search_body_en : $search_body_fr;
+    $user_search     = '['.date('d/m/y H:i').'] '.$user_search;
     $user_search = addslashes(htmlspecialchars(strip_tags(trim(substr($user_search, 0, 500))), ENT_QUOTES, 'UTF-8'));
 
     // Determine the text file's path
@@ -626,7 +631,7 @@ function comics_list( string $sort_by   = 'date'  ,
       file_put_contents($file_path, '');
 
     // Append the search query to the end of the text file
-    file_put_contents($file_path, $user_search."\n", FILE_APPEND);
+    file_put_contents($file_path, $user_search."\n", FILE_APPEND | LOCK_EX);
   }
 
   // Return the prepared data
@@ -884,6 +889,7 @@ function comic_types_get( int     $comic_type_id    = 0,
   // Fetch the comic types's data
   $comic_type_data = query("  SELECT  comic_types.id                AS 'ct_id'        ,
                                       comic_types.sorting_order     AS 'ct_order'     ,
+                                      comic_types.name_$lang        AS 'ct_name'      ,
                                       comic_types.name_en           AS 'ct_name_en'   ,
                                       comic_types.name_fr           AS 'ct_name_fr'   ,
                                       comic_types.banner_$lang      AS 'ct_banner'    ,
@@ -900,6 +906,7 @@ function comic_types_get( int     $comic_type_id    = 0,
   // Sanitize the data for display
   $data['id']         = sanitize_output($comic_type_data['ct_id']);
   $data['order']      = sanitize_output($comic_type_data['ct_order']);
+  $data['name']       = sanitize_output($comic_type_data['ct_name']);
   $data['name_en']    = sanitize_output($comic_type_data['ct_name_en']);
   $data['name_fr']    = sanitize_output($comic_type_data['ct_name_fr']);
   $data['page_en']    = sanitize_meta_tags($comic_type_data['ct_name_en']);

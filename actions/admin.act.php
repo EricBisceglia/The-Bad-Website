@@ -184,10 +184,10 @@ function admin_ideas_list(  int    $category            ,
  *
  * @param   array   $data   An array containing the idea's data.
  *
- * @return  void
+ * @return  int             The newly created idea's id
  */
 
-function admin_ideas_add( array $data ) : void
+function admin_ideas_add( array $data ) : int
 {
   // Sanitize the data
   $title  = sanitize_array_element($data, 'title', 'string');
@@ -199,6 +199,9 @@ function admin_ideas_add( array $data ) : void
           SET         ideas.fk_idea_types = '$type'   ,
                       ideas.title         = '$title'  ,
                       ideas.body          = '$body'   ");
+
+  // Return the newly created idea's id
+  return(query_id());
 }
 
 

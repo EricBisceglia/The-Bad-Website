@@ -23,101 +23,88 @@ ___('home_intro_bsky',  'FR', "En attendant, vous pouvez trouver mes arroganteri
 
 // Mini comics
 ___('home_comics_intro', 'EN', <<<EOT
+[a character waves and smiles]
 Hi there!
-Seems like you took a wrong turn why browsing the Internet
-This place is the Bad Website
+Seems like you took a wrong turn while browsing the Internet.
+This place is the Bad Website!
 EOT
 );
 ___('home_comics_intro', 'FR', <<<EOT
+[un personnage nous salue en souriant]
 Salut !
-On dirait que tu as pris un mauvais virage en naviguant sur Internet
-Tu es tombé sur le Mauvais Site
+Tu as du te perdre bien fort sur Internet pour arriver ici…
+…c'est le Mauvais Site !
 EOT
 );
 ___('home_comics_satire', 'EN', <<<EOT
+[a crowd of characters seem uneasy]
 Hey you... yes you there...
-Just as a warning, we were browsing this website and we are APPALLED
-It seems to be full of crudely drawn societal and political satire
+Be warned, we were browsing this website and we are APPALLED!
+It seems to be full of political satire, some of which is quite offensive!
 EOT
 );
 ___('home_comics_satire', 'FR', <<<EOT
-Hey toi... oui toi là...
-Je te préviens, nous avons visité ce site et nous sommes OUTRÉS
-Il semble être rempli de satire sociétal et politique mal dessiné
+[une foule de personnages ont l'air gênés]
+Hé toi… oui toi là !
+Je te préviens, après avoir visité ce site nous sommes OUTRÉS !
+Il semble être rempli de satire politique, parfois très offensant !
 EOT
 );
 ___('home_comics_questions', 'EN', <<<EOT
-I have so many questions...
-This website looks so silly
-Click me an let's go find some answers
+[a character frowns]
+This place looks silly.
+I have questions.
+Click me, let's go find some answers.
 EOT
 );
 ___('home_comics_questions', 'FR', <<<EOT
-J'ai beaucoup de questions
-Ce site a l'air complètement con
-Clique-moi et allons trouver des réponses
+[un personnage mécontent croise les bras]
+Ce site a l'air bizarre.
+J'ai plein de questions.
+Clique-moi, allons trouver des réponses.
 EOT
 );
 ___('home_comics_comics', 'EN', <<<EOT
-What a joy!
-This website is full of comics!
-Click me to see the comics
+[a character seems quite happy]
+Satire you say?
+Awesome!
+Click me, let's go read some comics!
 EOT
 );
 ___('home_comics_comics', 'FR', <<<EOT
-Quelle joie !
-Ce site est rempli de comics !
-Clique-moi et allons voir les comics
+[un personnage radie de joie]
+Tu as dit satire ?
+Trop bien !
+Clique-moi, allons lire des comics.
 EOT
 );
 ___('home_comics_language', 'EN', <<<EOT
-Erm... did you notice you can change the language between English and French by clicking the flag on the top right of the page? Neat.
+[a nerdy character goes on a rant]
+Erm... did you notice you can change the language between English and French by clicking the flag on the top right of the page?
+That's Neat.
 EOT
 );
 ___('home_comics_language', 'FR', <<<EOT
-Euh... as-tu remarqué que tu peux changer la langue entre le français et l'anglais en cliquant sur le drapeau en haut à droite de la page ? Cool.
+[un personnage à lunettes parle]
+Hmm... as-tu remarqué que tu peux changer la langue entre français et anglais en cliquant sur le drapeau en haut de la page ? C'est cool.
 EOT
 );
 ___('home_comics_socials', 'EN', <<<EOT
-Damn I wish I could follow this cool website… Good news! The Bad Website posts updates to a bunch of a different socials, including some exclusive content! Click me to see the list fo places where you can stay updated.
+[a character seems lost]
+Damn I wish I could follow this cool website…
+[another character answers]
+Good news! The Bad Website posts updates to a bunch of a different social platforms.
+Click me to see the list of places you can follow to stay updated.
 EOT
 );
 ___('home_comics_socials', 'FR', <<<EOT
-J'aimerais trop pouvoir suivre le contenu de ce site… Bonne nouvelle ! Le mauvais site poste ses contenus sur plusieurs médias sociaux, en plus de contenus exclusifs ! Clique moi pour voir la liste des plateformes où tu peux le suivre.
+[un personnage a l'air perdu]
+Si seulement je pouvais suivre ce site…
+[un autre personnage lui répond]
+Bonne nouvelle ! Le Mauvais Site partage ses contenus sur plusieurs plateformes sociales !
+Clique-moi pour voir la liste des plateformes où tu peux le suivre.
 EOT
 );
-
-
-
-
-/*********************************************************************************************************************/
-/*                                                                                                                   */
-/*                                                      VIDEOS                                                       */
-/*                                                                                                                   */
-/*********************************************************************************************************************/
-
-// Mini comics
-___('videos_comics_intro', 'EN', <<<EOT
-Videos?
-What do you mean videos?
-There's clearly no such thing on this website, you've been misled
-EOT
-);
-___('videos_comics_intro', 'FR', <<<EOT
-Des vidéos ?
-Comment ça des vidéos ?
-Il n'y en a pas sur ce site, on vous a donné des fausses informations
-EOT
-);
-___('videos_comics_future', 'EN', <<<EOT
-This page is probably there for a reason though... how ominous!
-EOT
-);
-___('videos_comics_future', 'FR', <<<EOT
-Mais cette page doit bien avoir une raison d'exister... c'est suspect !
-EOT
-);
-
 
 
 
@@ -426,6 +413,81 @@ ___('about_cookies_body_4', 'FR', <<<EOT
 Vous devriez vous demander pourquoi tous les autres sites réclament vos données personnelles.
 EOT
 );
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      SOCIALS                                                      */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Socials: Comics
+___('socials_comic_header', 'EN', <<<EOT
+[a character ponders]
+Damn I wish I could follow this website
+[another character answers]
+Good news! The Bad Website posts updates to a bunch of different social platforms.
+Following and sharing is much appreciated, thanks a lot.
+EOT
+);
+___('socials_comic_header', 'FR', <<<EOT
+[un personnage a l'air pensif]
+Si seulement je pouvais suivre ce site…
+[un autre personnage lui répond]
+Bonne nouvelle ! Le Mauvais Site partage ses contenus sur plusieurs plateformes sociales !
+Suivre et partager est très apprécié, merci beaucoup.
+EOT
+);
+___('socials_comic_x',      'EN', <<<EOT
+[a character ponders]
+Wait a second… all those socials but thebad.website isn't on X?
+[another character shrugs]
+Well who cares, being on a platform ran by and for fascists makes you a fascism enabler.
+EOT
+);
+___('socials_comic_x',      'FR', <<<EOT
+[un personnage réfléchit]
+Attendez… toutes ces plateformes mais lemauvais.site n'est pas sur X ?
+[un autre personnage hausse les épaules]
+Si ça se trouve c'est lié au fait que contribuer à une plateforme gérée par des fascistes légitime le fascisme.
+EOT
+);
+___('socials_comic_footer', 'EN', <<<EOT
+[a character points above them]
+Some of the links above are available in two different languages (English / French).
+If you're looking for the link to the french socials, change te website's language by clicking on the flag on top of the page.
+EOT
+);
+___('socials_comic_footer', 'FR', <<<EOT
+[un personnage pointe au dessus de lui]
+Certains des liens ci-dessus sont disponibles dans deux langues (français / anglais).
+Si vous cherchez les liens vers les versions anglophones de ces médias sociaux, changez la langue du site en cliquant sur le drapeau en haut de la page.
+EOT
+);
+
+
+// Socials: Platforms
+___('socials_links_discord',    'EN', "Discord server (comics, memes, chat with me)");
+___('socials_links_discord',    'FR', "Serveur Discord (comics, memes, discutez avec moi)");
+___('socials_links_instagram',  'EN', "Instagram (comics, memes, drawings)");
+___('socials_links_instagram',  'FR', "Instagram (comics, memes, dessins)");
+___('socials_links_bluesky',    'EN', "Bluesky (comics, memes, drawings)");
+___('socials_links_bluesky',    'FR', "Bluesky (comics, memes, dessins)");
+___('socials_links_reddit',     'EN', "Reddit (comics, memes, drawings)");
+___('socials_links_reddit',     'FR', "Reddit (comics, memes, dessins)");
+___('socials_links_lemmy',      'EN', "Lemmy (comics, memes, drawings)");
+___('socials_links_lemmy',      'FR', "Lemmy (comics, memes, dessins)");
+___('socials_links_youtube',    'EN', "YouTube (animated comics and shorts, video essays)");
+___('socials_links_youtube',    'FR', "YouTube (comics animés, vidéos courtes, essais vidéo)");
+___('socials_links_tiktok',     'EN', "TikTok (animated comics and shorts)");
+___('socials_links_tiktok',     'FR', "TikTok (comics animés, vidéos courtes)");
+___('socials_links_rss',        'EN', "RSS feed (follow oldschool style, no social media required)");
+___('socials_links_rss',        'FR', "Flux RSS (suivez le site à l'ancienne, sans médias sociaux)");
+___('socials_links_mastodon',   'EN', "Mastodon (personal stuff, pictures, drawings, politics)");
+___('socials_links_mastodon',   'FR', "Mastodon (vie privée, photos, dessins, politique)");
+___('socials_links_instagram2', 'EN', "Another instagram?! (cat pictures)");
+___('socials_links_instagram2', 'FR', "Un autre instagram ?! (photos de chats)");
 
 
 
