@@ -15,6 +15,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 // Description
 ___('comics_title_tag',     'EN', "Comic image - transcription in alt text");
 ___('comics_title_tag',     'FR', "Image du comic - transcription en alt text");
+___('comics_title_noalt',   'EN', "Comic image");
+___('comics_title_noalt',   'FR', "Image du comic");
+___('comics_notrans',       'EN', "This image does not have a transcription");
+___('comics_notrans',       'FR', "Cette image n'a pas de transcription");
 ___('comics_description',   'EN', "About this comic");
 ___('comics_description',   'FR', "Au sujet de ce comic");
 ___('comics_youtube',       'EN', "Video version");

@@ -174,8 +174,9 @@ function comics_get(  int   $comic_id                ,
     $data['images']['id'][$i]       = sanitize_output($row['i_id']);
     $data['images']['name'][$i]     = sanitize_output($row['i_name']);
     $data['images']['lang'][$i]     = sanitize_output($row['i_lang']);
-    $data['images']['ftrans'][$i]   = sanitize_output($row['i_trans']);
+    $data['images']['ftrans'][$i]   = ($row['i_trans']) ? sanitize_output($row['i_trans']) : __('comics_notrans');
     $data['images']['trans'][$i]    = sanitize_output($row['i_trans'], preserve_line_breaks: true);
+    $data['images']['transalt'][$i] = ($row['i_trans']) ? __('comics_title_tag') : __('comics_title_noalt');
     $data['images']['preview'][$i]  = ($row['i_preview'])
                                     ? __('admin_comics_edit_preview')
                                     : __('admin_comics_edit_comic');

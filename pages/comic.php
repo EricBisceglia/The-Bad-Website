@@ -119,7 +119,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   <?php if(!$comic_data['images']['old'][$i] && !$comic_data['images']['full'][$i] && !$comic_data['images']['bonus'][$i]): ?>
   <div class="tinypadding_bot tinypadding_top">
     <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+      <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
     </div>
   </div>
   <?php endif; ?>
@@ -134,7 +134,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     <?php if($comic_data['images']['bonus'][$i]): ?>
     <div class="padding_bot tinypadding_top">
       <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
       </div>
     </div>
     <?php endif; ?>
@@ -151,7 +151,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['old'][$i]): ?>
     <div class="padding_bot tinypadding_top">
       <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
       </div>
     </div>
     <?php endif; ?>
@@ -168,7 +168,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     <?php if($comic_data['images']['old'][$i]): ?>
     <div class="padding_bot tinypadding_top">
       <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=__('comics_title_tag')?>"<?=$comic_data['images']['unblur'][$i]?>>
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
       </div>
     </div>
     <?php endif; ?>
