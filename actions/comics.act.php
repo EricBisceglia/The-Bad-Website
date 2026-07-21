@@ -161,12 +161,15 @@ function comics_get(  int   $comic_id                ,
   $comic_images = query($comic_query);
 
   // Initialize some counters and variables
-  $transcript_count   = 0;
-  $bonus_count        = 0;
-  $remake_count       = 0;
-  $full_count         = 0;
-  $full_transcript_en = '';
-  $full_transcript_fr = '';
+  $transcript_count     = 0;
+  $rtranscript_count    = 0;
+  $bonus_count          = 0;
+  $remake_count         = 0;
+  $full_count           = 0;
+  $full_transcript_en   = '';
+  $full_transcript_fr   = '';
+  $full_rtranscript_en  = '';
+  $full_rtranscript_fr  = '';
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_images); $i++)
@@ -193,11 +196,13 @@ function comics_get(  int   $comic_id                ,
       $full_count++;
     if($row['i_bonus'] && !$row['i_remake'] && !$row['i_full'])
       $bonus_count++;
-    if($row['i_trans'] && !$row['i_remake'] && !$row['i_full'] && !$row['i_bonus'] && !$row['i_preview'])
+    if(!$row['i_remake']&& $row['i_trans'] && !$row['i_full'] && !$row['i_bonus'] && !$row['i_preview'])
       $transcript_count++;
+    if($row['i_remake'] && $row['i_trans'] && !$row['i_full'] && !$row['i_bonus'] && !$row['i_preview'])
+      $rtranscript_count++;
 
     // Update the full transcripts
-    if(!$row['i_preview'] && !$row['i_remake'] && !$row['i_full'] && !$row['i_bonus'])
+    if(!$row['i_remake'] && !$row['i_preview'] && !$row['i_full'] && !$row['i_bonus'])
     {
       if($data['images']['lang'][$i] === 'EN')
         $full_transcript_en = ($full_transcript_en)
@@ -208,11 +213,25 @@ function comics_get(  int   $comic_id                ,
                             ? $full_transcript_fr.PHP_EOL.PHP_EOL.$row['i_trans']
                             : $row['i_trans'];
     }
+
+    // Update the full remake transcripts
+    if($row['i_remake'] && !$row['i_preview'] && !$row['i_full'] && !$row['i_bonus'])
+    {
+      if($data['images']['lang'][$i] === 'EN')
+        $full_rtranscript_en  = ($full_rtranscript_en)
+                              ? $full_rtranscript_en.PHP_EOL.PHP_EOL.$row['i_trans']
+                              : $row['i_trans'];
+      else
+        $full_rtranscript_fr  = ($full_rtranscript_fr)
+                              ? $full_rtranscript_fr.PHP_EOL.PHP_EOL.$row['i_trans']
+                              : $row['i_trans'];
+    }
   }
 
   // Add the number of images to the returned data
   $data['images']['rows']         = $i;
   $data['images']['transcripts']  = $transcript_count;
+  $data['images']['rtranscripts'] = $rtranscript_count;
   $data['images']['bonuses']      = $bonus_count;
   $data['images']['remakes']      = $remake_count;
   $data['images']['fulls']        = $full_count;
@@ -224,6 +243,14 @@ function comics_get(  int   $comic_id                ,
                                                                                 markdown_line_breaks: true);
   $data['images']['transcript_md_fr']   = sanitize_output($full_transcript_fr,  preserve_line_breaks: true,
                                                                                 markdown_line_breaks: true);
+
+  // Add the full remake transcripts to the returned data
+  $data['images']['rtranscript_text_en']  = sanitize_output($full_rtranscript_en, preserve_line_breaks: true);
+  $data['images']['rtranscript_text_fr']  = sanitize_output($full_rtranscript_fr, preserve_line_breaks: true);
+  $data['images']['rtranscript_md_en']    = sanitize_output($full_rtranscript_en, preserve_line_breaks: true,
+                                                                                  markdown_line_breaks: true);
+  $data['images']['rtranscript_md_fr']    = sanitize_output($full_rtranscript_fr, preserve_line_breaks: true,
+                                                                                  markdown_line_breaks: true);
 
   // Fetch the comic's tags
   $comic_tags = query(" SELECT    comic_tags.fk_tags  AS 'ct_id'    ,
@@ -272,6 +299,7 @@ function comics_get(  int   $comic_id                ,
                                     comics.title_$lang    ASC   ");
 
   // Assemble all comics in an array
+  $comic_slugs    = array();
   $comic_slugs_id = 0;
   for($i = 0; $row = query_row($comics_list); $i++)
   {

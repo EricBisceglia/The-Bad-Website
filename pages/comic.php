@@ -125,57 +125,6 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
   <?php endif; ?>
   <?php endfor; ?>
 
-  <?php if($comic_data['images']['bonuses']): ?>
-  <div class="padding_bot align_center">
-    <button class="button" id="image_bonus_button" onclick="show_comic_bonus();"><?=__('comics_bonus_button')?></button>
-  </div>
-  <div class="hidden" id="image_bonus_versions">
-    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-    <?php if($comic_data['images']['bonus'][$i]): ?>
-    <div class="padding_bot tinypadding_top">
-      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
-      </div>
-    </div>
-    <?php endif; ?>
-    <?php endfor; ?>
-  </div>
-  <?php endif; ?>
-
-  <?php if($comic_data['images']['fulls']): ?>
-  <div class="padding_bot align_center">
-    <button class="button" id="image_full_button" onclick="show_comic_full();"><?=__('comics_full_button')?></button>
-  </div>
-  <div class="hidden" id="image_full_versions">
-    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-    <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['remake'][$i]): ?>
-    <div class="padding_bot tinypadding_top">
-      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
-      </div>
-    </div>
-    <?php endif; ?>
-    <?php endfor; ?>
-  </div>
-  <?php endif; ?>
-
-  <?php if($comic_data['images']['remakes']): ?>
-  <h2 class="bigpadding_top bigpadding_bot">
-    <?=__('comics_remake')?>
-  </h2>
-  <div>
-    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
-    <?php if($comic_data['images']['remake'][$i]): ?>
-    <div class="padding_bot tinypadding_top">
-      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
-        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
-      </div>
-    </div>
-    <?php endif; ?>
-    <?php endfor; ?>
-  </div>
-  <?php endif; ?>
-
 </div>
 
 <div class="width_50 padding_top">
@@ -219,6 +168,87 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
       <?php endif; ?>
       <?php endfor; ?>
     </div>
+  </div>
+  <?php endif; ?>
+
+</div>
+
+<div class="align_center width_50">
+
+  <?php if($comic_data['images']['remakes']): ?>
+  <h2 class="align_center bigpadding_bot">
+    <?=__('comics_remake')?>
+  </h2>
+  <div>
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['remake'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+</div>
+
+<div class="width_50">
+
+  <?php if($comic_data['images']['rtranscripts']): ?>
+  <div class="padding_bot">
+    <div class="smallpadding_bot align_center">
+      <button class="button" id="image_rtranscripts_button" onclick="show_comic_rtranscripts();"><?=__('comics_rtrans_button')?></button>
+    </div>
+    <div class="hidden" id="image_rtranscripts">
+      <h5 class="smallpadding_bot">
+        <?=__('comics_transcript')?>
+      </h5>
+      <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+      <?php if( $comic_data['images']['trans'][$i]
+            && $comic_data['images']['remake'][$i]
+            && !$comic_data['images']['full'][$i]): ?>
+      <div class="smallpadding_bot">
+        <blockquote><?=$comic_data['images']['trans'][$i]?></blockquote>
+      </div>
+      <?php endif; ?>
+      <?php endfor; ?>
+    </div>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['bonuses']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_bonus_button" onclick="show_comic_bonus();"><?=__('comics_bonus_button')?></button>
+  </div>
+  <div class="hidden" id="image_bonus_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['bonus'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if($comic_data['images']['fulls']): ?>
+  <div class="padding_bot align_center">
+    <button class="button" id="image_full_button" onclick="show_comic_full();"><?=__('comics_full_button')?></button>
+  </div>
+  <div class="hidden" id="image_full_versions">
+    <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>
+    <?php if($comic_data['images']['full'][$i] && !$comic_data['images']['remake'][$i]): ?>
+    <div class="padding_bot tinypadding_top">
+      <div class="comic_container<?=$comic_data['images']['blur'][$i]?>">
+        <img src="<?=$path?>img/comics/<?=$comic_data['images']['name'][$i]?>" alt="<?=$comic_data['images']['ftrans'][$i]?>" title="<?=$comic_data['images']['transalt'][$i]?>"<?=$comic_data['images']['unblur'][$i]?>>
+      </div>
+    </div>
+    <?php endif; ?>
+    <?php endfor; ?>
   </div>
   <?php endif; ?>
 

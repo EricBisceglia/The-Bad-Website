@@ -27,6 +27,8 @@ ___('comics_youtube',       'EN', "Video version");
 ___('comics_youtube',       'FR', "Version vidéo");
 ___('comics_trans_button',  'EN', "Show image transcriptions");
 ___('comics_trans_button',  'FR', "Transcription des images");
+___('comics_rtrans_button', 'EN', "Show redrawn transcriptions");
+___('comics_rtrans_button', 'FR', "Transcription du remake");
 ___('comics_full_button',   'EN', "Fully assembled comic");
 ___('comics_full_button',   'FR', "Version assemblée du comic");
 ___('comics_old_button',    'EN', "Older version");
