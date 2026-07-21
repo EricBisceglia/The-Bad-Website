@@ -791,3 +791,20 @@ if($last_query < 13)
 
   sql_update_query_id(13);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Replace "old version" with remakes
+
+if($last_query < 14)
+{
+  sql_delete_index('images', 'images_is_old_version');
+
+  sql_rename_field('images', 'is_old_version', 'is_remake', 'TINYINT(1) NOT NULL');
+
+  sql_create_index('images', 'images_is_remake', 'is_remake');
+
+  sql_update_query_id(14);
+}
