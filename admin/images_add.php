@@ -49,7 +49,7 @@ if(isset($_POST['image_add']))
                             'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                             'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
                             'full'      => form_fetch_element('image_full', element_exists: true)     ,
-                            'old'       => form_fetch_element('image_old', element_exists: true)      );
+                            'remake'    => form_fetch_element('image_remake', element_exists: true)   );
 
   // Add the image to the database
   $images_add = images_add( $image_add_file ,
@@ -149,8 +149,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div>
-        <input type="checkbox" class="align_left" name="image_old">
-        <label for="image_old" class="label_inline"><?=__('admin_images_add_old')?></label>
+        <input type="checkbox" class="align_left" name="image_remake">
+        <label for="image_remake" class="label_inline"><?=__('admin_images_add_remake')?></label>
       </div>
 
       <div class="smallpadding_top">

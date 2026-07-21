@@ -136,7 +136,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <br>
   <?php endif; ?>
   <?php if($admin_comic_data['images']['preview'][$i] === 'Comic'
-        && !$admin_comic_data['images']['old'][$i]
+        && !$admin_comic_data['images']['remake'][$i]
         && !$admin_comic_data['images']['full'][$i]
         && $admin_comic_data['images']['trans'][$i]): ?>
   <div class="smallpadding_bot">

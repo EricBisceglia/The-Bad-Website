@@ -50,7 +50,7 @@ if(isset($_POST['image_edit']))
                               'preview'   => form_fetch_element('image_preview', element_exists: true)  ,
                               'bonus'     => form_fetch_element('image_bonus', element_exists: true)    ,
                               'full'      => form_fetch_element('image_full', element_exists: true)     ,
-                              'old'       => form_fetch_element('image_old', element_exists: true)      ,
+                              'remake'    => form_fetch_element('image_remake', element_exists: true)   ,
                               'nsfw'      => form_fetch_element('image_nsfw', element_exists: true)     );
 
   // Edit the image
@@ -157,7 +157,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
               <option value="3"><?=__('admin_images_list_type_templ')?></option>
               <option value="4"><?=__('admin_images_list_type_emoji')?></option>
               <option value="8"><?=__('admin_images_list_type_bubble')?></option>
-              <option value="5"><?=__('admin_images_list_type_old')?></option>
+              <option value="5"><?=__('admin_images_list_type_remake')?></option>
               <option value="6"><?=__('admin_images_list_type_bonus')?></option>
               <option value="7"><?=__('admin_images_list_type_full')?></option>
             </select>
@@ -231,8 +231,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <td class="align_center nowrap bold">
             <?php if($images_list[$i]['bonus']): ?>
             <?=__icon('star', is_small: true, alt: 'B', title: __('admin_images_list_type_bonus'), path: root_path())?>
-            <?php endif; if($images_list[$i]['old']): ?>
-            <?=__icon('clock', is_small: true, alt: 'O', title: __('admin_images_list_type_old'), path: root_path())?>
+            <?php endif; if($images_list[$i]['remake']): ?>
+            <?=__icon('clock', is_small: true, alt: 'O', title: __('admin_images_list_type_remake'), path: root_path())?>
             <?php endif; if($images_list[$i]['full']): ?>
             <?=__icon('done', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: root_path())?>
             <?php endif; ?>
@@ -244,7 +244,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__icon('user', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: root_path())?>
             <?php elseif($images_list[$i]['bubble']): ?>
             <?=__icon('info', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: root_path())?>
-            <?php elseif(!$images_list[$i]['old'] && !$images_list[$i]['full'] && !$images_list[$i]['bonus']): ?>
+            <?php elseif(!$images_list[$i]['remake'] && !$images_list[$i]['full'] && !$images_list[$i]['bonus']): ?>
             &nbsp;
             <?php endif; ?>
           </td>

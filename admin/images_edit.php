@@ -89,8 +89,8 @@ $image_bonus_checked = ($admin_image_data['bonus']) ? ' checked' : '';
 // Full
 $image_full_checked = ($admin_image_data['full']) ? ' checked' : '';
 
-// Old
-$image_old_checked = ($admin_image_data['old']) ? ' checked' : '';
+// Remake
+$image_remake_checked = ($admin_image_data['remake']) ? ' checked' : '';
 
 // Focus the transcript form if the image has none
 if(!$admin_image_data['trans'])
@@ -165,8 +165,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       </div>
 
       <div>
-        <input type="checkbox" class="align_left" name="image_old"<?=$image_old_checked?>>
-        <label for="image_old" class="label_inline"><?=__('admin_images_add_old')?></label>
+        <input type="checkbox" class="align_left" name="image_remake"<?=$image_remake_checked?>>
+        <label for="image_remake" class="label_inline"><?=__('admin_images_add_remake')?></label>
       </div>
 
       <div class="smallpadding_top">

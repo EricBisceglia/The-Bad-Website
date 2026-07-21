@@ -45,7 +45,7 @@ function images_get( int $image_id ) : array|null
                                 images.is_a_template      AS 'i_template' ,
                                 images.is_an_emoji        AS 'i_emoji'    ,
                                 images.is_a_speech_bubble AS 'i_bubble'   ,
-                                images.is_old_version     AS 'i_old'      ,
+                                images.is_remake          AS 'i_remake'   ,
                                 images.is_full_version    AS 'i_full'     ,
                                 images.is_a_preview       AS 'i_preview'  ,
                                 images.is_bonus_panel     AS 'i_bonus'    ,
@@ -69,7 +69,7 @@ function images_get( int $image_id ) : array|null
   $data['preview']  = sanitize_output($image_data['i_preview']);
   $data['bonus']    = sanitize_output($image_data['i_bonus']);
   $data['full']     = sanitize_output($image_data['i_full']);
-  $data['old']      = sanitize_output($image_data['i_old']);
+  $data['remake']   = sanitize_output($image_data['i_remake']);
   $data['trans']    = sanitize_output($image_data['i_trans']);
 
   // Return the image's data
@@ -129,14 +129,14 @@ function images_list( $sort_by = 'date'   ,
   $query_search .= ($search_type === 4) ?
                                     " AND images.is_an_emoji     = 1                  " : "";
   $query_search .= ($search_type === 5) ?
-                                    " AND images.is_old_version = 1                   " : "";
+                                    " AND images.is_remake       = 1                  " : "";
   $query_search .= ($search_type === 6) ?
-                                    " AND images.is_bonus_panel = 1                   " : "";
+                                    " AND images.is_bonus_panel  = 1                  " : "";
   $query_search .= ($search_type === 7) ?
                                     " AND images.is_full_version = 1                  " : "";
   $query_search .= ($search_type === 8) ?
                                     " AND images.is_a_speech_bubble = 1               " : "";
-  $query_search .= ($search_nsfw) ? " AND images.is_nsfw          = $search_nsfw      " : "";
+  $query_search .= ($search_nsfw) ? " AND images.is_nsfw         = $search_nsfw       " : "";
   $query_search .= ($search_template) ?
                                     " AND images.is_a_template   = $search_template   " : "";
   $query_search .= ($search_emoji) ?
@@ -155,7 +155,7 @@ function images_list( $sort_by = 'date'   ,
                                 images.is_a_speech_bubble DESC  ,
                                 images.is_a_preview       DESC  ,
                                 images.is_full_version    DESC  ,
-                                images.is_old_version     DESC  ,
+                                images.is_remake          DESC  ,
                                 images.is_bonus_panel     DESC  ,
                                 images.upload_date        DESC  ,
                                 images.name               ASC   ",
@@ -180,7 +180,7 @@ function images_list( $sort_by = 'date'   ,
                                 images.image_order        AS 'i_order'    ,
                                 images.upload_date        AS 'i_date'     ,
                                 images.is_a_preview       AS 'i_preview'  ,
-                                images.is_old_version     AS 'i_old'      ,
+                                images.is_remake          AS 'i_remake'   ,
                                 images.is_full_version    AS 'i_full'     ,
                                 images.is_a_template      AS 'i_template' ,
                                 images.is_bonus_panel     AS 'i_bonus'    ,
@@ -211,7 +211,7 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['date_full']  = date_to_text(sanitize_output(strtotime($row['i_date'])));
     $data[$i]['preview']    = ($row['i_preview']);
     $data[$i]['full']       = ($row['i_full']);
-    $data[$i]['old']        = ($row['i_old']);
+    $data[$i]['remake']     = ($row['i_remake']);
     $data[$i]['template']   = ($row['i_template']);
     $data[$i]['bonus']      = ($row['i_bonus']);
     $data[$i]['emoji']      = ($row['i_emoji']);
@@ -284,14 +284,14 @@ function images_add(  array $image_file ,
   $image_preview  = sanitize($image_data['preview'], 'int');
   $image_bonus    = sanitize($image_data['bonus'], 'int');
   $image_full     = sanitize($image_data['full'], 'int');
-  $image_old      = sanitize($image_data['old'], 'int');
+  $image_remake   = sanitize($image_data['remake'], 'int');
 
   // A template can't be anything else
   if($image_template)
   {
     $image_preview  = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bubble   = 0;
     $image_emoji    = 0;
     $image_bonus    = 0;
@@ -303,7 +303,7 @@ function images_add(  array $image_file ,
     $image_preview  = 0;
     $image_bubble   = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
@@ -312,15 +312,15 @@ function images_add(  array $image_file ,
   {
     $image_preview  = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
-  // A preview can't be an extra panel, assembled, or an old version
+  // A preview can't be an extra panel, assembled, or a remake
   else if($image_preview)
   {
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
@@ -349,7 +349,7 @@ function images_add(  array $image_file ,
                         images.is_bonus_panel     = '$image_bonus'    ,
                         images.is_an_emoji        = '$image_emoji'    ,
                         images.is_a_speech_bubble = '$image_bubble'   ,
-                        images.is_old_version     = '$image_old'      ,
+                        images.is_remake          = '$image_remake'   ,
                         images.is_full_version    = '$image_full'     ,
                         images.is_a_preview       = '$image_preview'  ,
                         images.is_nsfw            = '$image_nsfw'     ,
@@ -436,7 +436,7 @@ function images_edit( int   $image_id ,
   $image_preview  = sanitize($data['preview'], 'int');
   $image_bonus    = sanitize($data['bonus'], 'int');
   $image_full     = sanitize($data['full'], 'int');
-  $image_old      = sanitize($data['old'], 'int');
+  $image_remake   = sanitize($data['remake'], 'int');
   $image_nsfw     = sanitize($data['nsfw'], 'int');
   $image_trans    = sanitize($data['trans'], 'string');
 
@@ -445,7 +445,7 @@ function images_edit( int   $image_id ,
   {
     $image_preview  = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bubble   = 0;
     $image_emoji    = 0;
     $image_bonus    = 0;
@@ -457,7 +457,7 @@ function images_edit( int   $image_id ,
     $image_preview  = 0;
     $image_bubble   = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
@@ -466,15 +466,15 @@ function images_edit( int   $image_id ,
   {
     $image_preview  = 0;
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
-  // A preview can't be an extra panel, assembled, or an old version
+  // A preview can't be an extra panel, assembled, or a remake
   else if($image_preview)
   {
     $image_full     = 0;
-    $image_old      = 0;
+    $image_remake   = 0;
     $image_bonus    = 0;
   }
 
@@ -500,7 +500,7 @@ function images_edit( int   $image_id ,
                   images.is_a_template      = '$image_template' ,
                   images.is_an_emoji        = '$image_emoji'    ,
                   images.is_a_speech_bubble = '$image_bubble'   ,
-                  images.is_old_version     = '$image_old'      ,
+                  images.is_remake          = '$image_remake'   ,
                   images.is_full_version    = '$image_full'     ,
                   images.is_a_preview       = '$image_preview'  ,
                   images.is_bonus_panel     = '$image_bonus'    ,

@@ -17,6 +17,8 @@ ___('comics_title_tag',     'EN', "Comic image - transcription in alt text");
 ___('comics_title_tag',     'FR', "Image du comic - transcription en alt text");
 ___('comics_title_noalt',   'EN', "Comic image");
 ___('comics_title_noalt',   'FR', "Image du comic");
+___('comics_remake',        'EN', "Redrawn version");
+___('comics_remake',        'FR', "Version redessinée");
 ___('comics_notrans',       'EN', "This image does not have a transcription");
 ___('comics_notrans',       'FR', "Cette image n'a pas de transcription");
 ___('comics_description',   'EN', "About this comic");
