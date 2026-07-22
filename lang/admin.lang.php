@@ -402,6 +402,8 @@ ___('admin_comic_types_name',   'EN', "Name");
 ___('admin_comic_types_name',   'FR', "Nom");
 ___('admin_comic_types_banner', 'EN', "Banner");
 ___('admin_comic_types_banner', 'FR', "Bannière");
+___('admin_comic_types_number', 'EN', "Comics");
+___('admin_comic_types_number', 'FR', "Comics");
 ___('admin_comic_types_count',  'EN', "{{1}} comic type");
 ___('admin_comic_types_count',  'FR', "{{1}} type de comics");
 ___('admin_comic_types_count+', 'EN', "{{1}} comic types");
@@ -441,6 +443,8 @@ ___('admin_comic_types_edit_submit',  'FR', "Modifier le type de comic");
 // Comic types: Delete
 ___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
 ___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
+___('admin_comic_type_delete_used',     'EN', "You cannot delete a comic type as long as it has comics attached to it");
+___('admin_comic_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un type de comic tant qu\'il est lié à des comics");
 
 
 
