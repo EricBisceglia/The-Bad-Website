@@ -86,6 +86,8 @@ ___('admin_ideas_sort_newest',  'EN', "Newest");
 ___('admin_ideas_sort_newest',  'FR', "Récent");
 ___('admin_ideas_sort_oldest',  'EN', "Oldest");
 ___('admin_ideas_sort_oldest',  'FR', "Ancien");
+___('admin_ideas_edit_types',   'EN', "Edit idea types");
+___('admin_ideas_edit_types',   'FR', "Modifier les types d'idées");
 
 
 // Ideas: Add
@@ -112,6 +114,8 @@ ___('admin_idea_types_order',   'EN', "Order");
 ___('admin_idea_types_order',   'FR', "Ordre");
 ___('admin_idea_types_name',    'EN', "Name");
 ___('admin_idea_types_name',    'FR', "Nom");
+___('admin_idea_types_number',  'EN', "Ideas");
+___('admin_idea_types_number',  'FR', "Idées");
 ___('admin_idea_types_count',   'EN', "{{1}} idea type");
 ___('admin_idea_types_count',   'FR', "{{1}} type d'idée");
 ___('admin_idea_types_count+',  'EN', "{{1}} idea types");
@@ -140,7 +144,9 @@ ___('admin_idea_types_edit_submit',  'FR', "Modifier le type d'idée");
 
 // Idea types: Delete
 ___('admin_idea_types_delete_confirm', 'EN', "Confirm the permanent deletion of this idea type");
-___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d'idée");
+___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d\'idée");
+___('admin_idea_type_delete_used',     'EN', "You cannot delete an idea type as long as it has ideas attached to it");
+___('admin_idea_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un type d\'idée tant qu\'il est lié à des idées");
 
 
 
@@ -396,6 +402,8 @@ ___('admin_comic_types_name',   'EN', "Name");
 ___('admin_comic_types_name',   'FR', "Nom");
 ___('admin_comic_types_banner', 'EN', "Banner");
 ___('admin_comic_types_banner', 'FR', "Bannière");
+___('admin_comic_types_number', 'EN', "Comics");
+___('admin_comic_types_number', 'FR', "Comics");
 ___('admin_comic_types_count',  'EN', "{{1}} comic type");
 ___('admin_comic_types_count',  'FR', "{{1}} type de comics");
 ___('admin_comic_types_count+', 'EN', "{{1}} comic types");
@@ -435,6 +443,8 @@ ___('admin_comic_types_edit_submit',  'FR', "Modifier le type de comic");
 // Comic types: Delete
 ___('admin_comic_types_delete_confirm', 'EN', "Confirm the permanent deletion of this comic type");
 ___('admin_comic_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type de comic");
+___('admin_comic_type_delete_used',     'EN', "You cannot delete a comic type as long as it has comics attached to it");
+___('admin_comic_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un type de comic tant qu\'il est lié à des comics");
 
 
 
@@ -456,6 +466,8 @@ ___('admin_tags_name',      'EN', "Name");
 ___('admin_tags_name',      'FR', "Nom");
 ___('admin_tags_banner',    'EN', "Banner");
 ___('admin_tags_banner',    'FR', "Bannière");
+___('admin_tags_number',    'EN', "Used");
+___('admin_tags_number',    'FR', "Utilisé");
 ___('admin_tags_tagtitle',  'EN', "Title");
 ___('admin_tags_tagtitle',  'FR', "Titre");
 ___('admin_tags_order',     'EN', "Order");
@@ -495,6 +507,8 @@ ___('admin_tags_edit_submit',  'FR', "Modifier le tag");
 // Delete a tag
 ___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
 ___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
+___('admin_tags_delete_used',    'EN', "You cannot delete a tag as long as it has comics linked to it");
+___('admin_tags_delete_used',    'FR', "Vous ne pouvez pas supprimer un tag tant qu\'il est lié à des comics");
 
 
 

@@ -120,6 +120,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center">
           <?=__('admin_comic_types_banner')?>
         </th>
+        <th class="align_center">
+          <?=__('admin_comic_types_number')?>
+        </th>
         <th>
           <?=__('act')?>
         </th>
@@ -132,7 +135,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="4" class="uppercase text_light dark bold align_center">
+        <td colspan="5" class="uppercase text_light dark bold align_center">
           <?=__('admin_comic_types_count', preset_values: array($comic_types_list['rows']), amount: $comic_types_list['rows'])?>
         </td>
       </tr>
@@ -162,14 +165,34 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
         </td>
 
+        <td class="align_center nowrap bold">
+          <?=$comic_types_list[$i]['count']?>
+        </td>
+
         <td class="align_center nowrap admin_action_icons">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_types_edit?type_id='.$comic_types_list[$i]['id'], path: root_path())?>
+          <?php if(!$comic_types_list[$i]['count']): ?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_type_delete('".$comic_types_list[$i]['id']."','".__('admin_comic_types_delete_confirm')."')", path: root_path())?>
+          <?php else: ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_comic_type_delete_used')."')", path: root_path())?>
+          <?php endif; ?>
         </td>
 
       </tr>
 
       <?php endfor; ?>
+
+      <tr class="uppercase dark">
+        <th colspan="3">
+          &nbsp;
+        </th>
+        <th class="align_center">
+          <?=$comic_types_list['comic_count']?>
+        </th>
+        <th>
+          &nbsp;
+        </th>
+      </tr>
 
     </tbody>
 

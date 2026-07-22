@@ -989,11 +989,18 @@ function comic_types_list(  bool   $is_major  = false  ,
                                     comic_types.banner_$lang  AS 'ct_banner'    ,
                                     comic_types.banner_en     AS 'ct_banner_en' ,
                                     comic_types.banner_fr     AS 'ct_banner_fr' ,
-                                    comic_types.is_major      AS 'ct_is_major'
+                                    comic_types.is_major      AS 'ct_is_major'  ,
+                                    COUNT(comics.id)          AS 'ct_count'
                           FROM      comic_types
+                          LEFT JOIN comics
+                          ON        comics.fk_comic_types = comic_types.id
                           WHERE     1 = 1
                           $query_where
+                          GROUP BY  comic_types.id
                           ORDER BY  comic_types.sorting_order ASC ");
+
+  // Initialize a variable to count the number of comics
+  $comic_count = 0;
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comic_types); $i++)
@@ -1007,6 +1014,7 @@ function comic_types_list(  bool   $is_major  = false  ,
     $data[$i]['banner_en']  = sanitize_output($row['ct_banner_en']);
     $data[$i]['banner_fr']  = sanitize_output($row['ct_banner_fr']);
     $data[$i]['major_p']    = sanitize_output($row['ct_is_major']) ? ' !' : '';
+    $data[$i]['count']      = sanitize_output($row['ct_count']);
 
     // Get the correct banner images
     $root = root_path();
@@ -1014,7 +1022,13 @@ function comic_types_list(  bool   $is_major  = false  ,
       $data[$i]['banner'] = "img/website/categories/".$row['ct_banner'];
     else
       $data[$i]['banner']= "img/website/templates/comic_type_".$lang;
+
+    // Increment the comics counter
+    $comic_count += $row['ct_count'];
   }
+
+  // Add the number of comics to the returned data
+  $data['comic_count'] = sanitize_output($comic_count);
 
   // Add the number of rows to the returned data
   $data['rows'] = $i;
@@ -1127,25 +1141,33 @@ function comic_types_edit( int   $type_id  ,
 /**
  * Delete a comic type.
  *
- * @param   int     $comic_type_id  The id of the comic type to delete.
+ * @param   int     $type_id  The id of the comic type to delete.
  *
- * @return  void
+ * @return  bool              Whether the comic type was deleted.
  */
 
-function comic_types_delete( int $type_id )
+function comic_types_delete( int $type_id ) : bool
 {
   // Sanitize the comic type
   $type_id = sanitize($type_id, 'int');
+
+  // Check whether any comics are currently using this type
+  $comics = query(" SELECT  COUNT(DISTINCT comics.id) AS 'i_id'
+                    FROM    comics
+                    WHERE   comics.fk_comic_types = '$type_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still comics using this type
+  if($comics['i_id'])
+    return false;
 
   // Delete the comic type
   query(" DELETE FROM comic_types
           WHERE       comic_types.id = '$type_id' ");
 
-  // Remove any links to the deleted comic type
-  query(" UPDATE comics
-          SET    comics.fk_comic_types = NULL
-          WHERE  comics.fk_comic_types = '$type_id' ");
-
   // Regenerate the sitemap
   sitemap_generate();
+
+  // The comic type has been deleted
+  return true;
 }

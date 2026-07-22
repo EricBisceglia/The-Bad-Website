@@ -106,6 +106,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center">
           <?=__('admin_idea_types_name')?>
         </th>
+        <th class="align_center">
+          <?=__('admin_idea_types_number')?>
+        </th>
         <th>
           <?=__('act')?>
         </th>
@@ -118,7 +121,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="3" class="uppercase text_light dark bold align_center">
+        <td colspan="4" class="uppercase text_light dark bold align_center">
           <?=__('admin_idea_types_count', preset_values: array($idea_types_list['rows']), amount: $idea_types_list['rows'])?>
         </td>
       </tr>
@@ -135,14 +138,34 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <span class="uppercase"><?=$idea_types_list[$i]['name']?></span>
         </td>
 
+        <td class="align_center nowrap bold">
+          <?=$idea_types_list[$i]['count']?>
+        </td>
+
         <td class="align_center nowrap admin_action_icons">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/ideas_types_edit?type_id='.$idea_types_list[$i]['id'], path: root_path())?>
+          <?php if(!$idea_types_list[$i]['count']): ?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_idea_type_delete('".$idea_types_list[$i]['id']."','".__('admin_idea_types_delete_confirm')."')", path: root_path())?>
+          <?php else: ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_idea_type_delete_used')."')", path: root_path())?>
+          <?php endif; ?>
         </td>
 
       </tr>
 
       <?php endfor; ?>
+
+      <tr class="uppercase dark">
+        <th colspan="2">
+          &nbsp;
+        </th>
+        <th class="align_center">
+          <?=$idea_types_list['idea_count']?>
+        </th>
+        <th>
+          &nbsp;
+        </th>
+      </tr>
 
     </tbody>
 

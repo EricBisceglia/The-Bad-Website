@@ -106,6 +106,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__icon('done', alt: 'A', title: __('admin_ideas_sort_title'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');")?>
     <?=__icon('sort_down', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');")?>
     <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');")?>
+    <?=__icon('edit', alt: 'E', title: __('admin_ideas_edit_types'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', href: 'admin/ideas_types')?>
   </h3>
 
   <?php endif; ?>

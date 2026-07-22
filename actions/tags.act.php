@@ -113,9 +113,18 @@ function tags_list() : array
                             tags.banner_fr     AS 't_banner_fr' ,
                             tags.title_$lang   AS 't_title'     ,
                             tags.title_en      AS 't_title_en'  ,
-                            tags.title_fr      AS 't_title_fr'
+                            tags.title_fr      AS 't_title_fr'  ,
+                            COUNT(comics.id)   AS 't_count'
                   FROM      tags
+                  LEFT JOIN comic_tags
+                  ON        comic_tags.fk_tags = tags.id
+                  LEFT JOIN comics
+                  ON        comics.id = comic_tags.fk_comics
+                  GROUP BY  tags.id
                   ORDER BY  tags.sorting_order ASC ");
+
+  // Initialize a variable to count the number of linked comics
+  $comic_count = 0;
 
   // Prepare the data for display
   for($i = 0; $row = query_row($tags); $i++)
@@ -128,6 +137,7 @@ function tags_list() : array
     $data[$i]['title']      = sanitize_output($row['t_title']);
     $data[$i]['title_en']   = sanitize_output($row['t_title_en']);
     $data[$i]['title_fr']   = sanitize_output($row['t_title_fr']);
+    $data[$i]['count']      = sanitize_output($row['t_count']);
 
     // Get the correct banner images
     $root = root_path();
@@ -135,7 +145,13 @@ function tags_list() : array
       $data[$i]['banner'] = "img/website/tags/".$row['t_banner'];
     else
       $data[$i]['banner']= "img/website/templates/tag_".$lang;
+
+    // Increment the linked comics counter
+    $comic_count += $row['t_count'];
   }
+
+  // Add the number of linked comics to the returned data
+  $data['comic_count'] = sanitize_output($comic_count);
 
   // Add the number of rows to the returned data
   $data['rows'] = $i;
@@ -242,24 +258,37 @@ function tags_edit( int   $tag_id  ,
 /**
  * Delete a tag.
  *
- * @param   int     $tag_id  The id of the tag to delete.
+ * @param   int     $tag_id   The id of the tag to delete.
  *
- * @return  void
+ * @return  bool              Whether the tag was deleted.
  */
 
-function tags_delete( int $tag_id )
+function tags_delete( int $tag_id ) : bool
 {
   // Sanitize the tag's id
   $tag_id = sanitize($tag_id, 'int');
+
+  // Check whether any comics are currently using this tag
+  $comics = query(" SELECT  COUNT(DISTINCT comic_tags.id) AS 'ct_id'
+                    FROM    comic_tags
+                    WHERE   comic_tags.fk_tags = '$tag_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still comics using this tag
+  if($comics['ct_id'])
+    return false;
 
   // Delete the tag
   query(" DELETE FROM tags
           WHERE       tags.id = '$tag_id' ");
 
-  // Remove any links to the deleted tag
+  // Remove any possible leftover links to the deleted tag
   query(" DELETE FROM comic_tags
           WHERE       comic_tags.fk_tags = '$tag_id' ");
 
   // Regenerate the sitemap
   sitemap_generate();
+
+  // The tag has been deleted
+  return true;
 }
