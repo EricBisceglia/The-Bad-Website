@@ -466,6 +466,8 @@ ___('admin_tags_name',      'EN', "Name");
 ___('admin_tags_name',      'FR', "Nom");
 ___('admin_tags_banner',    'EN', "Banner");
 ___('admin_tags_banner',    'FR', "Bannière");
+___('admin_tags_number',    'EN', "Used");
+___('admin_tags_number',    'FR', "Utilisé");
 ___('admin_tags_tagtitle',  'EN', "Title");
 ___('admin_tags_tagtitle',  'FR', "Titre");
 ___('admin_tags_order',     'EN', "Order");
@@ -505,6 +507,8 @@ ___('admin_tags_edit_submit',  'FR', "Modifier le tag");
 // Delete a tag
 ___('admin_tags_delete_confirm', 'EN', "Confirm the permanent deletion of this tag");
 ___('admin_tags_delete_confirm', 'FR', "Confirmer la suppression définitive de ce tag");
+___('admin_tags_delete_used',    'EN', "You cannot delete a tag as long as it has comics linked to it");
+___('admin_tags_delete_used',    'FR', "Vous ne pouvez pas supprimer un tag tant qu\'il est lié à des comics");
 
 
 
