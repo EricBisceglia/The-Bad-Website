@@ -10,6 +10,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  images_get                    Fetches an image's data                                                            */
 /*  images_list                   Lists images                                                                       */
+/*  images_list_gallery           Lists images for display in a gallery.                                             */
 /*  images_add                    Adds an image to the database                                                      */
 /*  images_edit                   Modifies an existing image                                                         */
 /*  images_delete                 Deletes an existing image                                                          */
@@ -217,6 +218,70 @@ function images_list( $sort_by = 'date'   ,
     $data[$i]['emoji']      = ($row['i_emoji']);
     $data[$i]['bubble']     = ($row['i_bubble']);
     $data[$i]['nsfw']       = sanitize_output($row['i_nsfw']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
+
+/**
+ * Lists images for display in a gallery.
+ *
+ * @param   array   $search    The search query.
+ *
+ * @return  array   An array containing the images.
+ */
+
+function images_list_gallery( $search  = array()  ) : array
+{
+  // Get the user's language
+  $lang = user_get_language();
+
+  // Sanitize the search parameters
+  $search_none  = sanitize_array_element($search, 'none', 'bool');
+  $search_name  = sanitize_array_element($search, 'name', 'string');
+  $search_type  = sanitize_array_element($search, 'type', 'int');
+  $search_tag   = sanitize_array_element($search, 'tag', 'int');
+
+  // Search through the data
+  $query_search  = ($search_none === true)  ? " AND 1 = 0 "                                           : "";
+  $query_search .= ($search_name)           ? " AND ( images.transcript     LIKE '%$search_name%'
+                                                OR    comics.title_$lang    LIKE '%$search_name%' ) " : "";
+  $query_search .= ($search_type)           ? " AND comics.fk_comic_types = '$search_type'          " : "";
+  $query_search .= ($search_tag)            ? " AND comic_tags.fk_tags    = '$search_tag'           " : "";
+
+  // Run the query
+  $images = query("   SELECT    COUNT(DISTINCT(comics.id))  AS 'c_count' ,
+                                comics.slug                 AS 'c_slug' ,
+                                images.name                 AS 'i_name'
+                      FROM      comics
+                      LEFT JOIN images
+                      ON        comics.id = images.fk_comics
+                      LEFT JOIN comic_tags
+                      ON        comics.id = comic_tags.fk_comics
+                      WHERE     images.is_a_preview       = 0
+                      AND       images.is_full_version    = 0
+                      AND       images.is_a_template      = 0
+                      AND       images.is_an_emoji        = 0
+                      AND       images.is_a_speech_bubble = 0
+                      AND       images.language           LIKE '$lang'
+                                $query_search
+                      GROUP BY  images.id
+                      ORDER BY  comics.upload_date    DESC  ,
+                                images.is_bonus_panel ASC   ,
+                                images.image_order    ASC   ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($images); $i++)
+  {
+    $data[$i]['slug'] = sanitize_output($row['c_slug']);
+    $data[$i]['name'] = sanitize_output($row['i_name']);
   }
 
   // Add the number of rows to the returned data

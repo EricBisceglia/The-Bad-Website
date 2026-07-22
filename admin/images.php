@@ -106,6 +106,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <h2 class="align_center padding_bot">
       <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: root_path())?>
       <?=__icon('image', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_info', path: root_path())?>
+      <?=__icon('duplicate', alt: 'G', title: __('admin_images_list_gallery'), title_case: 'initials', href: 'admin/images_gallery', path: root_path())?>
       <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: root_path())?>
     </h2>
 
