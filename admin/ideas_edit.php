@@ -106,9 +106,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </div>
 
     <div class="smallpadding_bot">
-      <a href="./ideas_types">
-        <label for="admin_ideas_type" class="pointer"><?=__('admin_ideas_type')?></label>
-      </a>
+      <div class="tinypadding_bot">
+        <?=__link('admin/ideas_types', __('admin_ideas_type'), path: $path)?>
+      </div>
       <select class="indiv align_left" name="admin_ideas_type" id="admin_ideas_type">
         <?php for($i = 0; $i < $admin_idea_types['rows']; $i++): ?>
         <option value="<?=$admin_idea_types[$i]['id']?>"<?=$admin_idea_type_selected[$i]?>><?=$admin_idea_types[$i]['name']?></option>

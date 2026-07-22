@@ -312,17 +312,29 @@ function admin_idea_types_list() : array
   // Fetch the idea types
   $idea_types = query(" SELECT    idea_types.id             AS 'it_id'    ,
                                   idea_types.sorting_order  AS 'it_sort'  ,
-                                  idea_types.name_$lang     AS 'it_name'
+                                  idea_types.name_$lang     AS 'it_name'  ,
+                                  COUNT(ideas.id)           AS 'it_count'
                         FROM      idea_types
+                        LEFT JOIN ideas
+                        ON        ideas.fk_idea_types = idea_types.id
+                        GROUP BY  idea_types.id
                         ORDER BY  idea_types.sorting_order ASC ");
+
+  // Initialize a variable to count the number of ideas
+  $idea_count = 0;
 
   // Prepare the data for display
   for($i = 0; $row = query_row($idea_types); $i++)
   {
-    $data[$i]['id']   = sanitize_output($row['it_id']);
-    $data[$i]['sort'] = sanitize_output($row['it_sort']);
-    $data[$i]['name'] = sanitize_output($row['it_name']);
+    $data[$i]['id']     = sanitize_output($row['it_id']);
+    $data[$i]['sort']   = sanitize_output($row['it_sort']);
+    $data[$i]['name']   = sanitize_output($row['it_name']);
+    $data[$i]['count']  = sanitize_output($row['it_count']);
+    $idea_count         += $row['it_count'];
   }
+
+  // Add the number of ideas to the returned data
+  $data['idea_count'] = sanitize_output($idea_count);
 
   // Add the number of rows to the returned data
   $data['rows'] = $i;
@@ -399,17 +411,29 @@ function admin_idea_types_edit( int   $idea_type_id ,
  *
  * @param   int     $idea_type_id  The id of the idea type to delete.
  *
- * @return  void
+ * @return  bool                   Whether the idea type was deleted.
  */
 
-function admin_idea_types_delete( int $idea_type_id )
+function admin_idea_types_delete( int $idea_type_id ) : bool
 {
   // Sanitize the idea type's id
   $idea_type_id = sanitize($idea_type_id, 'int');
 
+  // Check whether any ideas are currently using this type
+  $ideas = query("  SELECT    COUNT(DISTINCT ideas.id) AS 'i_id'
+                    FROM      ideas
+                    WHERE     ideas.fk_idea_types = '$idea_type_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still ideas using this type
+  if($ideas['i_id'])
+    return false;
+
   // Delete the idea type
   query(" DELETE FROM idea_types
           WHERE       idea_types.id = '$idea_type_id' ");
+
+  return true;
 }
 
 

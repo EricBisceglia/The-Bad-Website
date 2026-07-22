@@ -86,6 +86,8 @@ ___('admin_ideas_sort_newest',  'EN', "Newest");
 ___('admin_ideas_sort_newest',  'FR', "Récent");
 ___('admin_ideas_sort_oldest',  'EN', "Oldest");
 ___('admin_ideas_sort_oldest',  'FR', "Ancien");
+___('admin_ideas_edit_types',   'EN', "Edit idea types");
+___('admin_ideas_edit_types',   'FR', "Modifier les types d'idées");
 
 
 // Ideas: Add
@@ -112,6 +114,8 @@ ___('admin_idea_types_order',   'EN', "Order");
 ___('admin_idea_types_order',   'FR', "Ordre");
 ___('admin_idea_types_name',    'EN', "Name");
 ___('admin_idea_types_name',    'FR', "Nom");
+___('admin_idea_types_number',  'EN', "Ideas");
+___('admin_idea_types_number',  'FR', "Idées");
 ___('admin_idea_types_count',   'EN', "{{1}} idea type");
 ___('admin_idea_types_count',   'FR', "{{1}} type d'idée");
 ___('admin_idea_types_count+',  'EN', "{{1}} idea types");
@@ -140,7 +144,9 @@ ___('admin_idea_types_edit_submit',  'FR', "Modifier le type d'idée");
 
 // Idea types: Delete
 ___('admin_idea_types_delete_confirm', 'EN', "Confirm the permanent deletion of this idea type");
-___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d'idée");
+___('admin_idea_types_delete_confirm', 'FR', "Confirmer la suppression définitive de ce type d\'idée");
+___('admin_idea_type_delete_used',     'EN', "You cannot delete an idea type as long as it has ideas attached to it");
+___('admin_idea_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un type d\'idée tant qu\'il est lié à des idées");
 
 
 
