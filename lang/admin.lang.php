@@ -162,6 +162,8 @@ ___('admin_images_title',             'EN', "Images");
 ___('admin_images_title',             'FR', "Images");
 ___('admin_images_list_templates',    'EN', "Templates");
 ___('admin_images_list_templates',    'FR', "Modèles");
+___('admin_images_list_gallery',      'EN', "Gallery");
+___('admin_images_list_gallery',      'FR', "Galerie");
 ___('admin_images_list_type',         'EN', "Type");
 ___('admin_images_list_type',         'FR', "Type");
 ___('admin_images_list_type_comic',   'EN', "Comic");
@@ -282,6 +284,17 @@ ___('admin_images_info_tag',      'EN', "Tag banner: 1000x130<br>img/website/tag
 ___('admin_images_info_tag',      'FR', "Bannière de tag : 1000x130<br>img/website/tags/");
 ___('admin_images_info_preview',  'EN', "Comic preview: 1000x400");
 ___('admin_images_info_preview',  'FR', "Prévisualisation de comic : 1000x400");
+
+
+// Image gallery
+___('admin_images_gallery_title',  'EN', "Image gallery");
+___('admin_images_gallery_title',  'FR', "Galerie d'images");
+___('admin_images_gallery_search', 'EN', "Search");
+___('admin_images_gallery_search', 'FR', "Chercher");
+___('admin_images_gallery_count',  'EN', "{{1}} image");
+___('admin_images_gallery_count',  'FR', "{{1}} image");
+___('admin_images_gallery_count+', 'EN', "{{1}} images");
+___('admin_images_gallery_count+', 'FR', "{{1}} images");
 
 
 

@@ -8,6 +8,7 @@
 /*                                                                                                                   */
 /*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
 /*  admin_image_list_search                 Triggers a search in the image list.                                     */
+/*  admin_image_gallery_search              Triggers a search in the image gallery.                                  */
 /*                                                                                                                   */
 /*  admin_comic_list_search                 Triggers a search in the comic list.                                     */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
@@ -161,6 +162,27 @@ function admin_image_list_search( sort            = null  ,
 
   // Submit the search
   fetch_page('images', 'admin_images_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers a search in the image gallery.
+ *
+ * @return {void}
+ */
+
+function admin_image_gallery_search()
+{
+  // Assemble the postdata
+  postdata  = 'admin_images_search_name='  + fetch_sanitize_id('admin_images_gallery_name');
+  postdata += '&admin_images_search_type=' + fetch_sanitize_id('admin_images_gallery_type');
+  postdata += '&admin_images_search_tag='  + fetch_sanitize_id('admin_images_gallery_tag');
+  postdata += '&admin_images_gallery_go=1';
+
+  // Submit the search
+  fetch_page('images_gallery', 'admin_images_gallery', postdata);
 }
 
 
