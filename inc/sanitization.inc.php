@@ -204,7 +204,7 @@ function sanitize_array_element(  array   $array                ,
  * Sanitizes data for HTML usage.
  *
  * @param   string|null $data                               The data to be sanitized.
- * @param   bool        $prevent_line_breaks    (OPTIONAL)  If false/unset, will remove the line breaks from your data.
+ * @param   bool        $preserve_line_breaks   (OPTIONAL)  If false/unset, will keep the line breaks in your data.
  * @param   bool        $preserve_backslashes   (OPTIONAL)  If false/unset, will remove backslashes from your data.
  * @param   bool        $use_in_alt_tag         (OPTIONAL)  If true, will sanitize the data for use in alt tags.
  * @param   bool        $markdown_line_breaks   (OPTIONAL)  If true, will add backslashes to line breaks.
@@ -232,9 +232,20 @@ function sanitize_output( ?string $data                         ,
         : stripslashes(htmlentities($data, ENT_QUOTES, 'utf-8'));
 
   // Prepare the data for use in Markdown
-  $data = ($markdown_line_breaks)
-        ? preg_replace("/\r?\n/", "\\\\\n", $data)
-        : $data;
+  if($markdown_line_breaks)
+  {
+    // Escape inline Markdown formatting
+    $data = str_replace(array('\\', '*', '_', '`', '~'), array('\\\\', '\*', '\_', '\`', '\~'), $data);
+
+    // Escape lists
+    $data = preg_replace('/^(\s*\d+)\./m', '$1\.', $data);
+
+    // Escape other blocks
+    $data = preg_replace('/^(\s*)([-+#])(?=\s)/m', '$1\\$2', $data);
+
+    // Add line breaks at the end of each line
+    $data = preg_replace("/\r?\n/", "\\\\\n", $data);
+  }
 
   // Return the prepared data
   return ($preserve_line_breaks) ? nl2br($data) : $data;
@@ -250,8 +261,8 @@ function sanitize_output( ?string $data                         ,
  * Applying this function will prevent users from using HTML themselves, and thus avoid potential silly XSS issues.
  *
  * @param   string  $data                               The data to be sanitized.
- * @param   int     $prevent_line_breaks    (OPTIONAL)  If false or unset, will remove the line breaks from your data.
- * @param   int     $preserve_backslashes   (OPTIONAL)  If false or unset, backslashes will be removed from your data.
+ * @param   bool    $preserve_line_breaks   (OPTIONAL)  If false or unset, will keep the line breaks in your data.
+ * @param   bool    $preserve_backslashes   (OPTIONAL)  If false or unset, backslashes will be removed from your data.
  *
  * @return  string                                      The sanitized data, ready to be printed in your HTML.
  */
