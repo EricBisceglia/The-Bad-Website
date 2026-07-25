@@ -1,10 +1,123 @@
-The Bad Website
-===
+# The Bad Website
 
 This repository contains the source code of [The Bad Website's website](https://thebad.website).
 
-It is a fork of [NoBleme's source code](https://github.com/EricBisceglia/NoBleme.com), which acts as a base and a framework for the project.
+The codebase is vanilla PHP, MySQL, JS, CSS. No frameworks or build steps.
 
-Therefore, if you are looking to install the project locally and/or understand its source code, you should read [NoBleme's README](https://github.com/EricBisceglia/NoBleme.com/blob/trunk/README.md) which explains the codebase's structure and how to make use of it.
+## Requirements
 
-thebad.website is open sourced for educative and collaborative reasons. Furthermore, the license (MIT) allows you to reuse its source code if you so desire, as long as you credit the original author in your codebase: Copyright (c) 2025 Eric Bisceglia / The Bad Website / thebad.website
+- Apache with `mod_rewrite`
+- PHP >= 8.3 with `mysqli`
+- MySQL or MariaDB
+
+## Local installation
+
+### 1. Grab the code
+
+Clone the repository.
+
+```bash
+git clone https://github.com/EricBisceglia/The-Bad-Website.git
+cd The-Bad-Website
+```
+
+### 2. Make the database
+
+Create a MySQL or MariaDB database with the `utf8mb4` charset / `utf8mb4_unicode_ci` collation.
+
+Create a dedicated user.
+
+```sql
+CREATE DATABASE thebadwebsite
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'thebadwebsite'@'localhost'
+  IDENTIFIED BY 'your-password-goes-here';
+
+GRANT ALL PRIVILEGES
+  ON thebadwebsite.*
+  TO 'thebadwebsite'@'localhost';
+```
+
+### 3. Configure the project
+
+Duplicate the configuration file located at `conf/main.conf.php.DEFAULT` and rename it to `conf/main.conf.php`.
+
+```bash
+cp conf/main.conf.php.DEFAULT conf/main.conf.php
+```
+
+Then edit your configuration file, which should be self explanatory.
+
+`extra_folders` is the number of path segments between the web root and the project:
+
+Your local configuration file is in .gitignore thus will never be committed, no worries.
+
+### 4. Configure Apache
+
+You should not need any extra Apache configuration other than enabling `mod_rewrite`.
+
+Apache will need full permissions on the project directory, several pages create, move, delete files.
+
+### 5. Configure admin password
+
+If you intend to share your copy of the website with others, you should password protect the admin area.
+
+Setting up .htaccess and .htpassrd in your `admin` directory (or another system) is up to you.
+
+### 6. Congratulations
+
+Your copy of The Bad Website should now be operational.
+
+## Project structure
+
+Mostly self explanatory.
+
+| Path | Purpose |
+| --- | --- |
+| `actions/` | Application logic |
+| `admin/` | Admin panel |
+| `conf/` | Configuration files |
+| `css/` | Stylesheets |
+| `img/` | Images |
+| `inc/` | Core functions |
+| `js/` | Javascript files |
+| `lang/` | Translation strings |
+| `pages/` | Website content |
+
+## Development
+
+Keep coding style consistent with the rest of the codebase.
+
+There is no test suite, nor is there a linter.
+
+Some good practices to follow:
+- Sanitize all external inputs before using it
+- Sanitize all database content before displaying it
+- Use translation strings instead of directly writing text in pages
+- Use `admin/queries_sql.inc.php` if you intend to modify the database schema
+- Check any CSS/layout changes on both desktop and mobile
+
+## Contributing
+
+Contributions to the repository are welcome.
+
+1. Create your own branch, don't wory directly on `trunk`
+2. Make a pull request on GitHub from your branch, I'll take it from there
+3. One PR per change please, if you are to contribute multiple changes, make multiple PRs
+4. If you can't do the french or english translation strings, no biggie, I'll do them
+
+## Security
+
+If you discover a security issue, please report it privately.
+
+You can contact me using [The Bad Website's socials](https://thebad.website/about/socials).
+
+## License
+
+The source code is distributed under the MIT License.
+
+You are free to reuse parts or all the code for any purpose, commercial or not.
+
+Copyright © 2025 Éric Bisceglia / The Bad Website / thebad.website
