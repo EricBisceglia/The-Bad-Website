@@ -102,11 +102,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <option value="<?=$admin_idea_types[$i]['id']?>"<?=$admin_idea_types_selected[$i]?>><?=$admin_idea_types[$i]['name']?></option>
       <?php endfor; ?>
     </select>
-    <?=__icon('refresh', alt: 'R', title: __('admin_ideas_sort_random'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('random');")?>
-    <?=__icon('done', alt: 'A', title: __('admin_ideas_sort_title'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');")?>
-    <?=__icon('sort_down', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');")?>
-    <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');")?>
-    <?=__icon('edit', alt: 'E', title: __('admin_ideas_edit_types'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', href: 'admin/ideas_types')?>
+    <?=__icon('refresh', alt: 'R', title: __('admin_ideas_sort_random'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('random');")?>
+    <?=__icon('done', alt: 'A', title: __('admin_ideas_sort_title'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');")?>
+    <?=__icon('sort_down', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');")?>
+    <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');")?>
+    <?=__icon('edit', alt: 'E', title: __('admin_ideas_edit_types'), title_case: 'initials', class: 'valign_middle pointer spaced_left', href: 'admin/ideas_types')?>
   </h3>
 
   <?php endif; ?>
@@ -117,7 +117,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
     <h2 class="padding_bot smallpadding_top">
       <?=__('admin_ideas_list', preset_values: array($admin_ideas['rows']), amount: $admin_ideas['rows'])?>
-      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_add', path: root_path())?>
+      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_add')?>
     </h2>
 
     <?php for($i = 0; $i < $admin_ideas['rows']; $i++): ?>
@@ -126,8 +126,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <h5 class="smallpadding_bot bold text_orange">
           <?=$admin_ideas['ideas'][$i]['title']?>
-          <?=__icon('edit', is_small: true, alt: '+', title: __('edit'), title_case: 'initials', href: 'admin/ideas_edit?id='.$admin_ideas['ideas'][$i]['id'], path: $path)?>
-          <?=__icon('delete', is_small: true, alt: '-', title: __('delete'), title_case: 'initials', path: $path, onclick: 'admin_ideas_delete('.$admin_ideas['ideas'][$i]['id'].', \''.__('admin_ideas_delete').'\')')?>
+          <?=__icon('edit', is_small: true, alt: '+', title: __('edit'), title_case: 'initials', href: 'admin/ideas_edit?id='.$admin_ideas['ideas'][$i]['id'])?>
+          <?=__icon('delete', is_small: true, alt: '-', title: __('delete'), title_case: 'initials', onclick: 'admin_ideas_delete('.$admin_ideas['ideas'][$i]['id'].', \''.__('admin_ideas_delete').'\')')?>
         </h5>
 
         <blockquote>

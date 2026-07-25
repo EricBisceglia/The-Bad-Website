@@ -33,6 +33,10 @@ $copyright_date = date('Y');
 
         <?=__link("about/copyright", __('footer_copyright', preset_values: array($copyright_date)), "text_light text_white_hover", true, $path);?><br>
 
+        <?php if($GLOBALS['dev_mode']): ?>
+        <?= $metrics ?><br>
+        <?php endif; ?>
+
       </footer>
 
       <?php } ?>

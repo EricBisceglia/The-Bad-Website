@@ -30,8 +30,6 @@
 /*  unblur_element              Removes the blur filter from a specific element.                                     */
 /*  unblur_comic                Removes the blur filter from a comic.                                                */
 /*                                                                                                                   */
-/*  popin_close                 Closes an open popin.                                                                */
-/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 
@@ -575,37 +573,3 @@ function unblur_comic(target_id)
   target_id.style.filter='blur(0)';
   target_id.style.transition='filter 0.3s ease';
 }
-
-
-
-
-/**
- * Closes an open popin.
- *
- * @param   {string}  popin_id  The id of the popin, or * to close all open popins
- *
- * @returns {void}
- */
-
-function popin_close(popin_id)
-{
-  // If the requested popin has been opened, close it
-  if(location.hash === popin_id || location.hash === '#'+popin_id || popin_id === '*')
-  {
-    // Get rid of the hash in the URL
-    location.hash = '#_';
-    history.replaceState({}, document.title, window.location.href.split('#')[0]);
-
-    // Scroll back to the top
-    var popin_scroll = document.getElementsByClassName('popin_body');
-    for(var i = 0; i < popin_scroll.length; i++)
-      popin_scroll[i].scrollTop = 0;
-  }
-}
-
-
-// Close all open popins upon pressing the escape key
-document.addEventListener("keydown", ({key}) => {
-  if (key === "Escape")
-    popin_close('*');
-})

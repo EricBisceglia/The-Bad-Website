@@ -1,4 +1,0 @@
-AuthName "Authentify"
-AuthType Basic
-AuthUserFile C:\wamp64\www\thebadwebsite\admin\.htpasswd
-Require valid-user
