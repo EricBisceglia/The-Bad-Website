@@ -76,7 +76,7 @@ function sql_check_query_id() : mixed
                         fetch_row: true);
 
   // Return that id
-  return $last_query['latest_query_id'];
+  return (isset($last_query['latest_query_id'])) ? $last_query['latest_query_id'] : 0;
 }
 
 

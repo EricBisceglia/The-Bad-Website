@@ -80,7 +80,7 @@ The Bad Website includes third-party fonts, which are not covered by the project
 
 Their respective licenses are included in the project.
 
-- [`css/fonts/LICENSE-Roboto.md`](css/fonts/LICENSE-Roboto.md)
+- [`css/fonts/LICENSE-roboto.md`](css/fonts/LICENSE-roboto.md)
 - [`css/fonts/LICENSE-opensans.md`](css/fonts/LICENSE-opensans.md)
 
 

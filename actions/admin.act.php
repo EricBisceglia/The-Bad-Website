@@ -42,7 +42,7 @@ function admin_notes_get() : array
                     fetch_row: true);
 
   // Prepare the data
-  $data['tasks']  = sanitize_output($notes['n_tasks']);
+  $data['tasks']  = (isset($notes['n_tasks'])) ? sanitize_output($notes['n_tasks']) : '';
 
   // Return the data
   return $data;
@@ -63,6 +63,16 @@ function admin_notes_update( string $tasks = '' ) : void
 {
   // Sanitize the data
   $tasks = sanitize($tasks, 'string');
+
+  // Check if the notes exist
+  $notes = query("  SELECT  notes.id AS 'n_id'
+                    FROM    notes ",
+                    fetch_row: true);
+
+  // Create the notes if they don't exist
+  if(!isset($notes['n_id']))
+    query(" INSERT INTO notes
+            SET         notes.tasks  = '' ");
 
   // Update the notes
   query(" UPDATE  notes
@@ -134,7 +144,7 @@ function admin_ideas_list(  int    $category            ,
                           ORDER BY  idea_types.sorting_order ASC
                           LIMIT     1 ",
                           fetch_row: true);
-    $category = sanitize($categories['it_id'], 'int');
+    $category = (isset($categories['it_id'])) ? sanitize($categories['it_id'], 'int') : 0;
   }
 
   // Prepare the sorting
