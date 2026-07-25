@@ -128,13 +128,13 @@ Then edit your configuration file, which should be self explanatory.
 
 Your local configuration file is in .gitignore thus will never be committed, no worries.
 
-### 4. Configure Apache
+### 4. Prepare Apache
 
 You should not need any Apache configuration other than enabling `mod_rewrite`.
 
 Apache will need full permissions on the project directory, several pages create, move, delete files.
 
-### 5. Configure admin password
+### 5. Protect the admin panel
 
 If you intend to open your copy of the website to the public, you should password protect the admin area.
 
