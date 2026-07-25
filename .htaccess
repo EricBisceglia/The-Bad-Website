@@ -31,3 +31,13 @@ RewriteRule ^tag/(.*)$ pages/comics_tag.php?theme=$1 [QSA,NC]
 # Redirects deprecated pages
 RewriteRule ^memes/emojis/?$ https://thebad.website/stuff/emojis [R=301,L]
 RewriteRule ^memes/templates$ https://thebad.website/stuff/templates [R=301,L]
+
+# Don't allow direct access to the configuration file
+<Files "main.conf.php">
+  Deny from all
+</Files>
+
+# Don't allow direct access to the schema file
+<Files "schema.sql">
+  Deny from all
+</Files>

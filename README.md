@@ -2,7 +2,9 @@
 
 This repository contains the source code of [The Bad Website's website](https://thebad.website).
 
-The codebase is vanilla PHP, MySQL, JS, CSS. No frameworks or build steps.
+The codebase is vanilla PHP, MySQL, JS, CSS.
+
+No frameworks nor build steps, it's all vanilla.
 
 ## Requirements
 
@@ -21,7 +23,7 @@ git clone https://github.com/EricBisceglia/The-Bad-Website.git
 cd The-Bad-Website
 ```
 
-### 2. Make the database
+### 2. Prepare the database
 
 Create a MySQL or MariaDB database with the `utf8mb4` charset / `utf8mb4_unicode_ci` collation.
 
@@ -40,6 +42,12 @@ GRANT ALL PRIVILEGES
   TO 'thebadwebsite'@'localhost';
 ```
 
+Import the database schema located at `conf/schema.sql`.
+
+```bash
+mysql -u thebadwebsite -p thebadwebsite < conf/schema.sql
+```
+
 ### 3. Configure the project
 
 Duplicate the configuration file located at `conf/main.conf.php.DEFAULT` and rename it to `conf/main.conf.php`.
@@ -50,21 +58,19 @@ cp conf/main.conf.php.DEFAULT conf/main.conf.php
 
 Then edit your configuration file, which should be self explanatory.
 
-`extra_folders` is the number of path segments between the web root and the project:
-
 Your local configuration file is in .gitignore thus will never be committed, no worries.
 
 ### 4. Configure Apache
 
-You should not need any extra Apache configuration other than enabling `mod_rewrite`.
+You should not need any Apache configuration other than enabling `mod_rewrite`.
 
 Apache will need full permissions on the project directory, several pages create, move, delete files.
 
 ### 5. Configure admin password
 
-If you intend to share your copy of the website with others, you should password protect the admin area.
+If you intend to open your copy of the website to the public, you should password protect the admin area.
 
-Setting up .htaccess and .htpassrd in your `admin` directory (or another system) is up to you.
+Setting up .htaccess and .htpasswd (or another system) in your `admin` directory is up to you.
 
 ### 6. Congratulations
 
@@ -72,7 +78,7 @@ Your copy of The Bad Website should now be operational.
 
 ## Project structure
 
-Mostly self explanatory.
+Code logic is split in folders. They're mostly self explanatory.
 
 | Path | Purpose |
 | --- | --- |
@@ -88,15 +94,16 @@ Mostly self explanatory.
 
 ## Development
 
-Keep coding style consistent with the rest of the codebase.
-
 There is no test suite, nor is there a linter.
 
+Keep coding style consistent with the rest of the codebase.
+
 Some good practices to follow:
-- Sanitize all external inputs before using it
+- Sanitize all external inputs before using them
 - Sanitize all database content before displaying it
-- Use translation strings instead of directly writing text in pages
-- Use `admin/queries_sql.inc.php` if you intend to modify the database schema
+- Use translation strings, don't write text directly in pages
+- Modify the database schema through `admin/queries_sql.inc.php`
+- After any db schema changes, update accordingly `conf/schema.sql`
 - Check any CSS/layout changes on both desktop and mobile
 
 ## Contributing
@@ -106,7 +113,8 @@ Contributions to the repository are welcome.
 1. Create your own branch, don't wory directly on `trunk`
 2. Make a pull request on GitHub from your branch, I'll take it from there
 3. One PR per change please, if you are to contribute multiple changes, make multiple PRs
-4. If you can't do the french or english translation strings, no biggie, I'll do them
+
+If you can't do the french or english translation strings, no biggie, I'll do them
 
 ## Security
 
@@ -119,5 +127,7 @@ You can contact me using [The Bad Website's socials](https://thebad.website/abou
 The source code is distributed under the MIT License.
 
 You are free to reuse parts or all the code for any purpose, commercial or not.
+
+You must include this project's licence and copyright notice in any codebase that reuses its code.
 
 Copyright © 2025 Éric Bisceglia / The Bad Website / thebad.website
