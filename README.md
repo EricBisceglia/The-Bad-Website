@@ -74,6 +74,16 @@ You must include this project's licence and copyright notice in any codebase tha
 Copyright © 2025-2026 Éric Bisceglia / The Bad Website / thebad.website
 
 
+## Third party licenses
+
+The Bad Website includes third-party fonts, which are not covered by the project's MIT License.
+
+Their respective licenses are included in the project.
+
+- [`css/fonts/LICENSE-Roboto.md`](css/fonts/LICENSE-Roboto.md)
+- [`css/fonts/LICENSE-opensans.md`](css/fonts/LICENSE-opensans.md)
+
+
 ## Local installation
 
 ### Requirements

@@ -13,30 +13,14 @@ html                                { box-sizing: border-box;                   
 
 /*************************************************** CUSTOM FONTS ****************************************************/
 
-@font-face { font-family: 'ThebadF'                                       ;
-src:  url('./fonts/Roboto.eot?#iefix') format('embedded-opentype')        ,
-      url('./fonts/Roboto.woff2') format('woff2')                         ,
-      url('./fonts/Roboto.woff') format('woff')                           ,
-      url('./fonts/Roboto.ttf')  format('truetype')                       ,
-      url('./fonts/Roboto.svg#svgFontName') format('svg');                }
-@font-face { font-family: 'ThebadF-bold'                                  ;
-src:  url('./fonts/Roboto-bold.eot?#iefix') format('embedded-opentype')   ,
-      url('./fonts/Roboto-bold.woff2') format('woff2')                    ,
-      url('./fonts/Roboto-bold.woff') format('woff')                      ,
-      url('./fonts/Roboto-bold.ttf')  format('truetype')                  ,
-      url('./fonts/Roboto-bold.svg#svgFontName') format('svg');           }
-@font-face { font-family: 'ThebadF-alt'                                   ;
-src:  url('./fonts/Open-sans.eot?#iefix') format('embedded-opentype')     ,
-      url('./fonts/Open-sans.woff2') format('woff2')                      ,
-      url('./fonts/Open-sans.woff') format('woff')                        ,
-      url('./fonts/Open-sans.ttf')  format('truetype')                    ,
-      url('./fonts/Open-sans.svg#svgFontName') format('svg');             }
-@font-face { font-family: 'ThebadF-alt-bold'                              ;
-src:  url('./fonts/Open-sans-bold.eot?#iefix') format('embedded-opentype'),
-      url('./fonts/Open-sans-bold.woff2') format('woff2')                 ,
-      url('./fonts/Open-sans-bold.woff') format('woff')                   ,
-      url('./fonts/Open-sans-bold.ttf')  format('truetype')               ,
-      url('./fonts/Open-sans-bold.svg#svgFontName') format('svg');        }
+@font-face { font-family: 'ThebadF'; src: url('./fonts/Roboto-Regular.woff2') format('woff2')         ;
+             font-style: normal; font-weight: 400; font-display: swap;                                }
+@font-face { font-family: 'ThebadF-bold'; src: url('./fonts/Roboto-Bold.woff2') format('woff2')       ;
+             font-style: normal; font-weight: 700; font-display: swap;                                }
+@font-face { font-family: 'ThebadF-alt'; src: url('./fonts/OpenSans-Regular.woff2') format('woff2')   ;
+             font-style: normal; font-weight: 400; font-display: swap;                                }
+@font-face { font-family: 'ThebadF-alt-bold'; src: url('./fonts/OpenSans-Bold.woff2') format('woff2') ;
+             font-style: normal; font-weight: 700; font-display: swap;                                }
 
 /**************************************************** VARIABLES ******************************************************/
 
