@@ -201,8 +201,6 @@ function __link(  string  $href                       ,
  * @param   string  $alt          (OPTIONAL)  The alt text which will be displayed if the image can't be found.
  * @param   string  $title        (OPTIONAL)  The hover text which shows up when the pointer rests over the image.
  * @param   string  $title_case   (OPTIONAL)  Change the case of the icon's hover title.
- * @param   bool    $use_dark     (OPTIONAL)  Whether to use the dark version of the icon instead of user settings.
- * @param   bool    $use_light    (OPTIONAL)  Whether to use the light version of the icon instead of user settings.
  * @param   string  $identifier   (OPTIONAL)  Gives a html id to the element.
  * @param   string  $path         (OPTIONAL)  The path to the website's root (defaults to 2 folders from root).
  * @param   string  $onclick      (OPTIONAL)  A javascript option to trigger upon clicking the link.
@@ -220,10 +218,8 @@ function __icon(  string  $icon                                   ,
                   string  $alt          = 'X'                     ,
                   string  $title        = ' '                     ,
                   string  $title_case   = ''                      ,
-                  bool    $use_dark     = false                   ,
-                  bool    $use_light    = false                   ,
                   string  $identifier   = ''                      ,
-                  string  $path         = "./../../"              ,
+                  string  $path         = ''                      ,
                   string  $onclick      = ''                      ,
                   bool    $popup        = false                   ,
                   string  $confirm      = ''                      ) : string
@@ -250,6 +246,7 @@ function __icon(  string  $icon                                   ,
   $onclick = ($onclick) ? 'onclick="'.$onclick.'"' : '';
 
   // Prepare the image path
+  $path = ($path) ? $path : root_path();
   $icon = ($is_small) ? $icon.'_small' : $icon;
   $src  = 'src="'.$path.'img/website/icons/'.$icon.'.svg"';
 
@@ -314,26 +311,16 @@ ___(':', 'FR', " :");
 // Buttons and labels
 ___('add',        'EN', "add");
 ___('add',        'FR', "créer");
-___('calendar',   'EN', "calendar");
-___('calendar',   'FR', "calendrier");
-___('clock',      'EN', "clock");
-___('clock',      'FR', "horloge");
-___('confirm',    'EN', "confirm");
-___('confirm',    'FR', "confirmer");
 ___('copy',       'EN', "copy");
 ___('copy',       'FR', "copier");
 ___('delete',     'EN', "delete");
 ___('delete',     'FR', "supprimer");
-___('done',       'EN', "done");
-___('done',       'FR', "fini");
 ___('duplicate',  'EN', "duplicate");
 ___('duplicate',  'FR', "dupliquer");
 ___('details',    'EN', "details");
 ___('details',    'FR', "détails");
 ___('edit',       'EN', "edit");
 ___('edit',       'FR', "modifier");
-___('graph',      'EN', "graph");
-___('graph',      'FR', "graphe");
 ___('help',       'EN', "help");
 ___('help',       'FR', "aide");
 ___('info',       'EN', "info");
@@ -342,34 +329,22 @@ ___('maximize',   'EN', "maximize");
 ___('maximize',   'FR', "agrandir");
 ___('minimize',   'EN', "minimize");
 ___('minimize',   'FR', "réduire");
-___('mode_dark',  'EN', "dark mode");
-___('mode_dark',  'FR', "mode sombre");
-___('mode_light', 'EN', "light mode");
-___('mode_light', 'FR', "mode clair");
 ___('modify',     'EN', "modify");
 ___('modify',     'FR', "modifier");
 ___('more',       'EN', "more");
 ___('more',       'FR', "plus");
 ___('preview',    'EN', "preview");
 ___('preview',    'FR', "prévisualiser");
-___('preview_2',  'EN', "preview");
-___('preview_2',  'FR', "prévisualisation");
 ___('refresh',    'EN', "refresh");
 ___('refresh',    'FR', "recharger");
 ___('rss',        'EN', "RSS feed");
 ___('rss',        'FR', "flux RSS");
 ___('reset',      'EN', "reset");
 ___('reset',      'FR', "ràz");
-___('reason',     'EN', "reason");
-___('reason',     'FR', "raison");
 ___('settings',   'EN', "settings");
 ___('settings',   'FR', "réglages");
-___('star',       'EN', "star");
-___('star',       'FR', "étoile");
 ___('stats',      'EN', "stats");
 ___('stats',      'FR', "stats");
-___('statistics', 'EN', "statistics");
-___('statistics', 'FR', "statistiques");
 ___('submit',     'EN', "submit");
 ___('submit',     'FR', "envoyer");
 ___('undelete',   'EN', "undelete");
@@ -381,18 +356,6 @@ ___('warning',    'FR', "avertissement");
 
 
 // Common words
-___('bilingual',    'EN', "bilingual");
-___('bilingual',    'FR', "bilingue");
-___('birthday',     'EN', "birthday");
-___('birthday',     'FR', "anniversaire");
-___('category',     'EN', "category");
-___('category',     'FR', "catégorie");
-___('category+',    'EN', "categories");
-___('category+',    'FR', "catégories");
-___('closed',       'EN', "closed");
-___('closed',       'FR', "fermé");
-___('contents',     'EN', "contents");
-___('contents',     'FR', "contenu");
 ___('created',      'EN', "created");
 ___('created',      'FR', "crée");
 ___('description',  'EN', "description");
@@ -405,46 +368,24 @@ ___('fr',           'EN', "FR");
 ___('fr',           'FR', "FR");
 ___('french',       'EN', "french");
 ___('french',       'FR', "français");
-___('lang.',        'EN', "lang.");
-___('lang.',        'FR', "lang.");
 ___('language',     'EN', "language");
 ___('language',     'FR', "langue");
 ___('language+',    'EN', "languages");
 ___('language+',    'FR', "langues");
-___('link+',        'EN', "links");
-___('link+',        'FR', "liens");
-___('location',     'EN', "location");
-___('location',     'FR', "lieu");
 ___('no',           'EN', "no");
 ___('no',           'FR', "non");
 ___('none',         'EN', "none");
 ___('none',         'FR', "aucun");
-___('none_f',       'EN', "none");
-___('none_f',       'FR', "aucune");
-___('opened',       'EN', "opened");
-___('opened',       'FR', "ouvert");
 ___('order',        'EN', "order");
 ___('order',        'FR', "ordre");
 ___('page',         'EN', "page");
 ___('page',         'FR', "page");
 ___('published',    'EN', "published");
 ___('published',    'FR', "publié");
-___('sent',         'EN', "sent");
-___('sent',         'FR', "envoyé");
-___('sent+',        'EN', "sent");
-___('sent+',        'FR', "envoyés");
-___('text',         'EN', "text");
-___('text',         'FR', "texte");
-___('theme',        'EN', "theme");
-___('theme',        'FR', "thème");
 ___('the',          'EN', "the");
 ___('the',          'FR', "le");
 ___('title',        'EN', "title");
 ___('title',        'FR', "titre");
-___('view',         'EN', "view");
-___('view',         'FR', "vue");
-___('view+',        'EN', "views");
-___('view+',        'FR', "vues");
 ___('with',         'EN', "with");
 ___('with',         'FR', "avec");
 ___('yes',          'EN', "yes");
@@ -458,18 +399,12 @@ ___('action',     'EN', "action");
 ___('action+',    'EN', "actions");
 ___('action',     'FR', "action");
 ___('action+',    'FR', "actions");
-___('close_form', 'EN', "close this form");
-___('close_form', 'FR', "fermer ce formulaire");
 ___('restore',    'EN', "restore");
 ___('restore',    'FR', "restaurer");
 ___('search',     'EN', "search");
 ___('search',     'FR', "chercher");
-___('search2',    'EN', "search");
-___('search2',    'FR', "recherche");
 ___('sort',       'EN', "sort");
 ___('sort',       'FR', "trier");
-___('message',    'EN', "message");
-___('message',    'FR', "message");
 
 
 // Common technical terms
@@ -487,15 +422,9 @@ ___('query',    'EN', "query");
 ___('query+',   'EN', "queries");
 ___('query',    'FR', "requête");
 ___('query+',   'FR', "requêtes");
-___('type',     'EN', "type");
-___('type',     'FR', "type");
-___('version',  'EN', "version");
-___('version',  'FR', "version");
 
 
 // Common time and quantity related terms
-___('all',          'EN', "All");
-___('all',          'FR', "Tous");
 ___('date',         'EN', "date");
 ___('date',         'FR', "date");
 ___('at_date',      'EN', "at");
@@ -508,8 +437,6 @@ ___('day_short',    'EN', "d");
 ___('day_short',    'FR', "j");
 ___('ddmmyy',       'EN', "DD/MM/YY");
 ___('ddmmyy',       'FR', "JJ/MM/AA");
-___('hhiiss',       'EN', "hours:minutes:seconds");
-___('hhiiss',       'FR', "heures:minutes:secondes");
 ___('month',        'EN', "month");
 ___('month+',       'EN', "months");
 ___('month',        'FR', "mois");
@@ -533,51 +460,6 @@ ___('year_age',     'FR', "an");
 ___('year_age+',    'FR', "ans");
 ___('year_short',   'EN', "y");
 ___('year_short',   'FR', "a");
-
-
-// Generic user related terms
-___('account',        'EN', "account");
-___('account',        'FR', "compte");
-___('activity',       'EN', "activity");
-___('activity',       'FR', "activité");
-___('admin',          'EN', "admin");
-___('admin',          'FR', "admin");
-___('administration', 'EN', "administration");
-___('administration', 'FR', "administration");
-___('administrator',  'EN', "administrator");
-___('administrator',  'FR', "administration");
-___('deleted',        'EN', "deleted");
-___('deleted',        'FR', "supprimé");
-___('login',          'EN', "login");
-___('login',          'FR', "connexion");
-___('moderator',      'EN', "moderator");
-___('moderator',      'FR', "modération");
-___('password',       'EN', "password");
-___('password',       'FR', "mot de passe");
-___('register',       'EN', "register");
-___('register',       'FR', "inscription");
-___('rights',         'EN', "rights");
-___('rights',         'FR', "droits");
-___('user',           'EN', "user");
-___('user',           'FR', "membre");
-___('user+',          'EN', "users");
-___('user+',          'FR', "membres");
-___('user_acc+',      'EN', "users");
-___('user_acc+',      'FR', "comptes");
-___('username',       'EN', "username");
-___('username',       'FR', "pseudonyme");
-
-
-// Stats pages
-___('stats_overall',  'EN', "Overall stats");
-___('stats_overall',  'FR', "Stats globales");
-___('stats_timeline', 'EN', "Timeline");
-___('stats_timeline', 'FR', "Ligne temporelle");
-
-
-// Table of contents
-___('toc',            'EN', "Table of contents");
-___('toc',            'FR', "Sommaire");
 
 
 
@@ -749,59 +631,6 @@ ___('month_12_fr',  'FR', "Décembre");
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
-/*                                                 BBCODES / NBCODES                                                 */
-/*                                                                                                                   */
-/*********************************************************************************************************************/
-
-// BBCodes editor
-___('bold',       'EN', "Bold");
-___('bold',       'FR', "Gras");
-___('italics',    'EN', "Italics");
-___('italics',    'FR', "Italique");
-___('underlined', 'EN', "Underline");
-___('underlined', 'FR', "Souligner");
-___('quote',      'EN', "Quote");
-___('quote',      'FR', "Citation");
-___('spoiler',    'EN', "Spoiler");
-___('spoiler',    'FR', "Divulgâchage");
-___('link',       'EN', "Link");
-___('link',       'FR', "Lien");
-___('image',      'EN', "Image");
-___('image',      'FR', "Image");
-
-
-// BBcodes editor prompts
-___('quote_prompt',   'EN', "Who or what are you quoting? (you can leave this empty)");
-___('quote_prompt',   'FR', "Qui ou quoi citez-vous ? (vous pouvez laisser ceci vide)");
-___('spoiler_prompt', 'EN', "What is the name of the content that you are spoiling? (you can leave this empty)");
-___('spoiler_prompt', 'FR', "Quel est le nom de ce que vous divulgâchez ? (vous pouvez laisser ceci vide)");
-___('link_prompt',    'EN', "What is the URL you want to link to?");
-___('link_prompt',    'FR', "Vers quelle adresse internet voulez-vous faire pointer votre lien ?");
-___('link_prompt_2',  'EN', "What text do you want your link to show (optional)");
-___('link_prompt_2',  'FR', "Quel texte voulez-vous afficher sur votre lien (optionnel)");
-___('image_prompt',   'EN', "What is the URL of the image you want to insert?");
-___('image_prompt',   'FR', "Quelle est l\'adresse internet de l\'image que vous désirez insérer ?");
-
-
-// BBCodes
-___('bbcodes',              'EN', "BBCodes");
-___('bbcodes',              'FR', "BBCodes");
-___('bbcodes_quote',        'EN', "Quote:");
-___('bbcodes_quote',        'FR', "Citation :");
-___('bbcodes_quote_by',     'EN', "Quote by");
-___('bbcodes_quote_by',     'FR', "Citation de");
-___('bbcodes_spoiler',      'EN', "SPOILER");
-___('bbcodes_spoiler',      'FR', "DIVULGÂCHAGE");
-___('bbcodes_spoiler_hide', 'EN', "HIDE SPOILER CONTENTS");
-___('bbcodes_spoiler_hide', 'FR', "MASQUER LE CONTENU CACHÉ");
-___('bbcodes_spoiler_show', 'EN', "SHOW SPOILER CONTENTS");
-___('bbcodes_spoiler_show', 'FR', "VOIR LE CONTENU CACHÉ");
-
-
-
-
-/*********************************************************************************************************************/
-/*                                                                                                                   */
 /*                                                   COMMON FILES                                                    */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -812,13 +641,6 @@ ___('bbcodes_spoiler_show', 'FR', "VOIR LE CONTENU CACHÉ");
 // Strings thrown by the functions on this very page
 ___('error_duplicate_translation', 'EN', "Error: Duplicate translation name - ");
 ___('error_duplicate_translation', 'FR', "Erreur : Traduction déjà existante - ");
-
-
-// Strings required by the function that throws the errors
-___('error_ohno',         'EN', "OH NO  : (");
-___('error_ohno',         'FR', "OH NON  : (");
-___('error_encountered',  'EN', "YOU HAVE ENCOUNTERED AN ERROR");
-___('error_encountered',  'FR', "VOUS AVEZ RENCONTRÉ UNE ERREUR");
 
 
 // Forbidden page
@@ -898,11 +720,15 @@ ___('time_diff_future_long',    'FR', "Dans très très longtemps");
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Header
+// Header & footer
 
 // Language warning
 ___('header_language_error', 'EN', "Sorry! This page is only available in french and does not have an english translation yet.");
 ___('header_language_error', 'FR', "Désolé ! Cette page n'est disponible qu'en anglais et n'a pas encore de traduction française.");
+
+// Load time
+___('footer_loadtime', 'EN', "Loaded in ");
+___('footer_loadtime', 'FR', "Chargé en ");
 
 
 
