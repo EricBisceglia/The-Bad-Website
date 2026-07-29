@@ -104,6 +104,7 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
       <?php endif; ?>
     </div>
   </div>
+
 </div>
 
 <div class="align_center width_50">
@@ -294,7 +295,28 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
     </div>
   </div>
 
-  <div class="flexcontainer smallpadding_bot">
+  <div class="flexcontainer">
+    <div class="flex smallspaced_right">
+      <?php if($comic_data['first']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['first']?>">
+        <img src="<?=$path?>img/website/buttons/first_<?=$lang_lower?>.png" alt="First" title="<?=__('comics_nav_first')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
+    </div>
+    <div class="flex">
+      <?php if($comic_data['last']): ?>
+      <a href="<?=$path?>comic/<?=$comic_data['last']?>">
+        <img src="<?=$path?>img/website/buttons/last_<?=$lang_lower?>.png" alt="Last" title="<?=__('comics_nav_last')?>">
+      </a>
+      <?php else: ?>
+      &nbsp;
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <div class="flexcontainer">
     <div class="flex smallspaced_right">
       <?php if($comic_data['previous']): ?>
       <a href="<?=$path?>comic/<?=$comic_data['previous']?>">
