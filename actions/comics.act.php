@@ -281,7 +281,7 @@ function comics_get(  int   $comic_id                ,
   // Sanitize the comic type's id
   $comic_type_id = sanitize($data['type_id'], 'int');
 
-  // Look up the previous and next comic
+  // Look up the first, last, previous and next comic
   $comics_list = query("  SELECT    comics.id   AS 'c_id' ,
                                     comics.slug AS 'c_slug'
                           FROM      comics
@@ -306,6 +306,12 @@ function comics_get(  int   $comic_id                ,
     $comic_slugs[$i]  = $row['c_slug'];
     $comic_slugs_id   = ($row['c_id'] == $comic_id) ? $i : $comic_slugs_id;
   }
+
+  // Get the first comic's slug
+  $data['first'] = ($comic_slugs[$i - 1] != $data['slug']) ? $comic_slugs[$i - 1  ] : null;
+
+  // Get the last comic's slug
+  $data['last'] = ($comic_slugs[0] != $data['slug']) ? $comic_slugs[0] : null;
 
   // Get the previous comic's slug
   $data['previous'] = ($comic_slugs_id < $i-1) ? $comic_slugs[$comic_slugs_id + 1] : null;
