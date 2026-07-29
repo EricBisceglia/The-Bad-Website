@@ -554,18 +554,10 @@ La plupart des comics du Mauvais Site utilisent la police <a href="https://en.wi
 EOT
 );
 ___('intellectual_property_body_4',  'EN', <<<EOT
-The (hidden) admin panel of the website uses <a href="https://feathericons.com/" target="_blank">Feather icons</a>, created by Cole Bemis. Thanks Cole, you're awesome.
-EOT
-);
-___('intellectual_property_body_4',  'FR', <<<EOT
-Le panneau d'administration (caché) utilise <a href="https://feathericons.com/" target="_blank">Feather icons</a>, crée par Cole Bemis. Merci Cole, tu déchires.
-EOT
-);
-___('intellectual_property_body_5',  'EN', <<<EOT
 © The Bad Website / Éric Bisceglia 2025 - {{1}}
 EOT
 );
-___('intellectual_property_body_5',  'FR', <<<EOT
+___('intellectual_property_body_4',  'FR', <<<EOT
 © The Bad Website / Éric Bisceglia 2025 - {{1}}
 EOT
 );
