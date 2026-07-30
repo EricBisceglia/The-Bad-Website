@@ -109,7 +109,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <h2 class="align_center padding_bot">
     <?=__('admin_tags_title')?>
-    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/tags_add', path: root_path())?>
+    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/tags_add', path: $path)?>
   </h2>
 
   <table>
@@ -170,7 +170,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <td class="align_center nowrap bold">
           <div class="tooltip_container">
-          <?=__icon('gallery', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
+          <?=__icon('gallery', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: $path)?>
           <div class="tooltip">
             <img src="<?=$path?>img/website/tags/<?=$tags_list[$i]['banner_en']?>" alt="<?=$tags_list[$i]['title_en']?>" title="<?=$tags_list[$i]['title_en']?>"><br>
             <img src="<?=$path?>img/website/tags/<?=$tags_list[$i]['banner_fr']?>" alt="<?=$tags_list[$i]['title_fr']?>" title="<?=$tags_list[$i]['title_fr']?>">
@@ -182,11 +182,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap admin_action_icons">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/tags_edit?tag_id='.$tags_list[$i]['id'], path: root_path())?>
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/tags_edit?tag_id='.$tags_list[$i]['id'], path: $path)?>
           <?php if(!$tags_list[$i]['count']): ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_tags_delete('".$tags_list[$i]['id']."','".__('admin_tags_delete_confirm')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_tags_delete('".$tags_list[$i]['id']."','".__('admin_tags_delete_confirm')."')", path: $path)?>
           <?php else: ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_tags_delete_used')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_tags_delete_used')."')", path: $path)?>
           <?php endif; ?>
         </td>
 

@@ -105,11 +105,11 @@ if(!page_is_fetched_dynamically()): /*******************************************
         </td>
 
         <td class="align_left nowrap bold desktop">
-          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['ltitle'], path: root_path())?>
+          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['ltitle'], path: $path)?>
         </td>
 
         <td class="align_left nowrap bold mobile">
-          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['stitle'], path: root_path())?>
+          <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['stitle'], path: $path)?>
         </td>
 
         <td class="nowrap align_center">

@@ -60,7 +60,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top align_center">
 
   <h2 class="smallpadding_bot">
-    <?=__link('admin/images', __('admin_images_gallery_title'), style: 'text_light', path: root_path())?>
+    <?=__link('admin/images', __('admin_images_gallery_title'), style: 'text_light', path: $path)?>
   </h2>
   <h5 class="smallpadding_bot">
     <select id="admin_images_gallery_type">

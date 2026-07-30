@@ -62,8 +62,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="bigpadding_bot">
-    <?=__link('admin/comics?edit', __('admin_comics_list_share'), 'text_light', path: root_path())?>
-    <?=__icon('edit', alt: 'M', title: __('edit'), path: root_path(), href: 'admin/comics_edit?id='.$admin_comic_id, popup: true, class: 'valign_middle pointer tinyspaced_left')?>
+    <?=__link('admin/comics?edit', __('admin_comics_list_share'), 'text_light', path: $path)?>
+    <?=__icon('edit', alt: 'M', title: __('edit'), path: $path, href: 'admin/comics_edit?id='.$admin_comic_id, popup: true, class: 'valign_middle pointer tinyspaced_left')?>
   </h2>
 
   <?php if($admin_comic_data['private']): ?>

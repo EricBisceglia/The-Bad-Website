@@ -53,7 +53,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="padding_bot">
-    <?=__link('admin/tags', __('admin_tags_edit_title'), 'text_light', path: root_path())?>
+    <?=__link('admin/tags', __('admin_tags_edit_title'), 'text_light', path: $path)?>
   </h2>
 
   <form action="tags" method="POST">

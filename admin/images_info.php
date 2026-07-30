@@ -31,7 +31,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/images', __('admin_images_info_title'), style: 'text_light', path: root_path())?>
+    <?=__link('admin/images', __('admin_images_info_title'), style: 'text_light', path: $path)?>
   </h2>
 
   <ul class="align_left bold padding_bot">

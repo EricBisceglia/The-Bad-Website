@@ -101,7 +101,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top padding_bot">
 
   <h2 class="padding_bot">
-    <?=__link('admin/comics', __('admin_comics_edit_title'), 'text_light', path: root_path())?>
+    <?=__link('admin/comics', __('admin_comics_edit_title'), 'text_light', path: $path)?>
   </h2>
 
   <form action="comics" method="POST">
@@ -209,7 +209,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <h5 class="padding_bot">
         [<?=$admin_comic_data['images']['lang'][$i]?>]
         <?=$admin_comic_data['images']['preview'][$i]?>
-        <?=__icon('edit', alt: 'M', title: __('edit'), path: root_path(), href: 'admin/images_edit?id='.$admin_comic_data['images']['id'][$i], popup: true, class: 'valign_middle pointer tinyspaced_left')?>
+        <?=__icon('edit', alt: 'M', title: __('edit'), path: $path, href: 'admin/images_edit?id='.$admin_comic_data['images']['id'][$i], popup: true, class: 'valign_middle pointer tinyspaced_left')?>
       </h5>
       <img src="<?=$path?>img/comics/<?=$admin_comic_data['images']['name'][$i]?>" alt="<?=$admin_comic_data['images']['name'][$i]?>" title="<?=$admin_comic_data['images']['name'][$i]?>">
       <?php if($admin_comic_data['images']['trans'][$i]): ?>

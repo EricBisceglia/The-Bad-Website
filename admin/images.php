@@ -74,7 +74,8 @@ if(isset($_POST['admin_images_delete']))
 // List images
 
 // Fetch comics
-$comics_list = comics_list( sort_by: 'title' );
+if(!page_is_fetched_dynamically())
+  $comics_list = comics_list_titles();
 
 // Fetch the sorting order
 $admin_images_sort = form_fetch_element('admin_images_sort', 'date');
@@ -104,10 +105,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <form id="admin_images_search" onsubmit="admin_image_list_search(); return false;">
 
     <h2 class="align_center padding_bot">
-      <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: root_path())?>
-      <?=__icon('template', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_info', path: root_path())?>
-      <?=__icon('gallery', alt: 'G', title: __('admin_images_list_gallery'), title_case: 'initials', href: 'admin/images_gallery', path: root_path())?>
-      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: root_path())?>
+      <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: $path)?>
+      <?=__icon('template', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_info', path: $path)?>
+      <?=__icon('gallery', alt: 'G', title: __('admin_images_list_gallery'), title_case: 'initials', href: 'admin/images_gallery', path: $path)?>
+      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: $path)?>
     </h2>
 
     <table>
@@ -116,27 +117,27 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <tr class="uppercase">
           <th>
             <?=__('admin_images_list_name')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('name');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('name');")?>
           </th>
           <th>
             <?=__('admin_images_list_type')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('type');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('type');")?>
           </th>
           <th>
             <?=__('admin_images_list_language')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('lang');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('lang');")?>
           </th>
           <th>
             <?=__('admin_images_list_nsfw')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('nsfw');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('nsfw');")?>
           </th>
           <th>
             <?=__('admin_images_list_comic')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('comic');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('comic');")?>
           </th>
           <th>
             <?=__('admin_images_list_date')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_image_list_search('date');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('date');")?>
           </th>
           <th>
             <?=__('act')?>
@@ -215,7 +216,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <?php for($i = 0; $i < $images_list['rows']; $i++): ?>
         <tr>
 
-          <td class="tooltip_container">
+          <td class="tooltip_container" onmouseenter="admin_image_list_load_preview(this);">
             <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
               <?=$images_list[$i]['name']?>
             </a>
@@ -224,27 +225,27 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
                 <?=$images_list[$i]['name_full']?>
               </p>
               <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
-                <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>" loading="lazy">
+                <img data-src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>" loading="lazy" decoding="async">
               </a>
             </div>
           </td>
 
           <td class="align_center nowrap bold">
             <?php if($images_list[$i]['bonus']): ?>
-            <?=__icon('exclamation', is_small: true, alt: 'B', title: __('admin_images_list_type_bonus'), path: root_path())?>
+            <?=__icon('exclamation', is_small: true, alt: 'B', title: __('admin_images_list_type_bonus'), path: $path)?>
             <?php endif; if($images_list[$i]['remake']): ?>
-            <?=__icon('sunset', is_small: true, alt: 'O', title: __('admin_images_list_type_remake'), path: root_path())?>
+            <?=__icon('sunset', is_small: true, alt: 'O', title: __('admin_images_list_type_remake'), path: $path)?>
             <?php endif; if($images_list[$i]['full']): ?>
-            <?=__icon('gallery', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: root_path())?>
+            <?=__icon('gallery', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: $path)?>
             <?php endif; ?>
             <?php if($images_list[$i]['preview']): ?>
-            <?=__icon('cover_image', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
+            <?=__icon('cover_image', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: $path)?>
             <?php elseif($images_list[$i]['template']): ?>
-            <?=__icon('template', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
+            <?=__icon('template', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: $path)?>
             <?php elseif($images_list[$i]['emoji']): ?>
-            <?=__icon('emoji', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: root_path())?>
+            <?=__icon('emoji', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: $path)?>
             <?php elseif($images_list[$i]['bubble']): ?>
-            <?=__icon('speech_bubble', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: root_path())?>
+            <?=__icon('speech_bubble', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: $path)?>
             <?php elseif(!$images_list[$i]['remake'] && !$images_list[$i]['full'] && !$images_list[$i]['bonus']): ?>
             &nbsp;
             <?php endif; ?>
@@ -256,7 +257,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap">
             <?php if($images_list[$i]['nsfw'] === '1'): ?>
-            <?=__icon('warning', is_small: true, alt: 'N', title: __('admin_images_list_nsfw'), path: root_path())?>
+            <?=__icon('warning', is_small: true, alt: 'N', title: __('admin_images_list_nsfw'), path: $path)?>
             <?php else: ?>
             &nbsp;
             <?php endif; ?>
@@ -265,14 +266,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php if($images_list[$i]['comic'] !== ''): ?>
           <td class="align_center nowrap">
             <span class="tooltip_container">
-              <?=__icon('template', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
+              <?=__icon('template', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: $path)?>
               <div class="tooltip">
                 <?=$images_list[$i]['comic']?>
               </div>
             </span>
             <?php if($images_list[$i]['order'] > 0): ?>
             <span class="tooltip_container">
-              <?=__icon('random', is_small: true, alt: 'O', title: $images_list[$i]['order'], path: root_path())?>
+              <?=__icon('random', is_small: true, alt: 'O', title: $images_list[$i]['order'], path: $path)?>
               <div class="tooltip">
                 <?=$images_list[$i]['order']?>
               </div>
@@ -293,8 +294,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
 
           <td class="align_center nowrap admin_action_icons">
-            <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?id='.$images_list[$i]['id'], path: root_path())?>
-            <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_list_search(null, '".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: root_path())?>
+            <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/images_edit?id='.$images_list[$i]['id'], path: $path)?>
+            <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_image_list_search(null, '".$images_list[$i]['id']."','".__('admin_images_delete_confirm')."')", path: $path)?>
           </td>
 
         </tr>

@@ -110,10 +110,10 @@ $lemmy_link     = ($lang == 'EN') ? 'lemmy.world/c/thebadwebsite' : 'jlai.lu/c/l
 <div class="align_center width_50">
 
   <h2 class="tinypadding_bot">
-    <?=__link('comics/list', $comic_data['title'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/list', $comic_data['title'], path: $path, style: 'text_light')?>
   </h2>
   <h5 class="bigpadding_bot">
-    <?=__link('comics/all', $comic_data['date_full'], path: root_path(), style: 'text_light')?>
+    <?=__link('comics/all', $comic_data['date_full'], path: $path, style: 'text_light')?>
   </h5>
 
   <?php for($i = 0; $i < $comic_data['images']['rows']; $i++): ?>

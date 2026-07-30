@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `comics` (
   PRIMARY KEY (`id`),
   KEY `comics_types` (`fk_comic_types`),
   KEY `comics_public` (`is_public`),
+  KEY `comics_upload_date` (`upload_date`),
   KEY `comics_view_count` (`view_count`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -143,7 +144,8 @@ CREATE TABLE IF NOT EXISTS `images` (
   KEY `images_is_nsfw` (`is_nsfw`),
   KEY `images_language` (`language`(10)),
   KEY `images_is_full_version` (`is_full_version`),
-  KEY `images_is_remake` (`is_remake`)
+  KEY `images_is_remake` (`is_remake`),
+  KEY `images_upload_date` (`upload_date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
