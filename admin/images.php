@@ -74,7 +74,8 @@ if(isset($_POST['admin_images_delete']))
 // List images
 
 // Fetch comics
-$comics_list = comics_list( sort_by: 'title' );
+if(!page_is_fetched_dynamically())
+  $comics_list = comics_list( sort_by: 'title' );
 
 // Fetch the sorting order
 $admin_images_sort = form_fetch_element('admin_images_sort', 'date');
