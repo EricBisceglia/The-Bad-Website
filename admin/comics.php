@@ -35,7 +35,7 @@ $js   = array('admin/admin');
 // Fetch a list of all tags and images
 
 if(!page_is_fetched_dynamically() || isset($_POST['comic_edit']))
-  $tags_list = tags_list();
+  $tags_list = tags_list_names();
 
 
 

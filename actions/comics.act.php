@@ -13,6 +13,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comics_get_random_slug        Returns a random comic's slug                                                      */
 /*  comics_get_latest_comic_slug  Returns the latest comic's slug                                                    */
 /*  comics_list                   Lists comics                                                                       */
+/*  comics_list_titles            Lists comics titles                                                                */
 /*  comics_add                    Adds a comic to the database                                                       */
 /*  comics_edit                   Modifies an existing comic                                                         */
 /*  comics_increment_view_count   Increments the view count of a comic                                               */
@@ -667,6 +668,40 @@ function comics_list( string $sort_by   = 'date'  ,
     // Append the search query to the end of the text file
     file_put_contents($file_path, $user_search."\n", FILE_APPEND | LOCK_EX);
   }
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
+
+/**
+ * Lists comics titles.
+ *
+ * @return  array   An array containing the comics titles.
+ */
+
+function comics_list_titles() : array
+{
+  // Fetch the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the comics titles
+  $comics = query(" SELECT    comics.id           AS 'c_id'     ,
+                              comics.title_$lang  AS 'c_title'
+                    FROM      comics
+                    ORDER BY  comics.title_$lang ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($comics); $i++)
+  {
+    $data[$i]['id']     = sanitize_output($row['c_id']);
+    $data[$i]['title']  = sanitize_output($row['c_title']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
 
   // Return the prepared data
   return $data;

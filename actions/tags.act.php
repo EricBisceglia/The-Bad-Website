@@ -10,6 +10,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                                                                                                   */
 /*  tags_get                      Fetches a tag                                                                      */
 /*  tags_list                     Lists tags                                                                         */
+/*  tags_list_names               Lists tag names                                                                    */
 /*  tags_add                      Adds a tag                                                                         */
 /*  tags_edit                     Edits a tag                                                                        */
 /*  tags_delete                   Deletes a tag                                                                      */
@@ -94,9 +95,9 @@ function tags_get(  int     $tag_id   = 0  ,
 
 
 /**
- * Lists comic types.
+ * Lists tag types.
  *
- * @return  array   An array containing the comic types.
+ * @return  array   An array containing the tag types.
  */
 
 function tags_list() : array
@@ -152,6 +153,40 @@ function tags_list() : array
 
   // Add the number of linked comics to the returned data
   $data['comic_count'] = sanitize_output($comic_count);
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
+
+/**
+ * Lists tag names.
+ *
+ * @return  array   An array containing the tag names.
+ */
+
+function tags_list_names() : array
+{
+  // Fetch the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the tag names
+  $tags = query(" SELECT    tags.id           AS 't_id'   ,
+                            tags.title_$lang  AS 't_title'
+                  FROM      tags
+                  ORDER BY  tags.sorting_order ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($tags); $i++)
+  {
+    $data[$i]['id']     = sanitize_output($row['t_id']);
+    $data[$i]['title']  = sanitize_output($row['t_title']);
+  }
 
   // Add the number of rows to the returned data
   $data['rows'] = $i;
