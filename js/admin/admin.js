@@ -171,15 +171,15 @@ function admin_image_list_search( sort            = null  ,
 /**
  * Loads a preview of an image in the list.
  *
- * @param   {string}  container_id  The id of the tooltip container to load the image preview into.
+ * @param   {HTMLElement}  container  The tooltip container in which an image is waiting to be loaded.
  *
  * @returns {void}
  */
 
-function admin_image_list_load_preview( container_id )
+function admin_image_list_load_preview( container )
 {
   // Fetch the unloaded image
-  const image = container_id.querySelector('img[data-src]');
+  const image = container.querySelector('img[data-src]');
 
   // Stop if the image has already been loaded
   if(!image)

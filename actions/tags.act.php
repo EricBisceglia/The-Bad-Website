@@ -95,9 +95,9 @@ function tags_get(  int     $tag_id   = 0  ,
 
 
 /**
- * Lists tag types.
+ * Lists tags.
  *
- * @return  array   An array containing the tag types.
+ * @return  array   An array containing the tags.
  */
 
 function tags_list() : array
@@ -105,7 +105,7 @@ function tags_list() : array
   // Fetch the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
-  // Fetch the comic types
+  // Fetch the tags
   $tags = query(" SELECT    tags.id            AS 't_id'        ,
                             tags.sorting_order AS 't_sort'      ,
                             tags.name          AS 't_name'      ,
