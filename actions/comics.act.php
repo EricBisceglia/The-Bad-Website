@@ -483,113 +483,162 @@ function comics_list( string $sort_by   = 'date'  ,
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Search through the data
-  $query_search = ($search_title)     ? "       AND ( comics.title_en       LIKE '%$search_title%'
-                                                OR    comics.title_fr       LIKE '%$search_title%' ) "    : "";
-  $query_search .= ($search_type)     ? "       AND comics.fk_comic_types   =     $search_type "          : "";
-  $query_search .= ($search_private)  ? "       AND comics.is_public        =     0 "                     : "";
-  $query_search .= ($is_public)       ? "       AND comics.is_public        =     1 "                     : "";
-  $query_search .= ($is_major)        ? "       AND comic_types.is_major    =     1 "                     : "";
-  $query_search .= ($search_body)     ? "       AND ( comics.description_en LIKE '%$search_body%'
-                                                OR    comics.description_fr LIKE '%$search_body%'
-                                                OR    comics.title_en       LIKE '%$search_body%'
-                                                OR    comics.title_fr       LIKE '%$search_body%'
-                                                OR    images.transcript     LIKE '%$search_body%' ) "     : "";
-  $query_search .= ($search_body_en)  ? "       AND ( comics.title_en       LIKE '%$search_body_en%'
-                                                OR    comics.description_en LIKE '%$search_body_en%'
-                                                OR    comic_types.name_en   LIKE '%$search_body_en%'
-                                                OR    images.transcript     LIKE '%$search_body_en%' ) "  : "";
-  $query_search .= ($search_body_fr)  ? "       AND ( comics.title_fr       LIKE '%$search_body_fr%'
-                                                OR    comics.description_fr LIKE '%$search_body_fr%'
-                                                OR    comic_types.name_fr   LIKE '%$search_body_fr%'
-                                                OR    images.transcript     LIKE '%$search_body_fr%' ) "  : "";
-  $query_search .= ($search_video === 1) ? "    AND ( comics.youtube_id_en  !=   ''
-                                                OR    comics.youtube_id_fr  !=   '' ) "                   : "";
-  $query_search .= ($search_video === -1) ? "   AND ( comics.youtube_id_en  =    ''
-                                                AND    comics.youtube_id_fr =    '' ) "                   : "";
+  $query_search =  ($search_title)          ? " AND ( comics.title_en       LIKE '%$search_title%'
+                                                OR    comics.title_fr       LIKE '%$search_title%' ) "  : "";
+  $query_search .= ($search_type)           ? " AND comics.fk_comic_types   =     $search_type "        : "";
+  $query_search .= ($search_private)        ? " AND comics.is_public        =     0 "                   : "";
+  $query_search .= ($is_public)             ? " AND comics.is_public        =     1 "                   : "";
+  $query_search .= ($is_major)              ? " AND comic_types.is_major    =     1 "                   : "";
+  $query_search .= ($search_video === 1)    ? " AND ( comics.youtube_id_en  !=   ''
+                                                OR    comics.youtube_id_fr  !=   '' ) "                 : "";
+  $query_search .= ($search_video === -1)   ? " AND ( comics.youtube_id_en  =    ''
+                                                AND    comics.youtube_id_fr =    '' ) "                 : "";
+  $query_search .= ($search_images === -1)  ? " AND COALESCE(image_stats.i_count, 0) = 0 "              : "";
+  $query_search .= ($search_images === 1)   ? " AND COALESCE(image_stats.i_count, 0) > 0 "              : "";
 
-  // Different search for tags and images
-  $query_having  = ($search_tag_id)         ? " AND FIND_IN_SET('$search_tag_id', GROUP_CONCAT(tags.id)) > 0  " : "";
-  $query_having .= ($search_images === -1)  ? " AND COUNT(DISTINCT images.id) = 0                             " : "";
-  $query_having .= ($search_images === 1)   ? " AND COUNT(DISTINCT images.id) > 0                             " : "";
+  // Search image transcripts
+  if($search_body)
+    $query_search .= "  AND ( comics.description_en LIKE '%$search_body%'
+                        OR    comics.description_fr LIKE '%$search_body%'
+                        OR    comics.title_en       LIKE '%$search_body%'
+                        OR    comics.title_fr       LIKE '%$search_body%'
+                        OR EXISTS (
+                        SELECT 1
+                        FROM   images AS searched_images
+                        WHERE  searched_images.fk_comics = comics.id
+                        AND    searched_images.transcript LIKE '%$search_body%' ) ) ";
+  if($search_body_en)
+    $query_search .= "  AND ( comics.description_en LIKE '%$search_body_en%'
+                        OR    comics.title_en       LIKE '%$search_body_en%'
+                        OR EXISTS (
+                        SELECT 1
+                        FROM   images AS searched_images_en
+                        WHERE  searched_images_en.fk_comics = comics.id
+                        AND    searched_images_en.transcript LIKE '%$search_body_en%' ) ) ";
+  if($search_body_fr)
+    $query_search .= "  AND ( comics.description_fr LIKE '%$search_body_fr%'
+                        OR    comics.title_fr       LIKE '%$search_body_fr%'
+                        OR EXISTS (
+                        SELECT 1
+                        FROM   images AS searched_images_fr
+                        WHERE  searched_images_fr.fk_comics = comics.id
+                        AND    searched_images_fr.transcript LIKE '%$search_body_fr%' ) ) ";
 
-  // Only show comics with an image in the current language when using the public list
-  $query_having .= ($is_public) ? " AND COUNT(DISTINCT comic_image.id) > 0 " : "";
+  // Search tags
+  if($search_tag_id)
+    $query_search .= "  AND EXISTS (
+                        SELECT 1
+                        FROM   comic_tags AS searched_tags
+                        WHERE  searched_tags.fk_comics = comics.id
+                        AND    searched_tags.fk_tags   = '$search_tag_id' ) ";
+
+  // Limit to public comics
+  if($is_public)
+    $query_search .= "  AND EXISTS (
+                        SELECT 1
+                        FROM   images AS public_images
+                        WHERE  public_images.fk_comics = comics.id
+                        AND    public_images.is_a_preview = 0
+                        AND    public_images.language = '$lang') ";
 
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'title'   => "  ORDER BY    comics.title_$lang            ASC   ,
-                                comics.upload_date            DESC  ,
-                                comics.title_en               ASC   ",
-    'type'    => "  ORDER BY    comic_types.sorting_order     ASC   ,
-                                comics.upload_date            DESC  ,
-                                comics.title_en               ASC   ",
-    'private' => "  ORDER BY    comics.is_public              ASC   ,
-                                comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
-    'images'  => "  ORDER BY    COUNT(DISTINCT images.id)     DESC  ,
-                                comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
-    'video'   => "  ORDER BY    (comics.youtube_id_en = '')         ,
-                                (comics.youtube_id_fr = '')         ,
-                                comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
-    'tags'    => "  ORDER BY    COUNT(DISTINCT comic_tags.id) DESC  ,
-                                comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
-    'views'   => "  ORDER BY    comics.view_count             DESC  ,
-                                comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
-    default   => "  ORDER BY    comics.upload_date            DESC  ,
-                                comics.title_$lang            ASC   ",
+    'title'   => "  ORDER BY    comics.title_$lang                ASC   ,
+                                comics.upload_date                DESC  ,
+                                comics.title_en                   ASC   ",
+    'type'    => "  ORDER BY    comic_types.sorting_order         ASC   ,
+                                comics.upload_date                DESC  ,
+                                comics.title_en                   ASC   ",
+    'private' => "  ORDER BY    comics.is_public                  ASC   ,
+                                comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
+    'images'  => "  ORDER BY    COALESCE(image_stats.i_count, 0)  DESC  ,
+                                comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
+    'video'   => "  ORDER BY    (comics.youtube_id_en = '')             ,
+                                (comics.youtube_id_fr = '')             ,
+                                comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
+    'tags'    => "  ORDER BY    COALESCE(tag_stats.t_count, 0)    DESC  ,
+                                comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
+    'views'   => "  ORDER BY    comics.view_count                 DESC  ,
+                                comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
+    default   => "  ORDER BY    comics.upload_date                DESC  ,
+                                comics.title_$lang                ASC   ",
   };
 
   // Fetch the comics
-  $comics = query("   SELECT    comics.id                     AS 'c_id'       ,
-                                comics.slug                   AS 'c_slug'     ,
-                                comics.title_$lang            AS 'c_title'    ,
-                                comics.title_en               AS 'c_title_en' ,
-                                comics.title_fr               AS 'c_title_fr' ,
-                                comics.upload_date            AS 'c_date'     ,
-                                comics.is_public              AS 'c_public'   ,
-                                comics.view_count             AS 'c_views'    ,
-                                comics.description_en         AS 'c_desc_en'  ,
-                                comics.description_fr         AS 'c_desc_fr'  ,
-                                comics.youtube_id_en          AS 'c_yt_en'    ,
-                                comics.youtube_id_fr          AS 'c_yt_fr'    ,
-                                comic_types.name_$lang        AS 'ct_name'    ,
-                                preview_image.name            AS 'pi_name'    ,
-                                preview_image.is_nsfw         AS 'pi_nsfw'    ,
-                                preview_image.transcript      AS 'pi_trans'   ,
-                                COUNT(DISTINCT tags.id)       AS 't_count'    ,
-                                GROUP_CONCAT(DISTINCT tags.title_$lang ORDER BY tags.sorting_order ASC SEPARATOR ', ')
-                                                              AS 't_names'    ,
-                                COUNT(DISTINCT images.id)     AS 'i_count'    ,
-                                GROUP_CONCAT(DISTINCT images.name ORDER BY images.image_order ASC SEPARATOR ', ')
-                                                              AS 'i_names'
-                      FROM      comics
-                      LEFT JOIN comic_types
-                      ON        comic_types.id = comics.fk_comic_types
-                      LEFT JOIN comic_tags
-                      ON        comic_tags.fk_comics = comics.id
+  $comics = query(" SELECT    comics.id                         AS 'c_id'       ,
+                              comics.slug                       AS 'c_slug'     ,
+                              comics.title_$lang                AS 'c_title'    ,
+                              comics.title_en                   AS 'c_title_en' ,
+                              comics.title_fr                   AS 'c_title_fr' ,
+                              comics.upload_date                AS 'c_date'     ,
+                              comics.is_public                  AS 'c_public'   ,
+                              comics.view_count                 AS 'c_views'    ,
+                              comics.description_en             AS 'c_desc_en'  ,
+                              comics.description_fr             AS 'c_desc_fr'  ,
+                              comics.youtube_id_en              AS 'c_yt_en'    ,
+                              comics.youtube_id_fr              AS 'c_yt_fr'    ,
+                              comic_types.name_$lang            AS 'ct_name'    ,
+                              preview_image.name                AS 'pi_name'    ,
+                              preview_image.is_nsfw             AS 'pi_nsfw'    ,
+                              preview_image.transcript          AS 'pi_trans'   ,
+                              COALESCE(tag_stats.t_count, 0)    AS 't_count'    ,
+                              tag_stats.t_names                 AS 't_names'    ,
+                              COALESCE(image_stats.i_count, 0)  AS 'i_count'    ,
+                              image_stats.i_names               AS 'i_names'
+
+                    FROM      comics
+
+                    LEFT JOIN comic_types
+                    ON        comic_types.id = comics.fk_comic_types
+
+                    LEFT JOIN (
+                      SELECT    comic_tags.fk_comics    AS fk_comics  ,
+                                COUNT(DISTINCT tags.id) AS t_count    ,
+                                GROUP_CONCAT( DISTINCT tags.title_$lang
+                                            ORDER BY tags.sorting_order
+                                            ASC SEPARATOR ', ' )
+                                                        AS t_names
+                      FROM      comic_tags
                       LEFT JOIN tags
                       ON        tags.id = comic_tags.fk_tags
-                      LEFT JOIN images
-                      ON        images.fk_comics = comics.id
-                      LEFT JOIN images AS preview_image
-                      ON        comics.id                   = preview_image.fk_comics
-                      AND       preview_image.is_a_preview  = 1
-                      AND       preview_image.language      = '$lang'
-                      LEFT JOIN images AS comic_image
-                      ON        comics.id                   = comic_image.fk_comics
-                      AND       comic_image.is_a_preview    = 0
-                      AND       comic_image.language        = '$lang'
-                      WHERE     1 = 1
-                      $query_search
-                      GROUP BY  comics.id
-                      HAVING    1 = 1
-                      $query_having
-                      $query_sort ");
+                      GROUP BY  comic_tags.fk_comics
+                    ) AS tag_stats
+                    ON tag_stats.fk_comics = comics.id
+
+                    LEFT JOIN (
+                      SELECT    images.fk_comics          AS fk_comics  ,
+                                COUNT(DISTINCT images.id) AS i_count    ,
+                                GROUP_CONCAT( DISTINCT images.name
+                                              ORDER BY images.image_order ASC
+                                              SEPARATOR ', ' )
+                                                          AS i_names
+                      FROM      images
+                      GROUP BY  images.fk_comics
+                    ) AS image_stats
+                    ON image_stats.fk_comics = comics.id
+
+                    LEFT JOIN (
+                      SELECT    images.fk_comics AS fk_comics ,
+                                MIN(images.id)   AS preview_id
+                      FROM      images
+                      WHERE     images.is_a_preview = 1
+                      AND       images.language = '$lang'
+                      GROUP BY  images.fk_comics
+                    ) AS preview_selection
+                    ON preview_selection.fk_comics = comics.id
+
+                    LEFT JOIN images AS preview_image
+                    ON        preview_image.id = preview_selection.preview_id
+
+                    WHERE 1 = 1
+                    $query_search
+                    $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($comics); $i++)
