@@ -102,10 +102,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <option value="<?=$admin_idea_types[$i]['id']?>"<?=$admin_idea_types_selected[$i]?>><?=$admin_idea_types[$i]['name']?></option>
       <?php endfor; ?>
     </select>
-    <?=__icon('refresh', alt: 'R', title: __('admin_ideas_sort_random'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('random');", path: root_path())?>
-    <?=__icon('done', alt: 'A', title: __('admin_ideas_sort_title'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');", path: root_path())?>
-    <?=__icon('sort_down', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');", path: root_path())?>
-    <?=__icon('sort_up', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');", path: root_path())?>
+    <?=__icon('random', alt: 'R', title: __('admin_ideas_sort_random'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('random');", path: root_path())?>
+    <?=__icon('alphabet', alt: 'T', title: __('admin_ideas_sort_title'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('title');", path: root_path())?>
+    <?=__icon('sunset', alt: 'D', title: __('admin_ideas_sort_newest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('newest');", path: root_path())?>
+    <?=__icon('clock', alt: 'U', title: __('admin_ideas_sort_oldest'), title_case: 'initials', class: 'valign_middle pointer spaced_left', onclick: "admin_ideas_search('oldest');", path: root_path())?>
     <?=__icon('edit', alt: 'E', title: __('admin_ideas_edit_types'), title_case: 'initials', class: 'valign_middle pointer spaced_left', href: 'admin/ideas_types', path: root_path())?>
   </h3>
 

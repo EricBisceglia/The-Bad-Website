@@ -194,7 +194,7 @@ function __link(  string  $href                       ,
  * Builds an icon.
  *
  * @param   string  $icon                     The icon's name.
- * @param   bool    $is_small     (OPTIONAL)  Use the small version of an icon instead of the full version.
+ * @param   bool    $is_small     (OPTIONAL)  Whether the icon should be small or not.
  * @param   string  $href         (OPTIONAL)  The URL the icon links to.
  * @param   bool    $is_internal  (OPTIONAL)  Whether the link is internal (on the website) or external.
  * @param   string  $class        (OPTIONAL)  Extra css classes to apply to the icon.
@@ -247,8 +247,7 @@ function __icon(  string  $icon                                   ,
 
   // Prepare the image path
   $path = ($path) ? $path : root_path();
-  $icon = ($is_small) ? $icon.'_small' : $icon;
-  $src  = 'src="'.$path.'img/website/icons/'.$icon.'.svg"';
+  $src  = 'src="'.$path.'img/website/icons/'.$icon.'.png"';
 
   // Prepare the alt text and title
   $alt = 'alt="'.$alt.'"';

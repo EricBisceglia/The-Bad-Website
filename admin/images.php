@@ -105,8 +105,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
     <h2 class="align_center padding_bot">
       <?=__link('admin/images', __('admin_images_title'), style: 'text_light', path: root_path())?>
-      <?=__icon('image', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_info', path: root_path())?>
-      <?=__icon('duplicate', alt: 'G', title: __('admin_images_list_gallery'), title_case: 'initials', href: 'admin/images_gallery', path: root_path())?>
+      <?=__icon('template', alt: 'T', title: __('admin_images_list_templates'), title_case: 'initials', href: 'admin/images_info', path: root_path())?>
+      <?=__icon('gallery', alt: 'G', title: __('admin_images_list_gallery'), title_case: 'initials', href: 'admin/images_gallery', path: root_path())?>
       <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/images_add', path: root_path())?>
     </h2>
 
@@ -231,20 +231,20 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap bold">
             <?php if($images_list[$i]['bonus']): ?>
-            <?=__icon('star', is_small: true, alt: 'B', title: __('admin_images_list_type_bonus'), path: root_path())?>
+            <?=__icon('exclamation', is_small: true, alt: 'B', title: __('admin_images_list_type_bonus'), path: root_path())?>
             <?php endif; if($images_list[$i]['remake']): ?>
-            <?=__icon('clock', is_small: true, alt: 'O', title: __('admin_images_list_type_remake'), path: root_path())?>
+            <?=__icon('sunset', is_small: true, alt: 'O', title: __('admin_images_list_type_remake'), path: root_path())?>
             <?php endif; if($images_list[$i]['full']): ?>
-            <?=__icon('done', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: root_path())?>
+            <?=__icon('gallery', is_small: true, alt: 'F', title: __('admin_images_list_type_full'), path: root_path())?>
             <?php endif; ?>
             <?php if($images_list[$i]['preview']): ?>
-            <?=__icon('duplicate', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
+            <?=__icon('cover_image', is_small: true, alt: 'C', title: __('admin_images_list_type_prev'), path: root_path())?>
             <?php elseif($images_list[$i]['template']): ?>
-            <?=__icon('image', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
+            <?=__icon('template', is_small: true, alt: 'T', title: __('admin_images_list_type_templ'), path: root_path())?>
             <?php elseif($images_list[$i]['emoji']): ?>
-            <?=__icon('user', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: root_path())?>
+            <?=__icon('emoji', is_small: true, alt: 'E', title: __('admin_images_list_type_emoji'), path: root_path())?>
             <?php elseif($images_list[$i]['bubble']): ?>
-            <?=__icon('info', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: root_path())?>
+            <?=__icon('speech_bubble', is_small: true, alt: 'B', title: __('admin_images_list_type_bubble'), path: root_path())?>
             <?php elseif(!$images_list[$i]['remake'] && !$images_list[$i]['full'] && !$images_list[$i]['bonus']): ?>
             &nbsp;
             <?php endif; ?>
@@ -265,14 +265,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php if($images_list[$i]['comic'] !== ''): ?>
           <td class="align_center nowrap">
             <span class="tooltip_container">
-              <?=__icon('image', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
+              <?=__icon('template', is_small: true, alt: 'Y', title: $images_list[$i]['comic'], path: root_path())?>
               <div class="tooltip">
                 <?=$images_list[$i]['comic']?>
               </div>
             </span>
             <?php if($images_list[$i]['order'] > 0): ?>
             <span class="tooltip_container">
-              <?=__icon('graph', is_small: true, alt: 'O', title: $images_list[$i]['order'], path: root_path())?>
+              <?=__icon('random', is_small: true, alt: 'O', title: $images_list[$i]['order'], path: root_path())?>
               <div class="tooltip">
                 <?=$images_list[$i]['order']?>
               </div>

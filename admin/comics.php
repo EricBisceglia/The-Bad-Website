@@ -290,7 +290,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap">
             <?php if($comics_list[$i]['private']): ?>
-            <?=__icon('x', is_small: true, alt: 'X', title: __('admin_comics_list_private'), title_case: 'initials', path: root_path())?>
+            <?=__icon('incognito', is_small: true, alt: 'X', title: __('admin_comics_list_private'), title_case: 'initials', path: root_path())?>
             <?php else: ?>
             &nbsp;
             <?php endif; ?>
@@ -311,7 +311,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <?php if($comics_list[$i]['video']): ?>
           <td class="align_center nowrap tooltip_container">
-            <?=__icon('done', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: root_path())?>
+            <?=__icon('video', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: root_path())?>
           </td>
           <?php else: ?>
           <td class="align_center nowrap">

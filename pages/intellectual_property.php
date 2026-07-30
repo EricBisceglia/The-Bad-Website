@@ -44,11 +44,7 @@ page_enforce_url($page_url);
   </p>
 
   <p>
-    <?=__('intellectual_property_body_4')?>
-  </p>
-
-  <p>
-    <?=__('intellectual_property_body_5', preset_values: array(date('Y')))?>
+    <?=__('intellectual_property_body_4', preset_values: array(date('Y')))?>
   </p>
 
 </div>

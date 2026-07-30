@@ -46,6 +46,10 @@ ___('comics_nav_next',     'EN', "Next comic");
 ___('comics_nav_next',     'FR', "Comic suivant");
 ___('comics_nav_random',   'EN', "Random comic");
 ___('comics_nav_random',   'FR', "Comic aléatoire");
+___('comics_nav_first',    'EN', "Oldest");
+___('comics_nav_first',    'FR', "Premier");
+___('comics_nav_last',     'EN', "Latest");
+___('comics_nav_last',     'FR', "Dernier");
 
 
 // Socials
