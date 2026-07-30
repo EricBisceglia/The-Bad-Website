@@ -808,3 +808,18 @@ if($last_query < 14)
 
   sql_update_query_id(14);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Index upload dates
+
+if($last_query < 15)
+{
+  sql_create_index('comics', 'comics_upload_date', 'upload_date');
+
+  sql_create_index('images', 'images_upload_date', 'upload_date');
+
+  sql_update_query_id(15);
+}
