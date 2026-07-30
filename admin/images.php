@@ -216,7 +216,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <?php for($i = 0; $i < $images_list['rows']; $i++): ?>
         <tr>
 
-          <td class="tooltip_container">
+          <td class="tooltip_container" onmouseenter="admin_image_list_load_preview(this);">
             <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
               <?=$images_list[$i]['name']?>
             </a>
@@ -225,7 +225,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
                 <?=$images_list[$i]['name_full']?>
               </p>
               <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
-                <img src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>" loading="lazy">
+                <img data-src="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" alt="<?=$images_list[$i]['name_full']?>" title="<?=$images_list[$i]['name_full']?>" loading="lazy" decoding="async">
               </a>
             </div>
           </td>

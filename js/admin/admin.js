@@ -8,6 +8,7 @@
 /*                                                                                                                   */
 /*  admin_image_upload                      Fills out the image upload form when an image is submitted.              */
 /*  admin_image_list_search                 Triggers a search in the image list.                                     */
+/*  admin_image_list_load_preview           Loads a preview of an image in the list.                                 */
 /*  admin_image_gallery_search              Triggers a search in the image gallery.                                  */
 /*                                                                                                                   */
 /*  admin_comic_list_search                 Triggers a search in the comic list.                                     */
@@ -163,6 +164,34 @@ function admin_image_list_search( sort            = null  ,
   // Submit the search
   fetch_page('images', 'admin_images_tbody', postdata);
 }
+
+
+
+
+/**
+ * Loads a preview of an image in the list.
+ *
+ * @param   {string}  container_id  The id of the tooltip container to load the image preview into.
+ *
+ * @returns {void}
+ */
+
+function admin_image_list_load_preview( container_id )
+{
+  // Fetch the unloaded image
+  const image = container_id.querySelector('img[data-src]');
+
+  // Stop if the image has already been loaded
+  if(!image)
+    return;
+
+  // Load the image
+  image.src = image.dataset.src;
+
+  // Prevent the image from being loaded again
+  image.removeAttribute('data-src');
+}
+
 
 
 
