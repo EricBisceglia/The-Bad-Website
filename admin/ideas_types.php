@@ -92,8 +92,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_30 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/ideas', __('admin_idea_types_title'), style: 'text_light', path: root_path())?>
-    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_types_add', path: root_path())?>
+    <?=__link('admin/ideas', __('admin_idea_types_title'), style: 'text_light', path: $path)?>
+    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/ideas_types_add', path: $path)?>
   </h2>
 
   <table>
@@ -143,11 +143,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap admin_action_icons">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/ideas_types_edit?type_id='.$idea_types_list[$i]['id'], path: root_path())?>
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/ideas_types_edit?type_id='.$idea_types_list[$i]['id'], path: $path)?>
           <?php if(!$idea_types_list[$i]['count']): ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_idea_type_delete('".$idea_types_list[$i]['id']."','".__('admin_idea_types_delete_confirm')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_idea_type_delete('".$idea_types_list[$i]['id']."','".__('admin_idea_types_delete_confirm')."')", path: $path)?>
           <?php else: ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_idea_type_delete_used')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_idea_type_delete_used')."')", path: $path)?>
           <?php endif; ?>
         </td>
 

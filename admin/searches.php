@@ -55,7 +55,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <h2 class="padding_bot">
     <?=__('admin_user_searches_list')?>
-    <?=__icon('delete', alt: 'X', title: __('admin_user_searches_clear'), title_case: 'initials', path: root_path(), class: 'valign_middle pointer spaced_left', onclick: "admin_user_searches_clear('".__('admin_user_searches_clear')."')")?>
+    <?=__icon('delete', alt: 'X', title: __('admin_user_searches_clear'), title_case: 'initials', path: $path, class: 'valign_middle pointer spaced_left', onclick: "admin_user_searches_clear('".__('admin_user_searches_clear')."')")?>
   </h2>
 
   <div id="admin_user_searches_list">

@@ -33,42 +33,42 @@ page_enforce_url($page_url);
 
   <ul class="padding_top big_desktop">
     <li>
-      <?=__link('about/faq#stickmen', __('about_quality_title'), path: root_path())?>
+      <?=__link('about/faq#stickmen', __('about_quality_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#colors', __('about_pastels_title'), path: root_path())?>
+      <?=__link('about/faq#colors', __('about_pastels_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#offended', __('about_offended_title'), path: root_path())?>
+      <?=__link('about/faq#offended', __('about_offended_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#credits', __('about_credits_title'), path: root_path())?>
+      <?=__link('about/faq#credits', __('about_credits_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#reuse', __('about_reuse_title'), path: root_path())?>
+      <?=__link('about/faq#reuse', __('about_reuse_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#follow', __('about_follow_title'), path: root_path())?>
+      <?=__link('about/faq#follow', __('about_follow_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#talk', __('about_talk_title'), path: root_path())?>
+      <?=__link('about/faq#talk', __('about_talk_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#merch', __('about_merch_title'), path: root_path())?>
+      <?=__link('about/faq#merch', __('about_merch_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#commissions', __('about_commissions_title'), path: root_path())?>
+      <?=__link('about/faq#commissions', __('about_commissions_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#source', __('about_source_title'), path: root_path())?>
+      <?=__link('about/faq#source', __('about_source_title'), path: $path)?>
     </li>
     <li>
-      <?=__link('about/faq#cookies', __('about_cookies_title'), path: root_path())?>
+      <?=__link('about/faq#cookies', __('about_cookies_title'), path: $path)?>
     </li>
   </ul>
 
   <h5 class="hugepadding_top smallpadding_bot" id="stickmen">
-    <?=__link('about/faq#stickmen', __('about_quality_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#stickmen', __('about_quality_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -80,7 +80,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="colors">
-    <?=__link('about/faq#colors', __('about_pastels_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#colors', __('about_pastels_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -92,7 +92,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="offended">
-    <?=__link('about/faq#offended', __('about_offended_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#offended', __('about_offended_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -112,7 +112,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="credits">
-    <?=__link('about/faq#credits', __('about_credits_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#credits', __('about_credits_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -132,7 +132,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="reuse">
-    <?=__link('about/faq#reuse', __('about_reuse_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#reuse', __('about_reuse_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -148,7 +148,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="follow">
-    <?=__link('about/faq#follow', __('about_follow_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#follow', __('about_follow_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -160,7 +160,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="talk">
-    <?=__link('about/faq#talk', __('about_talk_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#talk', __('about_talk_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -172,7 +172,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="merch">
-    <?=__link('about/faq#merch', __('about_merch_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#merch', __('about_merch_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -184,7 +184,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="commissions">
-    <?=__link('about/faq#commissions', __('about_commissions_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#commissions', __('about_commissions_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -196,7 +196,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="source">
-    <?=__link('about/faq#source', __('about_source_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#source', __('about_source_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>
@@ -212,7 +212,7 @@ page_enforce_url($page_url);
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="cookies">
-    <?=__link('about/faq#cookies', __('about_cookies_title'), path: root_path(), style: 'text_light')?>
+    <?=__link('about/faq#cookies', __('about_cookies_title'), path: $path, style: 'text_light')?>
   </h5>
 
   <p>

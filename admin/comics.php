@@ -143,8 +143,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <form id="admin_comics_search" onsubmit="admin_comic_list_search(); return false;">
 
     <h2 class="align_center smallpadding_bot">
-      <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: root_path())?>
-      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_add', path: root_path())?>
+      <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: $path)?>
+      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_add', path: $path)?>
     </h2>
 
     <div class="padding_bot">
@@ -158,35 +158,35 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <tr class="uppercase">
           <th>
             <?=__('admin_comics_list_title')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('title');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('title');")?>
           </th>
           <th>
-            <?=__link('admin/comics_types', __('admin_comics_list_type'), path: root_path())?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('type');")?>
+            <?=__link('admin/comics_types', __('admin_comics_list_type'), path: $path)?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('type');")?>
           </th>
           <th>
             <?=__('admin_comics_list_date')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('date');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('date');")?>
           </th>
           <th>
             <?=__('admin_comics_list_private')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('private');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('private');")?>
           </th>
           <th>
             <?=__('admin_comics_list_images')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('images');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('images');")?>
           </th>
           <th>
             <?=__('admin_comics_list_video')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('video');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('video');")?>
           </th>
           <th>
             <?=__('admin_comics_list_tags')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('tags');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('tags');")?>
           </th>
           <th>
             <?=__('admin_comics_list_views')?>
-            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: root_path(), onclick: "admin_comic_list_search('views');")?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('views');")?>
           </th>
           <th>
             <?=__('act')?>
@@ -271,7 +271,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <tr>
 
           <td class="align_left nowrap tooltip_container">
-            <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['title'], path: root_path(), popup: true)?>
+            <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['title'], path: $path, popup: true)?>
             <div class="tooltip">
               <?=$comics_list[$i]['title_en']?><br>
               <?=$comics_list[$i]['title_fr']?>
@@ -291,7 +291,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap">
             <?php if($comics_list[$i]['private']): ?>
-            <?=__icon('incognito', is_small: true, alt: 'X', title: __('admin_comics_list_private'), title_case: 'initials', path: root_path())?>
+            <?=__icon('incognito', is_small: true, alt: 'X', title: __('admin_comics_list_private'), title_case: 'initials', path: $path)?>
             <?php else: ?>
             &nbsp;
             <?php endif; ?>
@@ -312,7 +312,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <?php if($comics_list[$i]['video']): ?>
           <td class="align_center nowrap tooltip_container">
-            <?=__icon('video', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: root_path())?>
+            <?=__icon('video', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: $path)?>
           </td>
           <?php else: ?>
           <td class="align_center nowrap">
@@ -338,9 +338,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
 
           <td class="align_center nowrap admin_action_icons">
-            <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: root_path())?>
-            <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: root_path())?>
-            <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_list_search(null, '".$comics_list[$i]['id']."','".__('admin_comics_delete_confirm')."')", path: root_path())?>
+            <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: $path)?>
+            <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: $path)?>
+            <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_list_search(null, '".$comics_list[$i]['id']."','".__('admin_comics_delete_confirm')."')", path: $path)?>
           </td>
 
         </tr>

@@ -103,8 +103,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_30 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/comics', __('admin_comic_types_title'), style: 'text_light', path: root_path())?>
-    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_types_add', path: root_path())?>
+    <?=__link('admin/comics', __('admin_comic_types_title'), style: 'text_light', path: $path)?>
+    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/comics_types_add', path: $path)?>
   </h2>
 
   <table>
@@ -158,7 +158,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <td class="align_center nowrap bold">
           <div class="tooltip_container">
-          <?=__icon('gallery', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: root_path())?>
+          <?=__icon('gallery', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: $path)?>
           <div class="tooltip">
             <img src="<?=$path?>img/website/categories/<?=$comic_types_list[$i]['banner_en']?>" alt="<?=$comic_types_list[$i]['name_en']?>" title="<?=$comic_types_list[$i]['name_en']?>"><br>
             <img src="<?=$path?>img/website/categories/<?=$comic_types_list[$i]['banner_fr']?>" alt="<?=$comic_types_list[$i]['name_fr']?>" title="<?=$comic_types_list[$i]['name_fr']?>">
@@ -170,11 +170,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </td>
 
         <td class="align_center nowrap admin_action_icons">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_types_edit?type_id='.$comic_types_list[$i]['id'], path: root_path())?>
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_types_edit?type_id='.$comic_types_list[$i]['id'], path: $path)?>
           <?php if(!$comic_types_list[$i]['count']): ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_type_delete('".$comic_types_list[$i]['id']."','".__('admin_comic_types_delete_confirm')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_type_delete('".$comic_types_list[$i]['id']."','".__('admin_comic_types_delete_confirm')."')", path: $path)?>
           <?php else: ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_comic_type_delete_used')."')", path: root_path())?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_comic_type_delete_used')."')", path: $path)?>
           <?php endif; ?>
         </td>
 
