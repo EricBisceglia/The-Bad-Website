@@ -270,12 +270,16 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <?php for($i = 0; $i < $comics_list['rows']; $i++): ?>
         <tr>
 
-          <td class="align_left nowrap tooltip_container">
+          <td class="align_left nowrap tooltip_container desktop">
             <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['title'], path: $path, popup: true)?>
             <div class="tooltip">
               <?=$comics_list[$i]['title_en']?><br>
               <?=$comics_list[$i]['title_fr']?>
             </div>
+          </td>
+
+          <td class="align_left nowrap mobile">
+            <?=__link('comic/'.$comics_list[$i]['slug'], $comics_list[$i]['stitle'], path: $path, popup: true)?>
           </td>
 
           <td class="align_center nowrap">

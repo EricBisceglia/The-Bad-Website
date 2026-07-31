@@ -200,6 +200,7 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
+    $data[$i]['sname']      = string_truncate(sanitize_output($row['i_name']), 20, '...');
     $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 45, '...');
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);

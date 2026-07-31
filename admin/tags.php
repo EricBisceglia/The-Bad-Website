@@ -125,7 +125,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center nowrap">
           <?=__('admin_tags_tagtitle')?>
         </th>
-        <th class="align_center">
+        <th class="align_center desktop">
           <?=__('admin_tags_banner')?>
         </th>
         <th class="align_center">
@@ -168,7 +168,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
         </td>
 
-        <td class="align_center nowrap bold">
+        <td class="align_center nowrap bold desktop">
           <div class="tooltip_container">
           <?=__icon('gallery', is_small: true, alt: 'P', title: __('image'), title_case: 'initials', path: $path)?>
           <div class="tooltip">
