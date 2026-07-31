@@ -343,7 +343,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap admin_action_icons">
             <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: $path)?>
-            <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right desktop', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: $path)?>
+            <span class="desktop">
+              <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: $path)?>
+            </span>
             <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_list_search(null, '".$comics_list[$i]['id']."','".__('admin_comics_delete_confirm')."')", path: $path)?>
           </td>
 
