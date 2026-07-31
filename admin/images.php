@@ -127,7 +127,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__('admin_images_list_language')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('lang');")?>
           </th>
-          <th>
+          <th class="desktop">
             <?=__('admin_images_list_nsfw')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_image_list_search('nsfw');")?>
           </th>
@@ -174,7 +174,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_images_search_nsfw" id="admin_images_search_nsfw">
               <option value="0">&nbsp;</option>
               <option value="1"><?=__('admin_images_list_nsfw')?></option>
@@ -217,8 +217,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <tr>
 
           <td class="tooltip_container" onmouseenter="admin_image_list_load_preview(this);">
-            <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank">
+            <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank" class="desktop">
               <?=$images_list[$i]['name']?>
+            </a>
+            <a href="<?=$path?>img/comics/<?=$images_list[$i]['name_full']?>" target="_blank" class="mobile">
+              <?=$images_list[$i]['sname']?>
             </a>
             <div class="tooltip">
               <p class="align_center bold tinypadding_bot">
@@ -255,7 +258,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=$images_list[$i]['lang']?>
           </td>
 
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             <?php if($images_list[$i]['nsfw'] === '1'): ?>
             <?=__icon('warning', is_small: true, alt: 'N', title: __('admin_images_list_nsfw'), path: $path)?>
             <?php else: ?>

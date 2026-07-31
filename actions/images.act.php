@@ -200,7 +200,8 @@ function images_list( $sort_by = 'date'   ,
   // Prepare the data for display
   for($i = 0; $row = query_row($images); $i++)
   {
-    $data[$i]['name']       = string_truncate(sanitize_output($row['i_name']), 45, '...');
+    $data[$i]['sname']      = sanitize_output(string_truncate($row['i_name'], 20, '...'));
+    $data[$i]['name']       = sanitize_output(string_truncate($row['i_name'], 45, '...'));
     $data[$i]['name_full']  = sanitize_output($row['i_name']);
     $data[$i]['id']         = sanitize_output($row['i_id']);
     $data[$i]['comic']      = sanitize_output($row['c_title']);
