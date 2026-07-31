@@ -168,19 +168,19 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__('admin_comics_list_date')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('date');")?>
           </th>
-          <th>
+          <th class="desktop">
             <?=__('admin_comics_list_private')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('private');")?>
           </th>
-          <th>
+          <th class="desktop">
             <?=__('admin_comics_list_images')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('images');")?>
           </th>
-          <th>
+          <th class="desktop">
             <?=__('admin_comics_list_video')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('video');")?>
           </th>
-          <th>
+          <th class="desktop">
             <?=__('admin_comics_list_tags')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_comic_list_search('tags');")?>
           </th>
@@ -213,14 +213,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             &nbsp;
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_comics_search_private" id="admin_comics_search_private">
               <option value="0">&nbsp;</option>
               <option value="1"><?=__('admin_comics_list_private')?></option>
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_comics_search_images" id="admin_comics_search_images">
               <option value="0">&nbsp;</option>
               <option value="-1"><?=__('admin_comics_list_images_n')?></option>
@@ -228,7 +228,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_comics_search_video" id="admin_comics_search_video">
               <option value="0">&nbsp;</option>
               <option value="-1"><?=__('admin_comics_list_video_n')?></option>
@@ -236,7 +236,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_comics_search_tags" id="admin_comics_search_tags">
               <option value="0">&nbsp;</option>
               <?php for($i = 0; $i < $tags_list['rows']; $i++): ?>
@@ -289,7 +289,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </div>
           </td>
 
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             <?php if($comics_list[$i]['private']): ?>
             <?=__icon('incognito', is_small: true, alt: 'X', title: __('admin_comics_list_private'), title_case: 'initials', path: $path)?>
             <?php else: ?>
@@ -298,37 +298,37 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
 
           <?php if($comics_list[$i]['nimages']): ?>
-          <td class="align_center nowrap tooltip_container">
+          <td class="align_center nowrap tooltip_container desktop">
             <?=$comics_list[$i]['nimages']?>
             <div class="tooltip">
               <?=str_replace(', ', '<br>', $comics_list[$i]['images'])?>
             </div>
           </td>
           <?php else: ?>
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             &nbsp;
           </td>
           <?php endif; ?>
 
           <?php if($comics_list[$i]['video']): ?>
-          <td class="align_center nowrap tooltip_container">
+          <td class="align_center nowrap tooltip_container desktop">
             <?=__icon('video', is_small: true, alt: 'V', title: __('admin_comics_list_video_y'), title_case: 'initials', path: $path)?>
           </td>
           <?php else: ?>
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             &nbsp;
           </td>
           <?php endif; ?>
 
           <?php if($comics_list[$i]['ntags']): ?>
-          <td class="align_center nowrap tooltip_container">
+          <td class="align_center nowrap tooltip_container desktop">
             <?=$comics_list[$i]['ntags']?>
             <div class="tooltip">
               <?=str_replace(', ', '<br>', $comics_list[$i]['tags'])?>
             </div>
           </td>
           <?php else: ?>
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             &nbsp;
           </td>
           <?php endif; ?>
@@ -339,7 +339,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_center nowrap admin_action_icons">
             <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/comics_edit?id='.$comics_list[$i]['id'], path: $path)?>
-            <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: $path)?>
+            <?=__icon('link', is_small: true, class: 'valign_middle pointer spaced_right desktop', alt: 'M', title: __('admin_comics_list_share'), title_case: 'initials', href: 'admin/comics_share?id='.$comics_list[$i]['id'], path: $path)?>
             <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_comic_list_search(null, '".$comics_list[$i]['id']."','".__('admin_comics_delete_confirm')."')", path: $path)?>
           </td>
 
