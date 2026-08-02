@@ -552,6 +552,19 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
+// Quote authors
+___('admin_quotes_authors_title', 'EN', "Quote authors");
+___('admin_quotes_authors_title', 'FR', "Auteurs de citations");
+___('admin_quotes_authors_name',  'EN', "Name");
+___('admin_quotes_authors_name',  'FR', "Nom");
+___('admin_quotes_authors_years', 'EN', "Years");
+___('admin_quotes_authors_years', 'FR', "Années");
+___('admin_quotes_authors_count', 'EN', "{{1}} author");
+___('admin_quotes_authors_count', 'FR', "{{1}} auteur");
+___('admin_quotes_authors_count+', 'EN', "{{1}} authors");
+___('admin_quotes_authors_count+', 'FR', "{{1}} auteurs");
+
+
 // Quote authors: Add
 ___('admin_quotes_authors_add_title',   'EN', "Add an author");
 ___('admin_quotes_authors_add_title',   'FR', "Ajouter un auteur");
@@ -569,3 +582,8 @@ ___('admin_quotes_authors_add_desc_fr', 'EN', "French description");
 ___('admin_quotes_authors_add_desc_fr', 'FR', "Description française");
 ___('admin_quotes_authors_add_submit',  'EN', "Add author");
 ___('admin_quotes_authors_add_submit',  'FR', "Ajouter l'auteur");
+
+
+// Quote authors: Delete
+___('admin_quotes_authors_delete_used', 'EN', "You cannot delete an author as long as they have quotes attached to them");
+___('admin_quotes_authors_delete_used', 'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des citations");

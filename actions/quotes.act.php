@@ -8,9 +8,51 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  quote_authors_list          Fetches quote authors.                                                               */
 /*  quote_authors_add           Adds a quote author to the database.                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Fetches quote authors.
+ *
+ * @return  array  An array containing the quote authors.
+ */
+
+function quote_authors_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the authors
+  $authors = query(" SELECT     quote_authors.id          AS 'qa_id'    ,
+                                quote_authors.slug        AS 'qa_slug'  ,
+                                quote_authors.name_$lang  AS 'qa_name'  ,
+                                quote_authors.year_birth  AS 'qa_birth' ,
+                                quote_authors.year_death  AS 'qa_death'
+                      FROM      quote_authors
+                      ORDER BY  quote_authors.name_$lang ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($authors); $i++)
+  {
+    $data[$i]['id']     = sanitize_output($row['qa_id']);
+    $data[$i]['slug']   = sanitize_output($row['qa_slug']);
+    $data[$i]['name']   = sanitize_output($row['qa_name']);
+    $data[$i]['sname']  = sanitize_output(string_truncate($row['qa_name'], 25, '...'));
+    $data[$i]['birth']  = sanitize_output($row['qa_birth']);
+    $data[$i]['death']  = sanitize_output($row['qa_death']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 /**
  * Adds a quote author to the database.
