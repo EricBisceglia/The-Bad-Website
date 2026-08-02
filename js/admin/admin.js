@@ -16,6 +16,8 @@
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
+/*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
+/*                                                                                                                   */
 /*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -293,6 +295,27 @@ function admin_tags_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('tags', 'admin_tags_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote author.
+ *
+ * @param   {int}     id        The id of the quote author to delete.
+ * @param   {string}  message   The message to display before deleting the quote author.
+ */
+
+function admin_quotes_authors_delete(  id      ,
+                                       message )
+{
+  // Assemble the postdata
+  postdata = 'admin_quotes_authors_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_authors', 'admin_quotes_authors_tbody', postdata);
 }
 
 

@@ -12,6 +12,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_authors_list          Fetches quote authors.                                                               */
 /*  quote_authors_add           Adds a quote author to the database.                                                 */
 /*  quote_authors_edit          Edits a quote author.                                                                */
+/*  quote_authors_delete        Deletes a quote author.                                                              */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -45,14 +46,16 @@ function quotes_authors_get( int $author_id ) : ?array
                       fetch_row: true);
 
   // Prepare the data for display
-  $data['id']       = sanitize_output($author_id);
-  $data['slug']     = sanitize_output($author['qa_slug']);
-  $data['name_en']  = sanitize_output($author['qa_name_en']);
-  $data['name_fr']  = sanitize_output($author['qa_name_fr']);
-  $data['birth']    = sanitize_output($author['qa_birth']);
-  $data['death']    = sanitize_output($author['qa_death']);
-  $data['desc_en']  = sanitize_output($author['qa_desc_en'], preserve_line_breaks: true);
-  $data['desc_fr']  = sanitize_output($author['qa_desc_fr'], preserve_line_breaks: true);
+  $data['id']           = sanitize_output($author_id);
+  $data['slug']         = sanitize_output($author['qa_slug']);
+  $data['name_en']      = sanitize_output($author['qa_name_en']);
+  $data['name_fr']      = sanitize_output($author['qa_name_fr']);
+  $data['birth']        = sanitize_output($author['qa_birth']);
+  $data['death']        = sanitize_output($author['qa_death']);
+  $data['desc_en_raw']  = sanitize_output($author['qa_desc_en']);
+  $data['desc_fr_raw']  = sanitize_output($author['qa_desc_fr']);
+  $data['desc_en']      = sanitize_output($author['qa_desc_en'], preserve_line_breaks: true);
+  $data['desc_fr']      = sanitize_output($author['qa_desc_fr'], preserve_line_breaks: true);
 
   // Return the prepared data
   return $data;
@@ -73,14 +76,21 @@ function quote_authors_list() : array
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the authors
-  $authors = query(" SELECT     quote_authors.id          AS 'qa_id'    ,
-                                quote_authors.slug        AS 'qa_slug'  ,
-                                quote_authors.name_$lang  AS 'qa_name'  ,
-                                quote_authors.name_en     AS 'qa_name_en'  ,
-                                quote_authors.name_fr     AS 'qa_name_fr'  ,
-                                quote_authors.year_birth  AS 'qa_birth' ,
-                                quote_authors.year_death  AS 'qa_death'
+  $authors = query(" SELECT     quote_authors.id              AS 'qa_id'      ,
+                                quote_authors.slug            AS 'qa_slug'    ,
+                                quote_authors.name_$lang      AS 'qa_name'    ,
+                                quote_authors.name_en         AS 'qa_name_en' ,
+                                quote_authors.name_fr         AS 'qa_name_fr' ,
+                                quote_authors.year_birth      AS 'qa_birth'   ,
+                                quote_authors.year_death      AS 'qa_death'   ,
+                                COUNT(quotes.id)              AS 'q_count'    ,
+                                COUNT(quote_media_authors.id) AS 'qma_count'
                       FROM      quote_authors
+                      LEFT JOIN quotes
+                      ON        quotes.fk_quote_authors = quote_authors.id
+                      LEFT JOIN quote_media_authors
+                      ON        quote_media_authors.fk_quote_authors = quote_authors.id
+                      GROUP BY  quote_authors.id
                       ORDER BY  quote_authors.name_$lang ASC ");
 
   // Prepare the data for display
@@ -94,6 +104,9 @@ function quote_authors_list() : array
     $data[$i]['name_fr']  = sanitize_output($row['qa_name_fr']);
     $data[$i]['birth']    = sanitize_output($row['qa_birth']);
     $data[$i]['death']    = sanitize_output($row['qa_death']);
+    $data[$i]['quotes']   = sanitize_output($row['q_count']);
+    $data[$i]['media']    = sanitize_output($row['qma_count']);
+    $data[$i]['used']     = sanitize_output($row['q_count'] + $row['qma_count']);
   }
 
   // Add the number of rows to the returned data
@@ -199,4 +212,48 @@ function quote_authors_edit(  int   $author_id  ,
                   quote_authors.description_fr  = '$desc_fr'
           WHERE   quote_authors.id              = '$author_id' ");
 
+}
+
+
+
+
+/**
+ * Deletes a quote author.
+ *
+ * @param   int    $author_id  The ID of the quote author to delete.
+ *
+ * @return  bool               Whether the quote author was deleted successfully.
+ */
+
+function quote_authors_delete( int $author_id ) : bool
+{
+  // Sanitize the data
+  $author_id = sanitize($author_id, 'int');
+
+  // Check whether the author is linked to any media
+  $media = query(" SELECT COUNT(DISTINCT quote_media_authors.id) AS 'qma_id'
+                   FROM   quote_media_authors
+                   WHERE  quote_media_authors.fk_quote_authors = '$author_id' ",
+                   fetch_row: true);
+
+  // Return false if there are still media linked to the author
+  if($media['qma_id'] > 0)
+    return false;
+
+  // Check whether the author is linked to any quotes
+  $quotes = query(" SELECT COUNT(DISTINCT quotes.id) AS 'q_id'
+                    FROM   quotes
+                    WHERE  quotes.fk_quote_authors = '$author_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still quotes linked to the author
+  if($quotes['q_id'] > 0)
+    return false;
+
+  // Delete the quote author
+  query(" DELETE FROM quote_authors
+          WHERE quote_authors.id = '$author_id' ");
+
+  // The author has been deleted
+  return true;
 }

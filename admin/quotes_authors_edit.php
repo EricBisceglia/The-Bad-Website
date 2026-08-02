@@ -71,7 +71,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_author_desc_en"><?=__('admin_quotes_authors_add_desc_en')?></label>
-            <textarea class="indiv" name="quote_author_desc_en" id="quote_author_desc_en"><?=$admin_author_data['desc_en']?></textarea>
+            <textarea class="indiv" name="quote_author_desc_en" id="quote_author_desc_en"><?=$admin_author_data['desc_en_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">
@@ -92,7 +92,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_author_desc_fr"><?=__('admin_quotes_authors_add_desc_fr')?></label>
-            <textarea class="indiv" name="quote_author_desc_fr" id="quote_author_desc_fr"><?=$admin_author_data['desc_fr']?></textarea>
+            <textarea class="indiv" name="quote_author_desc_fr" id="quote_author_desc_fr"><?=$admin_author_data['desc_fr_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">

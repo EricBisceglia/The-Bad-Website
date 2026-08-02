@@ -29,7 +29,7 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Add a quote author
+// Add an author
 
 if(isset($_POST['quote_author_add']))
 {
@@ -49,7 +49,7 @@ if(isset($_POST['quote_author_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Edit a quote author
+// Edit an author
 
 if(isset($_POST['quote_author_edit']))
 {
@@ -72,7 +72,22 @@ if(isset($_POST['quote_author_edit']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch the quote authors
+// Delete an author
+
+if(isset($_POST['admin_quotes_authors_delete']))
+{
+  // Fetch the author's ID
+  $admin_author_id = (int)form_fetch_element('admin_quotes_authors_delete');
+
+  // Delete the quote author
+  quote_authors_delete( $admin_author_id );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch the authors
 
 $quote_authors = quote_authors_list();
 
@@ -85,10 +100,10 @@ $quote_authors = quote_authors_list();
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_30 padding_top">
+<div class="width_40 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__('admin_quotes_authors_title')?>
+    <?=__link('admin/quotes', __('admin_quotes_authors_title'), 'text_light', path: $path)?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_authors_add', path: $path)?>
   </h2>
 
@@ -102,6 +117,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <th class="align_center">
           <?=__('admin_quotes_authors_years')?>
         </th>
+        <th class="align_center">
+          <?=__('admin_quotes_authors_quotes')?>
+        </th>
         <th>
           <?=__('act')?>
         </th>
@@ -109,10 +127,12 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
     </thead>
 
-    <tbody class="altc2 nowrap">
+    <tbody class="altc2 nowrap" id="admin_quotes_authors_tbody">
+
+      <?php endif; ?>
 
       <tr>
-        <td colspan="6" class="uppercase text_light dark bold align_center">
+        <td colspan="4" class="uppercase text_light dark bold align_center">
           <?=__('admin_quotes_authors_count', preset_values: array($quote_authors['rows']), amount: $quote_authors['rows'])?>
         </td>
       </tr>
@@ -139,14 +159,30 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php endif; ?>
         </td>
 
+        <td class="align_center nowrap">
+          <?php if($quote_authors[$i]['used']): ?>
+          <?=$quote_authors[$i]['used']?>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
+        </td>
+
         <td class="align_center nowrap admin_action_icons">
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_authors_edit?quote_author_id='.$quote_authors[$i]['id'], path: $path)?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_authors_delete_used')."')", path: $path)?>
+          <?php if($quote_authors[$i]['quotes']): ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_authors_delete_quotes')."')", path: $path)?>
+          <?php elseif($quote_authors[$i]['media']): ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_authors_delete_media')."')", path: $path)?>
+          <?php else: ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_authors_delete('".$quote_authors[$i]['id']."','".__('admin_quotes_authors_delete_confirm')."')", path: $path)?>
+          <?php endif; ?>
         </td>
 
       </tr>
 
       <?php endfor; ?>
+
+      <?php if(!page_is_fetched_dynamically()): ?>
 
     </tbody>
   </table>
