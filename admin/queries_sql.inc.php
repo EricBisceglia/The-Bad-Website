@@ -823,3 +823,81 @@ if($last_query < 15)
 
   sql_update_query_id(15);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quote farm
+
+if($last_query < 16)
+{
+  sql_create_table('quote_authors');
+  sql_create_table('quote_media');
+  sql_create_table('quote_media_types');
+  sql_create_table('quote_media_authors');
+  sql_create_table('quotes');
+  sql_create_table('quote_tags');
+  sql_create_table('quote_tag_links');
+
+  sql_create_field('quote_authors', 'slug', 'TINYTEXT NOT NULL', 'id');
+  sql_create_field('quote_authors', 'name_en', 'TINYTEXT NOT NULL', 'slug');
+  sql_create_field('quote_authors', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+  sql_create_field('quote_authors', 'year_birth', 'SMALLINT UNSIGNED NOT NULL', 'name_fr');
+  sql_create_field('quote_authors', 'year_death', 'SMALLINT UNSIGNED NOT NULL', 'year_birth');
+  sql_create_field('quote_authors', 'description_en', 'TEXT NOT NULL', 'year_death');
+  sql_create_field('quote_authors', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_field('quote_media', 'fk_quote_media_types', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quote_media', 'slug', 'TINYTEXT NOT NULL', 'fk_quote_media_types');
+  sql_create_field('quote_media', 'name_en', 'TINYTEXT NOT NULL', 'slug');
+  sql_create_field('quote_media', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+  sql_create_field('quote_media', 'year_published', 'SMALLINT UNSIGNED NOT NULL', 'name_fr');
+  sql_create_field('quote_media', 'source_en', 'TINYTEXT NOT NULL', 'year_published');
+  sql_create_field('quote_media', 'source_fr', 'TINYTEXT NOT NULL', 'source_en');
+  sql_create_field('quote_media', 'description_en', 'TEXT NOT NULL', 'source_fr');
+  sql_create_field('quote_media', 'description_fr', 'TEXT NOT NULL', 'description_en');
+  sql_create_index('quote_media', 'quote_media_media_type', 'fk_quote_media_types');
+  sql_create_index('quote_media', 'quote_media_year_published', 'year_published');
+
+  sql_create_field('quote_media_types', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quote_media_types', 'slug', 'TINYTEXT NOT NULL', 'sorting_order');
+  sql_create_field('quote_media_types', 'name_en', 'TINYTEXT NOT NULL', 'slug');
+  sql_create_field('quote_media_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+  sql_create_index('quote_media_types', 'quote_media_types_sorting_order', 'sorting_order');
+
+  sql_create_field('quote_media_authors', 'fk_quote_media', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quote_media_authors', 'fk_quote_authors', 'INT UNSIGNED NOT NULL', 'fk_quote_media');
+  sql_create_index('quote_media_authors', 'quote_media_authors_fk_quote_media', 'fk_quote_media');
+  sql_create_index('quote_media_authors', 'quote_media_authors_fk_quote_authors', 'fk_quote_authors');
+
+  sql_create_field('quotes', 'fk_quote_media', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quotes', 'fk_quote_authors', 'INT UNSIGNED NOT NULL', 'fk_quote_media');
+  sql_create_field('quotes', 'slug', 'TINYTEXT NOT NULL', 'fk_quote_authors');
+  sql_create_field('quotes', 'sorting_order', 'INT UNSIGNED NOT NULL', 'slug');
+  sql_create_field('quotes', 'origin', 'TINYINT NOT NULL', 'sorting_order');
+  sql_create_field('quotes', 'source_en', 'TINYTEXT NOT NULL', 'origin');
+  sql_create_field('quotes', 'source_fr', 'TINYTEXT NOT NULL', 'source_en');
+  sql_create_field('quotes', 'title_en', 'TINYTEXT NOT NULL', 'source_fr');
+  sql_create_field('quotes', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
+  sql_create_field('quotes', 'description_en', 'TEXT NOT NULL', 'title_fr');
+  sql_create_field('quotes', 'description_fr', 'TEXT NOT NULL', 'description_en');
+  sql_create_field('quotes', 'quote_en', 'TEXT NOT NULL', 'description_fr');
+  sql_create_field('quotes', 'quote_fr', 'TEXT NOT NULL', 'quote_en');
+  sql_create_index('quotes', 'quotes_fk_quote_media', 'fk_quote_media');
+  sql_create_index('quotes', 'quotes_fk_quote_authors', 'fk_quote_authors');
+  sql_create_index('quotes', 'quotes_sorting_order', 'sorting_order');
+
+  sql_create_field('quote_tags', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quote_tags', 'slug', 'TINYTEXT NOT NULL', 'sorting_order');
+  sql_create_field('quote_tags', 'name_en', 'TINYTEXT NOT NULL', 'slug');
+  sql_create_field('quote_tags', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
+  sql_create_index('quote_tags', 'quote_tags_sorting_order', 'sorting_order');
+
+  sql_create_field('quote_tag_links', 'fk_quote_tags', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('quote_tag_links', 'fk_quotes', 'INT UNSIGNED NOT NULL', 'fk_quote_tags');
+  sql_create_index('quote_tag_links', 'quote_tag_links_fk_quote_tags', 'fk_quote_tags');
+  sql_create_index('quote_tag_links', 'quote_tag_links_fk_quotes', 'fk_quotes');
+
+  sql_update_query_id(16);
+}
