@@ -541,3 +541,31 @@ ___('admin_user_searches_list_empty', 'EN', "The user search file is empty");
 ___('admin_user_searches_list_empty', 'FR', "Le fichier des recherches est vide");
 ___('admin_user_searches_clear',      'EN', "Confirm the deletion of the entire user search history");
 ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\'historique des recherches");
+
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      QUOTES                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Quote authors: Add
+___('admin_quotes_authors_add_title',   'EN', "Add an author");
+___('admin_quotes_authors_add_title',   'FR', "Ajouter un auteur");
+___('admin_quotes_authors_add_name_en', 'EN', "English name");
+___('admin_quotes_authors_add_name_en', 'FR', "Nom anglais");
+___('admin_quotes_authors_add_name_fr', 'EN', "French name");
+___('admin_quotes_authors_add_name_fr', 'FR', "Nom français");
+___('admin_quotes_authors_add_birth',   'EN', "Birth year");
+___('admin_quotes_authors_add_birth',   'FR', "Année de naissance");
+___('admin_quotes_authors_add_death',   'EN', "Death year");
+___('admin_quotes_authors_add_death',   'FR', "Année de décès");
+___('admin_quotes_authors_add_desc_en', 'EN', "English description");
+___('admin_quotes_authors_add_desc_en', 'FR', "Description anglaise");
+___('admin_quotes_authors_add_desc_fr', 'EN', "French description");
+___('admin_quotes_authors_add_desc_fr', 'FR', "Description française");
+___('admin_quotes_authors_add_submit',  'EN', "Add author");
+___('admin_quotes_authors_add_submit',  'FR', "Ajouter l'auteur");
