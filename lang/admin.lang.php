@@ -23,6 +23,8 @@ ___('admin_menu_comics',    'EN', "Comics");
 ___('admin_menu_comics',    'FR', "Comics");
 ___('admin_menu_tags',      'EN', "Tags");
 ___('admin_menu_tags',      'FR', "Tags");
+___('admin_menu_quotes',    'EN', "Quotes");
+___('admin_menu_quotes',    'FR', "Citations");
 ___('admin_menu_merch',     'EN', "Merch");
 ___('admin_menu_merch',     'FR', "Merch");
 ___('admin_menu_searches',  'EN', "Searches");
