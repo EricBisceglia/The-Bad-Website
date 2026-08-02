@@ -584,6 +584,13 @@ ___('admin_quotes_authors_add_submit',  'EN', "Add author");
 ___('admin_quotes_authors_add_submit',  'FR', "Ajouter l'auteur");
 
 
+// Quote authors: Edit
+___('admin_quotes_authors_edit_title',   'EN', "Edit an author");
+___('admin_quotes_authors_edit_title',   'FR', "Modifier un auteur");
+___('admin_quotes_authors_edit_submit',  'EN', "Edit author");
+___('admin_quotes_authors_edit_submit',  'FR', "Modifier l'auteur");
+
+
 // Quote authors: Delete
 ___('admin_quotes_authors_delete_used', 'EN', "You cannot delete an author as long as they have quotes attached to them");
 ___('admin_quotes_authors_delete_used', 'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des citations");

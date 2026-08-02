@@ -49,6 +49,29 @@ if(isset($_POST['quote_author_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a quote author
+
+if(isset($_POST['quote_author_edit']))
+{
+  // Fetch the author's ID
+  $admin_author_id = (int)form_fetch_element('quote_author_id');
+
+  // Assemble an array with the postdata
+  $quote_author_edit_data = array( 'name_en'    => form_fetch_element('quote_author_name_en')  ,
+                                   'name_fr'    => form_fetch_element('quote_author_name_fr')  ,
+                                   'year_birth' => form_fetch_element('quote_author_birth')    ,
+                                   'year_death' => form_fetch_element('quote_author_death')    ,
+                                   'desc_en'    => form_fetch_element('quote_author_desc_en')  ,
+                                   'desc_fr'    => form_fetch_element('quote_author_desc_fr')  );
+
+  // Edit the quote author
+  quote_authors_edit( $admin_author_id, $quote_author_edit_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the quote authors
 
 $quote_authors = quote_authors_list();
@@ -98,18 +121,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <tr>
 
-        <?php if($quote_authors[$i]['sname'] !== $quote_authors[$i]['name']): ?>
         <td class="align_center nowrap bold tooltip_container">
           <?=$quote_authors[$i]['sname']?>
           <span class="tooltip">
-            <?=$quote_authors[$i]['name']?>
+            <?=$quote_authors[$i]['name_en']?><br>
+            <?=$quote_authors[$i]['name_fr']?>
           </span>
         </td>
-        <?php else: ?>
-        <td class="align_center nowrap bold">
-          <?=$quote_authors[$i]['name']?>
-        </td>
-        <?php endif; ?>
 
         <td class="align_center nowrap">
           <?php if($quote_authors[$i]['birth']): ?>
