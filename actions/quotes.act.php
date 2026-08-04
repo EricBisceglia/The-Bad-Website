@@ -15,6 +15,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_authors_delete        Deletes a quote author.                                                              */
 /*                                                                                                                   */
 /*  quote_media_add             Adds a quote media to the database.                                                  */
+/*  quote_media_list            Fetches quote media.                                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -282,9 +283,20 @@ function quote_media_add( array $data ) : int
   $source_fr  = sanitize_array_element($data, 'source_fr', 'string');
   $year       = sanitize_array_element($data, 'year', 'int');
 
+  // Generate a slug for the quote media
+  $slug = str_replace(' ', '_', string_truncate($name_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quote_media', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
   // Add the quote media to the database
   query(" INSERT INTO quote_media
-          SET         quote_media.name_en         = '$name_en'    ,
+          SET         quote_media.slug            = '$slug'       ,
+                      quote_media.name_en         = '$name_en'    ,
                       quote_media.name_fr         = '$name_fr'    ,
                       quote_media.description_en  = '$desc_en'    ,
                       quote_media.description_fr  = '$desc_fr'    ,
@@ -297,4 +309,54 @@ function quote_media_add( array $data ) : int
 
   // Return the quote media's ID
   return $quote_media_id;
+}
+
+
+
+
+/**
+ * Fetches quote media.
+ *
+ * @return  array  An array containing the quote media.
+ */
+
+function quote_media_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the media
+  $media = query("  SELECT      quote_media.id                AS 'qm_id'      ,
+                                quote_media.name_$lang        AS 'qm_name'    ,
+                                quote_media.name_en           AS 'qm_name_en' ,
+                                quote_media.name_fr           AS 'qm_name_fr' ,
+                                quote_media.year_published    AS 'qm_year'    ,
+                                COUNT(DISTINCT quotes.id)     AS 'q_count'    ,
+                                COUNT(quote_media_authors.id) AS 'qma_count'
+                      FROM      quote_media
+                      LEFT JOIN quote_media_authors
+                      ON        quote_media_authors.fk_quote_media = quote_media.id
+                      LEFT JOIN quotes
+                      ON        quotes.fk_quote_media = quote_media.id
+                      GROUP BY  quote_media.id
+                      ORDER BY  quote_media.name_$lang ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($media); $i++)
+  {
+    $data[$i]['id']       = sanitize_output($row['qm_id']);
+    $data[$i]['name']     = sanitize_output($row['qm_name']);
+    $data[$i]['sname']    = sanitize_output(string_truncate($row['qm_name'], 25, '...'));
+    $data[$i]['name_en']  = sanitize_output($row['qm_name_en']);
+    $data[$i]['name_fr']  = sanitize_output($row['qm_name_fr']);
+    $data[$i]['year']     = sanitize_output($row['qm_year']);
+    $data[$i]['authors']  = sanitize_output($row['qma_count']);
+    $data[$i]['quotes']   = sanitize_output($row['q_count']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
 }

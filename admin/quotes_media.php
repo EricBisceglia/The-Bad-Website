@@ -49,6 +49,14 @@ if(isset($_POST['quote_media_add']))
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch quote media
+
+$quote_media_list = quote_media_list();
+
+
+
+
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*                                                     FRONT END                                                     */
@@ -61,6 +69,82 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__link('admin/quotes', __('admin_quotes_media_title'), 'text_light', path: $path)?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_media_add', path: $path)?>
   </h2>
+
+  <table>
+    <thead>
+
+      <tr class="uppercase">
+        <th class="align_center">
+          <?=__('admin_quotes_media_name')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_quotes_media_year')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_quotes_media_quotes')?>
+        </th>
+        <th>
+          <?=__('act')?>
+        </th>
+      </tr>
+
+    </thead>
+
+    <tbody class="altc2 nowrap" id="admin_quotes_media_tbody">
+
+      <?php endif; ?>
+
+      <tr>
+        <td colspan="4" class="uppercase text_light dark bold align_center">
+          <?=__('admin_quotes_media_count', preset_values: array($quote_media_list['rows']), amount: $quote_media_list['rows'])?>
+        </td>
+      </tr>
+
+      <?php for($i = 0; $i < $quote_media_list['rows']; $i++): ?>
+
+      <tr>
+
+        <td class="align_center nowrap bold tooltip_container">
+          <?=$quote_media_list[$i]['sname']?>
+          <span class="tooltip">
+            <?=$quote_media_list[$i]['name_en']?><br>
+            <?=$quote_media_list[$i]['name_fr']?>
+          </span>
+        </td>
+
+        <td class="align_center nowrap">
+          <?php if($quote_media_list[$i]['year']): ?>
+          <?=$quote_media_list[$i]['year']?>
+          <?php endif; ?>
+        </td>
+
+        <td class="align_center nowrap">
+          <?php if($quote_media_list[$i]['quotes']): ?>
+          <?=$quote_media_list[$i]['quotes']?>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
+        </td>
+
+        <td class="align_center nowrap admin_action_icons">
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_media_edit?quote_media_id='.$quote_media_list[$i]['id'], path: $path)?>
+          <?php if($quote_media_list[$i]['quotes']): ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_media_delete_quotes')."')", path: $path)?>
+          <?php elseif($quote_media_list[$i]['authors']): ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_media_delete_authors')."')", path: $path)?>
+          <?php else: ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_media_delete('".$quote_media_list[$i]['id']."','".__('admin_quotes_media_delete_confirm')."')", path: $path)?>
+          <?php endif; ?>
+        </td>
+
+      </tr>
+
+      <?php endfor; ?>
+
+      <?php if(!page_is_fetched_dynamically()): ?>
+
+    </tbody>
+  </table>
 
 </div>
 

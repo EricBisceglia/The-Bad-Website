@@ -607,8 +607,18 @@ ___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer 
 
 
 // Quote media
-___('admin_quotes_media_title', 'EN', "Quote media");
-___('admin_quotes_media_title', 'FR', "Médias de citations");
+___('admin_quotes_media_title',   'EN', "Quote media");
+___('admin_quotes_media_title',   'FR', "Médias de citations");
+___('admin_quotes_media_name',    'EN', "Name");
+___('admin_quotes_media_name',    'FR', "Nom");
+___('admin_quotes_media_year',    'EN', "Published");
+___('admin_quotes_media_year',    'FR', "Publié");
+___('admin_quotes_media_quotes',  'EN', "Quotes");
+___('admin_quotes_media_quotes',  'FR', "Citations");
+___('admin_quotes_media_count',   'EN', "{{1}} media");
+___('admin_quotes_media_count',   'FR', "{{1}} média");
+___('admin_quotes_media_count+',  'EN', "{{1}} media");
+___('admin_quotes_media_count+',  'FR', "{{1}} médias");
 
 
 // Quote media: Add
