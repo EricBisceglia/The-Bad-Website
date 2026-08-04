@@ -74,6 +74,21 @@ if(isset($_POST['quote_media_edit']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete a media
+
+if(isset($_POST['admin_quotes_media_delete']))
+{
+  // Fetch the media's ID
+  $admin_media_id = (int)form_fetch_element('admin_quotes_media_delete');
+
+  // Delete the quote media
+  quote_media_delete( $admin_media_id );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch quote media
 
 $quote_media_list = quote_media_list();
@@ -154,8 +169,6 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_media_edit?quote_media_id='.$quote_media_list[$i]['id'], path: $path)?>
           <?php if($quote_media_list[$i]['quotes']): ?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_media_delete_quotes')."')", path: $path)?>
-          <?php elseif($quote_media_list[$i]['authors']): ?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_media_delete_authors')."')", path: $path)?>
           <?php else: ?>
           <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_media_delete('".$quote_media_list[$i]['id']."','".__('admin_quotes_media_delete_confirm')."')", path: $path)?>
           <?php endif; ?>

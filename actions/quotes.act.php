@@ -18,6 +18,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_media_list            Fetches quote media.                                                                 */
 /*  quote_media_add             Adds a quote media to the database.                                                  */
 /*  quote_media_edit            Edits a quote media.                                                                 */
+/*  quote_media_delete          Deletes a quote media.                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -256,7 +257,7 @@ function quote_authors_delete( int $author_id ) : bool
 
   // Delete the quote author
   query(" DELETE FROM quote_authors
-          WHERE quote_authors.id = '$author_id' ");
+          WHERE       quote_authors.id = '$author_id' ");
 
   // The author has been deleted
   return true;
@@ -459,4 +460,42 @@ function quote_media_edit(  int   $media_id  ,
                   quote_media.source_fr       = '$source_fr'  ,
                   quote_media.year_published  = '$year'
           WHERE   quote_media.id              = '$media_id' ");
+}
+
+
+
+
+/**
+ * Deletes a quote media.
+ *
+ * @param   int    $media_id  The ID of the quote media to delete.
+ *
+ * @return  bool              Whether the quote media was deleted successfully.
+ */
+
+function quote_media_delete( int $media_id ) : bool
+{
+  // Sanitize the data
+  $media_id = sanitize($media_id, 'int');
+
+  // Check whether the media is linked to any quotes
+  $quotes = query(" SELECT COUNT(DISTINCT quotes.id) AS 'q_id'
+                    FROM   quotes
+                    WHERE  quotes.fk_quote_media = '$media_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still quotes linked to the media
+  if($quotes['q_id'] > 0)
+    return false;
+
+  // Delete any links between the media and authors
+  query(" DELETE FROM quote_media_authors
+          WHERE       quote_media_authors.fk_quote_media = '$media_id' ");
+
+  // Delete the quote media
+  query(" DELETE FROM quote_media
+          WHERE       quote_media.id = '$media_id' ");
+
+  // The media has been deleted
+  return true;
 }

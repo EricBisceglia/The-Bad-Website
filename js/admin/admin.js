@@ -17,6 +17,7 @@
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
+/*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
 /*                                                                                                                   */
 /*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
 /*                                                                                                                   */
@@ -307,8 +308,8 @@ function admin_tags_delete(  id      ,
  * @param   {string}  message   The message to display before deleting the quote author.
  */
 
-function admin_quotes_authors_delete(  id      ,
-                                       message )
+function admin_quotes_authors_delete( id      ,
+                                      message )
 {
   // Assemble the postdata
   postdata = 'admin_quotes_authors_delete=' + fetch_sanitize(id);
@@ -316,6 +317,27 @@ function admin_quotes_authors_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('quotes_authors', 'admin_quotes_authors_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote media.
+ *
+ * @param   {int}     id        The id of the quote media to delete.
+ * @param   {string}  message   The message to display before deleting the quote media.
+ */
+
+function admin_quotes_media_delete( id      ,
+                                    message )
+{
+  // Assemble the postdata
+  postdata = 'admin_quotes_media_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_media', 'admin_quotes_media_tbody', postdata);
 }
 
 

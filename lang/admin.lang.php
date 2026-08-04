@@ -646,3 +646,10 @@ ___('admin_quotes_media_edit_title',   'EN', "Edit a media");
 ___('admin_quotes_media_edit_title',   'FR', "Modifier un média");
 ___('admin_quotes_media_edit_submit',  'EN', "Edit media");
 ___('admin_quotes_media_edit_submit',  'FR', "Modifier le média");
+
+
+// Quote media: Delete
+___('admin_quotes_media_delete_confirm',  'EN', "Confirm the permanent deletion of this media");
+___('admin_quotes_media_delete_confirm',  'FR', "Confirmer la suppression définitive de ce média");
+___('admin_quotes_media_delete_quotes',   'EN', "You cannot delete a media as long as it has quotes attached to it");
+___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un média tant qu'il est lié à des citations");
