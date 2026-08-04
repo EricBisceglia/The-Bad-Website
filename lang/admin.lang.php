@@ -604,3 +604,28 @@ ___('admin_quotes_authors_delete_quotes',   'EN', "You cannot delete an author a
 ___('admin_quotes_authors_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des citations");
 ___('admin_quotes_authors_delete_media',    'EN', "You cannot delete an author as long as they have media attached to them");
 ___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des médias");
+
+
+// Quote media
+___('admin_quotes_media_title', 'EN', "Quote media");
+___('admin_quotes_media_title', 'FR', "Médias de citations");
+
+
+// Quote media: Add
+___('admin_quotes_media_add_title',     'EN', "Add a media");
+___('admin_quotes_media_add_title',     'FR', "Ajouter un média");
+___('admin_quotes_media_add_name_en',   'EN', "English name");
+___('admin_quotes_media_add_name_en',   'FR', "Nom anglais");
+___('admin_quotes_media_add_name_fr',   'EN', "French name");
+___('admin_quotes_media_add_name_fr',   'FR', "Nom français");
+___('admin_quotes_media_add_desc_en',   'EN', "English description");
+___('admin_quotes_media_add_desc_en',   'FR', "Description anglaise");
+___('admin_quotes_media_add_desc_fr',   'EN', "French description");
+___('admin_quotes_media_add_desc_fr',   'FR', "Description française");
+___('admin_quotes_media_add_source_en', 'EN', "English link");
+___('admin_quotes_media_add_source_en', 'FR', "Lien anglais");
+___('admin_quotes_media_add_source_fr', 'EN', "French link");
+___('admin_quotes_media_add_source_fr', 'FR', "Lien français");
+___('admin_quotes_media_add_year',      'EN', "Year published");
+___('admin_quotes_media_add_year',      'FR', "Année de publication");
+___('admin_quotes_media_add_submit',    'EN', "Add media");

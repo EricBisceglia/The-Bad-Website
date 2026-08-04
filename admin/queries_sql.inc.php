@@ -834,7 +834,6 @@ if($last_query < 16)
 {
   sql_create_table('quote_authors');
   sql_create_table('quote_media');
-  sql_create_table('quote_media_types');
   sql_create_table('quote_media_authors');
   sql_create_table('quotes');
   sql_create_table('quote_tags');
@@ -848,8 +847,7 @@ if($last_query < 16)
   sql_create_field('quote_authors', 'description_en', 'TEXT NOT NULL', 'year_death');
   sql_create_field('quote_authors', 'description_fr', 'TEXT NOT NULL', 'description_en');
 
-  sql_create_field('quote_media', 'fk_quote_media_types', 'INT UNSIGNED NOT NULL', 'id');
-  sql_create_field('quote_media', 'slug', 'TINYTEXT NOT NULL', 'fk_quote_media_types');
+  sql_create_field('quote_media', 'slug', 'TINYTEXT NOT NULL', 'id');
   sql_create_field('quote_media', 'name_en', 'TINYTEXT NOT NULL', 'slug');
   sql_create_field('quote_media', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
   sql_create_field('quote_media', 'year_published', 'SMALLINT UNSIGNED NOT NULL', 'name_fr');
@@ -857,14 +855,7 @@ if($last_query < 16)
   sql_create_field('quote_media', 'source_fr', 'TINYTEXT NOT NULL', 'source_en');
   sql_create_field('quote_media', 'description_en', 'TEXT NOT NULL', 'source_fr');
   sql_create_field('quote_media', 'description_fr', 'TEXT NOT NULL', 'description_en');
-  sql_create_index('quote_media', 'quote_media_media_type', 'fk_quote_media_types');
   sql_create_index('quote_media', 'quote_media_year_published', 'year_published');
-
-  sql_create_field('quote_media_types', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
-  sql_create_field('quote_media_types', 'slug', 'TINYTEXT NOT NULL', 'sorting_order');
-  sql_create_field('quote_media_types', 'name_en', 'TINYTEXT NOT NULL', 'slug');
-  sql_create_field('quote_media_types', 'name_fr', 'TINYTEXT NOT NULL', 'name_en');
-  sql_create_index('quote_media_types', 'quote_media_types_sorting_order', 'sorting_order');
 
   sql_create_field('quote_media_authors', 'fk_quote_media', 'INT UNSIGNED NOT NULL', 'id');
   sql_create_field('quote_media_authors', 'fk_quote_authors', 'INT UNSIGNED NOT NULL', 'fk_quote_media');

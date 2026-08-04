@@ -14,6 +14,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_authors_edit          Edits a quote author.                                                                */
 /*  quote_authors_delete        Deletes a quote author.                                                              */
 /*                                                                                                                   */
+/*  quote_media_add             Adds a quote media to the database.                                                  */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -256,4 +258,43 @@ function quote_authors_delete( int $author_id ) : bool
 
   // The author has been deleted
   return true;
+}
+
+
+
+
+/**
+ * Adds a quote media to the database.
+ *
+ * @param   array  $data  An array containing data on the quote media.
+ *
+ * @return  int           The ID of the added quote media.
+ */
+
+function quote_media_add( array $data ) : int
+{
+  // Sanitize the data
+  $name_en    = sanitize_array_element($data, 'name_en', 'string');
+  $name_fr    = sanitize_array_element($data, 'name_fr', 'string');
+  $desc_en    = sanitize_array_element($data, 'desc_en', 'string');
+  $desc_fr    = sanitize_array_element($data, 'desc_fr', 'string');
+  $source_en  = sanitize_array_element($data, 'source_en', 'string');
+  $source_fr  = sanitize_array_element($data, 'source_fr', 'string');
+  $year       = sanitize_array_element($data, 'year', 'int');
+
+  // Add the quote media to the database
+  query(" INSERT INTO quote_media
+          SET         quote_media.name_en         = '$name_en'    ,
+                      quote_media.name_fr         = '$name_fr'    ,
+                      quote_media.description_en  = '$desc_en'    ,
+                      quote_media.description_fr  = '$desc_fr'    ,
+                      quote_media.source_en       = '$source_en'  ,
+                      quote_media.source_fr       = '$source_fr'  ,
+                      quote_media.year_published  = '$year'       ");
+
+  // Fetch the newly created quote media's ID
+  $quote_media_id = query_id();
+
+  // Return the quote media's ID
+  return $quote_media_id;
 }
