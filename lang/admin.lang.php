@@ -639,3 +639,10 @@ ___('admin_quotes_media_add_source_fr', 'FR', "Lien français");
 ___('admin_quotes_media_add_year',      'EN', "Year published");
 ___('admin_quotes_media_add_year',      'FR', "Année de publication");
 ___('admin_quotes_media_add_submit',    'EN', "Add media");
+
+
+// Quote media: Edit
+___('admin_quotes_media_edit_title',   'EN', "Edit a media");
+___('admin_quotes_media_edit_title',   'FR', "Modifier un média");
+___('admin_quotes_media_edit_submit',  'EN', "Edit media");
+___('admin_quotes_media_edit_submit',  'FR', "Modifier le média");

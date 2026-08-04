@@ -50,6 +50,30 @@ if(isset($_POST['quote_media_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a media
+
+if(isset($_POST['quote_media_edit']))
+{
+  // Fetch the media's ID
+  $admin_media_id = (int)form_fetch_element('quote_media_id');
+
+  // Assemble an array with the postdata
+  $quote_media_edit_data = array( 'name_en'    => form_fetch_element('quote_media_name_en')    ,
+                                  'name_fr'    => form_fetch_element('quote_media_name_fr')    ,
+                                  'desc_en'    => form_fetch_element('quote_media_desc_en')    ,
+                                  'desc_fr'    => form_fetch_element('quote_media_desc_fr')    ,
+                                  'source_en'  => form_fetch_element('quote_media_source_en')  ,
+                                  'source_fr'  => form_fetch_element('quote_media_source_fr')  ,
+                                  'year'       => form_fetch_element('quote_media_year')       );
+
+  // Edit the quote media
+  quote_media_edit( $admin_media_id, $quote_media_edit_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch quote media
 
 $quote_media_list = quote_media_list();
