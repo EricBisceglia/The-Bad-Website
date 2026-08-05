@@ -127,7 +127,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="5" class="uppercase text_light dark bold align_center">
+        <td colspan="4" class="uppercase text_light dark bold align_center">
           <?=__('admin_quotes_tags_count', preset_values: array($quote_tags['rows']), amount: $quote_tags['rows'])?>
         </td>
       </tr>

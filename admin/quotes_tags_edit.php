@@ -29,12 +29,12 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch author data
+// Fetch tag data
 
-// Fetch the author's ID
+// Fetch the tag's ID
 $admin_tag_id = (int)form_fetch_element('quote_tag_id', request_type: 'GET');
 
-// Fetch the author data
+// Fetch the tag data
 $admin_tag_data = quote_tags_get($admin_tag_id);
 
 // Stop here if the tag does not exist

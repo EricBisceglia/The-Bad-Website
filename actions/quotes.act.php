@@ -38,7 +38,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
  * @return  array              An array containing data on the quote author.
  */
 
-function quotes_authors_get( int $author_id ) : ?array
+function quote_authors_get( int $author_id ) : ?array
 {
   // Sanitize the data
   $author_id = sanitize($author_id, 'int');
@@ -172,7 +172,7 @@ function quote_authors_list() : array
   $data['rows'] = $i;
 
   // Return the prepared data
-  return $data;
+  return ($data ?? []);
 }
 
 
@@ -259,6 +259,12 @@ function quote_authors_edit(  int   $author_id  ,
   // Generate a new slug for the quote author
   $slug = str_replace(' ', '_', string_truncate($name_en, 100));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quote_authors', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
 
   // Edit the quote author
   query(" UPDATE  quote_authors
@@ -471,7 +477,7 @@ function quote_media_list() : array
   $data['rows'] = $i;
 
   // Return the prepared data
-  return $data;
+  return ($data ?? []);
 }
 
 
@@ -561,6 +567,12 @@ function quote_media_edit(  int   $media_id  ,
   // Generate a new slug for the quote media
   $slug = str_replace(' ', '_', string_truncate($name_en, 100));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quote_media', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
 
   // Edit the quote media
   query(" UPDATE  quote_media
@@ -842,6 +854,12 @@ function quote_tags_edit( int   $tag_id ,
   // Generate a new slug for the quote tag
   $slug = str_replace(' ', '_', string_truncate($name_en, 100));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quote_tags', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
 
   // Edit the quote tag
   query(" UPDATE  quote_tags

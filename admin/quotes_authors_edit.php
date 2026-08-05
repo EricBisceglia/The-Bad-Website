@@ -35,7 +35,7 @@ $js   = array('admin/admin');
 $admin_author_id = (int)form_fetch_element('quote_author_id', request_type: 'GET');
 
 // Fetch the author data
-$admin_author_data = quotes_authors_get($admin_author_id);
+$admin_author_data = quote_authors_get($admin_author_id);
 
 // Stop here if the author does not exist
 if(!$admin_author_data)
