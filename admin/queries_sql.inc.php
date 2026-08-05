@@ -52,6 +52,7 @@ if(!$settings_exists)
 /*  sql_delete_field          Deletes an existing field in an existing table.                                        */
 /*                                                                                                                   */
 /*  sql_create_index          Creates an index in an existing table.                                                 */
+/*  sql_create_unique_index   Creates a unique index in an existing table.                                           */
 /*  sql_delete_index          Deletes an existing index in an existing table.                                        */
 /*                                                                                                                   */
 /*  sql_insert_value          Inserts a value in an existing table.                                                  */
@@ -442,6 +443,44 @@ function sql_create_index(  string  $table_name           ,
     $query_fulltext = ($fulltext) ? ' FULLTEXT ' : '';
     query(" ALTER TABLE ".$table_name."
             ADD ".$query_fulltext." INDEX ".$index_name." (".$field_names."); ");
+    query(" CHECK TABLE ".$table_name." ");
+  }
+}
+
+
+
+
+
+/**
+ * Creates a unique index in an existing table.
+ *
+ * @param   string  $table_name   The name of the existing table.
+ * @param   string  $index_name   The name of the index that will be created.
+ * @param   string  $field_names  One or more fields to be indexed (eg. "my_field, other_field").
+ *
+ * @return  void
+ */
+
+function sql_create_unique_index( string  $table_name   ,
+                                  string  $index_name   ,
+                                  string  $field_names  ) : void
+{
+  // Proceed only if the table exists
+  $query_ok   = 0;
+  $qtablelist = query(" SHOW TABLES ");
+  while($dtablelist = query_row($qtablelist, 'both'))
+    $query_ok = ($dtablelist[0] === $table_name) ? 1 : $query_ok;
+  if(!$query_ok)
+    return;
+
+  // Check whether the index already exists
+  $qindex = query(" SHOW INDEX FROM ".$table_name." WHERE key_name LIKE '".$index_name."' ");
+
+  // Create the unique index if it doesn't exist yet, and run a check to populate the table's indexes
+  if(!query_row_count($qindex))
+  {
+    query(" ALTER TABLE ".$table_name."
+            ADD UNIQUE INDEX ".$index_name." (".$field_names."); ");
     query(" CHECK TABLE ".$table_name." ");
   }
 }
@@ -891,4 +930,19 @@ if($last_query < 16)
   sql_create_index('quote_tag_links', 'quote_tag_links_fk_quotes', 'fk_quotes');
 
   sql_update_query_id(16);
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add unique indexes to prevent duplicates
+
+if($last_query < 17)
+{
+  sql_create_unique_index('comic_tags', 'comic_tags_unique_comic_tag', 'fk_tags, fk_comics');
+  sql_create_unique_index('quote_tag_links', 'quote_tag_links_unique_quote_tag', 'fk_quote_tags, fk_quotes');
+  sql_create_unique_index('quote_media_authors', 'quote_media_authors_unique_media_author', 'fk_quote_media, fk_quote_authors');
+
+  sql_update_query_id(17);
 }

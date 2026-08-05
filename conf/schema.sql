@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `comic_tags` (
   `fk_tags` int UNSIGNED NOT NULL,
   `fk_comics` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `comic_tags_unique_comic_tag` (`fk_tags`,`fk_comics`),
   KEY `comic_tags_tags` (`fk_tags`),
   KEY `comic_tags_comics` (`fk_comics`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -215,9 +216,7 @@ CREATE TABLE IF NOT EXISTS `quote_authors` (
 DROP TABLE IF EXISTS `quote_media`;
 CREATE TABLE IF NOT EXISTS `quote_media` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `fk_quote_media_types` int UNSIGNED NOT NULL,
   `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `media_type` tinyint NOT NULL,
   `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `year_published` smallint UNSIGNED NOT NULL,
@@ -226,7 +225,6 @@ CREATE TABLE IF NOT EXISTS `quote_media` (
   `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `quote_media_media_type` (`media_type`),
   KEY `quote_media_year_published` (`year_published`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -242,25 +240,9 @@ CREATE TABLE IF NOT EXISTS `quote_media_authors` (
   `fk_quote_media` int UNSIGNED NOT NULL,
   `fk_quote_authors` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `quote_media_authors_unique_media_author` (`fk_quote_media`,`fk_quote_authors`),
   KEY `quote_media_authors_fk_quote_media` (`fk_quote_media`),
   KEY `quote_media_authors_fk_quote_authors` (`fk_quote_authors`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quote_media_types`
---
-
-DROP TABLE IF EXISTS `quote_media_types`;
-CREATE TABLE IF NOT EXISTS `quote_media_types` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `sorting_order` int UNSIGNED NOT NULL,
-  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `quote_media_types_sorting_order` (`sorting_order`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -292,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `quote_tag_links` (
   `fk_quote_tags` int UNSIGNED NOT NULL,
   `fk_quotes` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `quote_tag_links_unique_quote_tag` (`fk_quote_tags`,`fk_quotes`),
   KEY `quote_tag_links_fk_quote_tags` (`fk_quote_tags`),
   KEY `quote_tag_links_fk_quotes` (`fk_quotes`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
