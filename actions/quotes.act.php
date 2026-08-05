@@ -22,6 +22,8 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_media_edit_authors    Updates the authors attached to a quote media.                                       */
 /*  quote_media_delete          Deletes a quote media.                                                               */
 /*                                                                                                                   */
+/*  quote_tags_add              Adds a quote tag to the database.                                                    */
+/*                                                                                                                   */
 /*********************************************************************************************************************/
 
 /**
@@ -672,4 +674,46 @@ function quote_media_delete( int $media_id ) : bool
 
   // The media has been deleted
   return true;
+}
+
+
+
+
+/**
+ * Adds a quote tag to the database.
+ *
+ * @param   array  $data  An array containing data on the quote tag.
+ *
+ * @return  int           The ID of the added quote tag.
+ */
+
+function quote_tags_add( array $data ) : int
+{
+  // Sanitize the data
+  $sort     = sanitize_array_element($data, 'sort', 'int');
+  $name_en  = sanitize_array_element($data, 'name_en', 'string');
+  $name_fr  = sanitize_array_element($data, 'name_fr', 'string');
+
+  // Generate a slug for the quote tag
+  $slug = str_replace(' ', '_', string_truncate($name_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quote_tags', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
+  // Add the quote tag to the database
+  query(" INSERT INTO quote_tags
+          SET         quote_tags.slug           = '$slug'       ,
+                      quote_tags.sorting_order  = '$sort'       ,
+                      quote_tags.name_en        = '$name_en'    ,
+                      quote_tags.name_fr        = '$name_fr'    ");
+
+  // Fetch the newly created quote tag's ID
+  $quote_tag_id = query_id();
+
+  // Return the quote tag's ID
+  return $quote_tag_id;
 }

@@ -660,3 +660,21 @@ ___('admin_quotes_media_delete_confirm',  'EN', "Confirm the permanent deletion 
 ___('admin_quotes_media_delete_confirm',  'FR', "Confirmer la suppression définitive de ce média");
 ___('admin_quotes_media_delete_quotes',   'EN', "You cannot delete a media as long as it has quotes attached to it");
 ___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un média tant qu'il est lié à des citations");
+
+
+// Quote tags
+___('admin_quotes_tags_title',   'EN', "Quote tags");
+___('admin_quotes_tags_title',   'FR', "Tags de citations");
+
+
+// Quote tags: Add
+___('admin_quotes_tags_add_title',    'EN', "Add a tag");
+___('admin_quotes_tags_add_title',    'FR', "Ajouter un tag");
+___('admin_quotes_tags_add_sort',     'EN', "Sorting order");
+___('admin_quotes_tags_add_sort',     'FR', "Ordre de tri");
+___('admin_quotes_tags_add_name_en',  'EN', "English name");
+___('admin_quotes_tags_add_name_en',  'FR', "Nom anglais");
+___('admin_quotes_tags_add_name_fr',  'EN', "French name");
+___('admin_quotes_tags_add_name_fr',  'FR', "Nom français");
+___('admin_quotes_tags_add_submit',   'EN', "Add tag");
+___('admin_quotes_tags_add_submit',   'FR', "Ajouter le tag");

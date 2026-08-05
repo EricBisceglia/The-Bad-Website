@@ -8,9 +8,9 @@ include_once './../actions/quotes.act.php'; # Admin actions
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
-$page_url       = "admin/quotes";
-$page_title_en  = "Admin - Quotes";
-$page_title_fr  = "Admin - Citations";
+$page_url       = "admin/quotes_tags_add";
+$page_title_en  = "Admin - Quote tags";
+$page_title_fr  = "Admin - Tags de citations";
 
 // Admin menu selection
 $admin_menu['quotes'] = 1;
@@ -30,21 +30,32 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_50 padding_top">
 
-  <h2 class="align_center padding_bot">
-    <?=__link('admin/quotes', __('admin_quotes_title'), 'text_light', path: $path)?>
+  <h2 class="padding_bot">
+    <?=__link('admin/quotes_tags', __('admin_quotes_tags_add_title'), 'text_light', path: $path)?>
   </h2>
 
-  <h5 class="align_center bold">
-    <?=__link('admin/quotes_authors', __('admin_quotes_authors_title'), 'text_light', path: $path)?>
-  </h5>
+  <form action="quotes_tags" method="POST">
+    <fieldset>
 
-  <h5 class="align_center bold">
-    <?=__link('admin/quotes_media', __('admin_quotes_media_title'), 'text_light', path: $path)?>
-  </h5>
+      <div class="smallpadding_bot">
+        <label for="quote_tags_sort"><?=__('admin_quotes_tags_add_sort')?></label>
+        <input class="indiv" type="text" name="quote_tags_sort" id="quote_tags_sort">
+      </div>
 
-  <h5 class="align_center bold">
-    <?=__link('admin/quotes_tags', __('admin_quotes_tags_title'), 'text_light', path: $path)?>
-  </h5>
+      <div class="smallpadding_bot">
+        <label for="quote_tags_name_en"><?=__('admin_quotes_tags_add_name_en')?></label>
+        <input class="indiv" type="text" name="quote_tags_name_en" id="quote_tags_name_en">
+      </div>
+
+      <div class="padding_bot">
+        <label for="quote_tags_name_fr"><?=__('admin_quotes_tags_add_name_fr')?></label>
+        <input class="indiv" type="text" name="quote_tags_name_fr" id="quote_tags_name_fr">
+      </div>
+
+      <input type="submit" name="quote_tags_add" value="<?=__('admin_quotes_tags_add_submit')?>">
+
+    </fieldset>
+  </form>
 
 </div>
 
