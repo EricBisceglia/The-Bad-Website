@@ -19,6 +19,7 @@
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
 /*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
 /*  admin_quotes_media_authors_update       Keeps an author dropdown at the bottom of the quote media edit form.     */
+/*  admin_quotes_tags_delete                Triggers the deletion of a quote tag.                                    */
 /*                                                                                                                   */
 /*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
 /*                                                                                                                   */
@@ -381,6 +382,27 @@ function admin_quotes_media_authors_update()
     wrapper.appendChild(newDropdown);
     container.appendChild(wrapper);
   }
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote tag.
+ *
+ * @param   {int}     id        The id of the quote tag to delete.
+ * @param   {string}  message   The message to display before deleting the quote tag.
+ */
+
+function admin_quotes_tags_delete(  id      ,
+                                    message )
+{
+  // Assemble the postdata
+  postdata = 'quote_tag_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_tags', 'admin_quotes_tags_tbody', postdata);
 }
 
 

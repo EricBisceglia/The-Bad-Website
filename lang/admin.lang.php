@@ -603,9 +603,9 @@ ___('admin_quotes_authors_edit_submit',  'FR', "Modifier l'auteur");
 ___('admin_quotes_authors_delete_confirm',  'EN', "Confirm the permanent deletion of this author");
 ___('admin_quotes_authors_delete_confirm',  'FR', "Confirmer la suppression définitive de cet auteur");
 ___('admin_quotes_authors_delete_quotes',   'EN', "You cannot delete an author as long as they have quotes attached to them");
-___('admin_quotes_authors_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des citations");
+___('admin_quotes_authors_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des citations");
 ___('admin_quotes_authors_delete_media',    'EN', "You cannot delete an author as long as they have media attached to them");
-___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer un auteur tant qu'il est lié à des médias");
+___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des médias");
 
 
 // Quote media
@@ -659,7 +659,7 @@ ___('admin_quotes_media_edit_submit', 'FR', "Modifier le média");
 ___('admin_quotes_media_delete_confirm',  'EN', "Confirm the permanent deletion of this media");
 ___('admin_quotes_media_delete_confirm',  'FR', "Confirmer la suppression définitive de ce média");
 ___('admin_quotes_media_delete_quotes',   'EN', "You cannot delete a media as long as it has quotes attached to it");
-___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un média tant qu'il est lié à des citations");
+___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un média tant qu\'il est lié à des citations");
 
 
 // Quote tags
@@ -695,3 +695,10 @@ ___('admin_quotes_tags_edit_title',   'EN', "Edit a tag");
 ___('admin_quotes_tags_edit_title',   'FR', "Modifier un tag");
 ___('admin_quotes_tags_edit_submit',  'EN', "Edit tag");
 ___('admin_quotes_tags_edit_submit',  'FR', "Modifier le tag");
+
+
+// Quote tags: Delete
+___('admin_quotes_tags_delete_confirm',  'EN', "Confirm the permanent deletion of this tag");
+___('admin_quotes_tags_delete_confirm',  'FR', "Confirmer la suppression définitive de ce tag");
+___('admin_quotes_tags_delete_quotes',   'EN', "You cannot delete a tag as long as it has quotes attached to it");
+___('admin_quotes_tags_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un tag tant qu\'il est lié à des citations");

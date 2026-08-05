@@ -26,6 +26,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_tags_list             Fetches quote tags.                                                                  */
 /*  quote_tags_add              Adds a quote tag to the database.                                                    */
 /*  quote_tags_edit             Edits a quote tag.                                                                   */
+/*  quote_tags_delete           Deletes a quote tag.                                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -849,4 +850,38 @@ function quote_tags_edit( int   $tag_id ,
                   quote_tags.name_en        = '$name_en'    ,
                   quote_tags.name_fr        = '$name_fr'
           WHERE   quote_tags.id             = '$tag_id' ");
+}
+
+
+
+
+/**
+ * Deletes a quote tag.
+ *
+ * @param   int    $tag_id  The ID of the quote tag to delete.
+ *
+ * @return  bool            Whether the quote tag was deleted successfully.
+ */
+
+function quote_tags_delete( int $tag_id ) : bool
+{
+  // Sanitize the data
+  $tag_id = sanitize($tag_id, 'int');
+
+  // Check whether the tag is linked to any quotes
+  $quotes = query(" SELECT COUNT(DISTINCT quote_tag_links.id) AS 'ql_id'
+                    FROM   quote_tag_links
+                    WHERE  quote_tag_links.fk_quote_tags = '$tag_id' ",
+                    fetch_row: true);
+
+  // Return false if there are still quotes linked to the tag
+  if($quotes['ql_id'] > 0)
+    return false;
+
+  // Delete the quote tag
+  query(" DELETE FROM quote_tags
+          WHERE       quote_tags.id = '$tag_id' ");
+
+  // The tag has been deleted
+  return true;
 }

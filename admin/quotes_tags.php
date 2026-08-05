@@ -67,6 +67,21 @@ if(isset($_POST['quote_tag_edit']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete a quote tag
+
+if(isset($_POST['quote_tag_delete']))
+{
+  // Fetch the quote tag's ID
+  $quote_tag_id = (int)form_fetch_element('quote_tag_delete');
+
+  // Delete the quote tag from the database
+  quote_tags_delete( $quote_tag_id );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the tags
 
 $quote_tags = quote_tags_list();
@@ -80,7 +95,7 @@ $quote_tags = quote_tags_list();
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_40 padding_top">
+<div class="width_30 padding_top">
 
   <h2 class="align_center padding_bot">
     <?=__link('admin/quotes', __('admin_quotes_tags_title'), 'text_light', path: $path)?>
@@ -92,13 +107,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <tr class="uppercase">
         <th class="align_center">
-          <?=__('admin_quotes_tags_sort')?>
-        </th>
-        <th class="align_center">
           <?=__('admin_quotes_tags_name')?>
         </th>
         <th class="align_center">
           <?=__('admin_quotes_tags_quotes')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_quotes_tags_sort')?>
         </th>
         <th>
           <?=__('act')?>
@@ -121,11 +136,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <tr>
 
-        <td class="align_center bold nowrap">
-          <?=$quote_tags[$i]['sort']?>
-        </td>
-
-        <td class="align_center nowrap bold tooltip_container">
+        <td class="align_left nowrap bold tooltip_container">
           <?=$quote_tags[$i]['sname']?>
           <span class="tooltip">
             <?=$quote_tags[$i]['name_en']?><br>
@@ -139,6 +150,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php else: ?>
           &nbsp;
           <?php endif; ?>
+        </td>
+
+        <td class="align_center bold nowrap">
+          <?=$quote_tags[$i]['sort']?>
         </td>
 
         <td class="align_center nowrap admin_action_icons">
