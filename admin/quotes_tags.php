@@ -46,6 +46,27 @@ if(isset($_POST['quote_tags_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a quote tag
+
+if(isset($_POST['quote_tag_edit']))
+{
+  // Fetch the quote tag's ID
+  $quote_tag_id = (int)form_fetch_element('quote_tag_id');
+
+  // Assemble an array with the postdata
+  $quote_tag_edit_data = array( 'id'      => form_fetch_element('quote_tag_id')       ,
+                                'sort'    => form_fetch_element('quote_tag_sort')     ,
+                                'name_en' => form_fetch_element('quote_tag_name_en')  ,
+                                'name_fr' => form_fetch_element('quote_tag_name_fr')  );
+
+  // Edit the quote tag in the database
+  quote_tags_edit( $quote_tag_id, $quote_tag_edit_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the tags
 
 $quote_tags = quote_tags_list();

@@ -22,8 +22,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_media_edit_authors    Updates the authors attached to a quote media.                                       */
 /*  quote_media_delete          Deletes a quote media.                                                               */
 /*                                                                                                                   */
+/*  quote_tags_get              Fetches a quote tag.                                                                 */
 /*  quote_tags_list             Fetches quote tags.                                                                  */
 /*  quote_tags_add              Adds a quote tag to the database.                                                    */
+/*  quote_tags_edit             Edits a quote tag.                                                                   */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
@@ -681,6 +683,46 @@ function quote_media_delete( int $media_id ) : bool
 
 
 /**
+ * Fetches a quote tag.
+ *
+ * @param   int    $tag_id  The ID of the quote tag.
+ *
+ * @return  array           An array containing data on the quote tag.
+ */
+
+function quote_tags_get( int $tag_id ) : ?array
+{
+  // Sanitize the data
+  $tag_id = sanitize($tag_id, 'int');
+
+  // Stop here if the tag does not exist
+  if(!$tag_id || !database_row_exists('quote_tags', $tag_id))
+    return null;
+
+  // Fetch the tag's data
+  $tag = query("  SELECT  quote_tags.slug           AS 'qt_slug'      ,
+                          quote_tags.sorting_order  AS 'qt_sort'      ,
+                          quote_tags.name_en        AS 'qt_name_en'   ,
+                          quote_tags.name_fr        AS 'qt_name_fr'
+                  FROM    quote_tags
+                  WHERE   quote_tags.id = '$tag_id' ",
+                  fetch_row: true);
+
+  // Prepare the data for display
+  $data['id']       = sanitize_output($tag_id);
+  $data['slug']     = sanitize_output($tag['qt_slug']);
+  $data['sort']     = sanitize_output($tag['qt_sort']);
+  $data['name_en']  = sanitize_output($tag['qt_name_en']);
+  $data['name_fr']  = sanitize_output($tag['qt_name_fr']);
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
+
+/**
  * Fetches quote tags.
  *
  * @return  array  An array of quote tags.
@@ -764,4 +806,47 @@ function quote_tags_add( array $data ) : int
 
   // Return the quote tag's ID
   return $quote_tag_id;
+}
+
+
+
+
+/**
+ * Edits a quote tag.
+ *
+ * @param   int    $tag_id  The ID of the quote tag to edit.
+ * @param   array  $data    An array containing data on the quote tag.
+ *
+ * @return  void
+ */
+
+function quote_tags_edit( int   $tag_id ,
+                          array $data   ) : void
+{
+  // Sanitize the data
+  $tag_id    = sanitize($tag_id, 'int');
+  $sort      = sanitize_array_element($data, 'sort', 'int');
+  $name_en   = sanitize_array_element($data, 'name_en', 'string');
+  $name_fr   = sanitize_array_element($data, 'name_fr', 'string');
+
+  // Stop here if the tag does not exist
+  if(!$tag_id || !database_row_exists('quote_tags', $tag_id))
+    return;
+
+  // Get rid of the old slug
+  query ("  UPDATE  quote_tags
+            SET     quote_tags.slug = ''
+            WHERE   quote_tags.id   = '$tag_id' ");
+
+  // Generate a new slug for the quote tag
+  $slug = str_replace(' ', '_', string_truncate($name_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Edit the quote tag
+  query(" UPDATE  quote_tags
+          SET     quote_tags.slug           = '$slug'       ,
+                  quote_tags.sorting_order  = '$sort'       ,
+                  quote_tags.name_en        = '$name_en'    ,
+                  quote_tags.name_fr        = '$name_fr'
+          WHERE   quote_tags.id             = '$tag_id' ");
 }

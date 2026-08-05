@@ -688,3 +688,10 @@ ___('admin_quotes_tags_add_name_fr',  'EN', "French name");
 ___('admin_quotes_tags_add_name_fr',  'FR', "Nom français");
 ___('admin_quotes_tags_add_submit',   'EN', "Add tag");
 ___('admin_quotes_tags_add_submit',   'FR', "Ajouter le tag");
+
+
+// Quote tags: Edit
+___('admin_quotes_tags_edit_title',   'EN', "Edit a tag");
+___('admin_quotes_tags_edit_title',   'FR', "Modifier un tag");
+___('admin_quotes_tags_edit_submit',  'EN', "Edit tag");
+___('admin_quotes_tags_edit_submit',  'FR', "Modifier le tag");
