@@ -643,6 +643,7 @@ ___('admin_quotes_media_add_source_fr', 'FR', "Lien français");
 ___('admin_quotes_media_add_year',      'EN', "Year published");
 ___('admin_quotes_media_add_year',      'FR', "Année de publication");
 ___('admin_quotes_media_add_submit',    'EN', "Add media");
+___('admin_quotes_media_add_submit',    'FR', "Ajouter le média");
 
 
 // Quote media: Edit

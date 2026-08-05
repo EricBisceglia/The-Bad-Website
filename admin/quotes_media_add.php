@@ -24,6 +24,20 @@ $js   = array('admin/admin');
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*                                                     BACK END                                                      */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch quote authors
+
+$admin_quote_authors = quote_authors_list();
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
 /*                                                     FRONT END                                                     */
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
@@ -79,9 +93,28 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         </div>
       </div>
 
-      <div class="tinypadding_top padding_bot">
+      <div class="smallpadding_bot">
         <label for="quote_media_year"><?=__('admin_quotes_media_add_year')?></label>
         <input class="indiv" type="text" name="quote_media_year" id="quote_media_year">
+      </div>
+
+      <div class="smallpadding_bot">
+        <label for="quote_media_authors">
+          <?=__link('admin/quotes_authors', __('admin_quotes_media_add_authors'), path: $path, popup: true)?>
+        </label>
+
+        <div id="quote_media_authors">
+          <div class="smallpadding_bot quote_media_author">
+            <select class="indiv align_left" name="quote_media_authors[]" onchange="admin_quotes_media_authors_update()">
+              <option value="" selected="selected"></option>
+              <?php for($i = 0; $i < $admin_quote_authors['rows']; $i++): ?>
+              <option value="<?=$admin_quote_authors[$i]['id']?>"><?=$admin_quote_authors[$i]['name']?></option>
+              <?php endfor; ?>
+
+            </select>
+          </div>
+
+        </div>
       </div>
 
       <input type="submit" name="quote_media_add" value="<?=__('admin_quotes_media_add_submit')?>">

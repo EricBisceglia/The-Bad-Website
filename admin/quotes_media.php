@@ -44,6 +44,14 @@ if(isset($_POST['quote_media_add']))
 
   // Add the quote media to the database
   $quote_media_add = quote_media_add( $quote_media_add_data );
+
+  // Fetch the attached authors postdata
+  $quote_media_authors = $_POST['quote_media_authors'] ?? array();
+  if(!is_array($quote_media_authors))
+    $quote_media_authors = array();
+
+  // Add the quote media's authors
+  quote_media_edit_authors( $quote_media_add, $quote_media_authors );
 }
 
 
