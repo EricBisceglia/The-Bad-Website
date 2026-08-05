@@ -663,8 +663,18 @@ ___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un
 
 
 // Quote tags
-___('admin_quotes_tags_title',   'EN', "Quote tags");
-___('admin_quotes_tags_title',   'FR', "Tags de citations");
+___('admin_quotes_tags_title',  'EN', "Quote tags");
+___('admin_quotes_tags_title',  'FR', "Tags de citations");
+___('admin_quotes_tags_sort',   'EN', "Order");
+___('admin_quotes_tags_sort',   'FR', "Ordre");
+___('admin_quotes_tags_name',   'EN', "Name");
+___('admin_quotes_tags_name',   'FR', "Nom");
+___('admin_quotes_tags_quotes', 'EN', "Quotes");
+___('admin_quotes_tags_quotes', 'FR', "Citations");
+___('admin_quotes_tags_count',  'EN', "{{1}} tag");
+___('admin_quotes_tags_count',  'FR', "{{1}} tag");
+___('admin_quotes_tags_count+', 'EN', "{{1}} tags");
+___('admin_quotes_tags_count+', 'FR', "{{1}} tags");
 
 
 // Quote tags: Add

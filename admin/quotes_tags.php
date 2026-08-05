@@ -45,6 +45,14 @@ if(isset($_POST['quote_tags_add']))
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Fetch the tags
+
+$quote_tags = quote_tags_list();
+
+
+
+
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*                                                     FRONT END                                                     */
@@ -57,6 +65,78 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__link('admin/quotes', __('admin_quotes_tags_title'), 'text_light', path: $path)?>
     <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_tags_add', path: $path)?>
   </h2>
+
+  <table>
+    <thead>
+
+      <tr class="uppercase">
+        <th class="align_center">
+          <?=__('admin_quotes_tags_sort')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_quotes_tags_name')?>
+        </th>
+        <th class="align_center">
+          <?=__('admin_quotes_tags_quotes')?>
+        </th>
+        <th>
+          <?=__('act')?>
+        </th>
+      </tr>
+
+      </thead>
+
+    <tbody class="altc2 nowrap" id="admin_quotes_tags_tbody">
+
+      <?php endif; ?>
+
+      <tr>
+        <td colspan="5" class="uppercase text_light dark bold align_center">
+          <?=__('admin_quotes_tags_count', preset_values: array($quote_tags['rows']), amount: $quote_tags['rows'])?>
+        </td>
+      </tr>
+
+      <?php for($i = 0; $i < $quote_tags['rows']; $i++): ?>
+
+      <tr>
+
+        <td class="align_center bold nowrap">
+          <?=$quote_tags[$i]['sort']?>
+        </td>
+
+        <td class="align_center nowrap bold tooltip_container">
+          <?=$quote_tags[$i]['sname']?>
+          <span class="tooltip">
+            <?=$quote_tags[$i]['name_en']?><br>
+            <?=$quote_tags[$i]['name_fr']?>
+          </span>
+        </td>
+
+        <td class="align_center bold nowrap">
+          <?php if($quote_tags[$i]['quotes']): ?>
+          <?=$quote_tags[$i]['quotes']?>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
+        </td>
+
+        <td class="align_center nowrap admin_action_icons">
+          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_tags_edit?quote_tag_id='.$quote_tags[$i]['id'], path: $path)?>
+          <?php if($quote_tags[$i]['quotes']): ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "alert('".__('admin_quotes_tags_delete_quotes')."')", path: $path)?>
+          <?php else: ?>
+          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_tags_delete('".$quote_tags[$i]['id']."','".__('admin_quotes_tags_delete_confirm')."')", path: $path)?>
+          <?php endif; ?>
+        </td>
+
+      </tr>
+
+      <?php endfor; ?>
+
+      <?php if(!page_is_fetched_dynamically()): ?>
+
+    </tbody>
+  </table>
 
 </div>
 

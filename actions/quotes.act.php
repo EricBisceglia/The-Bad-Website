@@ -22,6 +22,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_media_edit_authors    Updates the authors attached to a quote media.                                       */
 /*  quote_media_delete          Deletes a quote media.                                                               */
 /*                                                                                                                   */
+/*  quote_tags_list             Fetches quote tags.                                                                  */
 /*  quote_tags_add              Adds a quote tag to the database.                                                    */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -674,6 +675,53 @@ function quote_media_delete( int $media_id ) : bool
 
   // The media has been deleted
   return true;
+}
+
+
+
+
+/**
+ * Fetches quote tags.
+ *
+ * @return  array  An array of quote tags.
+ */
+
+function quote_tags_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the tags
+  $tags = query(" SELECT      quote_tags.id             AS 'qt_id'      ,
+                              quote_tags.slug           AS 'qt_slug'    ,
+                              quote_tags.sorting_order  AS 'qt_sort'    ,
+                              quote_tags.name_$lang     AS 'qt_name'    ,
+                              quote_tags.name_en        AS 'qt_name_en' ,
+                              quote_tags.name_fr        AS 'qt_name_fr' ,
+                              COUNT(quote_tag_links.id) AS 'ql_count'
+                    FROM      quote_tags
+                    LEFT JOIN quote_tag_links ON quote_tag_links.fk_quote_tags = quote_tags.id
+                    GROUP BY  quote_tags.id
+                    ORDER BY  quote_tags.sorting_order ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($tags); $i++)
+  {
+    $data[$i]['id']       = sanitize_output($row['qt_id']);
+    $data[$i]['slug']     = sanitize_output($row['qt_slug']);
+    $data[$i]['sort']     = sanitize_output($row['qt_sort']);
+    $data[$i]['name']     = sanitize_output($row['qt_name']);
+    $data[$i]['sname']    = sanitize_output(string_truncate($row['qt_name'], 25, '...'));
+    $data[$i]['quotes']   = sanitize_output($row['ql_count']);
+    $data[$i]['name_en']  = sanitize_output($row['qt_name_en']);
+    $data[$i]['name_fr']  = sanitize_output($row['qt_name_fr']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return ($data ?? []);
 }
 
 
