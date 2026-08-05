@@ -18,6 +18,7 @@
 /*                                                                                                                   */
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
 /*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
+/*  admin_quotes_media_authors_update       Keeps an author dropdown at the bottom of the quote media edit form.     */
 /*                                                                                                                   */
 /*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
 /*                                                                                                                   */
@@ -338,6 +339,48 @@ function admin_quotes_media_delete( id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('quotes_media', 'admin_quotes_media_tbody', postdata);
+}
+
+
+
+
+/**
+ * Keeps an author dropdown at the bottom of the quote media edit form.
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_media_authors_update()
+{
+  // Fetch the form container
+  const container = document.getElementById('quote_media_authors');
+  if(!container)
+    return;
+
+  // Fetch all the author dropdowns
+  const dropdowns = container.querySelectorAll('select[name="quote_media_authors[]"]');
+
+  // Remove all empty dropdowns other than the final dropdown
+  for(let i = dropdowns.length - 2; i >= 0; i--)
+  {
+    if(dropdowns[i].value === '')
+      dropdowns[i].parentNode.remove();
+  }
+
+  // Add a new empty dropdown if the last one is filled
+  const lastDropdown = dropdowns[dropdowns.length - 1];
+  if(lastDropdown && lastDropdown.value !== '')
+  {
+    // Clone the last dropdown and reset its value
+    const newDropdown = lastDropdown.cloneNode(true);
+    newDropdown.value = '';
+
+    // Wrap the new dropdown in a div to maintain spacing
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('smallpadding_bot');
+    wrapper.appendChild(newDropdown);
+    container.appendChild(wrapper);
+  }
 }
 
 

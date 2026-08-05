@@ -563,6 +563,8 @@ ___('admin_quotes_authors_name',    'EN', "Name");
 ___('admin_quotes_authors_name',    'FR', "Nom");
 ___('admin_quotes_authors_years',   'EN', "Years");
 ___('admin_quotes_authors_years',   'FR', "Années");
+___('admin_quotes_authors_media',   'EN', "Media");
+___('admin_quotes_authors_media',   'FR', "Médias");
 ___('admin_quotes_authors_quotes',  'EN', "Quotes");
 ___('admin_quotes_authors_quotes',  'FR', "Citations");
 ___('admin_quotes_authors_count',   'EN', "{{1}} author");
@@ -613,6 +615,8 @@ ___('admin_quotes_media_name',    'EN', "Name");
 ___('admin_quotes_media_name',    'FR', "Nom");
 ___('admin_quotes_media_year',    'EN', "Published");
 ___('admin_quotes_media_year',    'FR', "Publié");
+___('admin_quotes_media_authors', 'EN', "Authors");
+___('admin_quotes_media_authors', 'FR', "Auteurs");
 ___('admin_quotes_media_quotes',  'EN', "Quotes");
 ___('admin_quotes_media_quotes',  'FR', "Citations");
 ___('admin_quotes_media_count',   'EN', "{{1}} media");
@@ -642,10 +646,12 @@ ___('admin_quotes_media_add_submit',    'EN', "Add media");
 
 
 // Quote media: Edit
-___('admin_quotes_media_edit_title',   'EN', "Edit a media");
-___('admin_quotes_media_edit_title',   'FR', "Modifier un média");
-___('admin_quotes_media_edit_submit',  'EN', "Edit media");
-___('admin_quotes_media_edit_submit',  'FR', "Modifier le média");
+___('admin_quotes_media_edit_title',  'EN', "Edit a media");
+___('admin_quotes_media_edit_title',  'FR', "Modifier un média");
+___('admin_quotes_media_add_authors', 'EN', "Authors");
+___('admin_quotes_media_add_authors', 'FR', "Auteurs");
+___('admin_quotes_media_edit_submit', 'EN', "Edit media");
+___('admin_quotes_media_edit_submit', 'FR', "Modifier le média");
 
 
 // Quote media: Delete

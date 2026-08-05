@@ -115,6 +115,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__('admin_quotes_authors_name')?>
         </th>
         <th class="align_center">
+          <?=__('admin_quotes_authors_media')?>
+        </th>
+        <th class="align_center">
           <?=__('admin_quotes_authors_years')?>
         </th>
         <th class="align_center">
@@ -132,7 +135,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="4" class="uppercase text_light dark bold align_center">
+        <td colspan="5" class="uppercase text_light dark bold align_center">
           <?=__('admin_quotes_authors_count', preset_values: array($quote_authors['rows']), amount: $quote_authors['rows'])?>
         </td>
       </tr>
@@ -141,13 +144,30 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <tr>
 
-        <td class="align_center nowrap bold tooltip_container">
+        <td class="align_left nowrap bold tooltip_container">
           <?=$quote_authors[$i]['sname']?>
           <span class="tooltip">
             <?=$quote_authors[$i]['name_en']?><br>
             <?=$quote_authors[$i]['name_fr']?>
           </span>
         </td>
+
+        <?php if($quote_authors[$i]['media_list']): ?>
+        <td class="align_center nowrap bold tooltip_container">
+          <?php if($quote_authors[$i]['media']): ?>
+          <?=$quote_authors[$i]['media']?>
+          <span class="tooltip">
+            <?=$quote_authors[$i]['media_list']?>
+          </span>
+          <?php else: ?>
+          &nbsp;
+          <?php endif; ?>
+        </td>
+        <?php else: ?>
+        <td class="align_center">
+          &nbsp;
+        </td>
+        <?php endif; ?>
 
         <td class="align_center nowrap">
           <?php if($quote_authors[$i]['birth']): ?>
@@ -159,9 +179,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php endif; ?>
         </td>
 
-        <td class="align_center nowrap">
-          <?php if($quote_authors[$i]['used']): ?>
-          <?=$quote_authors[$i]['used']?>
+        <td class="align_center bold nowrap">
+          <?php if($quote_authors[$i]['quotes']): ?>
+          <?=$quote_authors[$i]['quotes']?>
           <?php else: ?>
           &nbsp;
           <?php endif; ?>

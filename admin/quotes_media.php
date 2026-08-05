@@ -68,6 +68,14 @@ if(isset($_POST['quote_media_edit']))
 
   // Edit the quote media
   quote_media_edit( $admin_media_id, $quote_media_edit_data );
+
+  // Fetch the attached authors postdata
+  $quote_media_authors = $_POST['quote_media_authors'] ?? array();
+  if(!is_array($quote_media_authors))
+    $quote_media_authors = array();
+
+  // Update the quote media's authors
+  quote_media_edit_authors( $admin_media_id, $quote_media_authors );
 }
 
 
@@ -117,6 +125,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__('admin_quotes_media_name')?>
         </th>
         <th class="align_center">
+          <?=__('admin_quotes_media_authors')?>
+        </th>
+        <th class="align_center">
           <?=__('admin_quotes_media_year')?>
         </th>
         <th class="align_center">
@@ -134,7 +145,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="4" class="uppercase text_light dark bold align_center">
+        <td colspan="5" class="uppercase text_light dark bold align_center">
           <?=__('admin_quotes_media_count', preset_values: array($quote_media_list['rows']), amount: $quote_media_list['rows'])?>
         </td>
       </tr>
@@ -143,7 +154,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <tr>
 
-        <td class="align_center nowrap bold tooltip_container">
+        <td class="nowrap bold tooltip_container">
           <?=$quote_media_list[$i]['sname']?>
           <span class="tooltip">
             <?=$quote_media_list[$i]['name_en']?><br>
@@ -151,13 +162,26 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </span>
         </td>
 
+        <?php if($quote_media_list[$i]['authors']): ?>
+        <td class="align_center bold nowrap tooltip_container">
+          <?=$quote_media_list[$i]['authors']?>
+          <span class="tooltip">
+            <?=$quote_media_list[$i]['authors_list']?>
+          </span>
+        </td>
+        <?php else: ?>
+        <td class="align_center">
+          &nbsp;
+        </td>
+        <?php endif; ?>
+
         <td class="align_center nowrap">
           <?php if($quote_media_list[$i]['year']): ?>
           <?=$quote_media_list[$i]['year']?>
           <?php endif; ?>
         </td>
 
-        <td class="align_center nowrap">
+        <td class="align_center nowrap bold">
           <?php if($quote_media_list[$i]['quotes']): ?>
           <?=$quote_media_list[$i]['quotes']?>
           <?php else: ?>
