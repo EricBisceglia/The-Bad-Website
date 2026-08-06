@@ -8,6 +8,9 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  quote_add                   Adds a quote to the database.                                                        */
+/*  quote_list_origins          Lists possible origins for a quote.                                                  */
+/*                                                                                                                   */
 /*  quote_authors_get           Fetches a quote author.                                                              */
 /*  quote_authors_list          Fetches quote authors.                                                               */
 /*  quote_authors_add           Adds a quote author to the database.                                                 */
@@ -29,6 +32,124 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_tags_delete           Deletes a quote tag.                                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Adds a quote to the database.
+ *
+ * @param   array  $data  An array containing data on the quote.
+ *
+ * @return  int           The ID of the added quote.
+ */
+
+function quotes_add( array $data ) : int
+{
+  // Sanitize the data
+  $media_id     = sanitize_array_element($data, 'quote_media', 'int');
+  $author_id    = sanitize_array_element($data, 'quote_author', 'int');
+  $sort         = sanitize_array_element($data, 'quote_sort', 'int');
+  $origin_en    = sanitize_array_element($data, 'quote_origin_en', 'int');
+  $origin_fr    = sanitize_array_element($data, 'quote_origin_fr', 'int');
+  $source_en    = sanitize_array_element($data, 'quote_source_en', 'string');
+  $source_fr    = sanitize_array_element($data, 'quote_source_fr', 'string');
+  $title_en     = sanitize_array_element($data, 'quote_title_en', 'string');
+  $title_fr     = sanitize_array_element($data, 'quote_title_fr', 'string');
+  $desc_en      = sanitize_array_element($data, 'quote_desc_en', 'string');
+  $desc_fr      = sanitize_array_element($data, 'quote_desc_fr', 'string');
+  $body_en      = sanitize_array_element($data, 'quote_body_en', 'string');
+  $body_fr      = sanitize_array_element($data, 'quote_body_fr', 'string');
+
+  // Generate a slug for the quote
+  $slug = str_replace(' ', '_', string_truncate($title_en, 100));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quotes', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
+  // Add the quote to the database
+  query(" INSERT INTO quotes
+          SET         quotes.fk_quote_media   = '$media_id'   ,
+                      quotes.fk_quote_authors = '$author_id'  ,
+                      quotes.slug             = '$slug'       ,
+                      quotes.sorting_order    = '$sort'       ,
+                      quotes.origin_en        = '$origin_en'  ,
+                      quotes.origin_fr        = '$origin_fr'  ,
+                      quotes.source_en        = '$source_en'  ,
+                      quotes.source_fr        = '$source_fr'  ,
+                      quotes.title_en         = '$title_en'   ,
+                      quotes.title_fr         = '$title_fr'   ,
+                      quotes.description_en   = '$desc_en'    ,
+                      quotes.description_fr   = '$desc_fr'    ,
+                      quotes.quote_en         = '$body_en'    ,
+                      quotes.quote_fr         = '$body_fr'    ");
+
+  // Fetch the newly created quote's ID
+  $quote_id = query_id();
+
+  // Sanitize the quote ID
+  $quote_id = sanitize($quote_id, 'int');
+
+  // Loop through the tags
+  if($quote_id && isset($data['quote_tags']) && is_array($data['quote_tags']))
+  {
+    foreach($data['quote_tags'] as $tag_id => $tag_value)
+    {
+      // Sanitize the tag's data
+      $tag_id    = sanitize($tag_id, 'int');
+      $tag_value = sanitize($tag_value, 'int');
+
+      // Link the tags to the quote
+      if($tag_value)
+        query(" INSERT INTO quote_tag_links
+                SET         quote_tag_links.fk_quotes = '$quote_id' ,
+                            quote_tag_links.fk_quote_tags = '$tag_id' ");
+    }
+  }
+
+  // Return the newly created quote's ID
+  return $quote_id;
+}
+
+
+
+/**
+ * Lists possible origins for a quote.
+ *
+ * @return  array  An array containing the possible origins for a quote.
+ */
+
+function quote_list_origins() : array
+{
+  // Prepare the origins
+  $origins[0] = 'source';
+  $origins[1] = 'paraphrased';
+  $origins[2] = 'translated';
+  $origins[3] = 'third';
+  $origins[4] = 'unknown';
+
+  // Count the number of origins
+  $origins_count = count($origins);
+
+  // Prepare an array of origins
+  for($i = 0; $i < $origins_count; $i++)
+    $data['names'][$i] = __('quote_origin_'.$origins[$i]);
+
+  // Prepare an array of short hand origins
+  for($i = 0; $i < $origins_count; $i++)
+    $data['short'][$i] = __('quote_origin_'.$origins[$i].'_short');
+
+  // Add the number of origins to the returned data
+  $data['count'] = $origins_count;
+
+  // Return the array of possible quote origins
+  return $data;
+}
+
+
+
+
 
 /**
  * Fetches a quote author.
@@ -471,6 +592,7 @@ function quote_media_list() : array
     // Quote authors
     $author_names = sanitize_output($row['qa_names']);
     $data[$i]['authors_list'] = str_replace('|||', '<br>', $author_names);
+    $data[$i]['authors_text'] = str_replace('|||', ' & ', $author_names);
   }
 
   // Add the number of rows to the returned data

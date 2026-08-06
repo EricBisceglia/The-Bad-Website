@@ -16,6 +16,7 @@
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
+/*  admin_quotes_hide_media_or_author       Hides the quote media or author dropdowns when one is selected.          */
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
 /*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
 /*  admin_quotes_media_authors_update       Keeps an author dropdown at the bottom of the quote media edit form.     */
@@ -302,6 +303,33 @@ function admin_tags_delete(  id      ,
 
 
 
+
+/**
+ * Hides the quote media or author dropdowns when one is selected.
+ *
+ * @param   {string}  type  The type of dropdown that was selected ('media' or 'author').
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_hide_media_or_author( type )
+{
+  // Hide the media dropdown if an author was selected and the author dropdown contains a value
+  if(type === 'author' && document.getElementById('quote_author').value != 0)
+    toggle_element_oneway('quote_media_container', false);
+
+  // Hide the author dropdown if media was selected and the media dropdown contains a value
+  if(type === 'media' && document.getElementById('quote_media').value != 0)
+    toggle_element_oneway('quote_author_container', false);
+
+  // Show the media dropdown if the author dropdown is empty
+  if(type === 'author' && document.getElementById('quote_author').value == 0)
+    toggle_element_oneway('quote_media_container', true);
+
+  // Show the author dropdown if the media dropdown is empty
+  if(type === 'media' && document.getElementById('quote_media').value == 0)
+    toggle_element_oneway('quote_author_container', true);
+}
 
 /**
  * Triggers the deletion of a quote author.

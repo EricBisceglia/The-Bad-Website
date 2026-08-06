@@ -556,6 +556,44 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 ___('admin_quotes_title',        'EN', "Quotes");
 ___('admin_quotes_title',        'FR', "Citations");
 
+
+// Quotes: Add
+___('admin_quotes_add_title',     'EN', "Add a quote");
+___('admin_quotes_add_title',     'FR', "Ajouter une citation");
+___('admin_quotes_add_media',     'EN', "Source media");
+___('admin_quotes_add_media',     'FR', "Média source");
+___('admin_quotes_add_author',    'EN', "Author");
+___('admin_quotes_add_author',    'FR', "Auteur");
+___('admin_quotes_add_author_2',  'EN', " (if no media)");
+___('admin_quotes_add_author_2',  'FR', " (si pas de média)");
+___('admin_quotes_add_sort',      'EN', "Sorting order (within the media/author)");
+___('admin_quotes_add_sort',      'FR', "Ordre de tri (au sein du média/auteur)");
+___('admin_quotes_add_title_en',  'EN', "English title");
+___('admin_quotes_add_title_en',  'FR', "Titre anglais");
+___('admin_quotes_add_title_fr',  'EN', "French title");
+___('admin_quotes_add_title_fr',  'FR', "Titre français");
+___('admin_quotes_add_origin_en', 'EN', "English origin");
+___('admin_quotes_add_origin_en', 'FR', "Origine anglaise");
+___('admin_quotes_add_origin_fr', 'EN', "French origin");
+___('admin_quotes_add_origin_fr', 'FR', "Origine française");
+___('admin_quotes_add_source_en', 'EN', "English source (or link)");
+___('admin_quotes_add_source_en', 'FR', "Source (ou lien) anglais");
+___('admin_quotes_add_source_fr', 'EN', "French source (or link)");
+___('admin_quotes_add_source_fr', 'FR', "Source (ou lien) français");
+___('admin_quotes_add_desc_en',   'EN', "English summary/description");
+___('admin_quotes_add_desc_en',   'FR', "Description/résumé anglais");
+___('admin_quotes_add_desc_fr',   'EN', "French summary/description");
+___('admin_quotes_add_desc_fr',   'FR', "Description/résumé français");
+___('admin_quotes_add_body_en',   'EN', "English quote");
+___('admin_quotes_add_body_en',   'FR', "Citation en anglais");
+___('admin_quotes_add_body_fr',   'EN', "French quote");
+___('admin_quotes_add_body_fr',   'FR', "Citation en français");
+___('admin_quotes_add_tags',      'EN', "Tagged categories");
+___('admin_quotes_add_tags',      'FR', "Catégories liées");
+___('admin_quotes_add_submit',    'EN', "Add quote");
+___('admin_quotes_add_submit',    'FR', "Ajouter la citation");
+
+
 // Quote authors
 ___('admin_quotes_authors_title',   'EN', "Quote authors");
 ___('admin_quotes_authors_title',   'FR', "Auteurs de citations");
@@ -702,3 +740,26 @@ ___('admin_quotes_tags_delete_confirm',  'EN', "Confirm the permanent deletion o
 ___('admin_quotes_tags_delete_confirm',  'FR', "Confirmer la suppression définitive de ce tag");
 ___('admin_quotes_tags_delete_quotes',   'EN', "You cannot delete a tag as long as it has quotes attached to it");
 ___('admin_quotes_tags_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un tag tant qu\'il est lié à des citations");
+
+
+// Quotes: Origins
+___('quote_origin_source_short',      'EN', "Authentic from source");
+___('quote_origin_source_short',      'FR', "Authentique depuis la source");
+___('quote_origin_paraphrased_short', 'EN', "Paraphrased from source");
+___('quote_origin_paraphrased_short', 'FR', "Paraphrasée depuis la source");
+___('quote_origin_translated_short',  'EN', "My own translation");
+___('quote_origin_translated_short',  'FR', "Ma propre traduction");
+___('quote_origin_third_short',       'EN', "Third-party translation");
+___('quote_origin_third_short',       'FR', "Traduite par un tiers");
+___('quote_origin_unknown_short',     'EN', "Unknown/unconfirmed origin");
+___('quote_origin_unknown_short',     'FR', "Origine inconnue/non confirmée");
+___('quote_origin_source',            'EN', "This quote is reproduced from the source media. It has not been altered.");
+___('quote_origin_source',            'FR', "Cette citation est tirée du média source. Elle n'a pas été modifiée.");
+___('quote_origin_paraphrased',       'EN', "This quote is paraphrased from the source media. It might have been slightly altered.");
+___('quote_origin_paraphrased',       'FR', "Cette citation est paraphrasée du média source. Elle peut être légèrement modifiée.");
+___('quote_origin_translated',        'EN', "This quote has been translated from the source media. It might have lost some of its substance during the translation.");
+___('quote_origin_translated',        'FR', "Cette citation a été traduite depuis le média source. Il se peut qu'elle ait perdu une partie de sa substance lors de la traduction.");
+___('quote_origin_third',             'EN', "This quote has been translated by a third party tool. It might have lost some of its substance during the translation.");
+___('quote_origin_third',             'FR', "Cette citation a été traduite par un outil tiers. Il se peut qu'elle ait perdu une partie de sa substance lors de la traduction.");
+___('quote_origin_unknown',           'EN', "This quote's origin is unknown, and thus could not be verified. It may be a misattribution or a fabrication.");
+___('quote_origin_unknown',           'FR', "L'origine de cette citation est inconnue et n'a donc pas pu être vérifiée. Il peut s'agir d'une citation erronée.");
