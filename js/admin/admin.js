@@ -17,6 +17,7 @@
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
 /*  admin_quotes_hide_media_or_author       Hides the quote media or author dropdowns when one is selected.          */
+/*  admin_quotes_list_search                Triggers a search in the quote list.                                     */
 /*  admin_quotes_delete                     Triggers the deletion of a quote.                                        */
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
 /*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
@@ -342,21 +343,38 @@ function admin_quotes_hide_media_or_author( type )
 
 
 /**
- * Trigers the deletion of a quote.
+ * Triggers a search in the quotes list.
  *
- * @param   {int}     id        The id of the quote to delete.
- * @param   {string}  message   The message to display before deleting the quote.
- */
+ * @param   {string}  [sort]            Change the order in which the data will be sorted.
+ * @param   {string}  [delete_id]       Trigger the deletion of a quote.
+ * @param   {string}  [delete_message]  The message to display before deleting the quote.
+ *
+ * @returns {void}
+*/
 
-function admin_quotes_delete(  id      ,
-                               message )
+function admin_quotes_list_search(  sort            = null ,
+                                    delete_id       = null ,
+                                    delete_message  = null )
 {
-  // Assemble the postdata
-  postdata = 'quotes_delete=' + fetch_sanitize(id);
+  // Update the data sort input if requested
+  if(sort)
+    document.getElementById('admin_quotes_sort').value = sort;
 
-  // Make sure the user knows what they're doing and trigger the deletion
-  if(confirm(message))
-    fetch_page('quotes', 'admin_quotes_tbody', postdata);
+  // Assemble the postdata
+  postdata  = 'admin_quotes_sort='            + fetch_sanitize_id('admin_quotes_sort');
+  postdata += '&admin_quotes_search_year='    + fetch_sanitize_id('admin_quotes_search_year');
+  postdata += '&admin_quotes_search_author='  + fetch_sanitize_id('admin_quotes_search_author');
+  postdata += '&admin_quotes_search_media='   + fetch_sanitize_id('admin_quotes_search_media');
+  postdata += '&admin_quotes_search_title='   + fetch_sanitize_id('admin_quotes_search_title');
+  postdata += '&admin_quotes_search_body='    + fetch_sanitize_id('admin_quotes_search_body');
+  postdata += '&admin_quotes_search_tags='    + fetch_sanitize_id('admin_quotes_search_tags');
+
+  // Delete a quote if requested
+  if(delete_id && confirm(delete_message))
+    postdata += '&admin_quotes_delete=' + fetch_sanitize(delete_id);
+
+  // Submit the search
+  fetch_page('quotes', 'admin_quotes_tbody', postdata);
 }
 
 

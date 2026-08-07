@@ -32,7 +32,7 @@ $js   = array('admin/admin');
 // Fetch form data
 
 // Quote media
-$quote_media = quote_media_list();
+$quote_media = quote_media_list( sort_by_author: true );
 
 // Quote authors
 $quote_authors = quote_authors_list();
@@ -66,7 +66,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <select class="indiv align_left" name="quote_media" id="quote_media" onchange="admin_quotes_hide_media_or_author('media')">
           <option value="0">&nbsp;</option>
           <?php for($i = 0; $i < $quote_media['rows']; $i++): ?>
-          <option value="<?=$quote_media[$i]['id']?>"><?=$quote_media[$i]['name'].' - '.$quote_media[$i]['authors_text']?></option>
+          <option value="<?=$quote_media[$i]['id']?>"><?=$quote_media[$i]['full_name']?></option>
           <?php endfor; ?>
         </select>
       </div>

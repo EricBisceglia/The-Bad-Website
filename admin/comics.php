@@ -140,7 +140,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_70 padding_top">
 
-  <form id="admin_comics_search" onsubmit="admin_comic_list_search(); return false;">
+  <form id="admin_comics_search" onsubmit="admin_quotes_list_search(); return false;">
 
     <h2 class="align_center smallpadding_bot">
       <?=__link('admin/comics', __('admin_comics_title'), style: 'text_light', path: $path)?>

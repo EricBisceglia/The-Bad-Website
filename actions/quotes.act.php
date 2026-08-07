@@ -38,13 +38,95 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /**
  * Fetches quotes.
  *
- * @return  array  An array containing the quotes.
+ * @param   string  $sort_by  How the quotes should be sorted.
+ * @param   array   $search   The search query.
+ *
+ * @return  array             An array containing the quotes.
  */
 
-function quotes_list() : array
+function quotes_list( string  $sort_by  = 'date'  ,
+                      array   $search   = array() ) : array
 {
+  // Sanitize the search parameters
+  $search_year    = sanitize_array_element($search, 'year', 'int');
+  $search_author  = sanitize_array_element($search, 'author', 'int');
+  $search_media   = sanitize_array_element($search, 'media', 'int');
+  $search_title   = sanitize_array_element($search, 'title', 'string');
+  $search_body    = sanitize_array_element($search, 'body', 'string');
+  $search_tag     = sanitize_array_element($search, 'tag', 'int');
+
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Search through the data
+  $query_search   = ($search_year === 1)  ? " AND ( quote_media.year_published  > 0
+                                              OR    quotes.year_published       > 0 ) "                 : "";
+  $query_search  .= ($search_year === -1) ? " AND ( quote_media.year_published  = 0
+                                              OR    quote_media.year_published  IS NULL )
+                                              AND   quotes.year_published       = 0 "                   : "";
+  $query_search  .= ($search_media)       ? " AND   quotes.fk_quote_media       = '$search_media' "     : "";
+  $query_search  .= ($search_title)       ? " AND ( quotes.title_en          LIKE '%$search_title%'
+                                              OR    quotes.title_fr          LIKE '%$search_title%' ) " : "";
+  $query_search  .= ($search_body)        ? " AND ( quotes.title_en          LIKE '%$search_body%'
+                                              OR    quotes.title_fr          LIKE '%$search_body%'
+                                              OR    quotes.description_en    LIKE '%$search_body%'
+                                              OR    quotes.description_fr    LIKE '%$search_body%'
+                                              OR    quotes.quote_en          LIKE '%$search_body%'
+                                              OR    quotes.quote_fr          LIKE '%$search_body%' ) "  : "";
+
+  // Search by author
+  if($search_author)
+    $query_search .= "  AND (
+                        quotes.fk_quote_authors = '$search_author'
+                        OR EXISTS (
+                          SELECT 1
+                          FROM   quote_media_authors AS searched_media_authors
+                          WHERE  searched_media_authors.fk_quote_media    = quotes.fk_quote_media
+                          AND    searched_media_authors.fk_quote_authors  = '$search_author' )
+                        ) ";
+
+  // Search by tag
+  if($search_tag && $search_tag > 0)
+    $query_search .= "  AND EXISTS (
+                        SELECT 1
+                        FROM   quote_tag_links AS searched_tags
+                        WHERE  searched_tags.fk_quotes      = quotes.id
+                        AND    searched_tags.fk_quote_tags  = '$search_tag' ) ";
+  if($search_tag && $search_tag === -1)
+    $query_search .= "  AND NOT EXISTS (
+                        SELECT 1
+                        FROM   quote_tag_links AS searched_tags
+                        WHERE  searched_tags.fk_quotes = quotes.id ) ";
+
+  // Sort the data
+  $query_sort = match($sort_by)
+  {
+    'author'   => " ORDER BY  NULLIF(author_data.author_names, '') IS NULL  ASC   ,
+                              author_data.author_names                      ASC   ,
+                              q_eyear                                       ASC   ,
+                              COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
+    'source'  => "  ORDER BY  NULLIF(quote_media.name_$lang, '') IS NULL    ASC   ,
+                              quote_media.name_$lang                        ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
+    'title'   => "  ORDER BY  NULLIF(quotes.title_$lang, '') IS NULL        ASC   ,
+                              quotes.title_$lang                            ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
+    'tags'    => "  ORDER BY  COALESCE(tag_data.tag_count, 0)               DESC  ,
+                              COALESCE(author_data.author_names, '')        ASC   ,
+                              q_eyear                                       ASC   ,
+                              COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
+    default   => "  ORDER BY  COALESCE(author_data.author_names, '')        ASC   ,
+                              q_eyear                                       ASC   ,
+                              COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   "
+  };
 
   // Fetch the quotes
   $quotes = query(" SELECT  quotes.id                                 AS 'q_id'       ,
@@ -70,24 +152,24 @@ function quotes_list() : array
 
                     LEFT JOIN
                     (
-                      SELECT    quote_authors_resolved.quote_id,
-                                COUNT(DISTINCT quote_authors_resolved.author_id)  AS 'author_count',
+                      SELECT    quote_authors_resolved.quote_id                                       ,
+                                COUNT(DISTINCT quote_authors_resolved.author_id)  AS 'author_count'   ,
                                 GROUP_CONCAT(
                                   DISTINCT quote_authors_resolved.author_name
                                   ORDER BY quote_authors_resolved.author_name ASC
                                   SEPARATOR '|||' )                               AS 'author_names'
                       FROM
                       (
-                        SELECT  quotes.id                 AS 'quote_id',
-                                quote_authors.id          AS 'author_id',
+                        SELECT  quotes.id                 AS 'quote_id'   ,
+                                quote_authors.id          AS 'author_id'  ,
                                 quote_authors.name_$lang  AS 'author_name'
                         FROM    quotes
                         JOIN    quote_authors
                         ON      quote_authors.id = quotes.fk_quote_authors
                         WHERE   quotes.fk_quote_authors IS NOT NULL
                       UNION
-                        SELECT  quotes.id                 AS 'quote_id',
-                                quote_authors.id          AS 'author_id',
+                        SELECT  quotes.id                 AS 'quote_id'   ,
+                                quote_authors.id          AS 'author_id'  ,
                                 quote_authors.name_$lang  AS 'author_name'
                         FROM    quotes
                         JOIN    quote_media_authors
@@ -107,8 +189,8 @@ function quotes_list() : array
 
                     LEFT JOIN
                     (
-                      SELECT    quote_tag_links.fk_quotes     AS 'quote_id',
-                                COUNT(DISTINCT quote_tags.id) AS 'tag_count',
+                      SELECT    quote_tag_links.fk_quotes     AS 'quote_id'   ,
+                                COUNT(DISTINCT quote_tags.id) AS 'tag_count'  ,
                                 GROUP_CONCAT(
                                   DISTINCT  quote_tags.name_$lang
                                   ORDER BY  quote_tags.sorting_order  ASC ,
@@ -122,11 +204,9 @@ function quotes_list() : array
                   AS tag_data
                   ON tag_data.quote_id = quotes.id
 
-                  ORDER BY COALESCE(author_data.author_names, '') ASC ,
-                           q_eyear                                ASC ,
-                           COALESCE(quote_media.name_$lang, '')   ASC ,
-                           quotes.sorting_order                   ASC ,
-                           quotes.id                              ASC ");
+                  WHERE 1 = 1
+                  $query_search
+                  $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($quotes); $i++)
@@ -696,13 +776,22 @@ function quote_media_get_authors( int $media_id ) : array
 /**
  * Fetches quote media.
  *
- * @return  array  An array containing the quote media.
+ * @param   bool   $sort_by_author   (OPTIONAL) Sorts the media list by author instead of media name.
+ *
+ * @return  array                               An array containing the quote media.
  */
 
-function quote_media_list() : array
+function quote_media_list( bool $sort_by_author = false ) : array
 {
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Sort the media
+  $query_sort = ($sort_by_author)
+                ? " ORDER BY author_data.author_names IS NULL ASC,
+                         author_data.author_names         ASC,
+                         quote_media.name_$lang           ASC  "
+                : " ORDER BY quote_media.name_$lang           ASC  ";
 
   // Fetch the media
   $media = query("  SELECT        quote_media.id                          AS 'qm_id'      ,
@@ -743,7 +832,7 @@ function quote_media_list() : array
                       AS author_data
                       ON author_data.media_id = quote_media.id
 
-                      ORDER BY quote_media.name_$lang ASC  ");
+                      $query_sort  ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($media); $i++)
@@ -762,6 +851,11 @@ function quote_media_list() : array
     $author_names = sanitize_output($row['qa_names']);
     $data[$i]['authors_list'] = str_replace('|||', '<br>', $author_names);
     $data[$i]['authors_text'] = str_replace('|||', ' & ', $author_names);
+
+    // Full name with authors
+    $data[$i]['full_name']  = ($data[$i]['authors_text'])
+                            ? $data[$i]['authors_text'].' - '.$data[$i]['name']
+                            : $data[$i]['name'];
   }
 
   // Add the number of rows to the returned data

@@ -29,9 +29,17 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch a list of all quote tags
+// Fetch a list of all quote authors, sources, and tags
 
+// Fetch authors and sources
 if(!page_is_fetched_dynamically())
+{
+  $quote_authors_list = quote_authors_list();
+  $quote_media_list   = quote_media_list( sort_by_author: true );
+}
+
+// Fetch tags
+if(!page_is_fetched_dynamically() || isset($_POST['quote_edit']))
   $quote_tags_list = quote_tags_list();
 
 
@@ -78,10 +86,10 @@ if(isset($_POST['quote_add']))
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Delete a quote
 
-if(isset($_POST['quotes_delete']))
+if(isset($_POST['admin_quotes_delete']))
 {
   // Delete the quote from the database
-  $quote_delete = quotes_delete(form_fetch_element('quotes_delete'));
+  $quote_delete = quotes_delete(form_fetch_element('admin_quotes_delete'));
 }
 
 
@@ -89,9 +97,22 @@ if(isset($_POST['quotes_delete']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch the quotes
+// List quotes
 
-$quotes_list = quotes_list();
+// Fetch the sorting order
+$admin_quotes_sort = form_fetch_element('admin_quotes_sort', 'date');
+
+// Assemble the search query
+$admin_quotes_search = array( 'year'    => form_fetch_element('admin_quotes_search_year')   ,
+                              'author'  => form_fetch_element('admin_quotes_search_author') ,
+                              'media'   => form_fetch_element('admin_quotes_search_media')  ,
+                              'title'   => form_fetch_element('admin_quotes_search_title')  ,
+                              'body'    => form_fetch_element('admin_quotes_search_body')   ,
+                              'tag'     => form_fetch_element('admin_quotes_search_tags')   );
+
+// Fetch the quotes
+$quotes_list = quotes_list( sort_by:  $admin_quotes_sort    ,
+                            search:   $admin_quotes_search  );
 
 
 
@@ -104,134 +125,196 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
 <div class="width_60 padding_top">
 
-  <h2 class="align_center padding_bot">
-    <?=__link('admin/quotes', __('admin_quotes_title'), 'text_light', path: $path)?>
-    <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_add', path: $path)?>
-  </h2>
+  <form id="admin_quotes_search" onsubmit="admin_quotes_list_search(); return false;">
 
-  <table>
-    <thead>
+    <h2 class="align_center padding_bot">
+      <?=__link('admin/quotes', __('admin_quotes_title'), 'text_light', path: $path)?>
+      <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_add', path: $path)?>
+    </h2>
 
-      <tr class="uppercase">
-        <th class="align_center">
-          <?=__('admin_quotes_year')?>
-        </th>
-        <th class="align_center">
-          <?=__link('admin/quotes_authors', __('admin_quotes_author'), path: $path)?>
-        </th>
-        <th class="align_center">
-          <?=__link('admin/quotes_media', __('admin_quotes_source'), path: $path)?>
-        </th>
-        <th class="align_center">
-          <?=__('admin_quotes_name')?>
-        </th>
-        <th class="align_center">
-          <?=__('admin_quotes_quote')?>
-        </th>
-        <th class="align_center">
-          <?=__link('admin/quotes_tags', __('admin_quotes_tags'), path: $path)?>
-        </th>
-        <th>
-          <?=__('act')?>
-        </th>
-      </tr>
+    <table>
+      <thead>
 
-    </thead>
+        <tr class="uppercase">
+          <th class="align_center">
+            <?=__('admin_quotes_year')?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('year');")?>
+          </th>
+          <th class="align_center">
+            <?=__link('admin/quotes_authors', __('admin_quotes_author'), path: $path)?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('author');")?>
+          </th>
+          <th class="align_center">
+            <?=__link('admin/quotes_media', __('admin_quotes_source'), path: $path)?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('source');")?>
+          </th>
+          <th class="align_center">
+            <?=__('admin_quotes_name')?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('title');")?>
+          </th>
+          <th class="align_center">
+            <?=__('admin_quotes_quote')?>
+          </th>
+          <th class="align_center">
+            <?=__link('admin/quotes_tags', __('admin_quotes_tags'), path: $path)?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('tags');")?>
+          </th>
+          <th>
+            <?=__('act')?>
+          </th>
+        </tr>
 
-    <tbody class="altc2 nowrap" id="admin_quotes_tbody">
+        <tr>
 
-      <?php endif; ?>
+          <th>
+            <input type="hidden" name="admin_quotes_sort" id="admin_quotes_sort" value="<?=$admin_quotes_sort?>">
+            <select class="table_search" name="admin_quotes_search_year" id="admin_quotes_search_year">
+              <option value="0">&nbsp;</option>
+              <option value="1"><?=__('admin_quotes_search_year')?></option>
+              <option value="-1"><?=__('admin_quotes_search_noyear')?></option>
+            </select>
+          </th>
 
-      <tr>
-        <td colspan="7" class="uppercase text_light dark bold align_center">
-          <?=__('admin_quotes_count', preset_values: array($quotes_list['rows']), amount: $quotes_list['rows'])?>
-        </td>
-      </tr>
+          <th>
+            <select class="table_search" name="admin_quotes_search_author" id="admin_quotes_search_author">
+              <option value="0">&nbsp;</option>
+              <?php for($i = 0; $i < $quote_authors_list['rows']; $i++): ?>
+              <option value="<?=$quote_authors_list[$i]['id']?>"><?=$quote_authors_list[$i]['name']?></option>
+              <?php endfor; ?>
+            </select>
+          </th>
 
-      <?php for($i = 0; $i < $quotes_list['rows']; $i++): ?>
+          <th>
+            <select class="table_search" name="admin_quotes_search_media" id="admin_quotes_search_media">
+              <option value="0">&nbsp;</option>
+              <?php for($i = 0; $i < $quote_media_list['rows']; $i++): ?>
+              <option value="<?=$quote_media_list[$i]['id']?>"><?=$quote_media_list[$i]['full_name']?></option>
+              <?php endfor; ?>
+            </select>
+          </th>
 
-      <tr>
+          <th>
+            <input type="text" class="table_search" name="admin_quotes_search_title" id="admin_quotes_search_title" value="">
+          </th>
 
-        <td class="align_left nowrap bold">
-          <?=$quotes_list[$i]['year']?>
-        </td>
+          <th>
+            <input type="text" class="table_search" name="admin_quotes_search_body" id="admin_quotes_search_body" value="">
+          </th>
 
-        <td class="align_left nowrap bold tooltip_container">
-          <?=$quotes_list[$i]['sauthors_full']?>
-          <span class="tooltip">
-            <?=$quotes_list[$i]['authors_full']?>
-          </span>
-        </td>
+          <th>
+            <select class="table_search" name="admin_quotes_search_tags" id="admin_quotes_search_tags">
+              <option value="0">&nbsp;</option>
+              <option value="-1"><?=__('admin_quotes_search_notags')?></option>
+              <?php for($i = 0; $i < $quote_tags_list['rows']; $i++): ?>
+              <option value="<?=$quote_tags_list[$i]['id']?>"><?=$quote_tags_list[$i]['name']?></option>
+              <?php endfor; ?>
+            </select>
+          </th>
 
-        <td class="align_left nowrap bold tooltip_container">
-          <?=$quotes_list[$i]['smedia']?>
-          <span class="tooltip">
-            <?=$quotes_list[$i]['media_en']?><br>
-            <?=$quotes_list[$i]['media_fr']?>
-          </span>
-        </td>
+          <th>
+            <input type="submit" class="table_search bold" name="admin_quotes_search_go" value="<?=__('search')?>" onclick="admin_quotes_list_search();">
+          </th>
 
-        <td class="align_left nowrap bold tooltip_container">
-          <?=$quotes_list[$i]['stitle']?>
-          <span class="tooltip">
-            <?=$quotes_list[$i]['title_en']?><br>
-            <?=$quotes_list[$i]['title_fr']?>
-          </span>
-        </td>
+        </tr>
 
-        <td class="align_center nowrap">
-          <span class="tooltip_container">
-            <?=__icon('speech_bubble', is_small: true, alt: 'Q', title: __('admin_quotes_quote_full'), title_case: 'initials')?>
-            <div class="tooltip dowrap">
-              <?php if($quotes_list[$i]['body_en']): ?>
-              <div class="smallpadding_top smallpadding_bot spaced">
-                <?=$quotes_list[$i]['body_en']?>
-              </div>
-              <?php endif; if($quotes_list[$i]['body_en'] && $quotes_list[$i]['body_fr']): ?>
-              <hr class="spaced_top">
-              <?php endif; if($quotes_list[$i]['body_fr']): ?>
-              <div class="smallpadding_top smallpadding_bot spaced">
-                <?=$quotes_list[$i]['body_fr']?>
-              </div>
-              <?php endif; ?>
-            </div>
-          </span>
-          <?php if($quotes_list[$i]['sort']): ?>
-          <span class="tooltip_container">
-            <?=__icon('random', is_small: true, alt: 'S', title: __('admin_quotes_sort'), title_case: 'initials')?>
-            <div class="tooltip dowrap">
-              <?=$quotes_list[$i]['sort']?>
-            </div>
-          </span>
-          <?php endif; ?>
-        </td>
+      </thead>
 
-        <?php if($quotes_list[$i]['tags']): ?>
-        <td class="align_center nowrap tooltip_container">
-          <?=__icon('tag', is_small: true, alt: 'T', title: __('admin_quotes_tags'), title_case: 'initials')?>
-          <div class="tooltip dowrap">
-            <?=$quotes_list[$i]['tags_list']?>
-          </div>
-        </td>
-        <?php else: ?>
-        <td class="align_center nowrap">
-          &nbsp;
-        </td>
+      <tbody class="altc2 nowrap" id="admin_quotes_tbody">
+
         <?php endif; ?>
 
-        <td class="align_center nowrap admin_action_icons">
-          <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_edit?quote_id='.$quotes_list[$i]['id'], path: $path)?>
-          <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_delete('".$quotes_list[$i]['id']."','".__('admin_quotes_delete_confirm')."')", path: $path)?>
-        </td>
+        <tr>
+          <td colspan="7" class="uppercase text_light dark bold align_center">
+            <?=__('admin_quotes_count', preset_values: array($quotes_list['rows']), amount: $quotes_list['rows'])?>
+          </td>
+        </tr>
 
-      </tr>
+        <?php for($i = 0; $i < $quotes_list['rows']; $i++): ?>
 
-      <?php endfor; ?>
+        <tr>
 
-      <?php if(!page_is_fetched_dynamically()): ?>
+          <td class="align_left nowrap bold">
+            <?=$quotes_list[$i]['year']?>
+          </td>
 
-    </tbody>
-  </table>
+          <td class="align_left nowrap bold tooltip_container">
+            <?=$quotes_list[$i]['sauthors_full']?>
+            <span class="tooltip">
+              <?=$quotes_list[$i]['authors_full']?>
+            </span>
+          </td>
+
+          <td class="align_left nowrap bold tooltip_container">
+            <?=$quotes_list[$i]['smedia']?>
+            <span class="tooltip">
+              <?=$quotes_list[$i]['media_en']?><br>
+              <?=$quotes_list[$i]['media_fr']?>
+            </span>
+          </td>
+
+          <td class="align_left nowrap bold tooltip_container">
+            <?=$quotes_list[$i]['stitle']?>
+            <span class="tooltip">
+              <?=$quotes_list[$i]['title_en']?><br>
+              <?=$quotes_list[$i]['title_fr']?>
+            </span>
+          </td>
+
+          <td class="align_center nowrap">
+            <span class="tooltip_container">
+              <?=__icon('speech_bubble', is_small: true, alt: 'Q', title: __('admin_quotes_quote_full'), title_case: 'initials')?>
+              <div class="tooltip dowrap">
+                <?php if($quotes_list[$i]['body_en']): ?>
+                <div class="smallpadding_top smallpadding_bot spaced">
+                  <?=$quotes_list[$i]['body_en']?>
+                </div>
+                <?php endif; if($quotes_list[$i]['body_en'] && $quotes_list[$i]['body_fr']): ?>
+                <hr class="spaced_top">
+                <?php endif; if($quotes_list[$i]['body_fr']): ?>
+                <div class="smallpadding_top smallpadding_bot spaced">
+                  <?=$quotes_list[$i]['body_fr']?>
+                </div>
+                <?php endif; ?>
+              </div>
+            </span>
+            <?php if($quotes_list[$i]['sort']): ?>
+            <span class="tooltip_container">
+              <?=__icon('random', is_small: true, alt: 'S', title: __('admin_quotes_sort'), title_case: 'initials')?>
+              <div class="tooltip dowrap">
+                <?=$quotes_list[$i]['sort']?>
+              </div>
+            </span>
+            <?php endif; ?>
+          </td>
+
+          <?php if($quotes_list[$i]['tags']): ?>
+          <td class="align_center nowrap bold tooltip_container">
+            <?=$quotes_list[$i]['tags']?>
+            <div class="tooltip dowrap">
+              <?=$quotes_list[$i]['tags_list']?>
+            </div>
+          </td>
+          <?php else: ?>
+          <td class="align_center nowrap">
+            &nbsp;
+          </td>
+          <?php endif; ?>
+
+          <td class="align_center nowrap admin_action_icons">
+            <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_edit?quote_id='.$quotes_list[$i]['id'], path: $path)?>
+            <?=__icon('delete', is_small: true, class: 'valign_middle pointer', alt: 'X', title: __('delete'), title_case: 'initials', onclick: "admin_quotes_list_search(null, '".$quotes_list[$i]['id']."','".__('admin_quotes_delete_confirm')."')", path: $path)?>
+          </td>
+
+        </tr>
+
+        <?php endfor; ?>
+
+        <?php if(!page_is_fetched_dynamically()): ?>
+
+      </tbody>
+    </table>
+
+  </form>
 
 </div>
 
