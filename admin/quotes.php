@@ -84,6 +84,48 @@ if(isset($_POST['quote_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a quote
+
+if(isset($_POST['quote_edit']))
+{
+  // Fetch the quote's ID
+  $admin_quote_id = (int)form_fetch_element('quote_id');
+
+  // Go through the tag list
+  if($quote_tags_list['rows'])
+  {
+    for($i = 0; $i < $quote_tags_list['rows']; $i++)
+      $admin_quote_tags[$quote_tags_list[$i]['id']] = (isset($_POST['quote_tag_'.$quote_tags_list[$i]['id']])) ? 1 : 0;
+  }
+  else
+    $admin_quote_tags = array();
+
+  // Assemble an array with the postdata
+  $admin_quote_data = array(  'quote_media'     => form_fetch_element('quote_media')      ,
+                              'quote_author'    => form_fetch_element('quote_author')     ,
+                              'quote_sort'      => form_fetch_element('quote_sort')       ,
+                              'quote_year'      => form_fetch_element('quote_year')       ,
+                              'quote_origin_en' => form_fetch_element('quote_origin_en')  ,
+                              'quote_origin_fr' => form_fetch_element('quote_origin_fr')  ,
+                              'quote_source_en' => form_fetch_element('quote_source_en')  ,
+                              'quote_source_fr' => form_fetch_element('quote_source_fr')  ,
+                              'quote_title_en'  => form_fetch_element('quote_title_en')   ,
+                              'quote_title_fr'  => form_fetch_element('quote_title_fr')   ,
+                              'quote_desc_en'   => form_fetch_element('quote_desc_en')    ,
+                              'quote_desc_fr'   => form_fetch_element('quote_desc_fr')    ,
+                              'quote_body_en'   => form_fetch_element('quote_body_en')    ,
+                              'quote_body_fr'   => form_fetch_element('quote_body_fr')    ,
+                              'quote_tags'      => $admin_quote_tags                      );
+
+  // Edit the quote
+  quotes_edit(  $admin_quote_id   ,
+                $admin_quote_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Delete a quote
 
 if(isset($_POST['admin_quotes_delete']))

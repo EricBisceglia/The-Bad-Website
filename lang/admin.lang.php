@@ -620,6 +620,15 @@ ___('admin_quotes_add_tags',      'EN', "Tagged categories");
 ___('admin_quotes_add_tags',      'FR', "Catégories liées");
 ___('admin_quotes_add_submit',    'EN', "Add quote");
 ___('admin_quotes_add_submit',    'FR', "Ajouter la citation");
+___('admin_quotes_add_untitled',  'EN', "Untitled quote");
+___('admin_quotes_add_untitled',  'FR', "Citation sans titre");
+
+
+// Quotes: Edit
+___('admin_quotes_edit_title',     'EN', "Edit a quote");
+___('admin_quotes_edit_title',     'FR', "Modifier une citation");
+___('admin_quotes_edit_submit',    'EN', "Edit quote");
+___('admin_quotes_edit_submit',    'FR', "Modifier la citation");
 
 
 // Quotes: Delete

@@ -8,9 +8,11 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  quotes_get                  Fetches a quote.                                                                     */
 /*  quotes_list                 Fetches quotes.                                                                      */
 /*  quotes_list_origins         Lists possible origins for a quote.                                                  */
 /*  quotes_add                  Adds a quote to the database.                                                        */
+/*  quotes_edit                 Edits a quote.                                                                       */
 /*  quotes_delete               Deletes a quote.                                                                     */
 /*                                                                                                                   */
 /*  quote_authors_get           Fetches a quote author.                                                              */
@@ -34,6 +36,93 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_tags_delete           Deletes a quote tag.                                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Fetches a quote.
+ *
+ * @param   int    $quote_id  The ID of the quote.
+ *
+ * @return  array             An array containing data on the quote.
+ */
+
+function quotes_get( int $quote_id ) : ?array
+{
+  // Sanitize the data
+  $quote_id = sanitize($quote_id, 'int');
+
+  // Stop here if the quote does not exist
+  if(!$quote_id || !database_row_exists('quotes', $quote_id))
+    return null;
+
+  // Fetch the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the quote's data
+  $quote = query(" SELECT   quotes.fk_quote_media       AS 'q_media'     ,
+                            quotes.fk_quote_authors     AS 'q_author'    ,
+                            quotes.slug                 AS 'q_slug'      ,
+                            quotes.sorting_order        AS 'q_sort'      ,
+                            quotes.year_published       AS 'q_year'      ,
+                            quotes.origin_en            AS 'q_origin_en' ,
+                            quotes.origin_fr            AS 'q_origin_fr' ,
+                            quotes.source_en            AS 'q_source_en' ,
+                            quotes.source_fr            AS 'q_source_fr' ,
+                            quotes.title_en             AS 'q_title_en'  ,
+                            quotes.title_fr             AS 'q_title_fr'  ,
+                            quotes.description_en       AS 'q_desc_en'   ,
+                            quotes.description_fr       AS 'q_desc_fr'   ,
+                            quotes.quote_en             AS 'q_body_en'   ,
+                            quotes.quote_fr             AS 'q_body_fr'
+                    FROM    quotes
+                    WHERE   quotes.id = '$quote_id' ",
+                    fetch_row: true);
+
+  // Prepare the data for display
+  $data['id']           = sanitize_output($quote_id);
+  $data['slug']         = sanitize_output($quote['q_slug']);
+  $data['media_id']     = sanitize_output($quote['q_media']);
+  $data['author_id']    = sanitize_output($quote['q_author']);
+  $data['sort']         = sanitize_output($quote['q_sort']);
+  $data['year']         = $quote['q_year'] ? sanitize_output($quote['q_year']) : "";
+  $data['origin_en']    = sanitize_output($quote['q_origin_en']);
+  $data['origin_fr']    = sanitize_output($quote['q_origin_fr']);
+  $data['source_en']    = sanitize_output($quote['q_source_en']);
+  $data['source_fr']    = sanitize_output($quote['q_source_fr']);
+  $data['title_en']     = sanitize_output($quote['q_title_en']);
+  $data['title_fr']     = sanitize_output($quote['q_title_fr']);
+  $data['desc_en_raw']  = $quote['q_desc_en'];
+  $data['desc_fr_raw']  = $quote['q_desc_fr'];
+  $data['desc_en']      = sanitize_output($quote['q_desc_en'], preserve_line_breaks: true);
+  $data['desc_fr']      = sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true);
+  $data['body_en_raw']  = $quote['q_body_en'];
+  $data['body_fr_raw']  = $quote['q_body_fr'];
+  $data['body_en']      = sanitize_output($quote['q_body_en'], preserve_line_breaks: true);
+  $data['body_fr']      = sanitize_output($quote['q_body_fr'], preserve_line_breaks: true);
+
+  // Fetch the quote's tags
+  $tags = query(" SELECT  quote_tag_links.fk_quote_tags   AS 'qt_id'   ,
+                          quote_tags.name_$lang           AS 'qt_name'
+                  FROM    quote_tag_links
+                  JOIN    quote_tags
+                  ON      quote_tags.id = quote_tag_links.fk_quote_tags
+                  WHERE   quote_tag_links.fk_quotes = '$quote_id' ");
+
+  // Prepare the tags for display
+  for($i = 0; $row = query_row($tags); $i++)
+  {
+    $data['tags']['id'][$i]   = sanitize_output($row['qt_id']);
+    $data['tags']['name'][$i] = sanitize_output($row['qt_name']);
+  }
+
+  // Add the number of tags to the returned data
+  $data['tags']['rows'] = $i;
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 /**
  * Fetches quotes.
@@ -118,6 +207,12 @@ function quotes_list( string  $sort_by  = 'date'  ,
     'tags'    => "  ORDER BY  COALESCE(tag_data.tag_count, 0)               DESC  ,
                               COALESCE(author_data.author_names, '')        ASC   ,
                               q_eyear                                       ASC   ,
+                              COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
+    'year'    => "  ORDER BY  NULLIF(q_eyear, 0) IS NULL                    ASC   ,
+                              q_eyear                                       ASC   ,
+                              COALESCE(author_data.author_names, '')        ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
@@ -295,23 +390,59 @@ function quote_list_origins() : array
 function quotes_add( array $data ) : int
 {
   // Sanitize the data
-  $media_id     = sanitize_array_element($data, 'quote_media', 'int');
-  $author_id    = sanitize_array_element($data, 'quote_author', 'int');
-  $sort         = sanitize_array_element($data, 'quote_sort', 'int');
-  $year         = sanitize_array_element($data, 'quote_year', 'int');
-  $origin_en    = sanitize_array_element($data, 'quote_origin_en', 'int');
-  $origin_fr    = sanitize_array_element($data, 'quote_origin_fr', 'int');
-  $source_en    = sanitize_array_element($data, 'quote_source_en', 'string');
-  $source_fr    = sanitize_array_element($data, 'quote_source_fr', 'string');
-  $title_en     = sanitize_array_element($data, 'quote_title_en', 'string');
-  $title_fr     = sanitize_array_element($data, 'quote_title_fr', 'string');
-  $desc_en      = sanitize_array_element($data, 'quote_desc_en', 'string');
-  $desc_fr      = sanitize_array_element($data, 'quote_desc_fr', 'string');
-  $body_en      = sanitize_array_element($data, 'quote_body_en', 'string');
-  $body_fr      = sanitize_array_element($data, 'quote_body_fr', 'string');
+  $media_id   = sanitize_array_element($data, 'quote_media', 'int');
+  $author_id  = sanitize_array_element($data, 'quote_author', 'int');
+  $sort       = sanitize_array_element($data, 'quote_sort', 'int');
+  $year       = sanitize_array_element($data, 'quote_year', 'int');
+  $origin_en  = sanitize_array_element($data, 'quote_origin_en', 'int');
+  $origin_fr  = sanitize_array_element($data, 'quote_origin_fr', 'int');
+  $source_en  = sanitize_array_element($data, 'quote_source_en', 'string');
+  $source_fr  = sanitize_array_element($data, 'quote_source_fr', 'string');
+  $title_en   = sanitize_array_element($data, 'quote_title_en', 'string');
+  $title_fr   = sanitize_array_element($data, 'quote_title_fr', 'string');
+  $desc_en    = sanitize_array_element($data, 'quote_desc_en', 'string');
+  $desc_fr    = sanitize_array_element($data, 'quote_desc_fr', 'string');
+  $body_en    = sanitize_array_element($data, 'quote_body_en', 'string');
+  $body_fr    = sanitize_array_element($data, 'quote_body_fr', 'string');
+
+  // If there is no title, generate one for the slug
+  if(!$title_en)
+  {
+    $authors_en = "";
+    $media_en   = "";
+
+    // If there is an author, grab its name
+    if($author_id)
+    {
+      $author     = quote_authors_get($author_id);
+      $authors_en = $author['name_en_raw'];
+    }
+
+    // If there is a media, grab its name and authors
+    else if($media_id)
+    {
+      $media            = quote_media_get($media_id);
+      $media_author_ids = quote_media_get_authors($media_id);
+      $media_en         = $media['name_en_raw'];
+      foreach($media_author_ids as $media_author_id)
+      {
+        $author       = quote_authors_get((int)$media_author_id);
+        if(!$author)
+          continue;
+        $authors_en  .= ($authors_en ? ' & ' : '').$author['name_en_raw'];
+      }
+    }
+
+    // Prepare the default title
+    $default_title_en = implode(' - ', array_filter(array($authors_en, $media_en)));
+
+    // Give the quote a title
+    $slug_title_en = $title_en ?: ($default_title_en ?: __('admin_quotes_add_untitled'));
+  }
 
   // Generate a slug for the quote
-  $slug = str_replace(' ', '_', string_truncate($title_en, 100));
+  $slug = (isset($slug_title_en) ? $slug_title_en : $title_en);
+  $slug = str_replace(' ', '_', string_truncate($slug, 40));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
 
   // Make sure the slug is unique
@@ -363,6 +494,157 @@ function quotes_add( array $data ) : int
 
   // Return the newly created quote's ID
   return $quote_id;
+}
+
+
+
+
+/**
+ * Edits a quote.
+ *
+ * @param   int    $quote_id  The ID of the quote to edit.
+ * @param   array  $data      An array containing the quote data to update.
+ *
+ * @return  bool              Whether the quote was edited successfully.
+ */
+
+function quotes_edit( int   $quote_id ,
+                      array $data     ) : bool
+{
+  // Sanitize the quote's ID
+  $quote_id = sanitize($quote_id, 'int');
+
+  // Stop here if the quote does not exist
+  if(!$quote_id || !database_row_exists('quotes', $quote_id))
+    return false;
+
+  // Sanitize the data
+  $media_id   = sanitize_array_element($data, 'quote_media', 'int');
+  $author_id  = sanitize_array_element($data, 'quote_author', 'int');
+  $sort       = sanitize_array_element($data, 'quote_sort', 'int');
+  $year       = sanitize_array_element($data, 'quote_year', 'int');
+  $origin_en  = sanitize_array_element($data, 'quote_origin_en', 'int');
+  $origin_fr  = sanitize_array_element($data, 'quote_origin_fr', 'int');
+  $source_en  = sanitize_array_element($data, 'quote_source_en', 'string');
+  $source_fr  = sanitize_array_element($data, 'quote_source_fr', 'string');
+  $title_en   = sanitize_array_element($data, 'quote_title_en', 'string');
+  $title_fr   = sanitize_array_element($data, 'quote_title_fr', 'string');
+  $desc_en    = sanitize_array_element($data, 'quote_desc_en', 'string');
+  $desc_fr    = sanitize_array_element($data, 'quote_desc_fr', 'string');
+  $body_en    = sanitize_array_element($data, 'quote_body_en', 'string');
+  $body_fr    = sanitize_array_element($data, 'quote_body_fr', 'string');
+
+  // If there is no title, generate one for the slug
+  if(!$title_en)
+  {
+    $authors_en = "";
+    $media_en   = "";
+
+    // If there is an author, grab its name
+    if($author_id)
+    {
+      $author     = quote_authors_get($author_id);
+      $authors_en = $author['name_en_raw'];
+    }
+
+    // If there is a media, grab its name and authors
+    else if($media_id)
+    {
+      $media            = quote_media_get($media_id);
+      $media_author_ids = quote_media_get_authors($media_id);
+      $media_en         = $media['name_en_raw'];
+      foreach($media_author_ids as $media_author_id)
+      {
+        $author       = quote_authors_get((int)$media_author_id);
+        if(!$author)
+          continue;
+        $authors_en  .= ($authors_en ? ' & ' : '').$author['name_en_raw'];
+      }
+    }
+
+    // Prepare the default title
+    $default_title_en = implode(' - ', array_filter(array($authors_en, $media_en)));
+
+    // Give the quote a title
+    $slug_title_en = $title_en ?: ($default_title_en ?: __('admin_quotes_add_untitled'));
+  }
+
+  // Generate a slug for the quote
+  $slug = isset($slug_title_en) ? $slug_title_en : $title_en;
+  $slug = str_replace(' ', '_', string_truncate($slug, 40));
+  $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+
+  // Make sure the slug is unique
+  $underscores = '';
+  while(database_entry_exists('quotes', 'slug', $slug.$underscores))
+    $underscores .= '_';
+  $slug .= $underscores;
+
+  // Update the quote in the database
+  query(" UPDATE  quotes
+          SET     quotes.fk_quote_media   = '$media_id'   ,
+                  quotes.fk_quote_authors = '$author_id'  ,
+                  quotes.slug             = '$slug'       ,
+                  quotes.sorting_order    = '$sort'       ,
+                  quotes.year_published   = '$year'       ,
+                  quotes.origin_en        = '$origin_en'  ,
+                  quotes.origin_fr        = '$origin_fr'  ,
+                  quotes.source_en        = '$source_en'  ,
+                  quotes.source_fr        = '$source_fr'  ,
+                  quotes.title_en         = '$title_en'   ,
+                  quotes.title_fr         = '$title_fr'   ,
+                  quotes.description_en   = '$desc_en'    ,
+                  quotes.description_fr   = '$desc_fr'    ,
+                  quotes.quote_en         = '$body_en'    ,
+                  quotes.quote_fr         = '$body_fr'
+          WHERE   quotes.id               = '$quote_id' ");
+
+  // Get a list of all tags
+  $tags_list = quote_tags_list();
+
+  // Go through the tag list
+  for($i = 0; $i < $tags_list['rows']; $i++)
+  {
+    // Sanitize the tag's id
+    $tag_id = sanitize($tags_list[$i]['id'], 'int');
+
+    // Check whether tags have been applied
+    if(isset($data['quote_tags'][$tag_id]) && $data['quote_tags'][$tag_id] === 1)
+    {
+      // Look for the tag
+      $check_tag = query("  SELECT  quote_tag_links.fk_quote_tags AS 'ct_id'
+                            FROM    quote_tag_links
+                            WHERE   quote_tag_links.fk_quotes     = '$quote_id'
+                            AND     quote_tag_links.fk_quote_tags = '$tag_id' ",
+                            fetch_row: true);
+
+      // Create the tag if it is missing
+      if(!isset($check_tag['ct_id']))
+        query(" INSERT INTO quote_tag_links
+                SET         quote_tag_links.fk_quotes     = '$quote_id' ,
+                            quote_tag_links.fk_quote_tags = '$tag_id' ");
+    }
+
+    // Check whether the tag has been deleted
+    else
+    {
+      // Look for the tag
+      $check_tag = query("  SELECT  quote_tag_links.fk_quote_tags AS 'ct_id'
+                            FROM    quote_tag_links
+                            WHERE   quote_tag_links.fk_quotes     = '$quote_id'
+                            AND     quote_tag_links.fk_quote_tags = '$tag_id' ",
+                            fetch_row: true);
+
+      // Delete the tag if it exists
+      if(isset($check_tag['ct_id']))
+        query(" DELETE FROM quote_tag_links
+                WHERE       quote_tag_links.fk_quotes     = '$quote_id'
+                AND         quote_tag_links.fk_quote_tags = '$tag_id' ");
+    }
+  }
+
+  // The quote has been edited
+  return true;
 }
 
 
@@ -434,6 +716,7 @@ function quote_authors_get( int $author_id ) : ?array
   $data['slug']         = sanitize_output($author['qa_slug']);
   $data['name_en']      = sanitize_output($author['qa_name_en']);
   $data['name_fr']      = sanitize_output($author['qa_name_fr']);
+  $data['name_en_raw']  = $author['qa_name_en'];
   $data['birth']        = sanitize_output($author['qa_birth']);
   $data['death']        = sanitize_output($author['qa_death']);
   $data['desc_en_raw']  = sanitize_output($author['qa_desc_en']);
@@ -521,17 +804,18 @@ function quote_authors_list() : array
   for($i = 0; $row = query_row($authors); $i++)
   {
     // Quote author data
-    $data[$i]['id']       = sanitize_output($row['qa_id']);
-    $data[$i]['slug']     = sanitize_output($row['qa_slug']);
-    $data[$i]['name']     = sanitize_output($row['qa_name']);
-    $data[$i]['sname']    = sanitize_output(string_truncate($row['qa_name'], 25, '...'));
-    $data[$i]['name_en']  = sanitize_output($row['qa_name_en']);
-    $data[$i]['name_fr']  = sanitize_output($row['qa_name_fr']);
-    $data[$i]['birth']    = sanitize_output($row['qa_birth']);
-    $data[$i]['death']    = sanitize_output($row['qa_death']);
-    $data[$i]['quotes']   = sanitize_output($row['q_count']);
-    $data[$i]['media']    = sanitize_output($row['qma_count']);
-    $data[$i]['used']     = sanitize_output($row['q_count'] + $row['qma_count']);
+    $data[$i]['id']           = sanitize_output($row['qa_id']);
+    $data[$i]['slug']         = sanitize_output($row['qa_slug']);
+    $data[$i]['name']         = sanitize_output($row['qa_name']);
+    $data[$i]['sname']        = sanitize_output(string_truncate($row['qa_name'], 25, '...'));
+    $data[$i]['name_en']      = sanitize_output($row['qa_name_en']);
+    $data[$i]['name_fr']      = sanitize_output($row['qa_name_fr']);
+    $data[$i]['name_en_raw']  = $row['qa_name_en'];
+    $data[$i]['birth']        = sanitize_output($row['qa_birth']);
+    $data[$i]['death']        = sanitize_output($row['qa_death']);
+    $data[$i]['quotes']       = sanitize_output($row['q_count']);
+    $data[$i]['media']        = sanitize_output($row['qma_count']);
+    $data[$i]['used']         = sanitize_output($row['q_count'] + $row['qma_count']);
 
     // Quote media
     $media_names = sanitize_output($row['qma_names']);
@@ -730,6 +1014,7 @@ function quote_media_get( int $media_id ) : ?array
   $data['slug']           = sanitize_output($media['qm_slug']);
   $data['name_en']        = sanitize_output($media['qm_name_en']);
   $data['name_fr']        = sanitize_output($media['qm_name_fr']);
+  $data['name_en_raw']    = $media['qm_name_en'];
   $data['year']           = $media['qm_year'] ? sanitize_output($media['qm_year']) : '';
   $data['description_en'] = sanitize_output($media['qm_desc_en']);
   $data['description_fr'] = sanitize_output($media['qm_desc_fr']);
