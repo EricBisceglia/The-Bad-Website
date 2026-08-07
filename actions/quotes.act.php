@@ -8,6 +8,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  quotes_bbcodes              Formats a quote body for HTML display.                                               */
 /*  quotes_get                  Fetches a quote.                                                                     */
 /*  quotes_list                 Fetches quotes.                                                                      */
 /*  quotes_list_origins         Lists possible origins for a quote.                                                  */
@@ -36,6 +37,43 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  quote_tags_delete           Deletes a quote tag.                                                                 */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Formats a quote body for HTML display.
+ *
+ * @param   string|null   $quote_body   The quote body to format.
+ *
+ * @return  string                      The formatted quote body.
+ */
+
+function quotes_bbcodes( ?string $quote_body ) : string
+{
+  // Stop here if there is no quote body
+  if(!$quote_body)
+    return "";
+
+  // Apply some basic BBCodes
+  $quote_body = str_ireplace(
+    array(
+      '[b]' , '[/b]',
+      '[i]' , '[/i]',
+      '[u]' , '[/u]',
+      '[s]' , '[/s]'
+    ),
+    array(
+      '<span class="bold">',          '</span>' ,
+      '<span class="italics">',       '</span>' ,
+      '<span class="underlined">',    '</span>' ,
+      '<span class="strikethrough">', '</span>'
+    ),
+    $quote_body
+  );
+
+  // Return the formatted quote body
+  return $quote_body;
+}
+
+
 
 /**
  * Fetches a quote.
@@ -92,12 +130,12 @@ function quotes_get( int $quote_id ) : ?array
   $data['title_fr']     = sanitize_output($quote['q_title_fr']);
   $data['desc_en_raw']  = $quote['q_desc_en'];
   $data['desc_fr_raw']  = $quote['q_desc_fr'];
-  $data['desc_en']      = sanitize_output($quote['q_desc_en'], preserve_line_breaks: true);
-  $data['desc_fr']      = sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true);
+  $data['desc_en']      = quotes_bbcodes(sanitize_output($quote['q_desc_en'], preserve_line_breaks: true));
+  $data['desc_fr']      = quotes_bbcodes(sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true));
   $data['body_en_raw']  = $quote['q_body_en'];
   $data['body_fr_raw']  = $quote['q_body_fr'];
-  $data['body_en']      = sanitize_output($quote['q_body_en'], preserve_line_breaks: true);
-  $data['body_fr']      = sanitize_output($quote['q_body_fr'], preserve_line_breaks: true);
+  $data['body_en']      = quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true));
+  $data['body_fr']      = quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true));
 
   // Fetch the quote's tags
   $tags = query(" SELECT  quote_tag_links.fk_quote_tags   AS 'qt_id'   ,
@@ -315,8 +353,8 @@ function quotes_list( string  $sort_by  = 'date'  ,
     $data[$i]['stitle']    = sanitize_output(string_truncate($row['q_title'], 25, '...'));
     $data[$i]['title_en']  = sanitize_output($row['q_title_en']);
     $data[$i]['title_fr']  = sanitize_output($row['q_title_fr']);
-    $data[$i]['body_en']   = sanitize_output($row['q_body_en'], preserve_line_breaks: true);
-    $data[$i]['body_fr']   = sanitize_output($row['q_body_fr'], preserve_line_breaks: true);
+    $data[$i]['body_en']   = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
+    $data[$i]['body_fr']   = quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true));
     $data[$i]['media']     = sanitize_output($row['qm_name']);
     $data[$i]['smedia']    = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
     $data[$i]['media_en']  = sanitize_output($row['qm_name_en']);
