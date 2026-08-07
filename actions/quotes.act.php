@@ -9,8 +9,9 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*  quotes_list                 Fetches quotes.                                                                      */
-/*  quote_add                   Adds a quote to the database.                                                        */
-/*  quote_list_origins          Lists possible origins for a quote.                                                  */
+/*  quotes_list_origins         Lists possible origins for a quote.                                                  */
+/*  quotes_add                  Adds a quote to the database.                                                        */
+/*  quotes_delete               Deletes a quote.                                                                     */
 /*                                                                                                                   */
 /*  quote_authors_get           Fetches a quote author.                                                              */
 /*  quote_authors_list          Fetches quote authors.                                                               */
@@ -165,6 +166,44 @@ function quotes_list() : array
 }
 
 
+
+
+/**
+ * Lists possible origins for a quote.
+ *
+ * @return  array  An array containing the possible origins for a quote.
+ */
+
+function quote_list_origins() : array
+{
+  // Prepare the origins
+  $origins[0] = 'source';
+  $origins[1] = 'paraphrased';
+  $origins[2] = 'translated';
+  $origins[3] = 'third';
+  $origins[4] = 'unknown';
+
+  // Count the number of origins
+  $origins_count = count($origins);
+
+  // Prepare an array of origins
+  for($i = 0; $i < $origins_count; $i++)
+    $data['names'][$i] = __('quote_origin_'.$origins[$i]);
+
+  // Prepare an array of short hand origins
+  for($i = 0; $i < $origins_count; $i++)
+    $data['short'][$i] = __('quote_origin_'.$origins[$i].'_short');
+
+  // Add the number of origins to the returned data
+  $data['count'] = $origins_count;
+
+  // Return the array of possible quote origins
+  return $data;
+}
+
+
+
+
 /**
  * Adds a quote to the database.
  *
@@ -248,39 +287,35 @@ function quotes_add( array $data ) : int
 
 
 
+
 /**
- * Lists possible origins for a quote.
+ * Deletes a quote.
  *
- * @return  array  An array containing the possible origins for a quote.
+ * @param   int    $quote_id  The ID of the quote to delete.
+ *
+ * @return  bool              Whether the quote was deleted successfully.
  */
 
-function quote_list_origins() : array
+function quotes_delete( int $quote_id ) : bool
 {
-  // Prepare the origins
-  $origins[0] = 'source';
-  $origins[1] = 'paraphrased';
-  $origins[2] = 'translated';
-  $origins[3] = 'third';
-  $origins[4] = 'unknown';
+  // Sanitize the data
+  $quote_id = sanitize($quote_id, 'int');
 
-  // Count the number of origins
-  $origins_count = count($origins);
+  // Stop here if the quote does not exist
+  if(!$quote_id || !database_row_exists('quotes', $quote_id))
+    return false;
 
-  // Prepare an array of origins
-  for($i = 0; $i < $origins_count; $i++)
-    $data['names'][$i] = __('quote_origin_'.$origins[$i]);
+  // Delete the quote
+  query(" DELETE FROM quotes
+          WHERE       quotes.id = '$quote_id' ");
 
-  // Prepare an array of short hand origins
-  for($i = 0; $i < $origins_count; $i++)
-    $data['short'][$i] = __('quote_origin_'.$origins[$i].'_short');
+  // Delete any linked tags
+  query(" DELETE FROM quote_tag_links
+          WHERE       quote_tag_links.fk_quotes = '$quote_id' ");
 
-  // Add the number of origins to the returned data
-  $data['count'] = $origins_count;
-
-  // Return the array of possible quote origins
-  return $data;
+  // The quote has been deleted
+  return true;
 }
-
 
 
 

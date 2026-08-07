@@ -555,6 +555,8 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 // Quote list
 ___('admin_quotes_title',       'EN', "Quotes");
 ___('admin_quotes_title',       'FR', "Citations");
+___('admin_quotes_year',        'EN', "Year");
+___('admin_quotes_year',        'FR', "Année");
 ___('admin_quotes_author',      'EN', "Author");
 ___('admin_quotes_author',      'FR', "Auteur");
 ___('admin_quotes_source',      'EN', "Source");
@@ -612,6 +614,11 @@ ___('admin_quotes_add_tags',      'EN', "Tagged categories");
 ___('admin_quotes_add_tags',      'FR', "Catégories liées");
 ___('admin_quotes_add_submit',    'EN', "Add quote");
 ___('admin_quotes_add_submit',    'FR', "Ajouter la citation");
+
+
+// Quotes: Delete
+___('admin_quotes_delete_confirm', 'EN', "Confirm the permanent deletion of this quote");
+___('admin_quotes_delete_confirm', 'FR', "Confirmer la suppression définitive de cette citation");
 
 
 // Quote authors
