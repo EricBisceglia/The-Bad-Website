@@ -61,36 +61,29 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <form action="quotes" method="POST">
     <fieldset>
 
-      <div class="flexcontainer tinypadding_bot">
-        <div style="flex: 8">
+      <div class="smallpadding_bot" id="quote_media_container">
+        <label for="quote_media"><?=__link('admin/quotes_media', __('admin_quotes_add_media'), path: $path, popup: true)?></label>
+        <select class="indiv align_left" name="quote_media" id="quote_media" onchange="admin_quotes_hide_media_or_author('media')">
+          <option value="0">&nbsp;</option>
+          <?php for($i = 0; $i < $quote_media['rows']; $i++): ?>
+          <option value="<?=$quote_media[$i]['id']?>"><?=$quote_media[$i]['name'].' - '.$quote_media[$i]['authors_text']?></option>
+          <?php endfor; ?>
+        </select>
+      </div>
 
-          <div class="smallpadding_bot" id="quote_media_container">
-            <label for="quote_media"><?=__link('admin/quotes_media', __('admin_quotes_add_media'), path: $path, popup: true)?></label>
-            <select class="indiv align_left" name="quote_media" id="quote_media" onchange="admin_quotes_hide_media_or_author('media')">
-              <option value="0">&nbsp;</option>
-              <?php for($i = 0; $i < $quote_media['rows']; $i++): ?>
-              <option value="<?=$quote_media[$i]['id']?>"><?=$quote_media[$i]['name'].' - '.$quote_media[$i]['authors_text']?></option>
-              <?php endfor; ?>
-            </select>
-          </div>
+      <div class="smallpadding_bot" id="quote_author_container">
+        <label for="quote_author"><?=__link('admin/quotes_authors', __('admin_quotes_add_author'), path: $path, popup: true).__('admin_quotes_add_nomedia')?></label>
+        <select class="indiv align_left" name="quote_author" id="quote_author" onchange="admin_quotes_hide_media_or_author('author')">
+          <option value="0">&nbsp;</option>
+          <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
+          <option value="<?=$quote_authors[$i]['id']?>"><?=$quote_authors[$i]['name']?></option>
+          <?php endfor; ?>
+        </select>
+      </div>
 
-          </div>
-          <div style="flex: 1">
-            &nbsp;
-          </div>
-          <div style="flex: 8">
-
-          <div class="smallpadding_bot" id="quote_author_container">
-            <label for="quote_author"><?=__link('admin/quotes_authors', __('admin_quotes_add_author'), path: $path, popup: true).__('admin_quotes_add_author_2')?></label>
-            <select class="indiv align_left" name="quote_author" id="quote_author" onchange="admin_quotes_hide_media_or_author('author')">
-              <option value="0">&nbsp;</option>
-              <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
-              <option value="<?=$quote_authors[$i]['id']?>"><?=$quote_authors[$i]['name']?></option>
-              <?php endfor; ?>
-            </select>
-          </div>
-
-        </div>
+      <div class="smallpadding_bot" id="quote_year_container">
+        <label for="quote_year"><?=__('admin_quotes_add_year').__('admin_quotes_add_nomedia')?></label>
+        <input class="indiv" type="text" name="quote_year" id="quote_year">
       </div>
 
       <div class="smallpadding_bot">
@@ -111,13 +104,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_source_en"><?=__('admin_quotes_add_source_en')?></label>
-            <input class="indiv" type="text" name="quote_source_en" id="quote_source_en">
+            <label for="quote_title_en"><?=__('admin_quotes_add_title_en')?></label>
+            <input class="indiv" type="text" name="quote_title_en" id="quote_title_en">
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_title_en"><?=__('admin_quotes_add_title_en')?></label>
-            <input class="indiv" type="text" name="quote_title_en" id="quote_title_en">
+            <label for="quote_body_en"><?=__('admin_quotes_add_body_en')?></label>
+            <textarea class="indiv higher" name="quote_body_en" id="quote_body_en"></textarea>
           </div>
 
           <div class="smallpadding_bot">
@@ -126,8 +119,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_body_en"><?=__('admin_quotes_add_body_en')?></label>
-            <textarea class="indiv higher" name="quote_body_en" id="quote_body_en"></textarea>
+            <label for="quote_source_en"><?=__('admin_quotes_add_source_en')?></label>
+            <input class="indiv" type="text" name="quote_source_en" id="quote_source_en">
           </div>
 
         </div>
@@ -146,13 +139,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_source_fr"><?=__('admin_quotes_add_source_fr')?></label>
-            <input class="indiv" type="text" name="quote_source_fr" id="quote_source_fr">
+            <label for="quote_title_fr"><?=__('admin_quotes_add_title_fr')?></label>
+            <input class="indiv" type="text" name="quote_title_fr" id="quote_title_fr">
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_title_fr"><?=__('admin_quotes_add_title_fr')?></label>
-            <input class="indiv" type="text" name="quote_title_fr" id="quote_title_fr">
+            <label for="quote_body_fr"><?=__('admin_quotes_add_body_fr')?></label>
+            <textarea class="indiv higher" name="quote_body_fr" id="quote_body_fr"></textarea>
           </div>
 
           <div class="smallpadding_bot">
@@ -161,8 +154,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_body_fr"><?=__('admin_quotes_add_body_fr')?></label>
-            <textarea class="indiv higher" name="quote_body_fr" id="quote_body_fr"></textarea>
+            <label for="quote_source_fr"><?=__('admin_quotes_add_source_fr')?></label>
+            <input class="indiv" type="text" name="quote_source_fr" id="quote_source_fr">
           </div>
 
         </div>

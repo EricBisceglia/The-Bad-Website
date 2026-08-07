@@ -905,7 +905,8 @@ if($last_query < 16)
   sql_create_field('quotes', 'fk_quote_authors', 'INT UNSIGNED NOT NULL', 'fk_quote_media');
   sql_create_field('quotes', 'slug', 'TINYTEXT NOT NULL', 'fk_quote_authors');
   sql_create_field('quotes', 'sorting_order', 'INT UNSIGNED NOT NULL', 'slug');
-  sql_create_field('quotes', 'origin_en', 'TINYINT NOT NULL', 'sorting_order');
+  sql_create_field('quotes', 'year_published', 'SMALLINT UNSIGNED NOT NULL', 'sorting_order');
+  sql_create_field('quotes', 'origin_en', 'TINYINT NOT NULL', 'year_published');
   sql_create_field('quotes', 'origin_fr', 'TINYINT NOT NULL', 'origin_en');
   sql_create_field('quotes', 'source_en', 'TINYTEXT NOT NULL', 'origin_fr');
   sql_create_field('quotes', 'source_fr', 'TINYTEXT NOT NULL', 'source_en');

@@ -8,6 +8,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  quotes_list                 Fetches quotes.                                                                      */
 /*  quote_add                   Adds a quote to the database.                                                        */
 /*  quote_list_origins          Lists possible origins for a quote.                                                  */
 /*                                                                                                                   */
@@ -34,6 +35,137 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*********************************************************************************************************************/
 
 /**
+ * Fetches quotes.
+ *
+ * @return  array  An array containing the quotes.
+ */
+
+function quotes_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the quotes
+  $quotes = query(" SELECT  quotes.id                                 AS 'q_id'       ,
+                            quotes.sorting_order                      AS 'q_sort'     ,
+                            quotes.year_published                     AS 'q_year'     ,
+                            quotes.title_$lang                        AS 'q_title'    ,
+                            quotes.title_en                           AS 'q_title_en' ,
+                            quotes.title_fr                           AS 'q_title_fr' ,
+                            quotes.quote_en                           AS 'q_body_en'  ,
+                            quotes.quote_fr                           AS 'q_body_fr'  ,
+                            COALESCE(author_data.author_names, '')    AS 'qa_names'   ,
+                            COALESCE(quote_media.year_published, '')  AS 'qm_year'    ,
+                            COALESCE(quote_media.name_$lang, '')      AS 'qm_name'    ,
+                            COALESCE(quote_media.name_en, '')         AS 'qm_name_en' ,
+                            COALESCE(quote_media.name_fr, '')         AS 'qm_name_fr' ,
+                            COALESCE(tag_data.tag_count, 0)           AS 'qt_count'   ,
+                            COALESCE(tag_data.tag_names, '')          AS 'qt_names'   ,
+                            COALESCE(
+                              NULLIF(quote_media.year_published, 0),
+                              NULLIF(quotes.year_published, 0) )      AS 'q_eyear'
+
+                    FROM   quotes
+
+                    LEFT JOIN
+                    (
+                      SELECT    quote_authors_resolved.quote_id,
+                                COUNT(DISTINCT quote_authors_resolved.author_id)  AS 'author_count',
+                                GROUP_CONCAT(
+                                  DISTINCT quote_authors_resolved.author_name
+                                  ORDER BY quote_authors_resolved.author_name ASC
+                                  SEPARATOR '|||' )                               AS 'author_names'
+                      FROM
+                      (
+                        SELECT  quotes.id                 AS 'quote_id',
+                                quote_authors.id          AS 'author_id',
+                                quote_authors.name_$lang  AS 'author_name'
+                        FROM    quotes
+                        JOIN    quote_authors
+                        ON      quote_authors.id = quotes.fk_quote_authors
+                        WHERE   quotes.fk_quote_authors IS NOT NULL
+                      UNION
+                        SELECT  quotes.id                 AS 'quote_id',
+                                quote_authors.id          AS 'author_id',
+                                quote_authors.name_$lang  AS 'author_name'
+                        FROM    quotes
+                        JOIN    quote_media_authors
+                        ON      quote_media_authors.fk_quote_media = quotes.fk_quote_media
+                        JOIN    quote_authors
+                        ON      quote_authors.id = quote_media_authors.fk_quote_authors
+                        WHERE   quotes.fk_quote_media IS NOT NULL
+                      )
+                      AS quote_authors_resolved
+                      GROUP BY quote_authors_resolved.quote_id
+                    )
+                    AS author_data
+                    ON author_data.quote_id = quotes.id
+
+                    LEFT JOIN quote_media
+                    ON        quote_media.id = quotes.fk_quote_media
+
+                    LEFT JOIN
+                    (
+                      SELECT    quote_tag_links.fk_quotes     AS 'quote_id',
+                                COUNT(DISTINCT quote_tags.id) AS 'tag_count',
+                                GROUP_CONCAT(
+                                  DISTINCT  quote_tags.name_$lang
+                                  ORDER BY  quote_tags.sorting_order  ASC ,
+                                            quote_tags.name_$lang     ASC
+                                SEPARATOR '|||' )            AS 'tag_names'
+                      FROM      quote_tag_links
+                      JOIN      quote_tags
+                      ON        quote_tags.id = quote_tag_links.fk_quote_tags
+                      GROUP BY  quote_tag_links.fk_quotes
+                  )
+                  AS tag_data
+                  ON tag_data.quote_id = quotes.id
+
+                  ORDER BY COALESCE(author_data.author_names, '') ASC ,
+                           q_eyear                                ASC ,
+                           COALESCE(quote_media.name_$lang, '')   ASC ,
+                           quotes.sorting_order                   ASC ,
+                           quotes.id                              ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($quotes); $i++)
+  {
+    // Quote data
+    $data[$i]['id']        = sanitize_output($row['q_id']);
+    $data[$i]['sort']      = sanitize_output($row['q_sort']);
+    $data[$i]['year']      = ($row['qm_year']) ? sanitize_output($row['qm_year']) : sanitize_output($row['q_year']);
+    $data[$i]['year']      = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
+    $data[$i]['title']     = sanitize_output($row['q_title']);
+    $data[$i]['stitle']    = sanitize_output(string_truncate($row['q_title'], 25, '...'));
+    $data[$i]['title_en']  = sanitize_output($row['q_title_en']);
+    $data[$i]['title_fr']  = sanitize_output($row['q_title_fr']);
+    $data[$i]['body_en']   = sanitize_output($row['q_body_en'], preserve_line_breaks: true);
+    $data[$i]['body_fr']   = sanitize_output($row['q_body_fr'], preserve_line_breaks: true);
+    $data[$i]['media']     = sanitize_output($row['qm_name']);
+    $data[$i]['smedia']    = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
+    $data[$i]['media_en']  = sanitize_output($row['qm_name_en']);
+    $data[$i]['media_fr']  = sanitize_output($row['qm_name_fr']);
+    $data[$i]['tags']      = sanitize_output($row['qt_count']);
+
+    // Quote authors
+    $data[$i]['authors_full']   = sanitize_output(str_replace('|||', ' & ', $row['qa_names']));
+    $data[$i]['sauthors_full']  = sanitize_output(
+                                    str_replace('|||', ' & ', string_truncate($row['qa_names'], 20, '...')));
+
+    // Quote tags
+    $tag_names             = sanitize_output($row['qt_names']);
+    $data[$i]['tags_list'] = str_replace('|||', '<br>', $tag_names);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return ($data ?? []);
+}
+
+
+/**
  * Adds a quote to the database.
  *
  * @param   array  $data  An array containing data on the quote.
@@ -47,6 +179,7 @@ function quotes_add( array $data ) : int
   $media_id     = sanitize_array_element($data, 'quote_media', 'int');
   $author_id    = sanitize_array_element($data, 'quote_author', 'int');
   $sort         = sanitize_array_element($data, 'quote_sort', 'int');
+  $year         = sanitize_array_element($data, 'quote_year', 'int');
   $origin_en    = sanitize_array_element($data, 'quote_origin_en', 'int');
   $origin_fr    = sanitize_array_element($data, 'quote_origin_fr', 'int');
   $source_en    = sanitize_array_element($data, 'quote_source_en', 'string');
@@ -74,6 +207,7 @@ function quotes_add( array $data ) : int
                       quotes.fk_quote_authors = '$author_id'  ,
                       quotes.slug             = '$slug'       ,
                       quotes.sorting_order    = '$sort'       ,
+                      quotes.year_published   = '$year'       ,
                       quotes.origin_en        = '$origin_en'  ,
                       quotes.origin_fr        = '$origin_fr'  ,
                       quotes.source_en        = '$source_en'  ,

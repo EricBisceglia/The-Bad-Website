@@ -553,8 +553,26 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 /*********************************************************************************************************************/
 
 // Quote list
-___('admin_quotes_title',        'EN', "Quotes");
-___('admin_quotes_title',        'FR', "Citations");
+___('admin_quotes_title',       'EN', "Quotes");
+___('admin_quotes_title',       'FR', "Citations");
+___('admin_quotes_author',      'EN', "Author");
+___('admin_quotes_author',      'FR', "Auteur");
+___('admin_quotes_source',      'EN', "Source");
+___('admin_quotes_source',      'FR', "Source");
+___('admin_quotes_quote_full',  'EN', "Quote");
+___('admin_quotes_quote_full',  'FR', "Citation");
+___('admin_quotes_name',        'EN', "Title");
+___('admin_quotes_name',        'FR', "Titre");
+___('admin_quotes_quote',       'EN', "Quote");
+___('admin_quotes_quote',       'FR', "Citation");
+___('admin_quotes_sort',        'EN', "Sorting order");
+___('admin_quotes_sort',        'FR', "Ordre de tri");
+___('admin_quotes_tags',        'EN', "Tags");
+___('admin_quotes_tags',        'FR', "Tags");
+___('admin_quotes_count',       'EN', "{{1}} quote");
+___('admin_quotes_count',       'FR', "{{1}} citation");
+___('admin_quotes_count+',      'EN', "{{1}} quotes");
+___('admin_quotes_count+',      'FR', "{{1}} citations");
 
 
 // Quotes: Add
@@ -564,8 +582,10 @@ ___('admin_quotes_add_media',     'EN', "Source media");
 ___('admin_quotes_add_media',     'FR', "Média source");
 ___('admin_quotes_add_author',    'EN', "Author");
 ___('admin_quotes_add_author',    'FR', "Auteur");
-___('admin_quotes_add_author_2',  'EN', " (if no media)");
-___('admin_quotes_add_author_2',  'FR', " (si pas de média)");
+___('admin_quotes_add_nomedia',   'EN', " (if no media)");
+___('admin_quotes_add_nomedia',   'FR', " (si pas de média)");
+___('admin_quotes_add_year',      'EN', "Year published");
+___('admin_quotes_add_year',      'FR', "Année de publication");
 ___('admin_quotes_add_sort',      'EN', "Sorting order (within the media/author)");
 ___('admin_quotes_add_sort',      'FR', "Ordre de tri (au sein du média/auteur)");
 ___('admin_quotes_add_title_en',  'EN', "English title");
@@ -580,10 +600,10 @@ ___('admin_quotes_add_source_en', 'EN', "English source (or link)");
 ___('admin_quotes_add_source_en', 'FR', "Source (ou lien) anglais");
 ___('admin_quotes_add_source_fr', 'EN', "French source (or link)");
 ___('admin_quotes_add_source_fr', 'FR', "Source (ou lien) français");
-___('admin_quotes_add_desc_en',   'EN', "English summary/description");
-___('admin_quotes_add_desc_en',   'FR', "Description/résumé anglais");
-___('admin_quotes_add_desc_fr',   'EN', "French summary/description");
-___('admin_quotes_add_desc_fr',   'FR', "Description/résumé français");
+___('admin_quotes_add_desc_en',   'EN', "English description / addendums");
+___('admin_quotes_add_desc_en',   'FR', "Description / addendums en anglais");
+___('admin_quotes_add_desc_fr',   'EN', "French description / addendums");
+___('admin_quotes_add_desc_fr',   'FR', "Description / addendums en français");
 ___('admin_quotes_add_body_en',   'EN', "English quote");
 ___('admin_quotes_add_body_en',   'FR', "Citation en anglais");
 ___('admin_quotes_add_body_fr',   'EN', "French quote");

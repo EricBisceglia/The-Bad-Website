@@ -318,17 +318,23 @@ function admin_quotes_hide_media_or_author( type )
   if(type === 'author' && document.getElementById('quote_author').value != 0)
     toggle_element_oneway('quote_media_container', false);
 
-  // Hide the author dropdown if media was selected and the media dropdown contains a value
+  // Hide the author & years dropdowns if media was selected and the media dropdown contains a value
   if(type === 'media' && document.getElementById('quote_media').value != 0)
+  {
     toggle_element_oneway('quote_author_container', false);
+    toggle_element_oneway('quote_year_container', false);
+  }
 
   // Show the media dropdown if the author dropdown is empty
   if(type === 'author' && document.getElementById('quote_author').value == 0)
     toggle_element_oneway('quote_media_container', true);
 
-  // Show the author dropdown if the media dropdown is empty
+  // Show the author & year dropdowns if the media dropdown is empty
   if(type === 'media' && document.getElementById('quote_media').value == 0)
+  {
     toggle_element_oneway('quote_author_container', true);
+    toggle_element_oneway('quote_year_container', true);
+  }
 }
 
 /**
