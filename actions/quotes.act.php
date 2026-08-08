@@ -308,7 +308,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
   // Sort the data
   $query_sort = match($sort_by)
   {
-    'author'   => " ORDER BY  NULLIF(author_data.author_names, '') IS NULL  ASC   ,
+    'author'   => " ORDER BY  NULLIF(author_data.author_names, '') IS NULL  DESC  ,
                               author_data.author_names                      ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
@@ -318,7 +318,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
                               quote_media.name_$lang                        ASC   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
-    'title'   => "  ORDER BY  NULLIF(quotes.title_$lang, '') IS NULL        ASC   ,
+    'title'   => "  ORDER BY  NULLIF(quotes.title_$lang, '') IS NULL        DESC  ,
                               quotes.title_$lang                            ASC   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",

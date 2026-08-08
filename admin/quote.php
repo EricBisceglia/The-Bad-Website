@@ -58,6 +58,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?php else: ?>
     <?=__link('admin/quotes', __('admin_quote_title'), 'text_light', path: $path)?>
     <?php endif; ?>
+    <?=__icon('edit', href: 'admin/quotes_edit?quote_id='.$admin_quote_id, alt: 'E', title: __('admin_quote_edit'), path: $path) ?>
   </h2>
 
   <h5 class="align_center padding_bot">

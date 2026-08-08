@@ -555,6 +555,8 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 // Quote
 ___('admin_quote_title',  'EN', "Quote");
 ___('admin_quote_title',  'FR', "Citation");
+___('admin_quote_edit',   'EN', "Edit quote");
+___('admin_quote_edit',   'FR', "Modifier la citation");
 ___('admin_quote_source', 'EN', "Source");
 ___('admin_quote_source', 'FR', "Source");
 ___('admin_quote_tags',   'EN', "Tags");
