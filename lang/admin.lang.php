@@ -557,6 +557,15 @@ ___('admin_quote_title',  'EN', "Quote");
 ___('admin_quote_title',  'FR', "Citation");
 ___('admin_quote_source', 'EN', "Source");
 ___('admin_quote_source', 'FR', "Source");
+___('admin_quote_tags',   'EN', "Tags");
+___('admin_quote_tags',   'FR', "Tags");
+
+
+// Quote farm
+___('admin_quotes_farm_title',  'EN', "Quote farm");
+___('admin_quotes_farm_title',  'FR', "Ferme à citations");
+___('admin_quotes_farm_search', 'EN', "Search");
+___('admin_quotes_farm_search', 'FR', "Chercher");
 
 
 // Quote list

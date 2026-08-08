@@ -18,7 +18,7 @@
 /*                                                                                                                   */
 /*  admin_quotes_hide_media_or_author       Hides the quote media or author dropdowns when one is selected.          */
 /*  admin_quotes_list_search                Triggers a search in the quote list.                                     */
-/*  admin_quotes_delete                     Triggers the deletion of a quote.                                        */
+/*  admin_quotes_farm_search                Triggers a search in the quote farm.                                     */
 /*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
 /*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
 /*  admin_quotes_media_authors_update       Keeps an author dropdown at the bottom of the quote media edit form.     */
@@ -375,6 +375,29 @@ function admin_quotes_list_search(  sort            = null ,
 
   // Submit the search
   fetch_page('quotes', 'admin_quotes_tbody', postdata);
+}
+
+
+
+
+
+/**
+ * Triggers a search in the quote farm.
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_farm_search()
+{
+  // Assemble the postdata
+  postdata  = 'admin_quotes_search_author=' + fetch_sanitize_id('admin_quotes_search_author');
+  postdata += '&admin_quotes_search_media=' + fetch_sanitize_id('admin_quotes_search_media');
+  postdata += '&admin_quotes_search_tags='  + fetch_sanitize_id('admin_quotes_search_tags');
+  postdata += '&admin_quotes_search_body='  + fetch_sanitize_id('admin_quotes_search_body');
+  postdata += '&admin_quotes_search_go=1';
+
+  // Submit the search
+  fetch_page('quotes_farm', 'admin_quotes_farm_list', postdata);
 }
 
 

@@ -52,7 +52,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
     <?php if($quote_authors[$i]['has_portrait']): ?>
     <div class="smallpadding_bot">
-      <img src="<?=$path?><?=$quote_authors[$i]['portrait']?>" alt="<?=$quote_authors[$i]['name']?>" title="<?=$quote_authors[$i]['name']?>" class="admin_quote_gallery">
+      <a href="<?=$path?>admin/quotes_farm?author=<?=$quote_authors[$i]['id']?>">
+        <img src="<?=$path?><?=$quote_authors[$i]['portrait']?>" alt="<?=$quote_authors[$i]['name']?>" title="<?=$quote_authors[$i]['name']?>" class="admin_quote_gallery">
+      </a>
     </div>
     <?php endif; ?>
     <?php endfor; ?>

@@ -165,7 +165,8 @@ function quotes_get( int $quote_id ) : ?array
 
 
   // Fetch the quote's authors
-  $authors = query("  SELECT    quote_authors.slug        AS 'qa_slug' ,
+  $authors = query("  SELECT    quote_authors.id          AS 'qa_id'   ,
+                                quote_authors.slug        AS 'qa_slug' ,
                                 quote_authors.name_$lang  AS 'qa_name'
                       FROM      quote_authors
                       WHERE     quote_authors.id =
@@ -192,8 +193,9 @@ function quotes_get( int $quote_id ) : ?array
   for($i = 0; $row = query_row($authors); $i++)
   {
     // Author data
-    $author_names[]               = $row['qa_name'];
+    $data['authors']['id'][$i]    = sanitize_output($row['qa_id']);
     $data['authors']['name'][$i]  = sanitize_output($row['qa_name']);
+    $author_names[]               = $row['qa_name'];
 
     // Portraits
     if(file_exists(root_path().'img/portraits/'.$row['qa_slug'].'.png'))
@@ -226,6 +228,7 @@ function quotes_get( int $quote_id ) : ?array
     $data['tags']['id'][$i]   = sanitize_output($row['qt_id']);
     $data['tags']['name'][$i] = sanitize_output($row['qt_name']);
   }
+  $data['tags_list'] = ($i > 0) ? implode(', ', $data['tags']['name']) : '';
 
   // Add the number of tags to the returned data
   $data['tags']['rows'] = $i;
@@ -343,6 +346,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
                             quotes.title_$lang                        AS 'q_title'    ,
                             quotes.title_en                           AS 'q_title_en' ,
                             quotes.title_fr                           AS 'q_title_fr' ,
+                            quotes.quote_$lang                        AS 'q_body'     ,
                             quotes.quote_en                           AS 'q_body_en'  ,
                             quotes.quote_fr                           AS 'q_body_fr'  ,
                             COALESCE(author_data.author_names, '')    AS 'qa_names'   ,
@@ -420,21 +424,26 @@ function quotes_list( string  $sort_by  = 'date'  ,
   for($i = 0; $row = query_row($quotes); $i++)
   {
     // Quote data
-    $data[$i]['id']        = sanitize_output($row['q_id']);
-    $data[$i]['sort']      = sanitize_output($row['q_sort']);
-    $data[$i]['year']      = ($row['qm_year']) ? sanitize_output($row['qm_year']) : sanitize_output($row['q_year']);
-    $data[$i]['year']      = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
-    $data[$i]['title']     = sanitize_output($row['q_title']);
-    $data[$i]['stitle']    = sanitize_output(string_truncate($row['q_title'], 25, '...'));
-    $data[$i]['title_en']  = sanitize_output($row['q_title_en']);
-    $data[$i]['title_fr']  = sanitize_output($row['q_title_fr']);
-    $data[$i]['body_en']   = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
-    $data[$i]['body_fr']   = quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true));
-    $data[$i]['media']     = sanitize_output($row['qm_name']);
-    $data[$i]['smedia']    = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
-    $data[$i]['media_en']  = sanitize_output($row['qm_name_en']);
-    $data[$i]['media_fr']  = sanitize_output($row['qm_name_fr']);
-    $data[$i]['tags']      = sanitize_output($row['qt_count']);
+    $data[$i]['id']       = sanitize_output($row['q_id']);
+    $data[$i]['sort']     = sanitize_output($row['q_sort']);
+    $data[$i]['year']     = ($row['qm_year']) ? sanitize_output($row['qm_year']) : sanitize_output($row['q_year']);
+    $data[$i]['year']     = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
+    $data[$i]['title']    = sanitize_output($row['q_title']);
+    $data[$i]['stitle']   = sanitize_output(string_truncate($row['q_title'], 25, '...'));
+    $data[$i]['title_en'] = sanitize_output($row['q_title_en']);
+    $data[$i]['title_fr'] = sanitize_output($row['q_title_fr']);
+    $data[$i]['body_en']  = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
+    $data[$i]['body_fr']  = quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true));
+    $data[$i]['body']     = ($row['q_body'])
+                          ? quotes_bbcodes(sanitize_output($row['q_body'], preserve_line_breaks: true))
+                          : (($data[$i]['body_en'])
+                          ? quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true))
+                          : quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true)));
+    $data[$i]['media']    = sanitize_output($row['qm_name']);
+    $data[$i]['smedia']   = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
+    $data[$i]['media_en'] = sanitize_output($row['qm_name_en']);
+    $data[$i]['media_fr'] = sanitize_output($row['qm_name_fr']);
+    $data[$i]['tags']     = sanitize_output($row['qt_count']);
 
     // Quote authors
     $data[$i]['authors_full']   = sanitize_output(str_replace('|||', ' & ', $row['qa_names']));

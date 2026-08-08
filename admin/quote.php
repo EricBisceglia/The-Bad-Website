@@ -74,7 +74,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <div class="padding_bot align_center flexcontainer">
     <div style="flex: <?=$quote_data['authors_count']?>;">
       <?php for($i = 0; $i < $quote_data['authors_count']; $i++): ?>
-      <img src="<?=$path?><?=$quote_data['authors']['portrait'][$i]?>" alt="<?=$quote_data['authors']['name'][$i]?>" title="<?=$quote_data['authors']['name'][$i]?>" class="admin_quote_portraits">
+      <a href="<?=$path?>admin/quotes_farm?author=<?=$quote_data['authors']['id'][$i]?>">
+        <img src="<?=$path?><?=$quote_data['authors']['portrait'][$i]?>" alt="<?=$quote_data['authors']['name'][$i]?>" title="<?=$quote_data['authors']['name'][$i]?>" class="admin_quote_portraits">
+      </a>
       <?php endfor; ?>
     </div>
   </div>
@@ -88,15 +90,21 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <blockquote><?=$quote_data['body']?></blockquote>
 
+  <div class="italics smallpadding_top small">
+    <?=$quote_data['origin']?>
+  </div>
+
   <?php if($quote_data['source']): ?>
   <div class="italics smallpadding_top small">
     <?=__('admin_quote_source').__(':').' '.$quote_data['source']?>
   </div>
   <?php endif; ?>
 
-  <div class="italics smallpadding_top small">
-    <?=$quote_data['origin']?>
+  <?php if($quote_data['tags_list']): ?>
+  <div class="smallpadding_top small">
+    <?=__('admin_quote_tags').__(':').' '.$quote_data['tags_list']?>
   </div>
+  <?php endif; ?>
 
 </div>
 

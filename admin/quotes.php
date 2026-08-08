@@ -171,6 +171,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
     <h2 class="align_center padding_bot">
       <?=__link('admin/quotes', __('admin_quotes_title'), 'text_light', path: $path)?>
+      <?=__icon('template', alt: 'F', title: __('admin_quotes_farm_title'), title_case: 'initials', href: 'admin/quotes_farm', path: $path)?>
       <?=__icon('gallery', alt: 'G', title: __('admin_quotes_authors_gallery_title'), title_case: 'initials', href: 'admin/quotes_authors_gallery', path: $path)?>
       <?=__icon('add', alt: '+', title: __('add'), title_case: 'initials', href: 'admin/quotes_add', path: $path)?>
     </h2>
