@@ -125,6 +125,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php else: ?>
       <?=__link('admin/quote?quote_id='.$quotes_list[$i]['id'], __('admin_quote_title'), 'text_light', path: $path)?>
       <?php endif; ?>
+      <?=__icon('edit', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_edit?quote_id='.$quotes_list[$i]['id'], path: $path)?>
     </h3>
 
     <h5 class="align_center padding_bot">
@@ -138,7 +139,23 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </h5>
 
     <div class="smallpadding_bot">
-      <blockquote><?=$quotes_list[$i]['body']?></blockquote>
+      <?php if($quotes_list[$i]['body_en'] && $quotes_list[$i]['body_fr']): ?>
+      <div class="flexcontainer">
+        <div class="flex" style="flex: 10;">
+          <blockquote><?=$quotes_list[$i]['body_en']?></blockquote>
+        </div>
+        <div class="flex">
+          &nbsp;
+        </div>
+        <div class="flex" style="flex: 10;">
+          <blockquote><?=$quotes_list[$i]['body_fr']?></blockquote>
+        </div>
+      </div>
+      <?php elseif($quotes_list[$i]['body_en']): ?>
+      <blockquote><?=$quotes_list[$i]['body_en']?></blockquote>
+      <?php elseif($quotes_list[$i]['body_fr']): ?>
+      <blockquote><?=$quotes_list[$i]['body_fr']?></blockquote>
+      <?php endif; ?>
     </div>
 
     <?php endfor; ?>

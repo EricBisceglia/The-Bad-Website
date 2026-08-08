@@ -124,6 +124,9 @@ if(isset($_POST['quote_edit']))
   // Edit the quote
   quotes_edit(  $admin_quote_id   ,
                 $admin_quote_data );
+
+  // Redirect to the quote
+  exit(header("Location: ".$path."admin/quote?quote_id=".$admin_quote_id));
 }
 
 

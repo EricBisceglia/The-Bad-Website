@@ -220,7 +220,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <div class="smallpadding_bot">
         <label class="micropadding_bot"><?=__link('admin/quotes_tags', __('admin_quotes_add_tags'), path: $path, popup: true)?></label>
         <?php for($i = 0; $i < $quote_tags['rows']; $i++): ?>
-        <input type="checkbox" name="quote_tag_<?=$quote_tags[$i]['id']?>"<?=$admin_quote_tag_checked[$quote_tags[$i]['id']]?>>
+        <input type="checkbox" id="quote_tag_<?=$quote_tags[$i]['id']?>" name="quote_tag_<?=$quote_tags[$i]['id']?>"<?=$admin_quote_tag_checked[$quote_tags[$i]['id']]?>>
         <label class="label_inline" for="quote_tag_<?=$quote_tags[$i]['id']?>"><?=$quote_tags[$i]['name']?></label><br>
         <?php endfor; ?>
       </div>

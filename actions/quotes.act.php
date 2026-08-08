@@ -860,8 +860,8 @@ function quote_authors_get( int $author_id ) : ?array
   $data['name_en_raw']  = $author['qa_name_en'];
   $data['birth']        = sanitize_output($author['qa_birth']);
   $data['death']        = sanitize_output($author['qa_death']);
-  $data['desc_en_raw']  = sanitize_output($author['qa_desc_en']);
-  $data['desc_fr_raw']  = sanitize_output($author['qa_desc_fr']);
+  $data['desc_en_raw']  = $author['qa_desc_en'];
+  $data['desc_fr_raw']  = $author['qa_desc_fr'];
   $data['desc_en']      = sanitize_output($author['qa_desc_en'], preserve_line_breaks: true);
   $data['desc_fr']      = sanitize_output($author['qa_desc_fr'], preserve_line_breaks: true);
 
