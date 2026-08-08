@@ -188,7 +188,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__('admin_quotes_name')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('title');")?>
           </th>
-          <th class="align_center">
+          <th class="align_center desktop">
             <?=__('admin_quotes_quote')?>
           </th>
           <th class="align_center">
@@ -199,11 +199,11 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=__link('admin/quotes_media', __('admin_quotes_source'), path: $path)?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('source');")?>
           </th>
-          <th class="align_center">
+          <th class="align_center desktop">
             <?=__('admin_quotes_year')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('year');")?>
           </th>
-          <th class="align_center">
+          <th class="align_center desktop">
             <?=__link('admin/quotes_tags', __('admin_quotes_tags'), path: $path)?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('tags');")?>
           </th>
@@ -218,7 +218,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <input type="text" class="table_search" name="admin_quotes_search_title" id="admin_quotes_search_title" value="">
           </th>
 
-          <th>
+          <th class="desktop">
             <input type="text" class="table_search" name="admin_quotes_search_body" id="admin_quotes_search_body" value="">
           </th>
 
@@ -240,7 +240,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <input type="hidden" name="admin_quotes_sort" id="admin_quotes_sort" value="<?=$admin_quotes_sort?>">
             <select class="table_search" name="admin_quotes_search_year" id="admin_quotes_search_year">
               <option value="0">&nbsp;</option>
@@ -249,7 +249,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
-          <th>
+          <th class="desktop">
             <select class="table_search" name="admin_quotes_search_tags" id="admin_quotes_search_tags">
               <option value="0">&nbsp;</option>
               <option value="-1"><?=__('admin_quotes_search_notags')?></option>
@@ -283,13 +283,18 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <td class="align_left nowrap bold">
             <?php if($quotes_list[$i]['stitle']): ?>
-            <?=__link('admin/quote?quote_id='.$quotes_list[$i]['id'], $quotes_list[$i]['stitle'], path: $path)?>
+            <span class="desktop">
+              <?=__link('admin/quote?quote_id='.$quotes_list[$i]['id'], $quotes_list[$i]['stitle'], path: $path, popup: true)?>
+            </span>
+            <span class="mobile">
+              <?=__link('admin/quote?quote_id='.$quotes_list[$i]['id'], $quotes_list[$i]['mtitle'], path: $path, popup: true)?>
+            </span>
             <?php else: ?>
-            <?=__icon('link', is_small: true, class: 'valign_middle pointer', alt: 'L', title: __('admin_quote_title'), title_case: 'initials', href: 'admin/quote?quote_id='.$quotes_list[$i]['id'], path: $path)?>
+            <?=__icon('link', is_small: true, class: 'valign_middle pointer', alt: 'L', title: __('admin_quote_title'), title_case: 'initials', href: 'admin/quote?quote_id='.$quotes_list[$i]['id'], path: $path, popup: true)?>
             <?php endif; ?>
           </td>
 
-          <td class="align_center nowrap">
+          <td class="align_center nowrap desktop">
             <span class="tooltip_container">
               <?=__icon('speech_bubble', is_small: true, alt: 'Q', title: __('admin_quotes_quote_full'), title_case: 'initials')?>
               <div class="tooltip dowrap">
@@ -330,8 +335,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php endif; ?>
 
           <?php if($quotes_list[$i]['smedia']): ?>
-          <td class="align_left nowrap bold tooltip_container">
-            <?=$quotes_list[$i]['smedia']?>
+          <td class="align_left nowrap bold tooltip_container desktop">
+            <span class="desktop">
+              <?=$quotes_list[$i]['smedia']?>
+            </span>
+            <span class="mobile">
+              <?=$quotes_list[$i]['mmedia']?>
+            </span>
             <span class="tooltip">
               <?=$quotes_list[$i]['media_en']?><br>
               <?=$quotes_list[$i]['media_fr']?>
@@ -343,19 +353,19 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
           <?php endif; ?>
 
-          <td class="align_left nowrap bold">
+          <td class="align_left nowrap bold desktop">
             <?=$quotes_list[$i]['year']?>
           </td>
 
           <?php if($quotes_list[$i]['tags']): ?>
-          <td class="align_center nowrap bold tooltip_container">
+          <td class="align_center nowrap bold tooltip_container desktop">
             <?=$quotes_list[$i]['tags']?>
             <div class="tooltip dowrap">
               <?=$quotes_list[$i]['tags_list']?>
             </div>
           </td>
           <?php else: ?>
-          <td class="align_center nowrap">
+          <td class="desktop">
             &nbsp;
           </td>
           <?php endif; ?>

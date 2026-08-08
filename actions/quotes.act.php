@@ -432,6 +432,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
     $data[$i]['year']     = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
     $data[$i]['title']    = sanitize_output($row['q_title']);
     $data[$i]['stitle']   = sanitize_output(string_truncate($row['q_title'], 25, '...'));
+    $data[$i]['mtitle']   = sanitize_output(string_truncate($row['q_title'], 16, '...'));
     $data[$i]['title_en'] = sanitize_output($row['q_title_en']);
     $data[$i]['title_fr'] = sanitize_output($row['q_title_fr']);
     $data[$i]['body_en']  = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
@@ -443,6 +444,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
                           : quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true)));
     $data[$i]['media']    = sanitize_output($row['qm_name']);
     $data[$i]['smedia']   = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
+    $data[$i]['mmedia']   = sanitize_output(string_truncate($row['qm_name'], 11, '...'));
     $data[$i]['media_en'] = sanitize_output($row['qm_name_en']);
     $data[$i]['media_fr'] = sanitize_output($row['qm_name_fr']);
     $data[$i]['tags']     = sanitize_output($row['qt_count']);
