@@ -762,6 +762,18 @@ function quote_authors_get( int $author_id ) : ?array
   $data['desc_en']      = sanitize_output($author['qa_desc_en'], preserve_line_breaks: true);
   $data['desc_fr']      = sanitize_output($author['qa_desc_fr'], preserve_line_breaks: true);
 
+  // Portrait
+  if(file_exists(root_path().'img/portraits/'.$author['slug'].'.png'))
+  {
+    $data['portrait']     = '/img/portraits/'.$author['slug'].'.png';
+    $data['has_portrait'] = true;
+  }
+  else
+  {
+    $data['portrait']     = '/img/portraits/no_portrait.png';
+    $data['has_portrait'] = false;
+  }
+
   // Return the prepared data
   return $data;
 }
@@ -858,6 +870,18 @@ function quote_authors_list() : array
     // Quote media
     $media_names = sanitize_output($row['qma_names']);
     $data[$i]['media_list'] = str_replace('|||', '<br>', $media_names);
+
+    // Portrait
+    if(file_exists(root_path().'img/portraits/'.$row['qa_slug'].'.png'))
+    {
+      $data[$i]['portrait']     = '/img/portraits/'.$row['qa_slug'].'.png';
+      $data[$i]['has_portrait'] = true;
+    }
+    else
+    {
+      $data[$i]['portrait']     = '/img/portraits/no_portrait.png';
+      $data[$i]['has_portrait'] = false;
+    }
   }
 
   // Add the number of rows to the returned data

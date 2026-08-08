@@ -637,20 +637,26 @@ ___('admin_quotes_delete_confirm', 'FR', "Confirmer la suppression définitive d
 
 
 // Quote authors
-___('admin_quotes_authors_title',   'EN', "Quote authors");
-___('admin_quotes_authors_title',   'FR', "Auteurs de citations");
-___('admin_quotes_authors_name',    'EN', "Name");
-___('admin_quotes_authors_name',    'FR', "Nom");
-___('admin_quotes_authors_years',   'EN', "Years");
-___('admin_quotes_authors_years',   'FR', "Années");
-___('admin_quotes_authors_media',   'EN', "Media");
-___('admin_quotes_authors_media',   'FR', "Médias");
-___('admin_quotes_authors_quotes',  'EN', "Quotes");
-___('admin_quotes_authors_quotes',  'FR', "Citations");
-___('admin_quotes_authors_count',   'EN', "{{1}} author");
-___('admin_quotes_authors_count',   'FR', "{{1}} auteur");
-___('admin_quotes_authors_count+',  'EN', "{{1}} authors");
-___('admin_quotes_authors_count+',  'FR', "{{1}} auteurs");
+___('admin_quotes_authors_title',     'EN', "Quote authors");
+___('admin_quotes_authors_title',     'FR', "Auteurs de citations");
+___('admin_quotes_authors_name',      'EN', "Name");
+___('admin_quotes_authors_name',      'FR', "Nom");
+___('admin_quotes_authors_portrait',  'EN', "Img");
+___('admin_quotes_authors_portrait',  'FR', "Img");
+___('admin_quotes_authors_slug',      'EN', "Slug");
+___('admin_quotes_authors_slug',      'FR', "Slug");
+___('admin_quotes_authors_image',     'EN', "Portrait");
+___('admin_quotes_authors_image',     'FR', "Portrait");
+___('admin_quotes_authors_years',     'EN', "Years");
+___('admin_quotes_authors_years',     'FR', "Années");
+___('admin_quotes_authors_media',     'EN', "Media");
+___('admin_quotes_authors_media',     'FR', "Médias");
+___('admin_quotes_authors_quotes',    'EN', "Quotes");
+___('admin_quotes_authors_quotes',    'FR', "Citations");
+___('admin_quotes_authors_count',     'EN', "{{1}} author");
+___('admin_quotes_authors_count',     'FR', "{{1}} auteur");
+___('admin_quotes_authors_count+',    'EN', "{{1}} authors");
+___('admin_quotes_authors_count+',    'FR', "{{1}} auteurs");
 
 
 // Quote authors: Add
@@ -686,6 +692,11 @@ ___('admin_quotes_authors_delete_quotes',   'EN', "You cannot delete an author a
 ___('admin_quotes_authors_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des citations");
 ___('admin_quotes_authors_delete_media',    'EN', "You cannot delete an author as long as they have media attached to them");
 ___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des médias");
+
+
+// Quote authors: Gallery
+___('admin_quotes_authors_gallery_title',  'EN', "Quote authors gallery");
+___('admin_quotes_authors_gallery_title',  'FR', "Galerie d'auteurs de citations");
 
 
 // Quote media

@@ -18,6 +18,11 @@ img/merch/photos/*
 img/merch/templates/*
 !img/merch/templates/index.php
 
+# Don't commit quote portraits
+img/portraits/*
+!img/portraits/index.php
+!img/portraits/no_portrait.png
+
 # Don't commit user searches
 admin/user_searches.txt
 

@@ -115,6 +115,9 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?=__('admin_quotes_authors_name')?>
         </th>
         <th class="align_center">
+          <?=__('admin_quotes_authors_portrait')?>
+        </th>
+        <th class="align_center">
           <?=__('admin_quotes_authors_media')?>
         </th>
         <th class="align_center">
@@ -135,7 +138,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="5" class="uppercase text_light dark bold align_center">
+        <td colspan="6" class="uppercase text_light dark bold align_center">
           <?=__('admin_quotes_authors_count', preset_values: array($quote_authors['rows']), amount: $quote_authors['rows'])?>
         </td>
       </tr>
@@ -150,6 +153,20 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             <?=$quote_authors[$i]['name_en']?><br>
             <?=$quote_authors[$i]['name_fr']?>
           </span>
+        </td>
+
+        <td class="align_center tooltip_container">
+          <?php if($quote_authors[$i]['has_portrait']): ?>
+          <?=__icon('emoji', is_small: true, class: 'valign_middle pointer tooltip_container', alt: 'P', title: __('admin_quotes_authors_image'), title_case: 'initials', path: $path)?>
+          <span class="tooltip limit_height">
+            <img class="noflow" src="<?=$path.$quote_authors[$i]['portrait']?>" alt="<?=$quote_authors[$i]['name_en']?>">
+          </span>
+          <?php else: ?>
+          <?=__icon('cover_image', is_small: true, class: 'valign_middle pointer tooltip_container', alt: 'S', title: __('admin_quotes_authors_slug'), title_case: 'initials', path: $path)?>
+          <span class="tooltip">
+            <?=$quote_authors[$i]['slug']?>
+          </span>
+          <?php endif; ?>
         </td>
 
         <?php if($quote_authors[$i]['media_list']): ?>
