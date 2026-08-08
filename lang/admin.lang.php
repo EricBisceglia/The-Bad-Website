@@ -552,6 +552,13 @@ ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
+// Quote
+___('admin_quote_title',  'EN', "Quote");
+___('admin_quote_title',  'FR', "Citation");
+___('admin_quote_source', 'EN', "Source");
+___('admin_quote_source', 'FR', "Source");
+
+
 // Quote list
 ___('admin_quotes_title',         'EN', "Quotes");
 ___('admin_quotes_title',         'FR', "Citations");

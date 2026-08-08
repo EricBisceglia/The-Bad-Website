@@ -8,9 +8,9 @@ include_once './../actions/quotes.act.php'; # Admin actions
 include_once './../lang/admin.lang.php';    # Admin translations
 
 // Page summary
-$page_url       = "admin/quotes_authors_gallery";
-$page_title_en  = "Admin - Quote gallery";
-$page_title_fr  = "Admin - Galerie de citations";
+$page_url       = "admin/quote";
+$page_title_en  = "Admin - Quote";
+$page_title_fr  = "Admin - Citation";
 
 // Admin menu selection
 $admin_menu['quotes'] = 1;
@@ -29,9 +29,17 @@ $js   = array('admin/admin');
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Fetch the authors
+// Fetch quote data
 
-$quote_authors = quote_authors_list();
+// Fetch the quote's ID
+$admin_quote_id = (int)form_fetch_element('quote_id', request_type: 'GET');
+
+// Fetch the author data
+$quote_data = quotes_get($admin_quote_id);
+
+// Stop here if the quote does not exist
+if(!$quote_data)
+  exit(header("Location: ".$path."admin/quotes"));
 
 
 
@@ -45,17 +53,49 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 <div class="width_50 padding_top">
 
   <h2 class="align_center padding_bot">
-    <?=__link('admin/quotes', __('admin_quotes_authors_gallery_title'), 'text_light', path: $path)?>
+    <?php if($quote_data['title']): ?>
+    <?=__link('admin/quotes', $quote_data['title'], 'text_light', path: $path)?>
+    <?php else: ?>
+    <?=__link('admin/quotes', __('admin_quote_title'), 'text_light', path: $path)?>
+    <?php endif; ?>
   </h2>
 
-  <div style="column-count: 4;">
-    <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
-    <?php if($quote_authors[$i]['has_portrait']): ?>
-    <div class="smallpadding_bot">
-      <img src="<?=$path?><?=$quote_authors[$i]['portrait']?>" alt="<?=$quote_authors[$i]['name']?>" title="<?=$quote_authors[$i]['name']?>" class="admin_quote_gallery">
-    </div>
+  <h5 class="align_center padding_bot">
+    <?php if($quote_data['media_name']): ?>
+    <?=$quote_data['media_name']?><br>
+    <?php endif; if($quote_data['authors_full']): ?>
+    <?=$quote_data['authors_full']?><br>
+    <?php endif; if($quote_data['published']): ?>
+    <?=$quote_data['published']?>
     <?php endif; ?>
-    <?php endfor; ?>
+  </h5>
+
+  <?php if($quote_data['authors']['portraits']) : ?>
+  <div class="padding_bot align_center flexcontainer">
+    <div style="flex: <?=$quote_data['authors_count']?>;">
+      <?php for($i = 0; $i < $quote_data['authors_count']; $i++): ?>
+      <img src="<?=$path?><?=$quote_data['authors']['portrait'][$i]?>" alt="<?=$quote_data['authors']['name'][$i]?>" title="<?=$quote_data['authors']['name'][$i]?>" class="admin_quote_portraits">
+      <?php endfor; ?>
+    </div>
+  </div>
+  <?php endif; ?>
+
+  <?php if($quote_data['desc']): ?>
+  <div class="smallpadding_bot italics">
+    <?=$quote_data['desc']?>
+  </div>
+  <?php endif; ?>
+
+  <blockquote><?=$quote_data['body']?></blockquote>
+
+  <?php if($quote_data['source']): ?>
+  <div class="italics smallpadding_top small">
+    <?=__('admin_quote_source').__(':').' '.$quote_data['source']?>
+  </div>
+  <?php endif; ?>
+
+  <div class="italics smallpadding_top small">
+    <?=$quote_data['origin']?>
   </div>
 
 </div>

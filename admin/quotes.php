@@ -304,6 +304,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
 
           <td class="align_center nowrap">
+            <?=__icon('link', is_small: true, class: 'valign_middle pointer', alt: 'L', title: __('admin_quote_title'), title_case: 'initials', href: 'admin/quote?quote_id='.$quotes_list[$i]['id'], path: $path)?>
             <span class="tooltip_container">
               <?=__icon('speech_bubble', is_small: true, alt: 'Q', title: __('admin_quotes_quote_full'), title_case: 'initials')?>
               <div class="tooltip dowrap">

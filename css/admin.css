@@ -1,3 +1,6 @@
-.admin_menu           { margin-top: -2.3rem; }
-.admin_action_icons   { min-width: 4.0rem;   }
-.admin_tasks_textarea { min-height: 25.0rem; }
+.admin_menu             { margin-top: -2.3rem;                                  }
+.admin_action_icons     { min-width: 4.0rem;                                    }
+.admin_tasks_textarea   { min-height: 25.0rem;                                  }
+.admin_quote_portraits  { height: 10.0rem; width: 10.0rem; border-radius: 50%   ;
+                          margin-right: 0.5rem; margin-left: 0.5rem;            }
+.admin_quote_gallery    { border-radius: 50%; margin: 0.5rem;                   }

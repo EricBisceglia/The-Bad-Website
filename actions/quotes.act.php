@@ -96,23 +96,32 @@ function quotes_get( int $quote_id ) : ?array
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Fetch the quote's data
-  $quote = query(" SELECT   quotes.fk_quote_media       AS 'q_media'     ,
-                            quotes.fk_quote_authors     AS 'q_author'    ,
-                            quotes.slug                 AS 'q_slug'      ,
-                            quotes.sorting_order        AS 'q_sort'      ,
-                            quotes.year_published       AS 'q_year'      ,
-                            quotes.origin_en            AS 'q_origin_en' ,
-                            quotes.origin_fr            AS 'q_origin_fr' ,
-                            quotes.source_en            AS 'q_source_en' ,
-                            quotes.source_fr            AS 'q_source_fr' ,
-                            quotes.title_en             AS 'q_title_en'  ,
-                            quotes.title_fr             AS 'q_title_fr'  ,
-                            quotes.description_en       AS 'q_desc_en'   ,
-                            quotes.description_fr       AS 'q_desc_fr'   ,
-                            quotes.quote_en             AS 'q_body_en'   ,
-                            quotes.quote_fr             AS 'q_body_fr'
-                    FROM    quotes
-                    WHERE   quotes.id = '$quote_id' ",
+  $quote = query(" SELECT     quotes.fk_quote_media       AS 'q_media'        ,
+                              quotes.fk_quote_authors     AS 'q_author'       ,
+                              quotes.slug                 AS 'q_slug'         ,
+                              quotes.sorting_order        AS 'q_sort'         ,
+                              quotes.year_published       AS 'q_year'         ,
+                              quotes.origin_$lang         AS 'q_origin'       ,
+                              quotes.origin_en            AS 'q_origin_en'    ,
+                              quotes.origin_fr            AS 'q_origin_fr'    ,
+                              quotes.source_$lang         AS 'q_source'       ,
+                              quotes.source_en            AS 'q_source_en'    ,
+                              quotes.source_fr            AS 'q_source_fr'    ,
+                              quotes.title_$lang          AS 'q_title'        ,
+                              quotes.title_en             AS 'q_title_en'     ,
+                              quotes.title_fr             AS 'q_title_fr'     ,
+                              quotes.description_$lang    AS 'q_desc'         ,
+                              quotes.description_en       AS 'q_desc_en'      ,
+                              quotes.description_fr       AS 'q_desc_fr'      ,
+                              quotes.quote_$lang          AS 'q_body'         ,
+                              quotes.quote_en             AS 'q_body_en'      ,
+                              quotes.quote_fr             AS 'q_body_fr'      ,
+                              quote_media.name_$lang      AS 'qm_name'        ,
+                              quote_media.year_published  AS 'qm_year'
+                    FROM      quotes
+                    LEFT JOIN quote_media
+                    ON        quote_media.id = quotes.fk_quote_media
+                    WHERE     quotes.id = '$quote_id' ",
                     fetch_row: true);
 
   // Prepare the data for display
@@ -126,16 +135,82 @@ function quotes_get( int $quote_id ) : ?array
   $data['origin_fr']    = sanitize_output($quote['q_origin_fr']);
   $data['source_en']    = sanitize_output($quote['q_source_en']);
   $data['source_fr']    = sanitize_output($quote['q_source_fr']);
+  $data['source']       = sanitize_output($quote['q_source']);
+  $data['title']        = sanitize_output($quote['q_title']);
   $data['title_en']     = sanitize_output($quote['q_title_en']);
   $data['title_fr']     = sanitize_output($quote['q_title_fr']);
   $data['desc_en_raw']  = $quote['q_desc_en'];
   $data['desc_fr_raw']  = $quote['q_desc_fr'];
   $data['desc_en']      = quotes_bbcodes(sanitize_output($quote['q_desc_en'], preserve_line_breaks: true));
   $data['desc_fr']      = quotes_bbcodes(sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true));
+  $data['desc']         = quotes_bbcodes(sanitize_output($quote['q_desc'], preserve_line_breaks: true));
   $data['body_en_raw']  = $quote['q_body_en'];
   $data['body_fr_raw']  = $quote['q_body_fr'];
   $data['body_en']      = quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true));
   $data['body_fr']      = quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true));
+  $data['body']         = ($quote['q_body'])
+                        ? quotes_bbcodes(sanitize_output($quote['q_body'], preserve_line_breaks: true))
+                        : (($data['body_en'])
+                        ? quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true))
+                        : quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true)));
+  $data['media_name']   = sanitize_output($quote['qm_name']);
+  $data['published']    = ($quote['qm_year']) ? sanitize_output($quote['qm_year']) :
+                          (($quote['q_year']) ? sanitize_output($quote['q_year']) : "");
+
+  // Fetch the quote's origin
+  $quote_origins_list = quote_list_origins();
+  $quote_origin       = ($quote['q_body']) ? $quote['q_origin']
+                      : (($data['body_en']) ? $quote['q_origin_en'] : $quote['q_origin_fr']);
+  $data['origin']     = sanitize_output($quote_origins_list['names'][$quote_origin]);
+
+
+  // Fetch the quote's authors
+  $authors = query("  SELECT    quote_authors.slug        AS 'qa_slug' ,
+                                quote_authors.name_$lang  AS 'qa_name'
+                      FROM      quote_authors
+                      WHERE     quote_authors.id =
+                      (
+                        SELECT  quotes.fk_quote_authors
+                        FROM    quotes
+                        WHERE   quotes.id = '$quote_id'
+                      )
+                      OR quote_authors.id IN
+                      (
+                        SELECT  quote_media_authors.fk_quote_authors
+                        FROM    quote_media_authors
+                        JOIN    quotes
+                        ON      quotes.fk_quote_media  = quote_media_authors.fk_quote_media
+                        WHERE   quotes.id              = '$quote_id'
+                      )
+                      ORDER BY  quote_authors.name_$lang ASC ");
+
+  // Initialize author names and portraits
+  $author_names     = array();
+  $author_portraits = false;
+
+  // Prepare the authors for display
+  for($i = 0; $row = query_row($authors); $i++)
+  {
+    // Author data
+    $author_names[]               = $row['qa_name'];
+    $data['authors']['name'][$i]  = sanitize_output($row['qa_name']);
+
+    // Portraits
+    if(file_exists(root_path().'img/portraits/'.$row['qa_slug'].'.png'))
+    {
+      $author_portraits = true;
+      $data['authors']['portrait'][$i] = '/img/portraits/'.$row['qa_slug'].'.png';
+    }
+    else
+      $data['authors']['portrait'][$i] = '/img/portraits/no_portrait.png';
+  }
+
+  // Prepare author names and portraits for display
+  $data['authors']['portraits'] = $author_portraits;
+  $data['authors_full']       = sanitize_output(implode(' & ', $author_names));
+
+  // Add the number of authors to the returned data
+  $data['authors_count'] = $i;
 
   // Fetch the quote's tags
   $tags = query(" SELECT  quote_tag_links.fk_quote_tags   AS 'qt_id'   ,
@@ -763,9 +838,9 @@ function quote_authors_get( int $author_id ) : ?array
   $data['desc_fr']      = sanitize_output($author['qa_desc_fr'], preserve_line_breaks: true);
 
   // Portrait
-  if(file_exists(root_path().'img/portraits/'.$author['slug'].'.png'))
+  if(file_exists(root_path().'img/portraits/'.$author['qa_slug'].'.png'))
   {
-    $data['portrait']     = '/img/portraits/'.$author['slug'].'.png';
+    $data['portrait']     = '/img/portraits/'.$author['qa_slug'].'.png';
     $data['has_portrait'] = true;
   }
   else
