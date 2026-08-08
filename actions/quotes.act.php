@@ -78,9 +78,9 @@ function quotes_bbcodes( ?string $quote_body ) : string
 /**
  * Fetches a quote.
  *
- * @param   int    $quote_id  The ID of the quote.
+ * @param   int         $quote_id  The ID of the quote.
  *
- * @return  array             An array containing data on the quote.
+ * @return  array|null             An array containing data on the quote, or null if the quote does not exist.
  */
 
 function quotes_get( int $quote_id ) : ?array
@@ -215,12 +215,14 @@ function quotes_get( int $quote_id ) : ?array
   $data['authors_count'] = $i;
 
   // Fetch the quote's tags
-  $tags = query(" SELECT  quote_tag_links.fk_quote_tags   AS 'qt_id'   ,
-                          quote_tags.name_$lang           AS 'qt_name'
-                  FROM    quote_tag_links
-                  JOIN    quote_tags
-                  ON      quote_tags.id = quote_tag_links.fk_quote_tags
-                  WHERE   quote_tag_links.fk_quotes = '$quote_id' ");
+  $tags = query(" SELECT      quote_tag_links.fk_quote_tags   AS 'qt_id'   ,
+                              quote_tags.name_$lang           AS 'qt_name'
+                  FROM        quote_tag_links
+                  JOIN        quote_tags
+                  ON          quote_tags.id = quote_tag_links.fk_quote_tags
+                  WHERE       quote_tag_links.fk_quotes = '$quote_id'
+                  ORDER BY    quote_tags.sorting_order  ASC ,
+                              quote_tags.name_$lang     ASC ");
 
   // Prepare the tags for display
   for($i = 0; $row = query_row($tags); $i++)
@@ -527,6 +529,10 @@ function quotes_add( array $data ) : int
   $body_en    = sanitize_array_element($data, 'quote_body_en', 'string');
   $body_fr    = sanitize_array_element($data, 'quote_body_fr', 'string');
 
+  // Disallow linking to an author if there is a media
+  if($media_id)
+    $author_id = 0;
+
   // If there is no title, generate one for the slug
   if(!$title_en)
   {
@@ -566,6 +572,7 @@ function quotes_add( array $data ) : int
   $slug = (isset($slug_title_en) ? $slug_title_en : $title_en);
   $slug = str_replace(' ', '_', string_truncate($slug, 40));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+  $slug = ($slug) ?: 'quote';
 
   // Make sure the slug is unique
   $underscores = '';
@@ -656,6 +663,10 @@ function quotes_edit( int   $quote_id ,
   $body_en    = sanitize_array_element($data, 'quote_body_en', 'string');
   $body_fr    = sanitize_array_element($data, 'quote_body_fr', 'string');
 
+  // Disallow linking to an authors if there is a media
+  if($media_id)
+    $author_id = 0;
+
   // If there is no title, generate one for the slug
   if(!$title_en)
   {
@@ -695,6 +706,12 @@ function quotes_edit( int   $quote_id ,
   $slug = isset($slug_title_en) ? $slug_title_en : $title_en;
   $slug = str_replace(' ', '_', string_truncate($slug, 40));
   $slug = sanitize(string_change_case(preg_replace('/[^a-z0-9_]/i', '', $slug), 'lowercase'), 'string');
+  $slug = ($slug) ?: 'quote';
+
+  // Clear the current slug
+  query(" UPDATE  quotes
+          SET     quotes.slug = ''
+          WHERE   quotes.id   = '$quote_id' ");
 
   // Make sure the slug is unique
   $underscores = '';

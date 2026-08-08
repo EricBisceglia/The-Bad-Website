@@ -142,7 +142,7 @@ if(isset($_POST['admin_quotes_delete']))
 // List quotes
 
 // Fetch the sorting order
-$admin_quotes_sort = form_fetch_element('admin_quotes_sort', 'date');
+$admin_quotes_sort = form_fetch_element('admin_quotes_sort', 'default');
 
 // Assemble the search query
 $admin_quotes_search = array( 'year'    => form_fetch_element('admin_quotes_search_year')   ,
