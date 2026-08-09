@@ -70,6 +70,10 @@ $quote_tags = quote_tags_list();
 $quote_media_hide  = ($quote_data['media_id'] && !$quote_data['author_id']) ? '' : ' hidden';
 $quote_author_hide = ($quote_data['author_id'] && !$quote_data['media_id']) ? '' : ' hidden';
 
+// Don't hide anything if both media and author are empty
+if(!$quote_data['media_id'] && !$quote_data['author_id'])
+  $quote_media_hide = $quote_author_hide = '';
+
 // Select the correct quote media
 for($i = 0; $i < $quote_media['rows']; $i++)
   $quote_media[$i]['selected'] = ($quote_media[$i]['id'] == $quote_data['media_id']) ? ' selected' : '';
@@ -106,7 +110,7 @@ for($i = 0; $i < $quote_tags['rows']; $i++)
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_60 padding_top">
 
   <h2 class="padding_bot">
     <?=__link('admin/quotes', __('admin_quotes_edit_title'), 'text_light', path: $path)?>
@@ -176,7 +180,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_source_en"><?=__('admin_quotes_add_source_en')?></label>
-            <input class="indiv" type="text" name="quote_source_en" id="quote_source_en" value="<?=$quote_data['source_en']?>">
+            <textarea class="indiv shorter" name="quote_source_en" id="quote_source_en"><?=$quote_data['source_en_raw']?></textarea>
           </div>
 
         </div>
@@ -211,7 +215,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_source_fr"><?=__('admin_quotes_add_source_fr')?></label>
-            <input class="indiv" type="text" name="quote_source_fr" id="quote_source_fr" value="<?=$quote_data['source_fr']?>">
+            <textarea class="indiv shorter" name="quote_source_fr" id="quote_source_fr"><?=$quote_data['source_fr_raw']?></textarea>
           </div>
 
         </div>

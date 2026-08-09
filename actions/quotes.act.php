@@ -125,37 +125,39 @@ function quotes_get( int $quote_id ) : ?array
                     fetch_row: true);
 
   // Prepare the data for display
-  $data['id']           = sanitize_output($quote_id);
-  $data['slug']         = sanitize_output($quote['q_slug']);
-  $data['media_id']     = sanitize_output($quote['q_media']);
-  $data['author_id']    = sanitize_output($quote['q_author']);
-  $data['sort']         = sanitize_output($quote['q_sort']);
-  $data['year']         = $quote['q_year'] ? sanitize_output($quote['q_year']) : "";
-  $data['origin_en']    = sanitize_output($quote['q_origin_en']);
-  $data['origin_fr']    = sanitize_output($quote['q_origin_fr']);
-  $data['source_en']    = sanitize_output($quote['q_source_en']);
-  $data['source_fr']    = sanitize_output($quote['q_source_fr']);
-  $data['source']       = sanitize_output($quote['q_source']);
-  $data['title']        = sanitize_output($quote['q_title']);
-  $data['title_en']     = sanitize_output($quote['q_title_en']);
-  $data['title_fr']     = sanitize_output($quote['q_title_fr']);
-  $data['desc_en_raw']  = $quote['q_desc_en'];
-  $data['desc_fr_raw']  = $quote['q_desc_fr'];
-  $data['desc_en']      = quotes_bbcodes(sanitize_output($quote['q_desc_en'], preserve_line_breaks: true));
-  $data['desc_fr']      = quotes_bbcodes(sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true));
-  $data['desc']         = quotes_bbcodes(sanitize_output($quote['q_desc'], preserve_line_breaks: true));
-  $data['body_en_raw']  = $quote['q_body_en'];
-  $data['body_fr_raw']  = $quote['q_body_fr'];
-  $data['body_en']      = quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true));
-  $data['body_fr']      = quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true));
-  $data['body']         = ($quote['q_body'])
-                        ? quotes_bbcodes(sanitize_output($quote['q_body'], preserve_line_breaks: true))
-                        : (($data['body_en'])
-                        ? quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true))
-                        : quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true)));
-  $data['media_name']   = sanitize_output($quote['qm_name']);
-  $data['published']    = ($quote['qm_year']) ? sanitize_output($quote['qm_year']) :
-                          (($quote['q_year']) ? sanitize_output($quote['q_year']) : "");
+  $data['id']             = sanitize_output($quote_id);
+  $data['slug']           = sanitize_output($quote['q_slug']);
+  $data['media_id']       = sanitize_output($quote['q_media']);
+  $data['author_id']      = sanitize_output($quote['q_author']);
+  $data['sort']           = sanitize_output($quote['q_sort']);
+  $data['year']           = $quote['q_year'] ? sanitize_output($quote['q_year']) : "";
+  $data['origin_en']      = sanitize_output($quote['q_origin_en']);
+  $data['origin_fr']      = sanitize_output($quote['q_origin_fr']);
+  $data['source_en_raw']  = $quote['q_source_en'];
+  $data['source_fr_raw']  = $quote['q_source_fr'];
+  $data['source_en']      = quotes_bbcodes(sanitize_output($quote['q_source_en'], preserve_line_breaks: true));
+  $data['source_fr']      = quotes_bbcodes(sanitize_output($quote['q_source_fr'], preserve_line_breaks: true));
+  $data['source']         = quotes_bbcodes(sanitize_output($quote['q_source'], preserve_line_breaks: true));
+  $data['title']          = sanitize_output($quote['q_title']);
+  $data['title_en']       = sanitize_output($quote['q_title_en']);
+  $data['title_fr']       = sanitize_output($quote['q_title_fr']);
+  $data['desc_en_raw']    = $quote['q_desc_en'];
+  $data['desc_fr_raw']    = $quote['q_desc_fr'];
+  $data['desc_en']        = quotes_bbcodes(sanitize_output($quote['q_desc_en'], preserve_line_breaks: true));
+  $data['desc_fr']        = quotes_bbcodes(sanitize_output($quote['q_desc_fr'], preserve_line_breaks: true));
+  $data['desc']           = quotes_bbcodes(sanitize_output($quote['q_desc'], preserve_line_breaks: true));
+  $data['body_en_raw']    = $quote['q_body_en'];
+  $data['body_fr_raw']    = $quote['q_body_fr'];
+  $data['body_en']        = quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true));
+  $data['body_fr']        = quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true));
+  $data['body']           = ($quote['q_body'])
+                          ? quotes_bbcodes(sanitize_output($quote['q_body'], preserve_line_breaks: true))
+                          : (($data['body_en'])
+                          ? quotes_bbcodes(sanitize_output($quote['q_body_en'], preserve_line_breaks: true))
+                          : quotes_bbcodes(sanitize_output($quote['q_body_fr'], preserve_line_breaks: true)));
+  $data['media_name']     = sanitize_output($quote['qm_name']);
+  $data['published']      = ($quote['qm_year']) ? sanitize_output($quote['qm_year']) :
+                            (($quote['q_year']) ? sanitize_output($quote['q_year']) : "");
 
   // Fetch the quote's origin
   $quote_origins_list = quote_list_origins();

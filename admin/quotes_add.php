@@ -52,7 +52,7 @@ $quote_tags = quote_tags_list();
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_50 padding_top">
+<div class="width_60 padding_top">
 
   <h2 class="padding_bot">
     <?=__link('admin/quotes', __('admin_quotes_add_title'), 'text_light', path: $path)?>
@@ -120,7 +120,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_source_en"><?=__('admin_quotes_add_source_en')?></label>
-            <input class="indiv" type="text" name="quote_source_en" id="quote_source_en">
+            <textarea class="indiv shorter" name="quote_source_en" id="quote_source_en"></textarea>
           </div>
 
         </div>
@@ -155,7 +155,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <div class="smallpadding_bot">
             <label for="quote_source_fr"><?=__('admin_quotes_add_source_fr')?></label>
-            <input class="indiv" type="text" name="quote_source_fr" id="quote_source_fr">
+            <textarea class="indiv shorter" name="quote_source_fr" id="quote_source_fr"></textarea>
           </div>
 
         </div>
