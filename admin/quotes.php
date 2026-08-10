@@ -152,12 +152,13 @@ if(isset($_POST['admin_quotes_delete']))
 $admin_quotes_sort = form_fetch_element('admin_quotes_sort', 'default');
 
 // Assemble the search query
-$admin_quotes_search = array( 'year'    => form_fetch_element('admin_quotes_search_year')   ,
-                              'author'  => form_fetch_element('admin_quotes_search_author') ,
-                              'media'   => form_fetch_element('admin_quotes_search_media')  ,
-                              'title'   => form_fetch_element('admin_quotes_search_title')  ,
-                              'body'    => form_fetch_element('admin_quotes_search_body')   ,
-                              'tag'     => form_fetch_element('admin_quotes_search_tags')   );
+$admin_quotes_search = array( 'year'    => form_fetch_element('admin_quotes_search_year')     ,
+                              'author'  => form_fetch_element('admin_quotes_search_author')   ,
+                              'media'   => form_fetch_element('admin_quotes_search_media')    ,
+                              'title'   => form_fetch_element('admin_quotes_search_title')    ,
+                              'special' => form_fetch_element('admin_quotes_search_special')  ,
+                              'body'    => form_fetch_element('admin_quotes_search_body')     ,
+                              'tag'     => form_fetch_element('admin_quotes_search_tags')     );
 
 // Fetch the quotes
 $quotes_list = quotes_list( sort_by:  $admin_quotes_sort    ,
@@ -187,7 +188,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <thead>
 
         <tr class="uppercase">
-          <th class="align_center">
+          <th class="align_center" colspan="2">
             <?=__('admin_quotes_name')?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('title');")?>
           </th>
@@ -219,6 +220,14 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
           <th>
             <input type="text" class="table_search" name="admin_quotes_search_title" id="admin_quotes_search_title" value="">
+          </th>
+
+          <th>
+            <select class="table_search" name="admin_quotes_search_special" id="admin_quotes_search_special">
+              <option value="0">&nbsp;</option>
+              <option value="1"><?=__('admin_quotes_search_notitle')?></option>
+              <option value="2"><?=__('admin_quotes_search_notrans')?></option>
+            </select>
           </th>
 
           <th class="desktop">
@@ -275,7 +284,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <?php endif; ?>
 
         <tr>
-          <td colspan="7" class="uppercase text_light dark bold align_center">
+          <td colspan="8" class="uppercase text_light dark bold align_center">
             <?=__('admin_quotes_count', preset_values: array($quotes_list['rows']), amount: $quotes_list['rows'])?>
           </td>
         </tr>
@@ -284,7 +293,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
         <tr>
 
-          <td class="align_left nowrap bold">
+          <td class="align_left nowrap bold" colspan="2">
             <?php if($quotes_list[$i]['stitle']): ?>
             <span class="desktop">
               <?=__link('admin/quote?quote_id='.$quotes_list[$i]['id'], $quotes_list[$i]['stitle'], path: $path, popup: true)?>

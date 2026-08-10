@@ -395,6 +395,7 @@ function admin_quotes_list_search(  sort            = null ,
   postdata += '&admin_quotes_search_author='  + fetch_sanitize_id('admin_quotes_search_author');
   postdata += '&admin_quotes_search_media='   + fetch_sanitize_id('admin_quotes_search_media');
   postdata += '&admin_quotes_search_title='   + fetch_sanitize_id('admin_quotes_search_title');
+  postdata += '&admin_quotes_search_special=' + fetch_sanitize_id('admin_quotes_search_special');
   postdata += '&admin_quotes_search_body='    + fetch_sanitize_id('admin_quotes_search_body');
   postdata += '&admin_quotes_search_tags='    + fetch_sanitize_id('admin_quotes_search_tags');
 

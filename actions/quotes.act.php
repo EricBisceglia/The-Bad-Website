@@ -287,6 +287,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
   $search_author  = sanitize_array_element($search, 'author', 'int');
   $search_media   = sanitize_array_element($search, 'media', 'int');
   $search_title   = sanitize_array_element($search, 'title', 'string');
+  $search_special = sanitize_array_element($search, 'special', 'int');
   $search_body    = sanitize_array_element($search, 'body', 'string');
   $search_tag     = sanitize_array_element($search, 'tag', 'int');
 
@@ -294,22 +295,30 @@ function quotes_list( string  $sort_by  = 'date'  ,
   $lang = string_change_case(user_get_language(), 'lowercase');
 
   // Search through the data
-  $query_search   = ($search_year === 1)  ? " AND ( quote_media.year_published  > 0
-                                              OR    quotes.year_published       > 0 ) "                 : "";
-  $query_search  .= ($search_year === -1) ? " AND ( quote_media.year_published  = 0
-                                              OR    quote_media.year_published  IS NULL )
-                                              AND   quotes.year_published       = 0 "                   : "";
-  $query_search  .= ($search_media)       ? " AND   quotes.fk_quote_media       = '$search_media' "     : "";
-  $query_search  .= ($search_title)       ? " AND ( quotes.title_en          LIKE '%$search_title%'
-                                              OR    quotes.title_fr          LIKE '%$search_title%' ) " : "";
-  $query_search  .= ($search_body)        ? " AND ( quotes.title_en          LIKE '%$search_body%'
-                                              OR    quotes.title_fr          LIKE '%$search_body%'
-                                              OR    quotes.description_en    LIKE '%$search_body%'
-                                              OR    quotes.description_fr    LIKE '%$search_body%'
-                                              OR    quotes.source_en         LIKE '%$search_body%'
-                                              OR    quotes.source_fr         LIKE '%$search_body%'
-                                              OR    quotes.quote_en          LIKE '%$search_body%'
-                                              OR    quotes.quote_fr          LIKE '%$search_body%' ) "  : "";
+  $query_search   = ($search_year === 1)    ? " AND ( quote_media.year_published  > 0
+                                                OR    quotes.year_published       > 0 ) "                 : "";
+  $query_search  .= ($search_year === -1)   ? " AND ( quote_media.year_published  = 0
+                                                OR    quote_media.year_published  IS NULL )
+                                                AND   quotes.year_published       = 0 "                   : "";
+  $query_search  .= ($search_media)         ? " AND   quotes.fk_quote_media       = '$search_media' "     : "";
+  $query_search  .= ($search_title)         ? " AND ( quotes.title_en          LIKE '%$search_title%'
+                                                OR    quotes.title_fr          LIKE '%$search_title%' ) " : "";
+  $query_search  .= ($search_body)          ? " AND ( quotes.title_en          LIKE '%$search_body%'
+                                                OR    quotes.title_fr          LIKE '%$search_body%'
+                                                OR    quotes.description_en    LIKE '%$search_body%'
+                                                OR    quotes.description_fr    LIKE '%$search_body%'
+                                                OR    quotes.source_en         LIKE '%$search_body%'
+                                                OR    quotes.source_fr         LIKE '%$search_body%'
+                                                OR    quotes.quote_en          LIKE '%$search_body%'
+                                                OR    quotes.quote_fr          LIKE '%$search_body%' ) "  : "";
+  $query_search  .= ($search_special === 1) ? " AND ( quotes.quote_en            != ''
+                                                AND   quotes.title_en             = '' )
+                                                OR  ( quotes.quote_fr            != ''
+                                                AND   quotes.title_fr             = '' ) "                : "";
+  $query_search  .= ($search_special === 2) ? " AND ( quotes.quote_en            != ''
+                                                AND   quotes.quote_fr             = '' )
+                                                OR  ( quotes.quote_en             = ''
+                                                AND   quotes.quote_fr            != '' ) "                : "";
 
   // Search by author
   if($search_author)

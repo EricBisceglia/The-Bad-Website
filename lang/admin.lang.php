@@ -588,34 +588,38 @@ ___('admin_quotes_farm_search', 'FR', "Chercher");
 
 
 // Quote list
-___('admin_quotes_title',         'EN', "Quotes");
-___('admin_quotes_title',         'FR', "Citations");
-___('admin_quotes_year',          'EN', "Year");
-___('admin_quotes_year',          'FR', "Année");
-___('admin_quotes_author',        'EN', "Author");
-___('admin_quotes_author',        'FR', "Auteur");
-___('admin_quotes_source',        'EN', "Source");
-___('admin_quotes_source',        'FR', "Source");
-___('admin_quotes_quote_full',    'EN', "Quote");
-___('admin_quotes_quote_full',    'FR', "Citation");
-___('admin_quotes_name',          'EN', "Title");
-___('admin_quotes_name',          'FR', "Titre");
-___('admin_quotes_quote',         'EN', "Quote");
-___('admin_quotes_quote',         'FR', "Citation");
-___('admin_quotes_sort',          'EN', "Sorting order");
-___('admin_quotes_sort',          'FR', "Ordre de tri");
-___('admin_quotes_tags',          'EN', "Tags");
-___('admin_quotes_tags',          'FR', "Tags");
-___('admin_quotes_search_year',   'EN', "Has a year");
-___('admin_quotes_search_year',   'FR', "A une année");
-___('admin_quotes_search_noyear', 'EN', "Does not have a year");
-___('admin_quotes_search_noyear', 'FR', "N'a pas d'année");
-___('admin_quotes_search_notags', 'EN', "Does not have tags");
-___('admin_quotes_search_notags', 'FR', "N'a pas de tags");
-___('admin_quotes_count',         'EN', "{{1}} quote");
-___('admin_quotes_count',         'FR', "{{1}} citation");
-___('admin_quotes_count+',        'EN', "{{1}} quotes");
-___('admin_quotes_count+',        'FR', "{{1}} citations");
+___('admin_quotes_title',           'EN', "Quotes");
+___('admin_quotes_title',           'FR', "Citations");
+___('admin_quotes_year',            'EN', "Year");
+___('admin_quotes_year',            'FR', "Année");
+___('admin_quotes_author',          'EN', "Author");
+___('admin_quotes_author',          'FR', "Auteur");
+___('admin_quotes_source',          'EN', "Source");
+___('admin_quotes_source',          'FR', "Source");
+___('admin_quotes_quote_full',      'EN', "Quote");
+___('admin_quotes_quote_full',      'FR', "Citation");
+___('admin_quotes_name',            'EN', "Title");
+___('admin_quotes_name',            'FR', "Titre");
+___('admin_quotes_quote',           'EN', "Quote");
+___('admin_quotes_quote',           'FR', "Citation");
+___('admin_quotes_sort',            'EN', "Sorting order");
+___('admin_quotes_sort',            'FR', "Ordre de tri");
+___('admin_quotes_tags',            'EN', "Tags");
+___('admin_quotes_tags',            'FR', "Tags");
+___('admin_quotes_search_notrans',  'EN', "No translation");
+___('admin_quotes_search_notrans',  'FR', "Pas de traduction");
+___('admin_quotes_search_notitle',  'EN', "No title");
+___('admin_quotes_search_notitle',  'FR', "Pas de titre");
+___('admin_quotes_search_year',     'EN', "Has a year");
+___('admin_quotes_search_year',     'FR', "A une année");
+___('admin_quotes_search_noyear',   'EN', "Does not have a year");
+___('admin_quotes_search_noyear',   'FR', "N'a pas d'année");
+___('admin_quotes_search_notags',   'EN', "Does not have tags");
+___('admin_quotes_search_notags',   'FR', "N'a pas de tags");
+___('admin_quotes_count',           'EN', "{{1}} quote");
+___('admin_quotes_count',           'FR', "{{1}} citation");
+___('admin_quotes_count+',          'EN', "{{1}} quotes");
+___('admin_quotes_count+',          'FR', "{{1}} citations");
 
 
 // Quotes: Add
