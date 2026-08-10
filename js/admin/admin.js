@@ -2,6 +2,8 @@
 /*                                                                                                                   */
 /*  admin_menu                              Navigates between admin pages.                                           */
 /*                                                                                                                   */
+/*  admin_load_tooltip_page                 Loads a page contained within a tooltip.                                 */
+/*                                                                                                                   */
 /*  admin_ideas_search                      Searches the list of smug ideas.                                         */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*  admin_idea_type_delete                  Triggers the deletion of an idea type.                                   */
@@ -41,6 +43,33 @@ function admin_menu()
 
   // Go to the requested page
   window.location.href = page;
+}
+
+
+
+
+/**
+ * Loads a page contained within a tooltip.
+ *
+ * @param   {HTMLElement}  container  The tooltip container in which a page is waiting to be loaded.
+ *
+ * @returns {void}
+ */
+
+function admin_load_tooltip_page( container )
+{
+  // Fetch the unloaded iframe
+  const iframe = container.querySelector('iframe[data-src]');
+
+  // Stop if the page has already been loaded
+  if(!iframe)
+    return;
+
+  // Load the page
+  iframe.src = iframe.dataset.src;
+
+  // Prevent the page from being loaded again
+  iframe.removeAttribute('data-src');
 }
 
 

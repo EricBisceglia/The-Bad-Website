@@ -169,17 +169,32 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_body_en"><?=__('admin_quotes_add_body_en')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_body_en" class="pointer"><?=__('admin_quotes_add_body_en').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv higher" name="quote_body_en" id="quote_body_en"><?=$quote_data['body_en_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_desc_en"><?=__('admin_quotes_add_desc_en')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_desc_en" class="pointer"><?=__('admin_quotes_add_desc_en').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv shorter" name="quote_desc_en" id="quote_desc_en"><?=$quote_data['desc_en_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_source_en"><?=__('admin_quotes_add_source_en')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_source_en" class="pointer"><?=__('admin_quotes_add_source_en').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv shorter" name="quote_source_en" id="quote_source_en"><?=$quote_data['source_en_raw']?></textarea>
           </div>
 
@@ -204,17 +219,32 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_body_fr"><?=__('admin_quotes_add_body_fr')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_body_fr" class="pointer"><?=__('admin_quotes_add_body_fr').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv higher" name="quote_body_fr" id="quote_body_fr"><?=$quote_data['body_fr_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_desc_fr"><?=__('admin_quotes_add_desc_fr')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_desc_fr" class="pointer"><?=__('admin_quotes_add_desc_fr').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv shorter" name="quote_desc_fr" id="quote_desc_fr"><?=$quote_data['desc_fr_raw']?></textarea>
           </div>
 
           <div class="smallpadding_bot">
-            <label for="quote_source_fr"><?=__('admin_quotes_add_source_fr')?></label>
+            <div class="tooltip_container bbcode_tooltip_container" onmouseenter="admin_load_tooltip_page(this)">
+              <label for="quote_source_fr" class="pointer"><?=__('admin_quotes_add_source_fr').__icon('help', alt: 'B', title: __('admin_quotes_bbcode_help'), path: $path, is_small: true, class: 'bbcode_tooltip_info pointer')?></label>
+              <div class="tooltip bbcode_tooltip">
+                <iframe data-src="<?=$path?>admin/quotes_bbcodes?noheader&nofooter" title="<?=__('admin_quotes_bbcode_help')?>" loading="lazy"></iframe>
+              </div>
+            </div>
             <textarea class="indiv shorter" name="quote_source_fr" id="quote_source_fr"><?=$quote_data['source_fr_raw']?></textarea>
           </div>
 

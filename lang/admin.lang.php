@@ -563,6 +563,23 @@ ___('admin_quote_tags',   'EN', "Tags");
 ___('admin_quote_tags',   'FR', "Tags");
 
 
+// Quote BBCode documentation
+___('admin_quotes_bbcode_title',      'EN', "BBCode documentation (quotes)");
+___('admin_quotes_bbcode_title',      'FR', "Doc des BBCodes (citations)");
+___('admin_quotes_bbcode_bold',       'EN', "[b]Bold[/b]");
+___('admin_quotes_bbcode_bold',       'FR', "[b]Gras[/b]");
+___('admin_quotes_bbcode_italics',    'EN', "[i]Italics[/i]");
+___('admin_quotes_bbcode_italics',    'FR', "[i]Italique[/i]");
+___('admin_quotes_bbcode_underline',  'EN', "[u]Underlined[/u]");
+___('admin_quotes_bbcode_underline',  'FR', "[u]Souligné[/u]");
+___('admin_quotes_bbcode_strike',     'EN', "[s]Strikethrough[/s]");
+___('admin_quotes_bbcode_strike',     'FR', "[s]Barré[/s]");
+___('admin_quotes_bbcode_link',       'EN', "[url=https://example.com]Link[/url]");
+___('admin_quotes_bbcode_link',       'FR', "[url=https://example.com]Lien[/url]");
+___('admin_quotes_bbcode_link_2',     'EN', "[url]https://example.com[/url]");
+___('admin_quotes_bbcode_link_2',     'FR', "[url]https://example.com[/url]");
+
+
 // Quote farm
 ___('admin_quotes_farm_title',  'EN', "Quote farm");
 ___('admin_quotes_farm_title',  'FR', "Ferme à citations");

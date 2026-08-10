@@ -19,6 +19,8 @@ foreach($admin_menu_entries as $admin_menu_entry)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Display the menu                                                                                                  ?>
 
+<?php if(!isset($hide_header)) { ?>
+
 <div class="nopadding_top padding_bot align_center admin_menu">
   <fieldset>
     <h5>
@@ -34,3 +36,5 @@ foreach($admin_menu_entries as $admin_menu_entry)
 </div>
 
 <hr>
+
+<?php } ?>

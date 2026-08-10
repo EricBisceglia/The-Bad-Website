@@ -52,7 +52,33 @@ function quotes_bbcodes( ?string $quote_body ) : string
   if(!$quote_body)
     return "";
 
-  // Apply some basic BBCodes
+  // Apply URL bbcodes
+  $quote_body = preg_replace_callback('/\[url(?:=(https?:\/\/[^\]\s]+))?\](.*?)\[\/url\]/is',
+    function($matches)
+    {
+      // Get the url part depending on whether it's [url] or [url=]
+      $url = ($matches[1] !== '') ? $matches[1] : $matches[2];
+
+      // Check for valid URLs
+      $url = html_entity_decode($url, ENT_QUOTES, 'UTF-8');
+
+      // Leave invalid URLs unformatted
+      if(!filter_var($url, FILTER_VALIDATE_URL))
+        return $matches[0];
+
+      // Escape the URL
+      $url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+
+      // Display the url itself for [url], but show the text for [url=]
+      $label = ($matches[1] !== '') ? $matches[2] : $url;
+
+      // Format the URL
+      return '<a href="'.$url.'" target="_blank" rel="noopener noreferrer" class="text_light underlined">'.$label.'</a>';
+      },
+    $quote_body
+  );
+
+  // Apply text formatting BBCodes
   $quote_body = str_ireplace(
     array(
       '[b]' , '[/b]',
@@ -280,6 +306,8 @@ function quotes_list( string  $sort_by  = 'date'  ,
                                               OR    quotes.title_fr          LIKE '%$search_body%'
                                               OR    quotes.description_en    LIKE '%$search_body%'
                                               OR    quotes.description_fr    LIKE '%$search_body%'
+                                              OR    quotes.source_en         LIKE '%$search_body%'
+                                              OR    quotes.source_fr         LIKE '%$search_body%'
                                               OR    quotes.quote_en          LIKE '%$search_body%'
                                               OR    quotes.quote_fr          LIKE '%$search_body%' ) "  : "";
 
