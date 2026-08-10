@@ -606,6 +606,8 @@ ___('admin_quotes_sort',            'EN', "Sorting order");
 ___('admin_quotes_sort',            'FR', "Ordre de tri");
 ___('admin_quotes_tags',            'EN', "Tags");
 ___('admin_quotes_tags',            'FR', "Tags");
+___('admin_quotes_added',           'EN', "Added");
+___('admin_quotes_added',           'FR', "Ajoutée");
 ___('admin_quotes_search_notrans',  'EN', "No translation");
 ___('admin_quotes_search_notrans',  'FR', "Pas de traduction");
 ___('admin_quotes_search_notitle',  'EN', "No title");

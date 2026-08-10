@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `quotes` (
   `fk_quote_authors` int UNSIGNED NOT NULL,
   `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
   `sorting_order` int UNSIGNED NOT NULL,
+  `date_added` date NOT NULL,
   `year_published` smallint UNSIGNED NOT NULL,
   `origin_en` tinyint NOT NULL,
   `origin_fr` tinyint NOT NULL,

@@ -173,7 +173,7 @@ $quotes_list = quotes_list( sort_by:  $admin_quotes_sort    ,
 /*                                                                                                                   */
 if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';  /****/ include './admin_menu.php'; ?>
 
-<div class="width_60 padding_top">
+<div class="width_70 padding_top">
 
   <form id="admin_quotes_search" onsubmit="admin_quotes_list_search(); return false;">
 
@@ -210,6 +210,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <th class="align_center desktop">
             <?=__link('admin/quotes_tags', __('admin_quotes_tags'), path: $path)?>
             <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('tags');")?>
+          </th>
+          <th class="align_center desktop">
+            <?=__('admin_quotes_added')?>
+            <?=__icon('sort_down', is_small: true, alt: 'v', title: __('sort'), title_case: 'initials', path: $path, onclick: "admin_quotes_list_search('added');")?>
           </th>
           <th>
             <?=__('act')?>
@@ -271,6 +275,10 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             </select>
           </th>
 
+          <th class="desktop">
+            &nbsp;
+          </th>
+
           <th>
             <input type="submit" class="table_search bold" name="admin_quotes_search_go" value="<?=__('search')?>" onclick="admin_quotes_list_search();">
           </th>
@@ -284,7 +292,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
         <?php endif; ?>
 
         <tr>
-          <td colspan="8" class="uppercase text_light dark bold align_center">
+          <td colspan="9" class="uppercase text_light dark bold align_center">
             <?=__('admin_quotes_count', preset_values: array($quotes_list['rows']), amount: $quotes_list['rows'])?>
           </td>
         </tr>
@@ -347,7 +355,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           <?php endif; ?>
 
           <?php if($quotes_list[$i]['smedia']): ?>
-          <td class="align_left nowrap bold tooltip_container desktop">
+          <td class="align_left nowrap bold tooltip_container">
             <span class="desktop">
               <?=$quotes_list[$i]['smedia']?>
             </span>
@@ -365,7 +373,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
           </td>
           <?php endif; ?>
 
-          <td class="align_left nowrap bold desktop">
+          <td class="align_center nowrap bold desktop">
             <?=$quotes_list[$i]['year']?>
           </td>
 
@@ -381,6 +389,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
             &nbsp;
           </td>
           <?php endif; ?>
+
+          <td class="align_center nowrap desktop tooltip_container">
+            <?=$quotes_list[$i]['added']?>
+            <div class="tooltip dowrap">
+              <?=$quotes_list[$i]['added_full']?>
+            </div>
+          </td>
 
           <td class="align_center nowrap admin_action_icons">
             <?=__icon('edit', is_small: true, class: 'valign_middle pointer spaced_right', alt: 'M', title: __('edit'), title_case: 'initials', href: 'admin/quotes_edit?quote_id='.$quotes_list[$i]['id'], path: $path)?>

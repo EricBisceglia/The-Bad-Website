@@ -373,6 +373,12 @@ function quotes_list( string  $sort_by  = 'date'  ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
+    'added'   => "  ORDER BY  quotes.date_added                             DESC  ,
+                              COALESCE(author_data.author_names, '')        ASC   ,
+                              q_eyear                                       ASC   ,
+                              COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          ASC   ,
+                              quotes.id                                     ASC   ",
     default   => "  ORDER BY  COALESCE(author_data.author_names, '')        ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
@@ -383,6 +389,7 @@ function quotes_list( string  $sort_by  = 'date'  ,
   // Fetch the quotes
   $quotes = query(" SELECT  quotes.id                                 AS 'q_id'       ,
                             quotes.sorting_order                      AS 'q_sort'     ,
+                            quotes.date_added                         AS 'q_added'    ,
                             quotes.year_published                     AS 'q_year'     ,
                             quotes.title_$lang                        AS 'q_title'    ,
                             quotes.title_en                           AS 'q_title_en' ,
@@ -465,28 +472,32 @@ function quotes_list( string  $sort_by  = 'date'  ,
   for($i = 0; $row = query_row($quotes); $i++)
   {
     // Quote data
-    $data[$i]['id']       = sanitize_output($row['q_id']);
-    $data[$i]['sort']     = sanitize_output($row['q_sort']);
-    $data[$i]['year']     = ($row['qm_year']) ? sanitize_output($row['qm_year']) : sanitize_output($row['q_year']);
-    $data[$i]['year']     = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
-    $data[$i]['title']    = sanitize_output($row['q_title']);
-    $data[$i]['stitle']   = sanitize_output(string_truncate($row['q_title'], 25, '...'));
-    $data[$i]['mtitle']   = sanitize_output(string_truncate($row['q_title'], 16, '...'));
-    $data[$i]['title_en'] = sanitize_output($row['q_title_en']);
-    $data[$i]['title_fr'] = sanitize_output($row['q_title_fr']);
-    $data[$i]['body_en']  = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
-    $data[$i]['body_fr']  = quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true));
-    $data[$i]['body']     = ($row['q_body'])
-                          ? quotes_bbcodes(sanitize_output($row['q_body'], preserve_line_breaks: true))
-                          : (($data[$i]['body_en'])
-                          ? quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true))
-                          : quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true)));
-    $data[$i]['media']    = sanitize_output($row['qm_name']);
-    $data[$i]['smedia']   = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
-    $data[$i]['mmedia']   = sanitize_output(string_truncate($row['qm_name'], 11, '...'));
-    $data[$i]['media_en'] = sanitize_output($row['qm_name_en']);
-    $data[$i]['media_fr'] = sanitize_output($row['qm_name_fr']);
-    $data[$i]['tags']     = sanitize_output($row['qt_count']);
+    $data[$i]['id']         = sanitize_output($row['q_id']);
+    $data[$i]['sort']       = sanitize_output($row['q_sort']);
+    $data[$i]['added']       = ($row['q_added'] !== '0000-00-00')
+                            ? time_since(sanitize_output(strtotime($row['q_added'])))
+                            : '';
+    $data[$i]['added_full'] = date_to_text(sanitize_output(strtotime($row['q_added'])));
+    $data[$i]['year']       = ($row['qm_year']) ? sanitize_output($row['qm_year']) : sanitize_output($row['q_year']);
+    $data[$i]['year']       = ($data[$i]['year'] === '0') ? '' : $data[$i]['year'];
+    $data[$i]['title']      = sanitize_output($row['q_title']);
+    $data[$i]['stitle']     = sanitize_output(string_truncate($row['q_title'], 25, '...'));
+    $data[$i]['mtitle']     = sanitize_output(string_truncate($row['q_title'], 16, '...'));
+    $data[$i]['title_en']   = sanitize_output($row['q_title_en']);
+    $data[$i]['title_fr']   = sanitize_output($row['q_title_fr']);
+    $data[$i]['body_en']    = quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true));
+    $data[$i]['body_fr']    = quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true));
+    $data[$i]['body']       = ($row['q_body'])
+                            ? quotes_bbcodes(sanitize_output($row['q_body'], preserve_line_breaks: true))
+                            : (($data[$i]['body_en'])
+                            ? quotes_bbcodes(sanitize_output($row['q_body_en'], preserve_line_breaks: true))
+                            : quotes_bbcodes(sanitize_output($row['q_body_fr'], preserve_line_breaks: true)));
+    $data[$i]['media']      = sanitize_output($row['qm_name']);
+    $data[$i]['smedia']     = sanitize_output(string_truncate($row['qm_name'], 20, '...'));
+    $data[$i]['mmedia']     = sanitize_output(string_truncate($row['qm_name'], 11, '...'));
+    $data[$i]['media_en']   = sanitize_output($row['qm_name_en']);
+    $data[$i]['media_fr']   = sanitize_output($row['qm_name_fr']);
+    $data[$i]['tags']       = sanitize_output($row['qt_count']);
 
     // Quote authors
     $data[$i]['authors_full']   = sanitize_output(str_replace('|||', ' & ', $row['qa_names']));
@@ -558,6 +569,7 @@ function quotes_add( array $data ) : int
   $media_id   = sanitize_array_element($data, 'quote_media', 'int');
   $author_id  = sanitize_array_element($data, 'quote_author', 'int');
   $sort       = sanitize_array_element($data, 'quote_sort', 'int');
+  $added      = date('Y-m-d');
   $year       = sanitize_array_element($data, 'quote_year', 'int');
   $origin_en  = sanitize_array_element($data, 'quote_origin_en', 'int');
   $origin_fr  = sanitize_array_element($data, 'quote_origin_fr', 'int');
@@ -627,6 +639,7 @@ function quotes_add( array $data ) : int
                       quotes.fk_quote_authors = '$author_id'  ,
                       quotes.slug             = '$slug'       ,
                       quotes.sorting_order    = '$sort'       ,
+                      quotes.date_added       = '$added'      ,
                       quotes.year_published   = '$year'       ,
                       quotes.origin_en        = '$origin_en'  ,
                       quotes.origin_fr        = '$origin_fr'  ,

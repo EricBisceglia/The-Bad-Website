@@ -948,3 +948,15 @@ if($last_query < 17)
 
   sql_update_query_id(17);
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add a creation date to quotes
+
+if($last_query < 18)
+{
+  sql_create_field('quotes', 'date_added', 'DATE NOT NULL', 'sorting_order');
+
+  sql_update_query_id(18);
+}
