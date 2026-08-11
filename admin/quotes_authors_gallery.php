@@ -31,7 +31,7 @@ $js   = array('admin/admin');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the authors
 
-$quote_authors = quote_authors_list();
+$quote_authors = quote_authors_list( sort_by_quotes: true );
 
 
 
@@ -48,7 +48,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     <?=__link('admin/quotes', __('admin_quotes_authors_gallery_title'), 'text_light', path: $path)?>
   </h2>
 
-  <div style="column-count: 4;">
+  <div class="admin_authors_gallery smallpadding_bot">
     <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
     <?php if($quote_authors[$i]['has_portrait']): ?>
     <div class="smallpadding_bot">
@@ -58,6 +58,22 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
     </div>
     <?php endif; ?>
     <?php endfor; ?>
+  </div>
+
+  <div class="padding_top">
+    <h5 class="tinypadding_bot">
+      <?=__('admin_quotes_authors_gallery_missing').__(':')?>
+    </h5>
+    <ul>
+      <?php for($i = 0; $i < $quote_authors['rows']; $i++): ?>
+      <?php if(!$quote_authors[$i]['has_portrait']): ?>
+      <li>
+        <span class="bold"><?=$quote_authors[$i]['name']?></span>
+        (<?=__('admin_quotes_authors_gallery_quotes', amount: $quote_authors[$i]['quotes'], preset_values: array($quote_authors[$i]['quotes']))?>)
+      </li>
+      <?php endif; ?>
+      <?php endfor; ?>
+    </ul>
   </div>
 
 </div>

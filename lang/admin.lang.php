@@ -736,8 +736,14 @@ ___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer 
 
 
 // Quote authors: Gallery
-___('admin_quotes_authors_gallery_title',  'EN', "Quote authors gallery");
-___('admin_quotes_authors_gallery_title',  'FR', "Galerie d'auteurs de citations");
+___('admin_quotes_authors_gallery_title',   'EN', "Quote authors gallery");
+___('admin_quotes_authors_gallery_title',   'FR', "Galerie d'auteurs de citations");
+___('admin_quotes_authors_gallery_missing', 'EN', "Authors without portraits");
+___('admin_quotes_authors_gallery_missing', 'FR', "Auteurs sans portrait");
+___('admin_quotes_authors_gallery_quotes',  'EN', "{{1}} quote");
+___('admin_quotes_authors_gallery_quotes',  'FR', "{{1}} citation");
+___('admin_quotes_authors_gallery_quotes+', 'EN', "{{1}} quotes");
+___('admin_quotes_authors_gallery_quotes+', 'FR', "{{1}} citations");
 
 
 // Quote media

@@ -143,7 +143,8 @@ function quotes_get( int $quote_id ) : ?array
                               quotes.quote_en             AS 'q_body_en'      ,
                               quotes.quote_fr             AS 'q_body_fr'      ,
                               quote_media.name_$lang      AS 'qm_name'        ,
-                              quote_media.year_published  AS 'qm_year'
+                              quote_media.year_published  AS 'qm_year'        ,
+                              quote_media.source_$lang    AS 'qm_source'
                     FROM      quotes
                     LEFT JOIN quote_media
                     ON        quote_media.id = quotes.fk_quote_media
@@ -184,6 +185,7 @@ function quotes_get( int $quote_id ) : ?array
   $data['media_name']     = sanitize_output($quote['qm_name']);
   $data['published']      = ($quote['qm_year']) ? sanitize_output($quote['qm_year']) :
                             (($quote['q_year']) ? sanitize_output($quote['q_year']) : "");
+  $data['media_source']   = sanitize_output($quote['qm_source']);
 
   // Fetch the quote's origin
   $quote_origins_list = quote_list_origins();
@@ -351,37 +353,44 @@ function quotes_list( string  $sort_by  = 'date'  ,
                               author_data.author_names                      ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     'source'  => "  ORDER BY  NULLIF(quote_media.name_$lang, '') IS NULL    ASC   ,
                               quote_media.name_$lang                        ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     'title'   => "  ORDER BY  NULLIF(quotes.title_$lang, '') IS NULL        DESC  ,
                               quotes.title_$lang                            ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     'tags'    => "  ORDER BY  COALESCE(tag_data.tag_count, 0)               DESC  ,
                               COALESCE(author_data.author_names, '')        ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     'year'    => "  ORDER BY  NULLIF(q_eyear, 0) IS NULL                    ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(author_data.author_names, '')        ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     'added'   => "  ORDER BY  quotes.date_added                             DESC  ,
                               COALESCE(author_data.author_names, '')        ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   ",
     default   => "  ORDER BY  COALESCE(author_data.author_names, '')        ASC   ,
                               q_eyear                                       ASC   ,
                               COALESCE(quote_media.name_$lang, '')          ASC   ,
+                              quotes.sorting_order                          = 0   ,
                               quotes.sorting_order                          ASC   ,
                               quotes.id                                     ASC   "
   };
@@ -939,13 +948,21 @@ function quote_authors_get( int $author_id ) : ?array
 /**
  * Fetches quote authors.
  *
- * @return  array  An array containing the quote authors.
+ * @param   bool   $sort_by_quotes  (OPTIONAL)  Sorts by the number of quotes tied to the author if true.
+ *
+ * @return  array                               An array containing the quote authors.
  */
 
-function quote_authors_list() : array
+function quote_authors_list( bool $sort_by_quotes = false ) : array
 {
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Prepare the sort order
+  $query_sort = $sort_by_quotes
+              ? "ORDER BY q_count                   DESC  ,
+                          quote_authors.name_$lang  ASC   "
+              : "ORDER BY quote_authors.name_$lang  ASC   ";
 
   // Fetch the authors
   $authors = query("  SELECT      quote_authors.id                      AS 'qa_id'      ,
@@ -1003,7 +1020,7 @@ function quote_authors_list() : array
                    AS media_data
                    ON media_data.author_id = quote_authors.id
 
-                   ORDER BY quote_authors.name_$lang ASC ");
+                   $query_sort ");
 
   // Prepare the data for display
   for($i = 0; $row = query_row($authors); $i++)

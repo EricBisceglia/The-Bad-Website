@@ -99,7 +99,12 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <div class="italics smallpadding_top small">
     <?=__('admin_quote_source').__(':').' '.$quote_data['source']?>
   </div>
+  <?php elseif($quote_data['media_source']): ?>
+  <div class="italics smallpadding_top small">
+    <?=__('admin_quote_source').__(':').' '.__link($quote_data['media_source'], $quote_data['media_source'], style: 'text_light underlined', popup: true, is_internal: false)?>
+  </div>
   <?php endif; ?>
+
 
   <?php if($quote_data['tags_list']): ?>
   <div class="smallpadding_top small">

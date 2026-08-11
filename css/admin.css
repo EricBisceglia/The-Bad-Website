@@ -6,6 +6,9 @@
 .admin_quote_portraits  { height: 10.0rem; width: 10.0rem; border-radius: 50%   ;
                           margin-right: 0.5rem; margin-left: 0.5rem;            }
 .admin_quote_gallery    { border-radius: 50%; margin: 0.5rem;                   }
+.admin_authors_gallery  { column-count: 4;                                      }
+@media (max-width: 992px)                                                       {
+.admin_authors_gallery  { column-count: 3;                                    } }
 
 /******************************************* BBCODE DOCUMENTATION TOOLTIPS *******************************************/
 
