@@ -231,6 +231,7 @@ hr   { height: 3px;                                                 } }
 .float_noborder   { border: 0px;                                            }
 .nowrap           { white-space: nowrap;                                    }
 .dowrap           { white-space: normal;                                    }
+.noflow           { max-height: 100%; max-width: 100%; object-fit: contain; }
 .break_words      { word-wrap: break-word;                                  }
 .autoscroll       { overflow-x: auto;                                       }
 .scrollbar        { overflow-x: scroll;                                     }
@@ -498,13 +499,15 @@ tr.row_separator_dark_thin                  { border-bottom: 0.6rem solid var(--
                                     background-color: var(--thebad-dark3); border-radius: 5px         ;
                                     border: 1px solid var(--thebad-dark5); max-height: 15.0rem        ;
                                     box-shadow: 2px 2px 2px var(--thebad-dark5); max-width: 30.0rem;  }
+.tooltip.limit_height             { height: 15.0rem; overflow-y: hidden;                              }
 @media (max-width: 992px)                                                                             {
 .tooltip_container .tooltip       { padding-top: 1.0rem; padding-bottom: 1.5rem; padding-left: 1.5rem ;
                                     padding-right: 1.5rem; overflow-y: scroll;                        }
 .tooltip_container:hover .tooltip { border-radius: 10px; border: 3px solid var(--thebad-dark5)        ;
                                     box-shadow: 5px 5px 5px var(--thebad-dark5)                       ;
                                     max-width: 40.0rem; max-height: 50.0rem;                          }
-.tooltip_desktop:hover .tooltip   { display: none;                                                  } }
+.tooltip_desktop:hover .tooltip   { display: none;                                                    }
+.tooltip.limit_height             { height: 50.0rem; overflow-y: hidden;                            } }
 
 /***************************************************** TOP MENU ******************************************************/
 

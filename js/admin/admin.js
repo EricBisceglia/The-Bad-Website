@@ -2,6 +2,8 @@
 /*                                                                                                                   */
 /*  admin_menu                              Navigates between admin pages.                                           */
 /*                                                                                                                   */
+/*  admin_load_tooltip_page                 Loads a page contained within a tooltip.                                 */
+/*                                                                                                                   */
 /*  admin_ideas_search                      Searches the list of smug ideas.                                         */
 /*  admin_ideas_delete                      Triggers the deletion of an idea.                                        */
 /*  admin_idea_type_delete                  Triggers the deletion of an idea type.                                   */
@@ -15,6 +17,14 @@
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
+/*                                                                                                                   */
+/*  admin_quotes_hide_media_or_author       Hides the quote media or author dropdowns when one is selected.          */
+/*  admin_quotes_list_search                Triggers a search in the quote list.                                     */
+/*  admin_quotes_farm_search                Triggers a search in the quote farm.                                     */
+/*  admin_quotes_authors_delete             Triggers the deletion of a quote author.                                 */
+/*  admin_quotes_media_delete               Triggers the deletion of a quote media.                                  */
+/*  admin_quotes_media_authors_update       Keeps an author dropdown at the bottom of the quote media edit form.     */
+/*  admin_quotes_tags_delete                Triggers the deletion of a quote tag.                                    */
 /*                                                                                                                   */
 /*  admin_user_searches_clear               Triggers the deletion of the user search history.                        */
 /*                                                                                                                   */
@@ -33,6 +43,33 @@ function admin_menu()
 
   // Go to the requested page
   window.location.href = page;
+}
+
+
+
+
+/**
+ * Loads a page contained within a tooltip.
+ *
+ * @param   {HTMLElement}  container  The tooltip container in which a page is waiting to be loaded.
+ *
+ * @returns {void}
+ */
+
+function admin_load_tooltip_page( container )
+{
+  // Fetch the unloaded iframe
+  const iframe = container.querySelector('iframe[data-src]');
+
+  // Stop if the page has already been loaded
+  if(!iframe)
+    return;
+
+  // Load the page
+  iframe.src = iframe.dataset.src;
+
+  // Prevent the page from being loaded again
+  iframe.removeAttribute('data-src');
 }
 
 
@@ -293,6 +330,209 @@ function admin_tags_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('tags', 'admin_tags_tbody', postdata);
+}
+
+
+
+
+/**
+ * Hides the quote media or author dropdowns when one is selected.
+ *
+ * @param   {string}  type  The type of dropdown that was selected ('media' or 'author').
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_hide_media_or_author( type )
+{
+  // Hide the media dropdown if an author was selected and the author dropdown contains a value
+  if(type === 'author' && document.getElementById('quote_author').value != 0)
+    toggle_element_oneway('quote_media_container', false);
+
+  // Hide the author & years dropdowns if media was selected and the media dropdown contains a value
+  if(type === 'media' && document.getElementById('quote_media').value != 0)
+  {
+    toggle_element_oneway('quote_author_container', false);
+    toggle_element_oneway('quote_year_container', false);
+  }
+
+  // Show the media dropdown if the author dropdown is empty
+  if(type === 'author' && document.getElementById('quote_author').value == 0)
+    toggle_element_oneway('quote_media_container', true);
+
+  // Show the author & year dropdowns if the media dropdown is empty
+  if(type === 'media' && document.getElementById('quote_media').value == 0)
+  {
+    toggle_element_oneway('quote_author_container', true);
+    toggle_element_oneway('quote_year_container', true);
+  }
+}
+
+
+
+
+/**
+ * Triggers a search in the quotes list.
+ *
+ * @param   {string}  [sort]            Change the order in which the data will be sorted.
+ * @param   {string}  [delete_id]       Trigger the deletion of a quote.
+ * @param   {string}  [delete_message]  The message to display before deleting the quote.
+ *
+ * @returns {void}
+*/
+
+function admin_quotes_list_search(  sort            = null ,
+                                    delete_id       = null ,
+                                    delete_message  = null )
+{
+  // Update the data sort input if requested
+  if(sort)
+    document.getElementById('admin_quotes_sort').value = sort;
+
+  // Assemble the postdata
+  postdata  = 'admin_quotes_sort='            + fetch_sanitize_id('admin_quotes_sort');
+  postdata += '&admin_quotes_search_year='    + fetch_sanitize_id('admin_quotes_search_year');
+  postdata += '&admin_quotes_search_author='  + fetch_sanitize_id('admin_quotes_search_author');
+  postdata += '&admin_quotes_search_media='   + fetch_sanitize_id('admin_quotes_search_media');
+  postdata += '&admin_quotes_search_title='   + fetch_sanitize_id('admin_quotes_search_title');
+  postdata += '&admin_quotes_search_special=' + fetch_sanitize_id('admin_quotes_search_special');
+  postdata += '&admin_quotes_search_body='    + fetch_sanitize_id('admin_quotes_search_body');
+  postdata += '&admin_quotes_search_tags='    + fetch_sanitize_id('admin_quotes_search_tags');
+
+  // Delete a quote if requested
+  if(delete_id && confirm(delete_message))
+    postdata += '&admin_quotes_delete=' + fetch_sanitize(delete_id);
+
+  // Submit the search
+  fetch_page('quotes', 'admin_quotes_tbody', postdata);
+}
+
+
+
+
+
+/**
+ * Triggers a search in the quote farm.
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_farm_search()
+{
+  // Assemble the postdata
+  postdata  = 'admin_quotes_search_author=' + fetch_sanitize_id('admin_quotes_search_author');
+  postdata += '&admin_quotes_search_media=' + fetch_sanitize_id('admin_quotes_search_media');
+  postdata += '&admin_quotes_search_tags='  + fetch_sanitize_id('admin_quotes_search_tags');
+  postdata += '&admin_quotes_search_body='  + fetch_sanitize_id('admin_quotes_search_body');
+  postdata += '&admin_quotes_search_go=1';
+
+  // Submit the search
+  fetch_page('quotes_farm', 'admin_quotes_farm_list', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote author.
+ *
+ * @param   {int}     id        The id of the quote author to delete.
+ * @param   {string}  message   The message to display before deleting the quote author.
+ */
+
+function admin_quotes_authors_delete( id      ,
+                                      message )
+{
+  // Assemble the postdata
+  postdata = 'admin_quotes_authors_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_authors', 'admin_quotes_authors_tbody', postdata);
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote media.
+ *
+ * @param   {int}     id        The id of the quote media to delete.
+ * @param   {string}  message   The message to display before deleting the quote media.
+ */
+
+function admin_quotes_media_delete( id      ,
+                                    message )
+{
+  // Assemble the postdata
+  postdata = 'admin_quotes_media_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_media', 'admin_quotes_media_tbody', postdata);
+}
+
+
+
+
+/**
+ * Keeps an author dropdown at the bottom of the quote media edit form.
+ *
+ * @returns {void}
+ */
+
+function admin_quotes_media_authors_update()
+{
+  // Fetch the form container
+  const container = document.getElementById('quote_media_authors');
+  if(!container)
+    return;
+
+  // Fetch all the author dropdowns
+  const dropdowns = container.querySelectorAll('select[name="quote_media_authors[]"]');
+
+  // Remove all empty dropdowns other than the final dropdown
+  for(let i = dropdowns.length - 2; i >= 0; i--)
+  {
+    if(dropdowns[i].value === '')
+      dropdowns[i].parentNode.remove();
+  }
+
+  // Add a new empty dropdown if the last one is filled
+  const lastDropdown = dropdowns[dropdowns.length - 1];
+  if(lastDropdown && lastDropdown.value !== '')
+  {
+    // Clone the last dropdown and reset its value
+    const newDropdown = lastDropdown.cloneNode(true);
+    newDropdown.value = '';
+
+    // Wrap the new dropdown in a div to maintain spacing
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('smallpadding_bot');
+    wrapper.appendChild(newDropdown);
+    container.appendChild(wrapper);
+  }
+}
+
+
+
+
+/**
+ * Triggers the deletion of a quote tag.
+ *
+ * @param   {int}     id        The id of the quote tag to delete.
+ * @param   {string}  message   The message to display before deleting the quote tag.
+ */
+
+function admin_quotes_tags_delete(  id      ,
+                                    message )
+{
+  // Assemble the postdata
+  postdata = 'quote_tag_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('quotes_tags', 'admin_quotes_tags_tbody', postdata);
 }
 
 

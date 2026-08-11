@@ -9,7 +9,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 // Prepare the menu entries
 
 // Set up the admin menu
-$admin_menu_entries = array('index', 'ideas', 'comics', 'images', 'tags', 'merch', 'searches', 'queries');
+$admin_menu_entries = array('index', 'ideas', 'comics', 'images', 'tags', 'quotes', 'merch', 'searches', 'queries');
 
 // Select the correct menu entry
 foreach($admin_menu_entries as $admin_menu_entry)
@@ -18,6 +18,8 @@ foreach($admin_menu_entries as $admin_menu_entry)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Display the menu                                                                                                  ?>
+
+<?php if(!isset($hide_header)) { ?>
 
 <div class="nopadding_top padding_bot align_center admin_menu">
   <fieldset>
@@ -34,3 +36,5 @@ foreach($admin_menu_entries as $admin_menu_entry)
 </div>
 
 <hr>
+
+<?php } ?>

@@ -7,11 +7,8 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- Database
+-- Database: `thebadwebsite`
 --
-
-CREATE DATABASE IF NOT EXISTS `thebadwebsite` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `thebadwebsite`;
 
 -- --------------------------------------------------------
 
@@ -36,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `comics` (
   PRIMARY KEY (`id`),
   KEY `comics_types` (`fk_comic_types`),
   KEY `comics_public` (`is_public`),
-  KEY `comics_upload_date` (`upload_date`),
-  KEY `comics_view_count` (`view_count`)
+  KEY `comics_view_count` (`view_count`),
+  KEY `comics_upload_date` (`upload_date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -52,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `comic_tags` (
   `fk_tags` int UNSIGNED NOT NULL,
   `fk_comics` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `comic_tags_unique_comic_tag` (`fk_tags`,`fk_comics`),
   KEY `comic_tags_tags` (`fk_tags`),
   KEY `comic_tags_comics` (`fk_comics`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -160,6 +158,128 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `tasks` longtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotes`
+--
+
+DROP TABLE IF EXISTS `quotes`;
+CREATE TABLE IF NOT EXISTS `quotes` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `fk_quote_media` int UNSIGNED NOT NULL,
+  `fk_quote_authors` int UNSIGNED NOT NULL,
+  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sorting_order` int UNSIGNED NOT NULL,
+  `date_added` date NOT NULL,
+  `year_published` smallint UNSIGNED NOT NULL,
+  `origin_en` tinyint NOT NULL,
+  `origin_fr` tinyint NOT NULL,
+  `source_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quote_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `quote_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `quotes_fk_quote_media` (`fk_quote_media`),
+  KEY `quotes_fk_quote_authors` (`fk_quote_authors`),
+  KEY `quotes_sorting_order` (`sorting_order`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quote_authors`
+--
+
+DROP TABLE IF EXISTS `quote_authors`;
+CREATE TABLE IF NOT EXISTS `quote_authors` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year_birth` smallint UNSIGNED NOT NULL,
+  `year_death` smallint UNSIGNED NOT NULL,
+  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quote_media`
+--
+
+DROP TABLE IF EXISTS `quote_media`;
+CREATE TABLE IF NOT EXISTS `quote_media` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year_published` smallint UNSIGNED NOT NULL,
+  `source_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `quote_media_year_published` (`year_published`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quote_media_authors`
+--
+
+DROP TABLE IF EXISTS `quote_media_authors`;
+CREATE TABLE IF NOT EXISTS `quote_media_authors` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `fk_quote_media` int UNSIGNED NOT NULL,
+  `fk_quote_authors` int UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `quote_media_authors_unique_media_author` (`fk_quote_media`,`fk_quote_authors`),
+  KEY `quote_media_authors_fk_quote_media` (`fk_quote_media`),
+  KEY `quote_media_authors_fk_quote_authors` (`fk_quote_authors`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quote_tags`
+--
+
+DROP TABLE IF EXISTS `quote_tags`;
+CREATE TABLE IF NOT EXISTS `quote_tags` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sorting_order` int UNSIGNED NOT NULL,
+  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `quote_tags_sorting_order` (`sorting_order`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quote_tag_links`
+--
+
+DROP TABLE IF EXISTS `quote_tag_links`;
+CREATE TABLE IF NOT EXISTS `quote_tag_links` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `fk_quote_tags` int UNSIGNED NOT NULL,
+  `fk_quotes` int UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `quote_tag_links_unique_quote_tag` (`fk_quote_tags`,`fk_quotes`),
+  KEY `quote_tag_links_fk_quote_tags` (`fk_quote_tags`),
+  KEY `quote_tag_links_fk_quotes` (`fk_quotes`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 

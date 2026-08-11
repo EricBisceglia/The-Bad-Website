@@ -23,6 +23,8 @@ ___('admin_menu_comics',    'EN', "Comics");
 ___('admin_menu_comics',    'FR', "Comics");
 ___('admin_menu_tags',      'EN', "Tags");
 ___('admin_menu_tags',      'FR', "Tags");
+___('admin_menu_quotes',    'EN', "Quotes");
+___('admin_menu_quotes',    'FR', "Citations");
 ___('admin_menu_merch',     'EN', "Merch");
 ___('admin_menu_merch',     'FR', "Merch");
 ___('admin_menu_searches',  'EN', "Searches");
@@ -539,3 +541,325 @@ ___('admin_user_searches_list_empty', 'EN', "The user search file is empty");
 ___('admin_user_searches_list_empty', 'FR', "Le fichier des recherches est vide");
 ___('admin_user_searches_clear',      'EN', "Confirm the deletion of the entire user search history");
 ___('admin_user_searches_clear',      'FR', "Confirmer la suppression de tout l\'historique des recherches");
+
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      QUOTES                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Quote
+___('admin_quote_title',  'EN', "Quote");
+___('admin_quote_title',  'FR', "Citation");
+___('admin_quote_edit',   'EN', "Edit quote");
+___('admin_quote_edit',   'FR', "Modifier la citation");
+___('admin_quote_source', 'EN', "Source");
+___('admin_quote_source', 'FR', "Source");
+___('admin_quote_tags',   'EN', "Tags");
+___('admin_quote_tags',   'FR', "Tags");
+
+
+// Quote BBCode documentation
+___('admin_quotes_bbcode_title',      'EN', "BBCode documentation (quotes)");
+___('admin_quotes_bbcode_title',      'FR', "Doc des BBCodes (citations)");
+___('admin_quotes_bbcode_bold',       'EN', "[b]Bold[/b]");
+___('admin_quotes_bbcode_bold',       'FR', "[b]Gras[/b]");
+___('admin_quotes_bbcode_italics',    'EN', "[i]Italics[/i]");
+___('admin_quotes_bbcode_italics',    'FR', "[i]Italique[/i]");
+___('admin_quotes_bbcode_underline',  'EN', "[u]Underlined[/u]");
+___('admin_quotes_bbcode_underline',  'FR', "[u]Souligné[/u]");
+___('admin_quotes_bbcode_strike',     'EN', "[s]Strikethrough[/s]");
+___('admin_quotes_bbcode_strike',     'FR', "[s]Barré[/s]");
+___('admin_quotes_bbcode_link',       'EN', "[url=https://example.com]Link[/url]");
+___('admin_quotes_bbcode_link',       'FR', "[url=https://example.com]Lien[/url]");
+___('admin_quotes_bbcode_link_2',     'EN', "[url]https://example.com[/url]");
+___('admin_quotes_bbcode_link_2',     'FR', "[url]https://example.com[/url]");
+
+
+// Quote farm
+___('admin_quotes_farm_title',  'EN', "Quote farm");
+___('admin_quotes_farm_title',  'FR', "Ferme à citations");
+___('admin_quotes_farm_search', 'EN', "Search");
+___('admin_quotes_farm_search', 'FR', "Chercher");
+
+
+// Quote list
+___('admin_quotes_title',           'EN', "Quotes");
+___('admin_quotes_title',           'FR', "Citations");
+___('admin_quotes_year',            'EN', "Year");
+___('admin_quotes_year',            'FR', "Année");
+___('admin_quotes_author',          'EN', "Author");
+___('admin_quotes_author',          'FR', "Auteur");
+___('admin_quotes_source',          'EN', "Source");
+___('admin_quotes_source',          'FR', "Source");
+___('admin_quotes_quote_full',      'EN', "Quote");
+___('admin_quotes_quote_full',      'FR', "Citation");
+___('admin_quotes_name',            'EN', "Title");
+___('admin_quotes_name',            'FR', "Titre");
+___('admin_quotes_quote',           'EN', "Quote");
+___('admin_quotes_quote',           'FR', "Citation");
+___('admin_quotes_sort',            'EN', "Sorting order");
+___('admin_quotes_sort',            'FR', "Ordre de tri");
+___('admin_quotes_tags',            'EN', "Tags");
+___('admin_quotes_tags',            'FR', "Tags");
+___('admin_quotes_added',           'EN', "Added");
+___('admin_quotes_added',           'FR', "Ajoutée");
+___('admin_quotes_search_notrans',  'EN', "No translation");
+___('admin_quotes_search_notrans',  'FR', "Pas de traduction");
+___('admin_quotes_search_notitle',  'EN', "No title");
+___('admin_quotes_search_notitle',  'FR', "Pas de titre");
+___('admin_quotes_search_year',     'EN', "Has a year");
+___('admin_quotes_search_year',     'FR', "A une année");
+___('admin_quotes_search_noyear',   'EN', "Does not have a year");
+___('admin_quotes_search_noyear',   'FR', "N'a pas d'année");
+___('admin_quotes_search_notags',   'EN', "Does not have tags");
+___('admin_quotes_search_notags',   'FR', "N'a pas de tags");
+___('admin_quotes_count',           'EN', "{{1}} quote");
+___('admin_quotes_count',           'FR', "{{1}} citation");
+___('admin_quotes_count+',          'EN', "{{1}} quotes");
+___('admin_quotes_count+',          'FR', "{{1}} citations");
+
+
+// Quotes: Add
+___('admin_quotes_add_title',     'EN', "Add a quote");
+___('admin_quotes_add_title',     'FR', "Ajouter une citation");
+___('admin_quotes_add_media',     'EN', "Source media");
+___('admin_quotes_add_media',     'FR', "Média source");
+___('admin_quotes_add_author',    'EN', "Author");
+___('admin_quotes_add_author',    'FR', "Auteur");
+___('admin_quotes_add_nomedia',   'EN', " (if no media)");
+___('admin_quotes_add_nomedia',   'FR', " (si pas de média)");
+___('admin_quotes_add_year',      'EN', "Year published");
+___('admin_quotes_add_year',      'FR', "Année de publication");
+___('admin_quotes_add_sort',      'EN', "Sorting order (within the media/author)");
+___('admin_quotes_add_sort',      'FR', "Ordre de tri (au sein du média/auteur)");
+___('admin_quotes_add_title_en',  'EN', "English title");
+___('admin_quotes_add_title_en',  'FR', "Titre anglais");
+___('admin_quotes_add_title_fr',  'EN', "French title");
+___('admin_quotes_add_title_fr',  'FR', "Titre français");
+___('admin_quotes_add_origin_en', 'EN', "English origin");
+___('admin_quotes_add_origin_en', 'FR', "Origine anglaise");
+___('admin_quotes_add_origin_fr', 'EN', "French origin");
+___('admin_quotes_add_origin_fr', 'FR', "Origine française");
+___('admin_quotes_add_source_en', 'EN', "English source (or link)");
+___('admin_quotes_add_source_en', 'FR', "Source (ou lien) anglais");
+___('admin_quotes_add_source_fr', 'EN', "French source (or link)");
+___('admin_quotes_add_source_fr', 'FR', "Source (ou lien) français");
+___('admin_quotes_add_desc_en',   'EN', "English description / addendums");
+___('admin_quotes_add_desc_en',   'FR', "Description / addendums en anglais");
+___('admin_quotes_add_desc_fr',   'EN', "French description / addendums");
+___('admin_quotes_add_desc_fr',   'FR', "Description / addendums en français");
+___('admin_quotes_add_body_en',   'EN', "English quote");
+___('admin_quotes_add_body_en',   'FR', "Citation en anglais");
+___('admin_quotes_add_body_fr',   'EN', "French quote");
+___('admin_quotes_add_body_fr',   'FR', "Citation en français");
+___('admin_quotes_add_tags',      'EN', "Tagged categories");
+___('admin_quotes_add_tags',      'FR', "Catégories liées");
+___('admin_quotes_add_submit',    'EN', "Add quote");
+___('admin_quotes_add_submit',    'FR', "Ajouter la citation");
+___('admin_quotes_add_untitled',  'EN', "Untitled quote");
+___('admin_quotes_add_untitled',  'FR', "Citation sans titre");
+
+
+// Quotes: Edit
+___('admin_quotes_edit_title',     'EN', "Edit a quote");
+___('admin_quotes_edit_title',     'FR', "Modifier une citation");
+___('admin_quotes_edit_submit',    'EN', "Edit quote");
+___('admin_quotes_edit_submit',    'FR', "Modifier la citation");
+
+
+// Quotes: Delete
+___('admin_quotes_delete_confirm', 'EN', "Confirm the permanent deletion of this quote");
+___('admin_quotes_delete_confirm', 'FR', "Confirmer la suppression définitive de cette citation");
+
+
+// Quote authors
+___('admin_quotes_authors_title',     'EN', "Quote authors");
+___('admin_quotes_authors_title',     'FR', "Auteurs de citations");
+___('admin_quotes_authors_name',      'EN', "Name");
+___('admin_quotes_authors_name',      'FR', "Nom");
+___('admin_quotes_authors_portrait',  'EN', "Img");
+___('admin_quotes_authors_portrait',  'FR', "Img");
+___('admin_quotes_authors_slug',      'EN', "Slug");
+___('admin_quotes_authors_slug',      'FR', "Slug");
+___('admin_quotes_authors_image',     'EN', "Portrait");
+___('admin_quotes_authors_image',     'FR', "Portrait");
+___('admin_quotes_authors_years',     'EN', "Years");
+___('admin_quotes_authors_years',     'FR', "Années");
+___('admin_quotes_authors_media',     'EN', "Media");
+___('admin_quotes_authors_media',     'FR', "Médias");
+___('admin_quotes_authors_quotes',    'EN', "Quotes");
+___('admin_quotes_authors_quotes',    'FR', "Citations");
+___('admin_quotes_authors_count',     'EN', "{{1}} author");
+___('admin_quotes_authors_count',     'FR', "{{1}} auteur");
+___('admin_quotes_authors_count+',    'EN', "{{1}} authors");
+___('admin_quotes_authors_count+',    'FR', "{{1}} auteurs");
+
+
+// Quote authors: Add
+___('admin_quotes_authors_add_title',   'EN', "Add an author");
+___('admin_quotes_authors_add_title',   'FR', "Ajouter un auteur");
+___('admin_quotes_authors_add_name_en', 'EN', "English name");
+___('admin_quotes_authors_add_name_en', 'FR', "Nom anglais");
+___('admin_quotes_authors_add_name_fr', 'EN', "French name");
+___('admin_quotes_authors_add_name_fr', 'FR', "Nom français");
+___('admin_quotes_authors_add_birth',   'EN', "Birth year");
+___('admin_quotes_authors_add_birth',   'FR', "Année de naissance");
+___('admin_quotes_authors_add_death',   'EN', "Death year");
+___('admin_quotes_authors_add_death',   'FR', "Année de décès");
+___('admin_quotes_authors_add_desc_en', 'EN', "English description");
+___('admin_quotes_authors_add_desc_en', 'FR', "Description anglaise");
+___('admin_quotes_authors_add_desc_fr', 'EN', "French description");
+___('admin_quotes_authors_add_desc_fr', 'FR', "Description française");
+___('admin_quotes_authors_add_submit',  'EN', "Add author");
+___('admin_quotes_authors_add_submit',  'FR', "Ajouter l'auteur");
+
+
+// Quote authors: Edit
+___('admin_quotes_authors_edit_title',   'EN', "Edit an author");
+___('admin_quotes_authors_edit_title',   'FR', "Modifier un auteur");
+___('admin_quotes_authors_edit_submit',  'EN', "Edit author");
+___('admin_quotes_authors_edit_submit',  'FR', "Modifier l'auteur");
+
+
+// Quote authors: Delete
+___('admin_quotes_authors_delete_confirm',  'EN', "Confirm the permanent deletion of this author");
+___('admin_quotes_authors_delete_confirm',  'FR', "Confirmer la suppression définitive de cet auteur");
+___('admin_quotes_authors_delete_quotes',   'EN', "You cannot delete an author as long as they have quotes attached to them");
+___('admin_quotes_authors_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des citations");
+___('admin_quotes_authors_delete_media',    'EN', "You cannot delete an author as long as they have media attached to them");
+___('admin_quotes_authors_delete_media',    'FR', "Vous ne pouvez pas supprimer un auteur tant qu\'il est lié à des médias");
+
+
+// Quote authors: Gallery
+___('admin_quotes_authors_gallery_title',   'EN', "Quote authors gallery");
+___('admin_quotes_authors_gallery_title',   'FR', "Galerie d'auteurs de citations");
+___('admin_quotes_authors_gallery_missing', 'EN', "Authors without portraits");
+___('admin_quotes_authors_gallery_missing', 'FR', "Auteurs sans portrait");
+___('admin_quotes_authors_gallery_quotes',  'EN', "{{1}} quote");
+___('admin_quotes_authors_gallery_quotes',  'FR', "{{1}} citation");
+___('admin_quotes_authors_gallery_quotes+', 'EN', "{{1}} quotes");
+___('admin_quotes_authors_gallery_quotes+', 'FR', "{{1}} citations");
+
+
+// Quote media
+___('admin_quotes_media_title',   'EN', "Quote media");
+___('admin_quotes_media_title',   'FR', "Médias de citations");
+___('admin_quotes_media_name',    'EN', "Name");
+___('admin_quotes_media_name',    'FR', "Nom");
+___('admin_quotes_media_year',    'EN', "Published");
+___('admin_quotes_media_year',    'FR', "Publié");
+___('admin_quotes_media_authors', 'EN', "Authors");
+___('admin_quotes_media_authors', 'FR', "Auteurs");
+___('admin_quotes_media_quotes',  'EN', "Quotes");
+___('admin_quotes_media_quotes',  'FR', "Citations");
+___('admin_quotes_media_count',   'EN', "{{1}} media");
+___('admin_quotes_media_count',   'FR', "{{1}} média");
+___('admin_quotes_media_count+',  'EN', "{{1}} media");
+___('admin_quotes_media_count+',  'FR', "{{1}} médias");
+
+
+// Quote media: Add
+___('admin_quotes_media_add_title',     'EN', "Add a media");
+___('admin_quotes_media_add_title',     'FR', "Ajouter un média");
+___('admin_quotes_media_add_name_en',   'EN', "English name");
+___('admin_quotes_media_add_name_en',   'FR', "Nom anglais");
+___('admin_quotes_media_add_name_fr',   'EN', "French name");
+___('admin_quotes_media_add_name_fr',   'FR', "Nom français");
+___('admin_quotes_media_add_desc_en',   'EN', "English description");
+___('admin_quotes_media_add_desc_en',   'FR', "Description anglaise");
+___('admin_quotes_media_add_desc_fr',   'EN', "French description");
+___('admin_quotes_media_add_desc_fr',   'FR', "Description française");
+___('admin_quotes_media_add_source_en', 'EN', "English link");
+___('admin_quotes_media_add_source_en', 'FR', "Lien anglais");
+___('admin_quotes_media_add_source_fr', 'EN', "French link");
+___('admin_quotes_media_add_source_fr', 'FR', "Lien français");
+___('admin_quotes_media_add_year',      'EN', "Year published");
+___('admin_quotes_media_add_year',      'FR', "Année de publication");
+___('admin_quotes_media_add_submit',    'EN', "Add media");
+___('admin_quotes_media_add_submit',    'FR', "Ajouter le média");
+
+
+// Quote media: Edit
+___('admin_quotes_media_edit_title',  'EN', "Edit a media");
+___('admin_quotes_media_edit_title',  'FR', "Modifier un média");
+___('admin_quotes_media_add_authors', 'EN', "Authors");
+___('admin_quotes_media_add_authors', 'FR', "Auteurs");
+___('admin_quotes_media_edit_submit', 'EN', "Edit media");
+___('admin_quotes_media_edit_submit', 'FR', "Modifier le média");
+
+
+// Quote media: Delete
+___('admin_quotes_media_delete_confirm',  'EN', "Confirm the permanent deletion of this media");
+___('admin_quotes_media_delete_confirm',  'FR', "Confirmer la suppression définitive de ce média");
+___('admin_quotes_media_delete_quotes',   'EN', "You cannot delete a media as long as it has quotes attached to it");
+___('admin_quotes_media_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un média tant qu\'il est lié à des citations");
+
+
+// Quote tags
+___('admin_quotes_tags_title',  'EN', "Quote tags");
+___('admin_quotes_tags_title',  'FR', "Tags de citations");
+___('admin_quotes_tags_sort',   'EN', "Order");
+___('admin_quotes_tags_sort',   'FR', "Ordre");
+___('admin_quotes_tags_name',   'EN', "Name");
+___('admin_quotes_tags_name',   'FR', "Nom");
+___('admin_quotes_tags_quotes', 'EN', "Quotes");
+___('admin_quotes_tags_quotes', 'FR', "Citations");
+___('admin_quotes_tags_count',  'EN', "{{1}} tag");
+___('admin_quotes_tags_count',  'FR', "{{1}} tag");
+___('admin_quotes_tags_count+', 'EN', "{{1}} tags");
+___('admin_quotes_tags_count+', 'FR', "{{1}} tags");
+
+
+// Quote tags: Add
+___('admin_quotes_tags_add_title',    'EN', "Add a tag");
+___('admin_quotes_tags_add_title',    'FR', "Ajouter un tag");
+___('admin_quotes_tags_add_sort',     'EN', "Sorting order");
+___('admin_quotes_tags_add_sort',     'FR', "Ordre de tri");
+___('admin_quotes_tags_add_name_en',  'EN', "English name");
+___('admin_quotes_tags_add_name_en',  'FR', "Nom anglais");
+___('admin_quotes_tags_add_name_fr',  'EN', "French name");
+___('admin_quotes_tags_add_name_fr',  'FR', "Nom français");
+___('admin_quotes_tags_add_submit',   'EN', "Add tag");
+___('admin_quotes_tags_add_submit',   'FR', "Ajouter le tag");
+
+
+// Quote tags: Edit
+___('admin_quotes_tags_edit_title',   'EN', "Edit a tag");
+___('admin_quotes_tags_edit_title',   'FR', "Modifier un tag");
+___('admin_quotes_tags_edit_submit',  'EN', "Edit tag");
+___('admin_quotes_tags_edit_submit',  'FR', "Modifier le tag");
+
+
+// Quote tags: Delete
+___('admin_quotes_tags_delete_confirm',  'EN', "Confirm the permanent deletion of this tag");
+___('admin_quotes_tags_delete_confirm',  'FR', "Confirmer la suppression définitive de ce tag");
+___('admin_quotes_tags_delete_quotes',   'EN', "You cannot delete a tag as long as it has quotes attached to it");
+___('admin_quotes_tags_delete_quotes',   'FR', "Vous ne pouvez pas supprimer un tag tant qu\'il est lié à des citations");
+
+
+// Quotes: Origins
+___('quote_origin_source_short',      'EN', "Authentic from source");
+___('quote_origin_source_short',      'FR', "Authentique depuis la source");
+___('quote_origin_paraphrased_short', 'EN', "Paraphrased from source");
+___('quote_origin_paraphrased_short', 'FR', "Paraphrasée depuis la source");
+___('quote_origin_translated_short',  'EN', "My own translation");
+___('quote_origin_translated_short',  'FR', "Ma propre traduction");
+___('quote_origin_third_short',       'EN', "Third-party translation");
+___('quote_origin_third_short',       'FR', "Traduite par un tiers");
+___('quote_origin_unknown_short',     'EN', "Unknown/unconfirmed origin");
+___('quote_origin_unknown_short',     'FR', "Origine inconnue/non confirmée");
+___('quote_origin_source',            'EN', "This quote is reproduced from the source media. It has not been altered.");
+___('quote_origin_source',            'FR', "Cette citation est tirée du média source. Elle n'a pas été modifiée.");
+___('quote_origin_paraphrased',       'EN', "This quote is paraphrased from the source media. It might have been slightly altered.");
+___('quote_origin_paraphrased',       'FR', "Cette citation est paraphrasée du média source. Elle peut être légèrement modifiée.");
+___('quote_origin_translated',        'EN', "This quote has been translated from the source media. It might have lost some of its substance during the translation.");
+___('quote_origin_translated',        'FR', "Cette citation a été traduite depuis le média source. Il se peut qu'elle ait perdu une partie de sa substance lors de la traduction.");
+___('quote_origin_third',             'EN', "This quote has been translated by a third party tool. It might have lost some of its substance during the translation.");
+___('quote_origin_third',             'FR', "Cette citation a été traduite par un outil tiers. Il se peut qu'elle ait perdu une partie de sa substance lors de la traduction.");
+___('quote_origin_unknown',           'EN', "This quote's origin is unknown, and thus could not be verified. It may be a misattribution or a fabrication.");
+___('quote_origin_unknown',           'FR', "L'origine de cette citation est inconnue et n'a donc pas pu être vérifiée. Il peut s'agir d'une citation erronée.");
