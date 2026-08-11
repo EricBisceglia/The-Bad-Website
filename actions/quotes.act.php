@@ -313,14 +313,14 @@ function quotes_list( string  $sort_by  = 'date'  ,
                                                 OR    quotes.source_fr         LIKE '%$search_body%'
                                                 OR    quotes.quote_en          LIKE '%$search_body%'
                                                 OR    quotes.quote_fr          LIKE '%$search_body%' ) "  : "";
-  $query_search  .= ($search_special === 1) ? " AND ( quotes.quote_en            != ''
+  $query_search  .= ($search_special === 1) ? " AND ( ( quotes.quote_en          != ''
                                                 AND   quotes.title_en             = '' )
                                                 OR  ( quotes.quote_fr            != ''
-                                                AND   quotes.title_fr             = '' ) "                : "";
-  $query_search  .= ($search_special === 2) ? " AND ( quotes.quote_en            != ''
+                                                AND   quotes.title_fr             = '' ) ) "              : "";
+  $query_search  .= ($search_special === 2) ? " AND ( ( quotes.quote_en          != ''
                                                 AND   quotes.quote_fr             = '' )
                                                 OR  ( quotes.quote_en             = ''
-                                                AND   quotes.quote_fr            != '' ) "                : "";
+                                                AND   quotes.quote_fr            != '' ) ) "              : "";
 
   // Search by author
   if($search_author)
