@@ -50,22 +50,15 @@ $page_title_fr  .= $admin_comic_data['page_fr'];
 // Assemble the full comic url
 $admin_comic_share_url = $GLOBALS['website_url'].'comic/'.$admin_comic_data['slug'];
 
-// Assemble the original and remake transcripts for Markdown sharing
-$admin_comic_transcript_md_en = implode(
-  '\\<br>\\<br>',
-  array_filter(array(
-    $admin_comic_data['images']['transcript_md_en'],
-    $admin_comic_data['images']['rtranscript_md_en']
-  ))
-);
+// Prefer remake transcripts when available
+$admin_comic_transcript_md_en =  $admin_comic_data['images']['rtranscript_md_en']
+                              ?: $admin_comic_data['images']['transcript_md_en'];
+$admin_comic_transcript_md_fr =  $admin_comic_data['images']['rtranscript_md_fr']
+                              ?: $admin_comic_data['images']['transcript_md_fr'];
 
-$admin_comic_transcript_md_fr = implode(
-  '\\<br>\\<br>',
-  array_filter(array(
-    $admin_comic_data['images']['transcript_md_fr'],
-    $admin_comic_data['images']['rtranscript_md_fr']
-  ))
-);
+// Determine which version to display (prioritize remakes)
+$admin_comic_uses_remake_en = (bool)$admin_comic_data['images']['rtranscript_text_en'];
+$admin_comic_uses_remake_fr = (bool)$admin_comic_data['images']['rtranscript_text_fr'];
 
 
 
@@ -156,6 +149,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php if($admin_comic_data['images']['preview'][$i] === 'Comic'
         && !$admin_comic_data['images']['full'][$i]
         && !$admin_comic_data['images']['bonus'][$i]
+        && (bool)$admin_comic_data['images']['remake'][$i] === $admin_comic_uses_remake_en
         && $admin_comic_data['images']['trans'][$i]): ?>
   <div class="smallpadding_bot">
     <blockquote><?=$admin_comic_data['images']['trans'][$i]?></blockquote>
