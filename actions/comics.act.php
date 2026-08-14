@@ -26,7 +26,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
-
+/*                                                                                                                   */
+/*                                                 COMIC MANAGEMENT                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
 /**
  * Returns data related to a comic.
  *
@@ -360,8 +363,8 @@ function comics_get_id( string $slug ) : int|null
 /**
  * Returns a random comic's slug.
  *
- * @param   string       (OPTIONAL)   $exclude_slug   The slug of the current comic.
- * @param   int          (OPTIONAL)   $comic_type_id  The id of the comic type to limit the random comic to.
+ * @param   string        $exclude_slug   (OPTIONAL)  The slug of the current comic.
+ * @param   int           $comic_type_id  (OPTIONAL)  The id of the comic type to limit the random comic to.
  *
  * @return  string|null                               The comic's slug, or null if there are no comics.
  */
@@ -413,7 +416,7 @@ function comics_get_random_slug(  string  $exclude_slug   = ''  ,
 /**
  * Returns the latest comic's slug.
  *
- * @param   string        (OPTIONAL)   $enforce_type  Return the latest comic of this type (slug).
+ * @param   string        $enforce_type   (OPTIONAL)  Return the latest comic of this type (slug).
  *
  * @return  string|null                               The latest comic's slug, or null if there are no comics.
  */
@@ -973,6 +976,12 @@ function comics_delete( int $comic_id )
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                    COMIC TYPES                                                    */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Returns data related to a comic type.
  *
@@ -1053,8 +1062,8 @@ function comic_types_get( int     $comic_type_id    = 0,
 /**
  * Lists comic types.
  *
- * @param   string  $is_major  Whether to only list major comic types.
- * @param   string  $is_minor  Whether to only list minor comic types.
+ * @param   bool    $is_major  Whether to only list major comic types.
+ * @param   bool    $is_minor  Whether to only list minor comic types.
  *
  * @return  array   An array containing the comic types.
  */

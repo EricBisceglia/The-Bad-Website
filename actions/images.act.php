@@ -20,6 +20,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  merch_get_images              Fetches all images in the merch folder                                             */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                 IMAGE MANAGEMENT                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
 
 /**
  * Returns data related to an image.
@@ -607,6 +611,12 @@ function images_delete( int $image_id )
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                               IMAGE FUNCTIONALITIES                                               */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Formats an image's file name.
  *
@@ -633,10 +643,16 @@ function images_format_file_name( ?string $name ) : string
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                   MERCH IMAGES                                                    */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Fetches all images in the merch folder.
  *
- * @param   string  $get_templates  Fetch images from the templates folder instead of the photos folder.
+ * @param   bool    $get_templates  Fetch images from the templates folder instead of the photos folder.
  *
  * @return  array   An array containing the images.
  */
