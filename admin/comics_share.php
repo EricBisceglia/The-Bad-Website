@@ -50,6 +50,23 @@ $page_title_fr  .= $admin_comic_data['page_fr'];
 // Assemble the full comic url
 $admin_comic_share_url = $GLOBALS['website_url'].'comic/'.$admin_comic_data['slug'];
 
+// Assemble the original and remake transcripts for Markdown sharing
+$admin_comic_transcript_md_en = implode(
+  '\\<br>\\<br>',
+  array_filter(array(
+    $admin_comic_data['images']['transcript_md_en'],
+    $admin_comic_data['images']['rtranscript_md_en']
+  ))
+);
+
+$admin_comic_transcript_md_fr = implode(
+  '\\<br>\\<br>',
+  array_filter(array(
+    $admin_comic_data['images']['transcript_md_fr'],
+    $admin_comic_data['images']['rtranscript_md_fr']
+  ))
+);
+
 
 
 
@@ -127,7 +144,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php endif; ?>
   <?php endif; ?>
 
-  <?php if($admin_comic_data['images']['transcripts'] > 0): ?>
+  <?php if($admin_comic_data['images']['transcripts'] > 0
+        || $admin_comic_data['images']['rtranscripts'] > 0): ?>
   <h5 class="padding_top smallpadding_bot">
     <?=__('admin_comics_share_transcript').__(':')?>
   </h5>
@@ -136,8 +154,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <br>
   <?php endif; ?>
   <?php if($admin_comic_data['images']['preview'][$i] === 'Comic'
-        && !$admin_comic_data['images']['remake'][$i]
         && !$admin_comic_data['images']['full'][$i]
+        && !$admin_comic_data['images']['bonus'][$i]
         && $admin_comic_data['images']['trans'][$i]): ?>
   <div class="smallpadding_bot">
     <blockquote><?=$admin_comic_data['images']['trans'][$i]?></blockquote>
@@ -147,23 +165,23 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   </h5>
   <?php endif; ?>
 
-  <?php if($admin_comic_data['images']['transcript_text_en'] || $admin_comic_data['images']['transcript_text_fr']): ?>
+  <?php if($admin_comic_transcript_md_en || $admin_comic_transcript_md_fr): ?>
   <h5 class="padding_top smallpadding_bot">
     <?=__('admin_comics_share_markdown').__(':')?>
   </h5>
-  <?php if($admin_comic_data['images']['transcript_text_en']): ?>
+  <?php if($admin_comic_transcript_md_en): ?>
   <div class="smallpadding_bot">
-    <blockquote><?=$admin_comic_data['images']['transcript_md_en']?>\<br>
+    <blockquote><?=$admin_comic_transcript_md_en?>\<br>
 \<br>
 <?=$admin_comic_share_url?></blockquote>
   </div>
   <?php endif; ?>
-  <?php if($admin_comic_data['images']['transcript_text_en'] && $admin_comic_data['images']['transcript_text_fr']): ?>
+  <?php if($admin_comic_transcript_md_en && $admin_comic_transcript_md_fr): ?>
   <br>
   <?php endif; ?>
-  <?php if($admin_comic_data['images']['transcript_text_fr']): ?>
+  <?php if($admin_comic_transcript_md_fr): ?>
   <div class="smallpadding_bot">
-    <blockquote><?=$admin_comic_data['images']['transcript_md_fr']?>\<br>
+    <blockquote><?=$admin_comic_transcript_md_fr?>\<br>
 \<br>
 <?=$admin_comic_share_url?></blockquote>
   </div>
