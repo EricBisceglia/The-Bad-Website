@@ -35,11 +35,11 @@ $js   = array('admin/admin');
 // Fetch the comic's ID
 $admin_comic_id = (int)form_fetch_element('id', request_type: 'GET');
 
-// Fetch the image's data
+// Fetch the comic's data
 $admin_comic_data = comics_get( comic_id:         $admin_comic_id ,
                                 show_all_images:  true            );
 
-// Stop here if the image does not exist
+// Stop here if the comic does not exist
 if(!$admin_comic_data)
   exit(header("Location: ".$path."admin/comics"));
 
@@ -149,7 +149,8 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
   <?php if($admin_comic_data['images']['preview'][$i] === 'Comic'
         && !$admin_comic_data['images']['full'][$i]
         && !$admin_comic_data['images']['bonus'][$i]
-        && (bool)$admin_comic_data['images']['remake'][$i] === $admin_comic_uses_remake_en
+        && ((bool)$admin_comic_data['images']['remake'][$i] === $admin_comic_uses_remake_en
+        || (bool)$admin_comic_data['images']['remake'][$i] === $admin_comic_uses_remake_fr)
         && $admin_comic_data['images']['trans'][$i]): ?>
   <div class="smallpadding_bot">
     <blockquote><?=$admin_comic_data['images']['trans'][$i]?></blockquote>

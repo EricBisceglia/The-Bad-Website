@@ -253,7 +253,7 @@ function admin_ideas_edit( int    $idea_id ,
   $idea_type  = sanitize_array_element($data, 'type', 'int');
 
   // Make sure the idea exists
-  if(!isset($idea_id) && !database_row_exists('ideas', $idea_id))
+  if(!$idea_id || !database_row_exists('ideas', $idea_id))
     return;
 
   // Update the idea
@@ -271,6 +271,8 @@ function admin_ideas_edit( int    $idea_id ,
  * Deletes an idea from the database.
  *
  * @param   int     $idea_id  The id of the idea to delete.
+ *
+ * @return  void
  */
 
 function admin_ideas_delete( int $idea_id ) : void
@@ -309,7 +311,7 @@ function admin_idea_types_get( int $idea_type_id ) : ?array
   if(!database_row_exists('idea_types', $idea_type_id))
     return null;
 
-  // Fetch the idea types's data
+  // Fetch the idea type's data
   $idea_type_data = query(" SELECT  idea_types.id             AS 'it_id'      ,
                                     idea_types.sorting_order  AS 'it_sort'    ,
                                     idea_types.name_en        AS 'it_name_en' ,

@@ -88,6 +88,7 @@ DROP TABLE IF EXISTS `ideas`;
 CREATE TABLE IF NOT EXISTS `ideas` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `fk_idea_types` int UNSIGNED NOT NULL,
+  `date_added` date NOT NULL,
   `title` tinytext NOT NULL,
   `body` longtext NOT NULL,
   PRIMARY KEY (`id`),

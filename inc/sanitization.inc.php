@@ -277,7 +277,7 @@ function sanitize_output_full(  string  $data                         ,
   // Get rid of the HTML tags
   $data = htmlentities($data);
 
-  // Basic cleanup: Get rid of absusable tags, then restore the HTML
+  // Basic cleanup: Get rid of abusable tags, then restore the HTML
   $data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
   $data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
   $data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
@@ -286,7 +286,7 @@ function sanitize_output_full(  string  $data                         ,
   // We don't want any property that begins with 'on' or 'xmlns'
   $data = preg_replace('#(<[^>]+?[\x00-\x20"\'])(?:on|xmlns)[^>]*+>#iu', '$1>', $data);
 
-  // There's a few abusable things that can happen in javascript which definitely need to dealt with
+  // There's a few abusable things that can happen in javascript which definitely needs to be dealt with
   $data = preg_replace('#([a-z]*)[\x00-\x20]*=[\x00-\x20]*([`\'"]*)[\x00-\x20]*j[\x00-\x20]*a[\x00-\x20]*v[\x00-\x20]*a[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2nojavascript...', $data);
   $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*v[\x00-\x20]*b[\x00-\x20]*s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:#iu', '$1=$2novbscript...', $data);
   $data = preg_replace('#([a-z]*)[\x00-\x20]*=([\'"]*)[\x00-\x20]*-moz-binding[\x00-\x20]*:#u', '$1=$2nomozbinding...', $data);

@@ -87,14 +87,14 @@ function images_get( int $image_id ) : array|null
 /**
  * Lists images.
  *
- * @param   array   $sort_by   How the images should be sorted.
+ * @param   string  $sort_by   How the images should be sorted.
  * @param   array   $search    The search query.
  *
  * @return  array   An array containing the images.
  */
 
-function images_list( $sort_by = 'date'   ,
-                      $search  = array()  ) : array
+function images_list( string $sort_by = 'date'   ,
+                      array  $search  = array()  ) : array
 {
   // Get the user's language
   $lang = user_get_language();
@@ -328,7 +328,7 @@ function images_add(  array $image_file ,
   $file_path  = root_path().'img/comics/'.$name_raw;
   $tmp_name   = $image_file['tmp_name'];
 
-  // Stop here is the file name is incorrect
+  // Stop here if the file name is incorrect
   if(!$name)
     return __('admin_images_add_error_misnamed');
 

@@ -59,6 +59,12 @@ ___('comics_socials_bluesky',   'EN', "Bluesky");
 ___('comics_socials_bluesky',   'FR', "Bluesky");
 ___('comics_socials_instagram', 'EN', "Instagram");
 ___('comics_socials_instagram', 'FR', "Instagram");
+___('comics_socials_reddit',    'EN', "Reddit");
+___('comics_socials_reddit',    'FR', "Reddit");
+___('comics_socials_discord',   'EN', "Discord");
+___('comics_socials_discord',   'FR', "Discord");
+___('comics_socials_lemmy',     'EN', "Lemmy");
+___('comics_socials_lemmy',     'FR', "Lemmy");
 
 
 // Comics list

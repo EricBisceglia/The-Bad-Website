@@ -47,7 +47,7 @@ if(!$comic_data)
 if($comic_data['private'])
   exit(header("Location: ".$path."404"));
 
-// Update the page sumary
+// Update the page summary
 $page_url         = "comic/".$comic_slug;
 $page_title_en    = $comic_data['page_en'];
 $page_title_fr    = $comic_data['page_fr'];

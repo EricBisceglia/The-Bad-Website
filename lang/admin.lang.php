@@ -582,6 +582,8 @@ ___('admin_quotes_bbcode_link',       'EN', "[url=https://example.com]Link[/url]
 ___('admin_quotes_bbcode_link',       'FR', "[url=https://example.com]Lien[/url]");
 ___('admin_quotes_bbcode_link_2',     'EN', "[url]https://example.com[/url]");
 ___('admin_quotes_bbcode_link_2',     'FR', "[url]https://example.com[/url]");
+___('admin_quotes_bbcode_help',       'EN', "BBCodes help");
+___('admin_quotes_bbcode_help',       'FR', "Aide des BBCodes");
 
 
 // Quote farm

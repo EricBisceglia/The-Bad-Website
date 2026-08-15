@@ -23,10 +23,10 @@ include_once './../lang/comics.lang.php';   # Translations
 // Fetch the tag
 $comic_tag = form_fetch_element('theme', request_type: 'GET');
 
-// Fetch the comic type data
+// Fetch the tag data
 $comic_tag_data = tags_get( tag_slug: $comic_tag);
 
-// Stop here if the comic type does not exist
+// Stop here if the tag does not exist
 if(!$comic_tag_data)
   exit(header("Location: ./../comics/tags"));
 
@@ -37,7 +37,7 @@ $comic_tag_id = $comic_tag_data['id'];
 $comics_list = comics_list( search:     array('tag_id' => $comic_tag_id)  ,
                             is_public:  true                              );
 
-// Update the page sumary
+// Update the page summary
 $page_url       = "tag/".$comic_tag;
 $page_title_en  = $comic_tag_data['page_en'];
 $page_title_fr  = $comic_tag_data['page_fr'];

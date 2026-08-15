@@ -630,7 +630,7 @@ function quotes_add( array $data ) : int
     // Prepare the default title
     $default_title_en = implode(' - ', array_filter(array($authors_en, $media_en)));
 
-    // Give the quote a title
+    // Give the slug the default title
     $slug_title_en = $title_en ?: ($default_title_en ?: __('admin_quotes_add_untitled'));
   }
 
@@ -765,7 +765,7 @@ function quotes_edit( int   $quote_id ,
     // Prepare the default title
     $default_title_en = implode(' - ', array_filter(array($authors_en, $media_en)));
 
-    // Give the quote a title
+    // Give the slug the default title
     $slug_title_en = $title_en ?: ($default_title_en ?: __('admin_quotes_add_untitled'));
   }
 

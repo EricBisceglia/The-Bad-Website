@@ -63,7 +63,7 @@ function fetch_sanitize(data)
 
 function fetch_sanitize_id(element)
 {
-  // Attempt to identify the targetted element
+  // Attempt to identify the targeted element
   element_tag   = document.getElementById(element)?.tagName.toLowerCase();
   element_type  = document.getElementById(element)?.type.toLowerCase();
 
