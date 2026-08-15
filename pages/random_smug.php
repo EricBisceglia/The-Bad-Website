@@ -327,6 +327,82 @@ else
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Add credits at the bottom
+
+// Determine the gap to leave between the comic and the credits image
+$credit_gap = 8;
+
+// Determine the margin to leave between the credits image and the right edge of the comic
+$credit_margin = 5;
+
+// List credit sizes (from largest to smallest)
+$credit_sizes = array('large', 'medium', 'small');
+
+// Initialize the credit image path
+$credit_path = '';
+
+// Find the largest credit image that fits the comic
+foreach($credit_sizes as $credit_size)
+{
+  // Assemble the image path
+  $candidate_path = './../img/generator/credits/credits_'.$credit_size.'_'.$lang.'.png';
+
+  // Fetch the candidate image's dimensions
+  $candidate_info = @getimagesize($candidate_path);
+
+  // Skip missing/invalid images
+  if(!$candidate_info)
+    continue;
+
+  // Use the first image to fit inside the comic's width
+  if($candidate_info[0] <= $comicW)
+  {
+    $credit_path = $candidate_path;
+    break;
+  }
+}
+
+// If a credit image was found, add it to the bottom of the comic
+if($credit_path)
+{
+  // Load the credit image
+  [$credit, $credit_info] = loadImage($credit_path);
+
+  // Only proceed if it loaded correctly
+  if($credit)
+  {
+    // Fetch its dimensions
+    $credit_width  = $credit_info[0];
+    $credit_height = $credit_info[1];
+
+    // Calculate the image's new dimensions
+    $final_width  = $comicW;
+    $final_height = $comicH + $credit_gap + $credit_height;
+
+    // Recreate the image with the credits added
+    $final = imagecreatetruecolor( $final_width, $final_height );
+
+    // Fill any gaps with a black background
+    $black = imagecolorallocate($final, 0, 0, 0);
+    imagefilledrectangle($final, 0, 0, $final_width, $final_height, $black);
+
+    // Place the comic on the new canvas
+    imagecopy($final, $out, 0, 0, 0, 0, $comicW, $comicH );
+
+    // Calculate where to place the credit image
+    $credit_x = $final_width - $credit_width - $credit_margin;
+
+    // Place the credit image below the comic (keep its size)
+    imagecopy($final, $credit, $credit_x, $comicH + $credit_gap, 0, 0, $credit_width, $credit_height);
+
+    // Use the image with credits as the new output
+    $out = $final;
+  }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Output
 
 // Display the image
