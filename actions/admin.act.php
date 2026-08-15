@@ -108,6 +108,7 @@ function admin_ideas_get( int $idea_id ) : ?array
   // Fetch the idea
   $idea = query("  SELECT   ideas.id            AS 'i_id'     ,
                             ideas.fk_idea_types AS 'i_type'   ,
+                            ideas.date_added    AS 'i_added'  ,
                             ideas.title         AS 'i_title'  ,
                             ideas.body          AS 'i_body'
                     FROM    ideas
@@ -119,7 +120,8 @@ function admin_ideas_get( int $idea_id ) : ?array
     return null;
 
   // Prepare the data
-  $data['title'] = sanitize_output($idea['i_title']);
+  $data['title']= sanitize_output($idea['i_title']);
+  $data['added'] = sanitize_output(date_to_text($idea['i_added'], strip_day: 1));
   $data['body']  = sanitize_output($idea['i_body']);
   $data['type']  = sanitize_output($idea['i_type']);
 
@@ -174,9 +176,10 @@ function admin_ideas_list(  int    $category            ,
   }
 
   // Fetch the ideas
-  $ideas = query("  SELECT    ideas.id    AS 'i_id'  ,
-                              ideas.title AS 'i_title'  ,
-                              ideas.body  AS 'i_body'
+  $ideas = query("  SELECT    ideas.id          AS 'i_id'     ,
+                              ideas.date_added  AS 'i_added'  ,
+                              ideas.title       AS 'i_title'  ,
+                              ideas.body        AS 'i_body'
                     FROM      ideas
                     WHERE     ideas.fk_idea_types = '$category'
                     ORDER BY  $sort_by ");
@@ -185,6 +188,8 @@ function admin_ideas_list(  int    $category            ,
   for($i = 0; $row = query_row($ideas); $i++)
   {
     $data['ideas'][$i]['id']    = $row['i_id'];
+    $time_since_idea            = time_since(strtotime($row['i_added']));
+    $data['ideas'][$i]['added'] = sanitize_output(string_change_case($time_since_idea, 'lowercase'));
     $data['ideas'][$i]['title'] = sanitize_output($row['i_title']);
     $data['ideas'][$i]['body']  = sanitize_output($row['i_body'], preserve_line_breaks: true);
   }
@@ -213,10 +218,12 @@ function admin_ideas_add( array $data ) : int
   $title  = sanitize_array_element($data, 'title', 'string');
   $body   = sanitize_array_element($data, 'body', 'string');
   $type   = sanitize_array_element($data, 'type', 'int');
+  $date   = sanitize(date('Y-m-d'), 'string');
 
   // Add the idea
   query(" INSERT INTO ideas
           SET         ideas.fk_idea_types = '$type'   ,
+                      ideas.date_added    = '$date'   ,
                       ideas.title         = '$title'  ,
                       ideas.body          = '$body'   ");
 

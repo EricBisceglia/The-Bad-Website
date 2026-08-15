@@ -124,11 +124,15 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       <div class="bigpadding_bot" id="ideas_<?=$admin_ideas['ideas'][$i]['id']?>">
 
-        <h5 class="smallpadding_bot bold text_orange">
+        <h5 class="nopadding_bot bold text_orange">
           <?=$admin_ideas['ideas'][$i]['title']?>
           <?=__icon('edit', is_small: true, alt: '+', title: __('edit'), title_case: 'initials', href: 'admin/ideas_edit?id='.$admin_ideas['ideas'][$i]['id'], path: $path)?>
           <?=__icon('delete', is_small: true, alt: '-', title: __('delete'), title_case: 'initials', onclick: 'admin_ideas_delete('.$admin_ideas['ideas'][$i]['id'].', \''.__('admin_ideas_delete').'\')', path: $path)?>
         </h5>
+
+        <div class="smallpadding_bot italics text_light">
+          <?=__('admin_ideas_added').$admin_ideas['ideas'][$i]['added']?>
+        </div>
 
         <blockquote>
           <?=$admin_ideas['ideas'][$i]['body']?>

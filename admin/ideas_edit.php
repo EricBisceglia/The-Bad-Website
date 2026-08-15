@@ -96,9 +96,13 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
   <form method="POST">
 
-    <h2 class="padding_bot">
+    <h2 class="nopadding_bot">
       <?=__link('admin/ideas?category='.$admin_idea['type'].'#ideas_'.$admin_idea_id, __('admin_ideas_edit'), path: $path, style: 'text_light')?>
     </h2>
+
+    <div class="padding_bot italics">
+      <?=__('admin_ideas_edit_added').$admin_idea['added']?>
+    </div>
 
     <div class="smallpadding_bot">
       <label for="admin_ideas_title"><?=__('admin_ideas_title')?></label>
