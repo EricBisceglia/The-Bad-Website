@@ -20,6 +20,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  merch_get_images              Fetches all images in the merch folder                                             */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                 IMAGE MANAGEMENT                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
 
 /**
  * Returns data related to an image.
@@ -83,14 +87,14 @@ function images_get( int $image_id ) : array|null
 /**
  * Lists images.
  *
- * @param   array   $sort_by   How the images should be sorted.
+ * @param   string  $sort_by   How the images should be sorted.
  * @param   array   $search    The search query.
  *
  * @return  array   An array containing the images.
  */
 
-function images_list( $sort_by = 'date'   ,
-                      $search  = array()  ) : array
+function images_list( string $sort_by = 'date'   ,
+                      array  $search  = array()  ) : array
 {
   // Get the user's language
   $lang = user_get_language();
@@ -324,7 +328,7 @@ function images_add(  array $image_file ,
   $file_path  = root_path().'img/comics/'.$name_raw;
   $tmp_name   = $image_file['tmp_name'];
 
-  // Stop here is the file name is incorrect
+  // Stop here if the file name is incorrect
   if(!$name)
     return __('admin_images_add_error_misnamed');
 
@@ -607,6 +611,12 @@ function images_delete( int $image_id )
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                               IMAGE FUNCTIONALITIES                                               */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Formats an image's file name.
  *
@@ -633,10 +643,16 @@ function images_format_file_name( ?string $name ) : string
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                   MERCH IMAGES                                                    */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Fetches all images in the merch folder.
  *
- * @param   string  $get_templates  Fetch images from the templates folder instead of the photos folder.
+ * @param   bool    $get_templates  Fetch images from the templates folder instead of the photos folder.
  *
  * @return  array   An array containing the images.
  */

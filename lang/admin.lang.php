@@ -68,6 +68,8 @@ ___('admin_ideas_new_title',    'EN', "New idea");
 ___('admin_ideas_new_title',    'FR', "Nouvelle idée");
 ___('admin_ideas_title',        'EN', "Idea name");
 ___('admin_ideas_title',        'FR', "Nom de l'idée");
+___('admin_ideas_added',        'EN', "Idea recorded ");
+___('admin_ideas_added',        'FR', "Idée enregistrée ");
 ___('admin_ideas_type',         'EN', "Idea type");
 ___('admin_ideas_type',         'FR', "Type d'idée");
 ___('admin_ideas_new_body',     'EN', "Idea description");
@@ -98,8 +100,10 @@ ___('admin_ideas_add_title',  'FR', "Ajouter une idée");
 
 
 // Ideas: Edit
-___('admin_ideas_edit', 'EN', "Edit idea");
-___('admin_ideas_edit', 'FR', "Modifier l'idée");
+___('admin_ideas_edit',       'EN', "Edit idea");
+___('admin_ideas_edit',       'FR', "Modifier l'idée");
+___('admin_ideas_edit_added', 'EN', "Added ");
+___('admin_ideas_edit_added', 'FR', "Ajoutée le ");
 
 
 // Ideas: Delete
@@ -578,6 +582,8 @@ ___('admin_quotes_bbcode_link',       'EN', "[url=https://example.com]Link[/url]
 ___('admin_quotes_bbcode_link',       'FR', "[url=https://example.com]Lien[/url]");
 ___('admin_quotes_bbcode_link_2',     'EN', "[url]https://example.com[/url]");
 ___('admin_quotes_bbcode_link_2',     'FR', "[url]https://example.com[/url]");
+___('admin_quotes_bbcode_help',       'EN', "BBCodes help");
+___('admin_quotes_bbcode_help',       'FR', "Aide des BBCodes");
 
 
 // Quote farm

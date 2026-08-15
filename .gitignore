@@ -9,8 +9,10 @@ img/comics/*
 !img/comics/index.php
 
 # Don't commit the random comic generator
-img/generator/*
-!img/generator/index.php
+img/generator/en*
+img/generator/fr*
+!img/generator/en/index.php
+!img/generator/fr/index.php
 
 # Don't commit merch images
 img/merch/photos/*

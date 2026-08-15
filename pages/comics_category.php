@@ -36,7 +36,7 @@ $comic_type_id = $comic_type_data['id'];
 $comics_list = comics_list( search:     array('type' => $comic_type_id) ,
                             is_public:  true                            );
 
-// Update the page sumary
+// Update the page summary
 $page_url       = "category/".$comic_type;
 $page_title_en  = $comic_type_data['page_en'];
 $page_title_fr  = $comic_type_data['page_fr'];

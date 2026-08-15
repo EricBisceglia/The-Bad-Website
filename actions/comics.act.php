@@ -26,7 +26,10 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  comic_types_delete            Deletes a comic type                                                               */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
-
+/*                                                                                                                   */
+/*                                                 COMIC MANAGEMENT                                                  */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
 /**
  * Returns data related to a comic.
  *
@@ -49,7 +52,7 @@ function comics_get(  int   $comic_id                ,
   // Get the user's current language
   $lang = string_change_case(user_get_language(), 'lowercase');
 
-  // Fetch the comics's data
+  // Fetch the comic's data
   $comic_data = query(" SELECT  comics.is_public          AS 'c_public'   ,
                                 comics.slug               AS 'c_slug'     ,
                                 comics.fk_comic_types     AS 'c_type'     ,
@@ -360,8 +363,8 @@ function comics_get_id( string $slug ) : int|null
 /**
  * Returns a random comic's slug.
  *
- * @param   string       (OPTIONAL)   $exclude_slug   The slug of the current comic.
- * @param   int          (OPTIONAL)   $comic_type_id  The id of the comic type to limit the random comic to.
+ * @param   string        $exclude_slug   (OPTIONAL)  The slug of the current comic.
+ * @param   int           $comic_type_id  (OPTIONAL)  The id of the comic type to limit the random comic to.
  *
  * @return  string|null                               The comic's slug, or null if there are no comics.
  */
@@ -413,7 +416,7 @@ function comics_get_random_slug(  string  $exclude_slug   = ''  ,
 /**
  * Returns the latest comic's slug.
  *
- * @param   string        (OPTIONAL)   $enforce_type  Return the latest comic of this type (slug).
+ * @param   string        $enforce_type   (OPTIONAL)  Return the latest comic of this type (slug).
  *
  * @return  string|null                               The latest comic's slug, or null if there are no comics.
  */
@@ -973,6 +976,12 @@ function comics_delete( int $comic_id )
 
 
 
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                    COMIC TYPES                                                    */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
 /**
  * Returns data related to a comic type.
  *
@@ -1004,7 +1013,7 @@ function comic_types_get( int     $comic_type_id    = 0,
   $query_where = ($comic_type_id)   ? " WHERE comic_types.id      = '$comic_type_id' "    : " ";
   $query_where = ($comic_type_slug) ? " WHERE comic_types.slug LIKE '$comic_type_slug' "  : $query_where;
 
-  // Fetch the comic types's data
+  // Fetch the comic type's data
   $comic_type_data = query("  SELECT  comic_types.id                AS 'ct_id'        ,
                                       comic_types.sorting_order     AS 'ct_order'     ,
                                       comic_types.name_$lang        AS 'ct_name'      ,
@@ -1053,8 +1062,8 @@ function comic_types_get( int     $comic_type_id    = 0,
 /**
  * Lists comic types.
  *
- * @param   string  $is_major  Whether to only list major comic types.
- * @param   string  $is_minor  Whether to only list minor comic types.
+ * @param   bool    $is_major  Whether to only list major comic types.
+ * @param   bool    $is_minor  Whether to only list minor comic types.
  *
  * @return  array   An array containing the comic types.
  */

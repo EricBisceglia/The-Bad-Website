@@ -78,7 +78,9 @@ function root_path() : string
 /**
  * Enforce a single url for the page.
  *
- * @param   string  $url  The url to enforce.
+ * @param   string  $enforced_url   The url to enforce.
+ *
+ * @return  void
  */
 
 function page_enforce_url( string $enforced_url ) : void
@@ -409,7 +411,7 @@ function string_increment( string $string ) : string
  * Transforms a MySQL date or a timestamp into a plaintext date.
  *
  * MySQL gives us dates in the YYYY-MM-DD format, and we often want to display them in plaintext.
- * We store a lot of our dates in timestamps aswell, this function can work with a timestamp as an input too.
+ * We store a lot of our dates in timestamps as well, this function can work with a timestamp as an input too.
  * If no date is specified, it returns the current date instead.
  *
  * @param   string|int  $date           (OPTIONAL)  The MySQL date or timestamp that we want to transform.
@@ -567,7 +569,7 @@ function date_to_mysql( string  $date                   ,
  *
  * @param   int     $timestamp  The timestamp which will be converted.
  *
- * @param   array               An array containing enough information to be an aware datetime.
+ * @return   array               An array containing enough information to be an aware datetime.
  */
 
 

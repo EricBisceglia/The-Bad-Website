@@ -70,8 +70,7 @@ function __(  string  $string                   ,
   / {{external_popup|href|text}}    # Will open in a popup (target blank)
   */
   $returned_string = preg_replace('/\{\{link_popup\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", popup: true), $returned_string);
-  $returned_string = preg_replace('/\{\{link\+\+\|(.*?)\|(.*?)\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", "$3", path: "$5"), $returned_string);
-  $returned_string = preg_replace('/\{\{link\+\+\|(.*?)\|(.*?)\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", "$3", 0), $returned_string);
+  $returned_string = preg_replace('/\{\{link\+\+\|(.*?)\|(.*?)\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", "$3", path: "$4"), $returned_string);
   $returned_string = preg_replace('/\{\{link\+\|(.*?)\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", "$3"), $returned_string);
   $returned_string = preg_replace('/\{\{link\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2"), $returned_string);
   $returned_string = preg_replace('/\{\{external\|(.*?)\|(.*?)\}\}/is',__link("$1", "$2", is_internal: false), $returned_string);
@@ -324,6 +323,8 @@ ___('help',       'EN', "help");
 ___('help',       'FR', "aide");
 ___('info',       'EN', "info");
 ___('info',       'FR', "info");
+___('image',      'EN', "image");
+___('image',      'FR', "image");
 ___('maximize',   'EN', "maximize");
 ___('maximize',   'FR', "agrandir");
 ___('minimize',   'EN', "minimize");
