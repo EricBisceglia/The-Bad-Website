@@ -8,6 +8,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  videos_bts_list             Lists all behind the scenes videos                                                   */
 /*  videos_bts_add              Adds a behind the scenes video                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
@@ -15,6 +16,50 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*                                             BEHIND THE SCENES VIDEOS                                              */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Lists all behind the scenes videos.
+ *
+ * @return  array  An array containing all behind the scenes videos.
+ */
+
+function videos_bts_list() : array
+{
+  // Get the user's current language
+  $lang = string_change_case(user_get_language(), 'lowercase');
+
+  // Fetch the videos
+  $videos = query(" SELECT    video_bts.id                AS 'vbts_id'      ,
+                              video_bts.sorting_order     AS 'vbts_sort'    ,
+                              video_bts.date_added        AS 'vbts_date'    ,
+                              video_bts.youtube_id        AS 'vbts_youtube' ,
+                              video_bts.title_$lang       AS 'vbts_title'   ,
+                              video_bts.description_$lang AS 'vbts_desc'
+                    FROM      video_bts
+                    GROUP BY  video_bts.id
+                    ORDER BY  video_bts.sorting_order ASC ");
+
+  // Prepare the data for display
+  for($i = 0; $row = query_row($videos); $i++)
+  {
+    $data[$i]['id']       = sanitize_output($row['vbts_id']);
+    $data[$i]['sort']     = sanitize_output($row['vbts_sort']);
+    $data[$i]['date']     = sanitize_output($row['vbts_date']);
+    $data[$i]['youtube']  = sanitize_output($row['vbts_youtube']);
+    $data[$i]['title']    = sanitize_output($row['vbts_title']);
+    $data[$i]['stitle']   = sanitize_output(string_truncate($row['vbts_title'], 30));
+    $data[$i]['desc']     = sanitize_output($row['vbts_desc']);
+  }
+
+  // Add the number of rows to the returned data
+  $data['rows'] = $i;
+
+  // Return the prepared data
+  return ($data ?? []);
+}
+
+
+
 
 /**
  * Adds a behind the scenes video.

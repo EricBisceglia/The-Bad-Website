@@ -477,8 +477,16 @@ ___('admin_comic_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un t
 /*********************************************************************************************************************/
 
 // Behind the scene videos
-___('admin_videos_bts_title', 'EN', "Behind the scenes videos");
-___('admin_videos_bts_title', 'FR', "Vidéos des coulisses");
+___('admin_videos_bts_title',   'EN', "Behind the scenes videos");
+___('admin_videos_bts_title',   'FR', "Vidéos des coulisses");
+___('admin_videos_bts_order',   'EN', "Order");
+___('admin_videos_bts_order',   'FR', "Ordre");
+___('admin_videos_bts_name',    'EN', "Title");
+___('admin_videos_bts_name',    'FR', "Titre");
+___('admin_videos_bts_count',   'EN', "{{1}} BTS video");
+___('admin_videos_bts_count',   'FR', "{{1}} vidéo BTS");
+___('admin_videos_bts_count+',  'EN', "{{1}} BTS videos");
+___('admin_videos_bts_count+',  'FR', "{{1}} vidéos BTS");
 
 
 // BTS videos: Add
@@ -498,6 +506,11 @@ ___('admin_videos_bts_add_desc_fr',     'EN', "Video description (FR)");
 ___('admin_videos_bts_add_desc_fr',     'FR', "Description de la vidéo (FR)");
 ___('admin_videos_bts_add_submit',      'EN', "Add BTS video");
 ___('admin_videos_bts_add_submit',      'FR', "Ajouter la vidéo BTS");
+
+
+// BTS videos: Delete
+___('admin_videos_bts_delete_confirm', 'EN', "Confirm the permanent deletion of this behind the scenes video");
+___('admin_videos_bts_delete_confirm', 'FR', "Confirmer la suppression définitive de cette vidéo des coulisses");
 
 
 
