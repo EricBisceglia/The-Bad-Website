@@ -711,7 +711,7 @@ function comics_list( string $sort_by   = 'date'  ,
 
     // Determine the text file's path
     $root      = root_path();
-    $file_path = $root.'/admin/user_searches.txt';
+    $file_path = $root.'/admin/.user_searches.txt';
 
     // Create the text file if it doesn't exist
     if(!file_exists($file_path))
