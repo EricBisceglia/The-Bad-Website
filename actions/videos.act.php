@@ -12,6 +12,7 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 /*  videos_bts_list             Lists all behind the scenes videos                                                   */
 /*  videos_bts_add              Adds a behind the scenes video                                                       */
 /*  videos_bts_edit             Edits a behind the scenes video                                                      */
+/*  videos_bts_delete           Deletes a behind the scenes video                                                    */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 /*                                                                                                                   */
@@ -179,4 +180,32 @@ function videos_bts_edit( int   $video_bts_id ,
                   video_bts.description_en    = '$desc_en'    ,
                   video_bts.description_fr    = '$desc_fr'
           WHERE   video_bts.id                = '$video_bts_id' ");
+}
+
+
+
+
+/**
+ * Deletes a behind the scenes video.
+ *
+ * @param   int    $video_id  The ID of the behind the scenes video to delete.
+
+ * @return  bool              Whether the behind the scenes video was deleted successfully.
+ */
+
+function videos_bts_delete( int $video_bts_id ) : bool
+{
+  // Sanitize the data
+  $video_bts_id = sanitize($video_bts_id, 'int');
+
+  // Stop here if the video does not exist
+  if(!$video_bts_id || !database_row_exists('video_bts', $video_bts_id))
+    return false;
+
+  // Delete the behind the scenes video
+  query(" DELETE FROM video_bts
+          WHERE       video_bts.id = '$video_bts_id' ");
+
+  // The video has been deleted
+  return true;
 }

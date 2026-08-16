@@ -73,6 +73,22 @@ if(isset($_POST['videos_bts_edit']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Delete a BTS video
+
+if(isset($_POST['admin_videos_bts_delete']))
+{
+  // Fetch the BTS video's ID
+  $bts_video_id = (int)form_fetch_element('admin_videos_bts_delete');
+
+  // Delete the BTS video from the database
+  videos_bts_delete( $bts_video_id );
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the videos
 
 $bts_videos = videos_bts_list();
@@ -110,7 +126,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
 
       </thead>
 
-    <tbody class="altc2 nowrap" id="admin_quotes_tags_tbody">
+    <tbody class="altc2 nowrap" id="admin_videos_bts_tbody">
 
       <?php endif; ?>
 

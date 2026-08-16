@@ -16,6 +16,8 @@
 /*  admin_comic_list_search                 Triggers a search in the comic list.                                     */
 /*  admin_comic_type_delete                 Triggers the deletion of a comic type.                                   */
 /*                                                                                                                   */
+/*  admin_videos_bts_delete                 Triggers the deletion of a behind the scenes video.                      */
+/*                                                                                                                   */
 /*  admin_tags_delete                       Triggers the deletion of a tag.                                          */
 /*                                                                                                                   */
 /*  admin_quotes_hide_media_or_author       Hides the quote media or author dropdowns when one is selected.          */
@@ -339,6 +341,33 @@ function admin_comic_type_delete(  id      ,
   // Make sure the user knows what they're doing and trigger the deletion
   if(confirm(message))
     fetch_page('comics_types', 'admin_comics_types_tbody', postdata);
+}
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                      VIDEOS                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+/**
+ * Triggers the deletion of a behind the scenes video.
+ *
+ * @param   {int}     id        The id of the behind the scenes video to delete.
+ * @param   {string}  message   The message to display before deleting the behind the scenes video.
+ */
+
+function admin_videos_bts_delete(  id      ,
+                                   message )
+{
+  // Assemble the postdata
+  postdata = 'admin_videos_bts_delete=' + fetch_sanitize(id);
+
+  // Make sure the user knows what they're doing and trigger the deletion
+  if(confirm(message))
+    fetch_page('videos_bts', 'admin_videos_bts_tbody', postdata);
 }
 
 
