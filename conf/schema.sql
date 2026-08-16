@@ -319,11 +319,11 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `video_drawings`
+-- Table structure for table `video_bts`
 --
 
-DROP TABLE IF EXISTS `video_drawings`;
-CREATE TABLE IF NOT EXISTS `video_drawings` (
+DROP TABLE IF EXISTS `video_bts`;
+CREATE TABLE IF NOT EXISTS `video_bts` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `sorting_order` int UNSIGNED NOT NULL,
   `date_added` date NOT NULL,
@@ -333,6 +333,6 @@ CREATE TABLE IF NOT EXISTS `video_drawings` (
   `description_en` text NOT NULL,
   `description_fr` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `video_drawings_sorting_order` (`sorting_order`)
+  KEY `video_bts_sorting_order` (`sorting_order`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;

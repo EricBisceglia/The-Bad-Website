@@ -21,6 +21,8 @@ ___('admin_menu_images',    'EN', "Images");
 ___('admin_menu_images',    'FR', "Images");
 ___('admin_menu_comics',    'EN', "Comics");
 ___('admin_menu_comics',    'FR', "Comics");
+___('admin_menu_videos',    'EN', "Videos");
+___('admin_menu_videos',    'FR', "Vidéos");
 ___('admin_menu_tags',      'EN', "Tags");
 ___('admin_menu_tags',      'FR', "Tags");
 ___('admin_menu_quotes',    'EN', "Quotes");
@@ -470,7 +472,39 @@ ___('admin_comic_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un t
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
-/*                                                    TAGS                                                        */
+/*                                                      VIDEOS                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Behind the scene videos
+___('admin_videos_bts_title', 'EN', "Behind the scenes videos");
+___('admin_videos_bts_title', 'FR', "Vidéos des coulisses");
+
+
+// BTS videos: Add
+___('admin_videos_bts_add_title',       'EN', "Add a behind the scenes video");
+___('admin_videos_bts_add_title',       'FR', "Ajouter une vidéo des coulisses");
+___('admin_videos_bts_add_order',       'EN', "Sorting order");
+___('admin_videos_bts_add_order',       'FR', "Ordre de tri");
+___('admin_videos_bts_add_youtube_id',  'EN', "YouTube ID");
+___('admin_videos_bts_add_youtube_id',  'FR', "ID YouTube");
+___('admin_videos_bts_add_name_en',     'EN', "Video title (EN)");
+___('admin_videos_bts_add_name_en',     'FR', "Titre de la vidéo (EN)");
+___('admin_videos_bts_add_name_fr',     'EN', "Video title (FR)");
+___('admin_videos_bts_add_name_fr',     'FR', "Titre de la vidéo (FR)");
+___('admin_videos_bts_add_desc_en',     'EN', "Video description (EN)");
+___('admin_videos_bts_add_desc_en',     'FR', "Description de la vidéo (EN)");
+___('admin_videos_bts_add_desc_fr',     'EN', "Video description (FR)");
+___('admin_videos_bts_add_desc_fr',     'FR', "Description de la vidéo (FR)");
+___('admin_videos_bts_add_submit',      'EN', "Add BTS video");
+___('admin_videos_bts_add_submit',      'FR', "Ajouter la vidéo BTS");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                        TAGS                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 
