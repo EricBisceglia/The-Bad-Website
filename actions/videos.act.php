@@ -8,14 +8,59 @@ if(substr(dirname(__FILE__),-8).basename(__FILE__) === str_replace("/","\\",subs
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
+/*  videos_bts_get              Fetches a behind the scenes video                                                    */
 /*  videos_bts_list             Lists all behind the scenes videos                                                   */
 /*  videos_bts_add              Adds a behind the scenes video                                                       */
+/*  videos_bts_edit             Edits a behind the scenes video                                                      */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 /*                                                                                                                   */
 /*                                             BEHIND THE SCENES VIDEOS                                              */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
+
+/**
+ * Fetches a behind the scenes video.
+ *
+ * @param   int    $video_id  The ID of the behind the scenes video to fetch.
+ *
+ * @return  array             An array containing data on the behind the scenes video.
+ */
+
+function videos_bts_get( int $video_id ) : ?array
+{
+  // Sanitize the data
+  $video_id = sanitize($video_id, 'int');
+
+  // Stop here if the video does not exist
+  if(!$video_id || !database_row_exists('video_bts', $video_id))
+    return null;
+
+  // Fetch the video's data
+  $video = query("  SELECT  video_bts.youtube_id      AS 'vbts_youtube'   ,
+                            video_bts.sorting_order   AS 'vbts_sort'      ,
+                            video_bts.title_en        AS 'vbts_title_en'  ,
+                            video_bts.title_fr        AS 'vbts_title_fr'  ,
+                            video_bts.description_en  AS 'vbts_desc_en'   ,
+                            video_bts.description_fr  AS 'vbts_desc_fr'
+                    FROM    video_bts
+                    WHERE   video_bts.id = '$video_id' ",
+                    fetch_row: true);
+
+  // Prepare the data for display
+  $data['youtube_id'] = sanitize_output($video['vbts_youtube']);
+  $data['sort']       = sanitize_output($video['vbts_sort']);
+  $data['title_en']   = sanitize_output($video['vbts_title_en']);
+  $data['title_fr']   = sanitize_output($video['vbts_title_fr']);
+  $data['desc_en']    = sanitize_output($video['vbts_desc_en']);
+  $data['desc_fr']    = sanitize_output($video['vbts_desc_fr']);
+
+  // Return the prepared data
+  return $data;
+}
+
+
+
 
 /**
  * Lists all behind the scenes videos.
@@ -95,4 +140,43 @@ function videos_bts_add( array $data ) : int
 
   // Return the video's ID
   return $video_bts_id;
+}
+
+
+
+
+/**
+ * Edits a behind the scenes video.
+ *
+ * @param   int    $video_bts_id  The ID of the behind the scenes video to edit.
+ * @param   array  $data          An array containing data on the behind the scenes video.
+ *
+ * @return  void
+ */
+
+function videos_bts_edit( int   $video_bts_id ,
+                          array $data         ) : void
+{
+  // Sanitize the data
+  $video_bts_id = sanitize($video_bts_id, 'int');
+  $sort         = sanitize_array_element($data, 'sort_order', 'int');
+  $youtube_id   = sanitize_array_element($data, 'youtube_id', 'string');
+  $title_en     = sanitize_array_element($data, 'title_en', 'string');
+  $title_fr     = sanitize_array_element($data, 'title_fr', 'string');
+  $desc_en      = sanitize_array_element($data, 'desc_en', 'string');
+  $desc_fr      = sanitize_array_element($data, 'desc_fr', 'string');
+
+  // Stop here if the video does not exist
+  if(!$video_bts_id || !database_row_exists('video_bts', $video_bts_id))
+    return;
+
+  // Edit the behind the scenes video
+  query(" UPDATE  video_bts
+          SET     video_bts.sorting_order     = '$sort'       ,
+                  video_bts.youtube_id        = '$youtube_id' ,
+                  video_bts.title_en          = '$title_en'   ,
+                  video_bts.title_fr          = '$title_fr'   ,
+                  video_bts.description_en    = '$desc_en'    ,
+                  video_bts.description_fr    = '$desc_fr'
+          WHERE   video_bts.id                = '$video_bts_id' ");
 }

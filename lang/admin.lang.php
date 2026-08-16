@@ -508,6 +508,12 @@ ___('admin_videos_bts_add_submit',      'EN', "Add BTS video");
 ___('admin_videos_bts_add_submit',      'FR', "Ajouter la vidéo BTS");
 
 
+// BTS videos: Edit
+___('admin_videos_bts_edit_title',  'EN', "Edit a behind the scenes video");
+___('admin_videos_bts_edit_title',  'FR', "Modifier une vidéo des coulisses");
+___('admin_videos_bts_edit_submit', 'EN', "Edit BTS video");
+___('admin_videos_bts_edit_submit', 'FR', "Modifier la vidéo BTS");
+
 // BTS videos: Delete
 ___('admin_videos_bts_delete_confirm', 'EN', "Confirm the permanent deletion of this behind the scenes video");
 ___('admin_videos_bts_delete_confirm', 'FR', "Confirmer la suppression définitive de cette vidéo des coulisses");

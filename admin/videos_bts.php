@@ -49,6 +49,30 @@ if(isset($_POST['videos_bts_add']))
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Edit a BTS video
+
+if(isset($_POST['videos_bts_edit']))
+{
+  // Fetch the BTS video's ID
+  $videos_bts_id = (int)form_fetch_element('videos_bts_id');
+
+  // Assemble an array with the postdata
+  $videos_bts_edit_data = array( 'id'          => form_fetch_element('videos_bts_id')          ,
+                                 'youtube_id'  => form_fetch_element('videos_bts_youtube_id')  ,
+                                 'sort_order'  => form_fetch_element('videos_bts_order')       ,
+                                 'title_en'    => form_fetch_element('videos_bts_name_en')     ,
+                                 'title_fr'    => form_fetch_element('videos_bts_name_fr')     ,
+                                 'desc_en'     => form_fetch_element('videos_bts_desc_en')     ,
+                                 'desc_fr'     => form_fetch_element('videos_bts_desc_fr')     );
+
+  // Edit the BTS video in the database
+  videos_bts_edit( $videos_bts_id, $videos_bts_edit_data );
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fetch the videos
 
 $bts_videos = videos_bts_list();
