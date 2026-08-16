@@ -4,13 +4,13 @@
 /*                                                                                                                   */
 // File inclusions /**************************************************************************************************/
 include_once './../inc/includes.inc.php';   # Core
-include_once './../actions/comics.act.php'; # Comic management
-include_once './../lang/comics.lang.php';   # Translations
+include_once './../lang/videos.lang.php';   # Translations
+include_once './../actions/videos.act.php'; # Video management
 
 // Page summary
-$page_url       = "stuff/list";
-$page_title_en  = "Stuff";
-$page_title_fr  = "Trucs";
+$page_url       = "stuff/bts";
+$page_title_en  = "Behind the scenes";
+$page_title_fr  = "Coulisses";
 
 // Enforce the url
 page_enforce_url($page_url);
@@ -25,11 +25,9 @@ page_enforce_url($page_url);
 /*********************************************************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Page data
+// Fetch behind the scenes videos
 
-// Get the list of comic types
-$comic_types_list = comic_types_list( is_minor: true );
-
+$bts_videos = videos_bts_list();
 
 
 
@@ -37,57 +35,41 @@ $comic_types_list = comic_types_list( is_minor: true );
 /*                                                                                                                   */
 /*                                                     FRONT END                                                     */
 /*                                                                                                                   */
-/*******************************************************************************/ include './../inc/header.inc.php'; ?>
+if(!page_is_fetched_dynamically()): /*******************************************/ include './../inc/header.inc.php'; ?>
 
 <div class="width_50">
 
-  <div class="nopadding_bot">
-    <img src="<?=$path?>img/website/pages/stuff_<?=$lang_lower?>.png" alt="<?=__('stuff_list_header')?>" title="<?=__('stuff_list_header')?>">
+  <a href="<?=$path?>stuff/list">
+    <img src="<?=$path?>img/website/categories/bts_<?=$lang_lower?>.png" alt="<?=__('videos_bts_title')?>" title="<?=__('videos_bts_title')?>">
+  </a>
+
+  <div class="smallpadding_top smallpadding_bot">
+    <blockquote><?=__('videos_bts_desc')?></blockquote>
   </div>
 
-  <?php for($i = 0; $i < $comic_types_list['rows']; $i++): ?>
-  <div class="nopadding_bot">
-    <a href="<?=$path?>category/<?=$comic_types_list[$i]['slug']?>">
-      <img src="<?=$path.$comic_types_list[$i]['banner']?>" alt="<?=$comic_types_list[$i]['name']?>" title="<?=$comic_types_list[$i]['name']?>" loading="lazy">
-    </a>
+  <?php for($i = 0; $i < $bts_videos['rows']; $i++): ?>
+  <div class="padding_top">
+    <?php if($bts_videos[$i]['title']): ?>
+    <h4 class="smallpadding_bot align_center">
+      <?=$bts_videos[$i]['title']?>
+    </h4>
+    <?php endif; if($bts_videos[$i]['desc']): ?>
+    <div class="smallpadding_bot italics align_center">
+      <?= $bts_videos[$i]['desc'] ?>
+    </div>
+    <?php endif; ?>
+    <div class="smallpadding_top">
+      <div class="comic_youtube_container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<?=$bts_videos[$i]['youtube']?>?rel=0" class="comic_youtube_embed" loading="lazy"></iframe>
+      </div>
+    </div>
   </div>
   <?php endfor; ?>
 
-  <div class="nopadding_bot">
-    <a href="<?=$path?>stuff/bts">
-      <img src="<?=$path?>img/website/categories/bts_<?=$lang_lower?>.png" alt="<?=__('comics_list_bts')?>" title="<?=__('comics_list_bts')?>">
-    </a>
-  </div>
-
-  <div class="nopadding_bot">
-    <a href="<?=$path?>merch/gallery">
-      <img src="<?=$path?>img/website/categories/merch_<?=$lang_lower?>.png" alt="<?=__('comics_list_merch')?>" title="<?=__('comics_list_merch')?>">
-    </a>
-  </div>
-
-  <div class="nopadding_bot">
-    <a href="<?=$path?>stuff/emojis">
-      <img src="<?=$path?>img/website/categories/emojis_<?=$lang_lower?>.png" alt="<?=__('comics_list_emojis')?>" title="<?=__('comics_list_emojis')?>">
-    </a>
-  </div>
-
-  <div class="nopadding_bot">
-    <a href="<?=$path?>stuff/bubbles">
-      <img src="<?=$path?>img/website/categories/bubbles_<?=$lang_lower?>.png" alt="<?=__('comics_list_bubbles')?>" title="<?=__('comics_list_bubbles')?>">
-    </a>
-  </div>
-
-  <div class="nopadding_bot">
-    <a href="<?=$path?>stuff/templates">
-      <img src="<?=$path?>img/website/categories/templates_<?=$lang_lower?>.png" alt="<?=__('comics_list_templates')?>" title="<?=__('comics_list_templates')?>">
-    </a>
-  </div>
-
 </div>
-
 
 <?php /***************************************************************************************************************/
 /*                                                                                                                   */
 /*                                                    END OF PAGE                                                    */
 /*                                                                                                                   */
-/**********************************************************************************/ include './../inc/footer.inc.php';
+/***************************************************************************/ include './../inc/footer.inc.php'; endif;

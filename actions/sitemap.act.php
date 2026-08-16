@@ -31,9 +31,10 @@ function sitemap_generate()
   $sitemap .= sitemap_add_page('about/socials', 'monthly', '0.8');
   $sitemap .= sitemap_add_page('comics/all', 'daily', '0.5');
   $sitemap .= sitemap_add_page('comics/generator', 'monthly', '0.4');
-  $sitemap .= sitemap_add_page('comics/list', 'monthly', '1.0');
-  $sitemap .= sitemap_add_page('comics/tags', 'weekly', '0.6');
-  $sitemap .= sitemap_add_page('merch/gallery', 'weekly', '0.6');
+  $sitemap .= sitemap_add_page('comics/list', 'weekly', '1.0');
+  $sitemap .= sitemap_add_page('comics/tags', 'monthly', '0.6');
+  $sitemap .= sitemap_add_page('merch/gallery', 'monthly', '0.6');
+  $sitemap .= sitemap_add_page('stuff/bts', 'monthly', '0.5');
   $sitemap .= sitemap_add_page('stuff/bubbles', 'monthly', '0.5');
   $sitemap .= sitemap_add_page('stuff/emojis', 'monthly', '0.5');
   $sitemap .= sitemap_add_page('stuff/list', 'monthly', '1.0');

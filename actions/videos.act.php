@@ -94,7 +94,7 @@ function videos_bts_list() : array
     $data[$i]['youtube']  = sanitize_output($row['vbts_youtube']);
     $data[$i]['title']    = sanitize_output($row['vbts_title']);
     $data[$i]['stitle']   = sanitize_output(string_truncate($row['vbts_title'], 30));
-    $data[$i]['desc']     = sanitize_output($row['vbts_desc']);
+    $data[$i]['desc']     = sanitize_output($row['vbts_desc'], preserve_line_breaks: true);
   }
 
   // Add the number of rows to the returned data
@@ -193,18 +193,18 @@ function videos_bts_edit( int   $video_bts_id ,
  * @return  bool              Whether the behind the scenes video was deleted successfully.
  */
 
-function videos_bts_delete( int $video_bts_id ) : bool
+function videos_bts_delete( int $video_id ) : bool
 {
   // Sanitize the data
-  $video_bts_id = sanitize($video_bts_id, 'int');
+  $video_id = sanitize($video_id, 'int');
 
   // Stop here if the video does not exist
-  if(!$video_bts_id || !database_row_exists('video_bts', $video_bts_id))
+  if(!$video_id || !database_row_exists('video_bts', $video_id))
     return false;
 
   // Delete the behind the scenes video
   query(" DELETE FROM video_bts
-          WHERE       video_bts.id = '$video_bts_id' ");
+          WHERE       video_bts.id = '$video_id' ");
 
   // The video has been deleted
   return true;
