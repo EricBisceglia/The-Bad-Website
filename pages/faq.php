@@ -60,6 +60,9 @@ page_enforce_url($page_url);
       <?=__link('about/faq#commissions', __('about_commissions_title'), path: $path)?>
     </li>
     <li>
+      <?=__link('about/faq#bts', __('about_bts_title'), path: $path)?>
+    </li>
+    <li>
       <?=__link('about/faq#source', __('about_source_title'), path: $path)?>
     </li>
     <li>
@@ -193,6 +196,22 @@ page_enforce_url($page_url);
 
   <p>
     <?=__('about_commissions_body_2')?>
+  </p>
+
+  <h5 class="hugepadding_top smallpadding_bot" id="bts">
+    <?=__link('about/faq#bts', __('about_bts_title'), path: $path, style: 'text_light')?>
+  </h5>
+
+  <p>
+    <?=__('about_bts_body_1')?>
+  </p>
+
+  <p>
+    <?=__('about_bts_body_2')?>
+  </p>
+
+  <p>
+    <?=__('about_bts_body_3')?>
   </p>
 
   <h5 class="hugepadding_top smallpadding_bot" id="source">

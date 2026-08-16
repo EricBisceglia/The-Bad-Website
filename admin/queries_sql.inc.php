@@ -974,3 +974,26 @@ if($last_query < 19)
 
   sql_update_query_id(19);
 }
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Behind the scenes videos
+
+if($last_query < 20)
+{
+  sql_create_table('video_bts');
+
+  sql_create_field('video_bts', 'sorting_order', 'INT UNSIGNED NOT NULL', 'id');
+  sql_create_field('video_bts', 'date_added', 'DATE NOT NULL', 'sorting_order');
+  sql_create_field('video_bts', 'youtube_id', 'TINYTEXT NOT NULL', 'date_added');
+  sql_create_field('video_bts', 'title_en', 'TINYTEXT NOT NULL', 'youtube_id');
+  sql_create_field('video_bts', 'title_fr', 'TINYTEXT NOT NULL', 'title_en');
+  sql_create_field('video_bts', 'description_en', 'TEXT NOT NULL', 'title_fr');
+  sql_create_field('video_bts', 'description_fr', 'TEXT NOT NULL', 'description_en');
+
+  sql_create_index('video_bts', 'video_bts_sorting_order', 'sorting_order');
+
+  sql_update_query_id(20);
+}

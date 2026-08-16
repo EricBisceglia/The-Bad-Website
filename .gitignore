@@ -26,7 +26,7 @@ img/portraits/*
 !img/portraits/no_portrait.png
 
 # Don't commit user searches
-admin/user_searches.txt
+admin/.user_searches.txt
 
 # Don't commit the sitemap
 sitemap.xml

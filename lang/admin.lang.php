@@ -21,6 +21,8 @@ ___('admin_menu_images',    'EN', "Images");
 ___('admin_menu_images',    'FR', "Images");
 ___('admin_menu_comics',    'EN', "Comics");
 ___('admin_menu_comics',    'FR', "Comics");
+___('admin_menu_videos',    'EN', "Videos");
+___('admin_menu_videos',    'FR', "Vidéos");
 ___('admin_menu_tags',      'EN', "Tags");
 ___('admin_menu_tags',      'FR', "Tags");
 ___('admin_menu_quotes',    'EN', "Quotes");
@@ -470,7 +472,58 @@ ___('admin_comic_type_delete_used',     'FR', "Vous ne pouvez pas supprimer un t
 
 /*********************************************************************************************************************/
 /*                                                                                                                   */
-/*                                                    TAGS                                                        */
+/*                                                      VIDEOS                                                       */
+/*                                                                                                                   */
+/*********************************************************************************************************************/
+
+// Behind the scene videos
+___('admin_videos_bts_title',   'EN', "Behind the scenes videos");
+___('admin_videos_bts_title',   'FR', "Vidéos des coulisses");
+___('admin_videos_bts_order',   'EN', "Order");
+___('admin_videos_bts_order',   'FR', "Ordre");
+___('admin_videos_bts_name',    'EN', "Title");
+___('admin_videos_bts_name',    'FR', "Titre");
+___('admin_videos_bts_count',   'EN', "{{1}} BTS video");
+___('admin_videos_bts_count',   'FR', "{{1}} vidéo BTS");
+___('admin_videos_bts_count+',  'EN', "{{1}} BTS videos");
+___('admin_videos_bts_count+',  'FR', "{{1}} vidéos BTS");
+
+
+// BTS videos: Add
+___('admin_videos_bts_add_title',       'EN', "Add a behind the scenes video");
+___('admin_videos_bts_add_title',       'FR', "Ajouter une vidéo des coulisses");
+___('admin_videos_bts_add_order',       'EN', "Sorting order");
+___('admin_videos_bts_add_order',       'FR', "Ordre de tri");
+___('admin_videos_bts_add_youtube_id',  'EN', "YouTube ID");
+___('admin_videos_bts_add_youtube_id',  'FR', "ID YouTube");
+___('admin_videos_bts_add_name_en',     'EN', "Video title (EN)");
+___('admin_videos_bts_add_name_en',     'FR', "Titre de la vidéo (EN)");
+___('admin_videos_bts_add_name_fr',     'EN', "Video title (FR)");
+___('admin_videos_bts_add_name_fr',     'FR', "Titre de la vidéo (FR)");
+___('admin_videos_bts_add_desc_en',     'EN', "Video description (EN)");
+___('admin_videos_bts_add_desc_en',     'FR', "Description de la vidéo (EN)");
+___('admin_videos_bts_add_desc_fr',     'EN', "Video description (FR)");
+___('admin_videos_bts_add_desc_fr',     'FR', "Description de la vidéo (FR)");
+___('admin_videos_bts_add_submit',      'EN', "Add BTS video");
+___('admin_videos_bts_add_submit',      'FR', "Ajouter la vidéo BTS");
+
+
+// BTS videos: Edit
+___('admin_videos_bts_edit_title',  'EN', "Edit a behind the scenes video");
+___('admin_videos_bts_edit_title',  'FR', "Modifier une vidéo des coulisses");
+___('admin_videos_bts_edit_submit', 'EN', "Edit BTS video");
+___('admin_videos_bts_edit_submit', 'FR', "Modifier la vidéo BTS");
+
+// BTS videos: Delete
+___('admin_videos_bts_delete_confirm', 'EN', "Confirm the permanent deletion of this behind the scenes video");
+___('admin_videos_bts_delete_confirm', 'FR', "Confirmer la suppression définitive de cette vidéo des coulisses");
+
+
+
+
+/*********************************************************************************************************************/
+/*                                                                                                                   */
+/*                                                        TAGS                                                       */
 /*                                                                                                                   */
 /*********************************************************************************************************************/
 

@@ -88,6 +88,8 @@ ___('comics_list_bubbles',    'EN', "Speech bubbles");
 ___('comics_list_bubbles',    'FR', "Bulles vocales");
 ___('comics_list_merch',      'EN', "Merch");
 ___('comics_list_merch',      'FR', "Goodies");
+___('comics_list_bts',        'EN', "Behind the scenes");
+___('comics_list_bts',        'FR', "Coulisses");
 
 
 // Full comics list

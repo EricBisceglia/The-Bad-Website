@@ -171,25 +171,25 @@ CREATE TABLE IF NOT EXISTS `quotes` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `fk_quote_media` int UNSIGNED NOT NULL,
   `fk_quote_authors` int UNSIGNED NOT NULL,
-  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` tinytext NOT NULL,
   `sorting_order` int UNSIGNED NOT NULL,
   `date_added` date NOT NULL,
   `year_published` smallint UNSIGNED NOT NULL,
   `origin_en` tinyint NOT NULL,
   `origin_fr` tinyint NOT NULL,
-  `source_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `source_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quote_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quote_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_en` tinytext NOT NULL,
+  `source_fr` tinytext NOT NULL,
+  `title_en` tinytext NOT NULL,
+  `title_fr` tinytext NOT NULL,
+  `description_en` text NOT NULL,
+  `description_fr` text NOT NULL,
+  `quote_en` text NOT NULL,
+  `quote_fr` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `quotes_fk_quote_media` (`fk_quote_media`),
   KEY `quotes_fk_quote_authors` (`fk_quote_authors`),
   KEY `quotes_sorting_order` (`sorting_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -200,15 +200,15 @@ CREATE TABLE IF NOT EXISTS `quotes` (
 DROP TABLE IF EXISTS `quote_authors`;
 CREATE TABLE IF NOT EXISTS `quote_authors` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` tinytext NOT NULL,
+  `name_en` tinytext NOT NULL,
+  `name_fr` tinytext NOT NULL,
   `year_birth` smallint UNSIGNED NOT NULL,
   `year_death` smallint UNSIGNED NOT NULL,
-  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_en` text NOT NULL,
+  `description_fr` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -219,17 +219,17 @@ CREATE TABLE IF NOT EXISTS `quote_authors` (
 DROP TABLE IF EXISTS `quote_media`;
 CREATE TABLE IF NOT EXISTS `quote_media` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` tinytext NOT NULL,
+  `name_en` tinytext NOT NULL,
+  `name_fr` tinytext NOT NULL,
   `year_published` smallint UNSIGNED NOT NULL,
-  `source_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `source_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_en` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description_fr` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `source_en` tinytext NOT NULL,
+  `source_fr` tinytext NOT NULL,
+  `description_en` text NOT NULL,
+  `description_fr` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `quote_media_year_published` (`year_published`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `quote_media_authors` (
   UNIQUE KEY `quote_media_authors_unique_media_author` (`fk_quote_media`,`fk_quote_authors`),
   KEY `quote_media_authors_fk_quote_media` (`fk_quote_media`),
   KEY `quote_media_authors_fk_quote_authors` (`fk_quote_authors`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -258,12 +258,12 @@ DROP TABLE IF EXISTS `quote_tags`;
 CREATE TABLE IF NOT EXISTS `quote_tags` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `sorting_order` int UNSIGNED NOT NULL,
-  `slug` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_en` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_fr` tinytext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` tinytext NOT NULL,
+  `name_en` tinytext NOT NULL,
+  `name_fr` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `quote_tags_sorting_order` (`sorting_order`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `quote_tag_links` (
   UNIQUE KEY `quote_tag_links_unique_quote_tag` (`fk_quote_tags`,`fk_quotes`),
   KEY `quote_tag_links_fk_quote_tags` (`fk_quote_tags`),
   KEY `quote_tag_links_fk_quotes` (`fk_quotes`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -314,5 +314,25 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `description_fr` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tags_name` (`name`(20))
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_bts`
+--
+
+DROP TABLE IF EXISTS `video_bts`;
+CREATE TABLE IF NOT EXISTS `video_bts` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sorting_order` int UNSIGNED NOT NULL,
+  `date_added` date NOT NULL,
+  `youtube_id` tinytext NOT NULL,
+  `title_en` tinytext NOT NULL,
+  `title_fr` tinytext NOT NULL,
+  `description_en` text NOT NULL,
+  `description_fr` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_bts_sorting_order` (`sorting_order`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;

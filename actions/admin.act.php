@@ -490,14 +490,14 @@ function admin_user_searches_list() : array
 {
   // Get the path to the user search file
   $root = root_path();
-  $file_path = $root.'/admin/user_searches.txt';
+  $file_path = $root.'/admin/.user_searches.txt';
 
   // Return an empty array if the file doesn't exist
   if(!file_exists($file_path))
     return array();
 
   // Fetch the contents of the user search file
-  $user_searches = file_get_contents(root_path().'/admin/user_searches.txt');
+  $user_searches = file_get_contents(root_path().'/admin/.user_searches.txt');
 
   // Split the contents of the file into an array
   $user_searches = explode("\n", $user_searches);
@@ -525,7 +525,7 @@ function admin_user_searches_clear() : void
 {
   // Get the path to the user search file
   $root = root_path();
-  $file_path = $root.'/admin/user_searches.txt';
+  $file_path = $root.'/admin/.user_searches.txt';
 
   // Delete the file if it exists
   if(file_exists($file_path))
