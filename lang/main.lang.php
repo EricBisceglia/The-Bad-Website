@@ -360,11 +360,11 @@ J'y gagnerais probablement à passer à une tablette ou à un autre logiciel, ma
 EOT
 );
 ___('about_bts_body_3', 'EN', <<<EOT
-<a href="https://thebad.website/stuff/bts" target="_blank">Click here to see recordings of my drawing process</a>.
+{{external_popup|https://thebad.website/stuff/bts|Click here to see recordings of my drawing process}}.
 EOT
 );
 ___('about_bts_body_3', 'FR', <<<EOT
-<a href="https://thebad.website/stuff/bts" target="_blank">Cliquez ici pour voir des enregistrements de mon processus de dessin</a>.
+{{external_popup|https://thebad.website/stuff/bts|Cliquez ici pour voir des enregistrements de mon processus de dessin}}.
 EOT
 );
 

@@ -28,7 +28,7 @@ I learned to draw thanks to the following books:<br>
 If you are looking to learn to draw, nothing beats daily practice.<br>
 The books listed above are a great help to learn the basics :)<br>
 <br>
-Below are a few videos recordings of my drawing process.<br>
+Below are a few video recordings of my drawing process.<br>
 I hope you find them entertaining to watch, and maybe learn something too!
 EOT
 );

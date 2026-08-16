@@ -131,7 +131,7 @@ if(!page_is_fetched_dynamically()): /*******/ include './../inc/header.inc.php';
       <?php endif; ?>
 
       <tr>
-        <td colspan="4" class="uppercase text_light dark bold align_center">
+        <td colspan="3" class="uppercase text_light dark bold align_center">
           <?=__('admin_videos_bts_count', preset_values: array($bts_videos['rows']), amount: $bts_videos['rows'])?>
         </td>
       </tr>

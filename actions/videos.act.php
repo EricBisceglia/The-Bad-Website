@@ -82,7 +82,6 @@ function videos_bts_list() : array
                               video_bts.title_$lang       AS 'vbts_title'   ,
                               video_bts.description_$lang AS 'vbts_desc'
                     FROM      video_bts
-                    GROUP BY  video_bts.id
                     ORDER BY  video_bts.sorting_order ASC ");
 
   // Prepare the data for display

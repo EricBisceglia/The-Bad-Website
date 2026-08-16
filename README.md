@@ -90,7 +90,7 @@ Their respective licenses are included in the project.
 
 - Apache with `mod_rewrite`
 - PHP >= 8.3 with `mysqli`
-- MySQL or MariaDB
+- MySQL >= 8.0.1
 
 ### 1. Grab the code
 
@@ -103,7 +103,7 @@ cd The-Bad-Website
 
 ### 2. Prepare the database
 
-Create a MySQL or MariaDB database with the `utf8mb4` charset / `utf8mb4_0900_ai_ci` collation.
+Create a MySQL database with the `utf8mb4` charset / `utf8mb4_0900_ai_ci` collation.
 
 Create a dedicated user.
 
