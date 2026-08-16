@@ -340,6 +340,35 @@ EOT
 );
 
 
+// Behind the scenes
+___('about_bts_title',  'EN', "Which tools do you use to draw?");
+___('about_bts_title',  'FR', "Quels outils utilises-tu pour dessiner ?");
+___('about_bts_body_1', 'EN', <<<EOT
+I draw in MSPaint, using a computer mouse.
+EOT
+);
+___('about_bts_body_1', 'FR', <<<EOT
+Je dessine dans MSPaint, avec une souris d'ordinateur.
+EOT
+);
+___('about_bts_body_2', 'EN', <<<EOT
+I would probably gain from upgrading to a tablet or better software, but I enjoy working that way.
+EOT
+);
+___('about_bts_body_2', 'FR', <<<EOT
+J'y gagnerais probablement à passer à une tablette ou à un autre logiciel, mais je suis confortable comme ça.
+EOT
+);
+___('about_bts_body_3', 'EN', <<<EOT
+<a href="https://thebad.website/stuff/bts" target="_blank">Click here to see recordings of my drawing process</a>.
+EOT
+);
+___('about_bts_body_3', 'FR', <<<EOT
+<a href="https://thebad.website/stuff/bts" target="_blank">Cliquez ici pour voir des enregistrements de mon processus de dessin</a>.
+EOT
+);
+
+
 // Source
 ___('about_source_title',  'EN', "Cool website, did you make it yourself?");
 ___('about_source_title',  'FR', "Ce site est cool, tu l'as fait toi-même ?");
