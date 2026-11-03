@@ -33,3 +33,6 @@ sitemap.xml
 
 # Local config should not be committed
 conf/main.conf.php
+
+# Brain Heater has its own repository
+/games/brainheater/
